@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie</title>
+    <link rel="stylesheet" th:href="@{/mg_movie/stylesheets/movie.css}">
+    <script defer th:src="@{/mg_movie/scripts/movie.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="page-util">
+
+    </div>
+    <div id="contents">
+        <div class="inner-wrap">
+            <h2 class="tit">전체영화</h2>
+            <div class="tab-list fixed">
+                <ul id="topMenu">
+                    <li class="on">
+                        <a href="#" title="박스오피스 탭으로 이동">박스오피스</a>
+                    </li>
+                    <li>
+                        <a href="#" title="상영예정작 탭으로 이동">상영예정작</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- movie-list-util-->
+        </div>
+    </div>
+</div>
+</body>
+</html>
