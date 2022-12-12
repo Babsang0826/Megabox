@@ -80,7 +80,7 @@ body > .header {
 }
 
 body > .--header > .nav {
-    width: 74%;
+    width: 68.75rem;
     display: flex;
     flex-direction: column;
     align-items: center;

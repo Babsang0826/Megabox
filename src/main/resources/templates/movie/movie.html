@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Movie</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
     <link rel="stylesheet" th:href="@{/mg_movie/stylesheets/movie.css}">
     <script defer th:src="@{/mg_movie/scripts/movie.js}"></script>
 </head>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
 <body>
     <div id="contents">
         <div class="inner-wrap">
