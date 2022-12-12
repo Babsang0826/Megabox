@@ -1,0 +1,247 @@
+@charset "UTF-8";
+
+html {
+    height: 100vh;
+}
+
+html > body {
+    height: 100%;
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    letter-spacing: 0;
+    line-height: 1.5;
+    font-size: 15px;
+    color: #444;
+    font-weight: 400;
+    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
+}
+
+/*네비게이션 메뉴*/
+
+#contents {
+    width: 100%;
+    margin: 0;
+    padding: 5rem 0 0 0;
+}
+
+#contents > .inner-wrap {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+#contents > .inner-wrap > .tab-list > #topMenu {
+    /*border: 0.0625rem solid #444444;*/
+    list-style: none;
+    padding: 0;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#contents > .inner-wrap > .tab-list > #topMenu > li {
+    border: 0.0625rem solid #503396;
+    margin: 0;
+    padding: 1rem 0;
+}
+
+
+#contents > .inner-wrap > .tab-list > #topMenu > li > a {
+    padding: 1rem 14.5rem;
+    color: #444;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+#contents > .inner-wrap > .tab-list > #topMenu > li:first-of-type {
+    border-right: none;
+}
+
+/*검색*/
+
+.movie-list-util {
+    margin: 0 0 1rem 0;
+
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.movie-list-util > .onAir-condition {
+
+}
+
+.movie-list-util > .movie-search {
+
+}
+
+.movie-list-util > .movie-search > .onAir-condition {
+
+}
+
+.movie-list-util > .movie-search > .onAir-condition > .btn-onAir {
+
+}
+
+/*영화 리스트*/
+
+#contents > .inner-wrap > .movie-list > ol {
+    list-style: none;
+    padding: 0;
+    /*margin-left: -3.75rem;*/
+    /*margin-top: 0;*/
+    margin: 0 0 0 -3.75rem;
+
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie {
+    overflow: hidden;
+    position: relative;
+    float: left;
+    width: 230px;
+    height: 450px;
+    /*margin: 0 0 0 60px;*/
+    padding: 0;
+    background-color: #fff;
+    margin: 0 0 3.75rem 3.75rem;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .poster {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    height: 331px;
+    text-decoration: none
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-poster {
+    width: 230px;
+    height: 331px;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 0.9rem;
+    padding: 0 0 0 1.875rem;
+    line-height: 1.5rem;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .title {
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 2px 0 0 1px;
+    font-size: 1.3333em;
+    font-weight: 400;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade {
+    position: absolute;
+    left: 0;
+    width: 23px;
+    height: 23px;
+    padding: 0;
+    margin: 0;
+}
+
+/*등급 제한 png*/
+#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.ageAll {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png);
+    background-size: 23px 23px;
+}
+#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age12 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
+    background-size: 23px 23px;
+}
+#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age15 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/15_46x46.png);
+    background-size: 23px 23px;
+}
+#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age18 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/18_46x46.png);
+    background-size: 23px 23px;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .rate-date {
+    overflow: hidden;
+    padding-top: 0.625rem;
+    font-size: 0.9rem;
+    display: block;
+    position: relative;
+    float: left
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .rate-date > .rate {
+    margin-right: 0.4375rem;
+    padding-right: 0.5rem;
+    float: left;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .rate-date > .rate::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 56%;
+    top: 68%;
+    width: 1px;
+    height: 12px;
+    margin: -6px 0 0 0;
+    background-color: #d8d9db;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .button {
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 36px;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .button > .book {
+    float: left;
+    width: 13.8rem;
+    margin-left: 0.3rem;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .button > .book > .book-btn {
+    color: #fff;
+    cursor: pointer;
+    vertical-align: middle;
+    font-weight: 400;
+    border-radius: 4px;
+    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
+    text-align: center;
+    height: 36px;
+    line-height: 36px;
+    border: 0;
+    background: #503396;
+    display: block;
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .button > .book > .book-btn:hover {
+    background-color: #351f67;
+}
+
+
+
+

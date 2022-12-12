@@ -7,14 +7,10 @@
     <script defer th:src="@{/mg_movie/scripts/movie.js}"></script>
 </head>
 <body>
-<div class="container">
-    <div class="page-util">
-
-    </div>
     <div id="contents">
         <div class="inner-wrap">
             <h2 class="tit">전체영화</h2>
-            <div class="tab-list fixed">
+            <div class="tab-list">
                 <ul id="topMenu">
                     <li class="on">
                         <a href="#" title="박스오피스 탭으로 이동">박스오피스</a>
@@ -24,9 +20,170 @@
                     </li>
                 </ul>
             </div>
-            <!-- movie-list-util-->
+            <div class="movie-list-util">
+                <div class="onAir-condition">
+                    <button class="btn-onAir" type="button">개봉작만</button>
+                </div>
+                <div class="movie-search">
+                    <input type="text" name="movie-search" placeholder="영화명 검색" class="input-text">
+                    <button type="button" class="btn-search-input">검색</button>
+                </div>
+            </div>
+            <div class="movie-list">
+                <ol class="list" id="movieListFirst">
+                    <li class="movie">
+                        <div class="poster">
+                            <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg" alt="아바타: 물의 길" class="movie-poster">
+                        </div>
+                        <div class="movie-info">
+                            <p class="grade age12">,</p>
+                            <p class="title">아바타: 물의 길</p>
+                        </div>
+                        <div class="rate-date">
+                            <span class="rate">
+                                "예매율 85%"
+                            </span>
+                            <span class="date">개봉일 2022.12.14</span>
+                        </div>
+                        <div class="button">
+                            <div class="book">
+                                <a class="book-btn">예매</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="movie">
+                        <div class="poster">
+                            <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg" alt="올빼미" class="movie-poster">
+                        </div>
+                        <div class="movie-info">
+                            <p class="grade age15"></p>
+                            <p class="title">올빼미</p>
+                        </div>
+                        <div class="rate-date">
+                            <span class="rate">"예매율 3.2%"</span>
+                            <span class="date">개봉일 2022.11.23</span>
+                        </div>
+                        <div class="button">
+                            <div class="book">
+                                <a class="book-btn">예매</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="movie">
+                        <div class="poster">
+                            <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg" alt="아바타: 물의 길" class="movie-poster">
+                        </div>
+                        <div class="movie-info">
+                            <p class="grade age18"></p>
+                            <p class="title">아바타: 물의 길</p>
+                        </div>
+                        <div class="rate-date">
+                            <span class="rate">"예매율 85%"</span>
+                            <span class="date">개봉일 2022.12.14</span>
+                        </div>
+                        <div class="button">
+                            <div class="book">
+                                <a class="book-btn">예매</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="movie">
+                        <div class="poster">
+                            <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg" alt="올빼미" class="movie-poster">
+                        </div>
+                        <div class="movie-info">
+                            <p class="grade ageAll"></p>
+                            <p class="title">올빼미</p>
+                        </div>
+                        <div class="rate-date">
+                            <span class="rate">"예매율 3.2%"</span>
+                            <span class="date">개봉일 2022.11.23</span>
+                        </div>
+                        <div class="button">
+                            <div class="book">
+                                <a class="book-btn">예매</a>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+                <ol class="list" id="movieListSecond">
+                    <li class="movie">
+                        <div class="poster">
+                            <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg" alt="아바타: 물의 길" class="movie-poster">
+                        </div>
+                        <div class="movie-info">
+                            <p class="grade age12">,</p>
+                            <p class="title">아바타: 물의 길</p>
+                        </div>
+                        <div class="rate-date">
+                            <span class="rate">
+                                "예매율 85%"
+                            </span>
+                            <span class="date">개봉일 2022.12.14</span>
+                        </div>
+                        <div class="button">
+                            <div class="book">
+                                <a class="book-btn">예매</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="movie">
+                        <div class="poster">
+                            <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg" alt="올빼미" class="movie-poster">
+                        </div>
+                        <div class="movie-info">
+                            <p class="grade age15"></p>
+                            <p class="title">올빼미</p>
+                        </div>
+                        <div class="rate-date">
+                            <span class="rate">"예매율 3.2%"</span>
+                            <span class="date">개봉일 2022.11.23</span>
+                        </div>
+                        <div class="button">
+                            <div class="book">
+                                <a class="book-btn">예매</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="movie">
+                        <div class="poster">
+                            <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg" alt="아바타: 물의 길" class="movie-poster">
+                        </div>
+                        <div class="movie-info">
+                            <p class="grade age18"></p>
+                            <p class="title">아바타: 물의 길</p>
+                        </div>
+                        <div class="rate-date">
+                            <span class="rate">"예매율 85%"</span>
+                            <span class="date">개봉일 2022.12.14</span>
+                        </div>
+                        <div class="button">
+                            <div class="book">
+                                <a class="book-btn">예매</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="movie">
+                        <div class="poster">
+                            <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg" alt="올빼미" class="movie-poster">
+                        </div>
+                        <div class="movie-info">
+                            <p class="grade ageAll"></p>
+                            <p class="title">올빼미</p>
+                        </div>
+                        <div class="rate-date">
+                            <span class="rate">"예매율 3.2%"</span>
+                            <span class="date">개봉일 2022.11.23</span>
+                        </div>
+                        <div class="button">
+                            <div class="book">
+                                <a class="book-btn" href="#">예매</a>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>
