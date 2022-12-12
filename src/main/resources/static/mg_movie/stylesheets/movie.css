@@ -76,7 +76,8 @@ html > body {
 }
 
 .movie-list-util > .onAir-condition {
-
+    color: black;
+/*    수정사항*/
 }
 
 .movie-list-util > .movie-search {
