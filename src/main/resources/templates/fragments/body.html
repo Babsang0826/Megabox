@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<header class="--header header" th:fragment="header">
+    <nav class="nav">
+        <div class="detail-header">
+            <a class="link" href="#">로그인</a>
+            <a class="link" href="#">회원가입</a>
+            <a class="link" href="#">빠른예매</a>
+        </div>
+        <ul>
+            <a href="#"><i class="icon fa-solid fa-bars"></i></a>
+            <a href="#"><i class="icon fa-solid fa-magnifying-glass"></i></a>
+            <div class="category-container">
+                <div class="first-category">
+                    <li><a href="#">영화</a></li>
+                    <li><a href="#">예매</a></li>
+                    <li><a href="#">극장</a></li>
+                </div>
+                <div class="logo-container">
+                    <img class="mg-logo" th:src="@{/resources/images/megabox-logo.png}" alt="메가박스 로고">
+                </div>
+                <div class="second-category">
+                    <li><a href="#">고객센터</a></li>
+                    <li><a href="#">관리자 페이지</a></li>
+                </div>
+            </div>
+            <a href="#"><i class="icon fa-regular fa-calendar-days"></i></a>
+            <a href="#"><i class="icon fa-solid fa-user"></i></a>
+        </ul>
+
+    </nav>
+</header>
+<footer class="--footer" th:fragment="footer">
+    <div class="--content">
+        다리
+    </div>
+</footer>
+</html>
