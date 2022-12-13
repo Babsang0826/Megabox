@@ -76,11 +76,12 @@ body > .--footer {
 }
 
 body > .header {
-    border-bottom: 0.0625rem solid rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 body > .--header > .nav {
-    width: 74%;
+    width: 68.75rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,7 +101,7 @@ body > .--header > .nav > .detail-header {
 
 body > .--header > .nav > .detail-header > a {
     color: var(--color-soft-gray);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 body > .--header > .nav > .detail-header > .link:hover {
@@ -130,9 +131,9 @@ body > .--header > .nav > ul > .category-container {
 }
 
 body > .--header > .nav > ul > .category-container > .first-category > li > a,
-body > .--header > .nav > ul > .category-container > .second-category > li > a{
+body > .--header > .nav > ul > .category-container > .second-category > li > a {
     text-decoration: none;
-    color: var(--color-soft-gray);
+    color: rgb(255, 255, 255);
 }
 
 body > .--header > .nav > ul > .category-container > .first-category {
@@ -142,10 +143,13 @@ body > .--header > .nav > ul > .category-container > .first-category {
     justify-content: space-evenly;
     flex: 0.6;
 }
+
 body > .--header > .nav > ul > .category-container > .logo-container {
-    width: 12rem;
-    height: 5rem;
+    width: 9rem;
+    height: 3rem;
     padding-bottom: 2rem;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white_new2.png);
+    background-repeat: no-repeat;
 }
 
 body > .--header > .nav > ul > .category-container > .logo-container > .mg-logo {
@@ -164,7 +168,7 @@ body > .--header > .nav > ul > .category-container > .second-category {
 }
 
 body > .--header > .nav > ul > a > .icon {
-    color: var(--color-thick-gray);
+    color: rgb(255, 255, 255);
     font-size: 1.5rem;
 }
 
@@ -181,10 +185,6 @@ body > .--header > .nav > ul > a > .icon.fa-user {
 
 body > .--header > .nav > ul > a > .icon.fa-calendar-days {
     margin-right: 1rem;
-}
-
-body > .--main {
-    flex: 1;
 }
 
 body > .--footer {
