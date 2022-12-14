@@ -60,6 +60,13 @@ body > .--main > .poster-container > .poster-box > .poster-title > .title > span
     padding-bottom: 0.25rem;
 }
 
+body > .--main > .poster-container > .poster-box > .poster-title > .more-movie {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
 body > .--main > .poster-container > .poster-box > .poster-title > .more-movie > a {
     color: var(--color-soft-gray);
     display: flex;
@@ -73,10 +80,11 @@ body > .--main > .poster-container > .poster-box > .poster-title > .more-movie >
     text-decoration: underline;
 }
 
-body > .--main > .poster-container > .poster-box > .poster-title > .more-movie > a > .icon {
+body > .--main > .poster-container > .poster-box > .poster-title > .more-movie> .icon {
     margin-left: 0.7rem;
-    font-size: 1.3rem;
-
+    font-size: 1.1rem;
+    color: var(--color-soft-gray);
+    cursor: pointer;
 }
 
 body > .--main > .poster-container > .poster-box > .movie-list-container {
@@ -194,7 +202,7 @@ body > .--main > .poster-container > .poster-box > .convenient-container > .conv
     border-left: 0.0625rem solid rgb(66, 62, 62);
 }
 
-body > .--main > .poster-container > .poster-box > .convenient-container > .convenient-box > .category > a > .icon {
+body > .--main > .poster-container > .poster-box > .convenient-container > .convenient-box > .category > .icon {
     font-size: 1.6rem;
     font-weight: 600;
 }
