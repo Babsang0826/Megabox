@@ -1,0 +1,429 @@
+@charset "UTF-8";
+
+body {
+    overflow: auto;
+    overflow-y: scroll;
+    letter-spacing: 0;
+    line-height: 1.5;
+    font-size: 15px;
+    color: #444;
+    font-weight: 400;
+}
+
+main > .container {
+    width: 100%;
+    min-width: 68.75rem;
+    min-height: 100%;
+    margin: -2.488rem 0 -12.5rem 0;
+    /*padding: -5.75rem 0 18.75rem 0;*/
+    padding-bottom: 12.5rem;
+
+    /*align-items: center;*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*justify-content: center;*/
+}
+
+main > .container > .contents {
+    width: 100%;
+    margin: 0;
+    padding-top: 2.5rem;
+}
+
+main > .container > .contents > .movie-detail {
+    position: relative;
+    z-index: 1;
+    height: 32.5rem;
+    margin: 0 0 2.5rem 0;
+    color: #ccc;
+    background-color: #151515;
+}
+
+main > .container > .contents > .movie-detail > .bg-img {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    z-index: 1;
+    width: 68.75rem;
+    margin: 0 0 0 -34.375rem;
+    height: 100%;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    opacity: .8;
+    background-image: url(https://img.megabox.co.kr/SharedImg/2022/12/02/DbLIAXoKPHL5rHaoBohOQ8GbWbwL6vxl_570.jpg);
+}
+
+main > .container > .contents > .movie-detail > .bg-patten {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background: url(https://img.megabox.co.kr/static/pc/images/movie/bg-movie-detail-pattern.png) repeat-x 0 0;
+}
+
+main > .container > .contents > .movie-detail > .bg-mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #0f0f0f 20%, rgba(15, 15, 15, 0) 50%, #0f0f0f 80%);
+}
+
+main > .container > .contents > .movie-detail > .detail-content {
+    position: relative;
+    z-index: 4;
+    width: 68.75rem;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 3.4375rem;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .title {
+    position: static;
+    left: inherit;
+    top: inherit;
+    width: 50rem;
+    padding-top: 2.5rem;
+    color: #fff;
+    font-size: 3.0666em;
+    font-weight: 400;
+    line-height: 1.2;
+    text-shadow: 0.125rem 0.125rem 0.625rem rgb(0 0 0 / 70%);
+}
+
+main > .container > .contents > .movie-detail > .detail-content > p {
+    margin: 0;
+    padding: 0;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .title-en {
+    width: 50rem;
+    padding-top: 0.625rem;
+    font-size: 1.3333em;
+    color: rgb(255, 255, 255);
+    line-height: 1.1;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info {
+    position: absolute;
+    left: 0;
+    bottom: 2.8125rem;
+    padding: 0;
+
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .score-container {
+    float: left;
+    padding: 0;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .score-container > .title {
+    margin: 0;
+    display: block;
+    padding: 0 0 0.9375rem 0;
+    line-height: 1.1;
+    font-size: .9333em;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .score-container > .score-div {
+    margin: -2rem 0 1rem 0;
+    padding: 0 0 0 1.875rem;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-megabox.png) no-repeat 0 center;
+    font-weight: 400;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .score-container > .score-div > .score {
+    font-size: 2.1333em;
+    color: #59bec9;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.1;
+    /*margin: 0;*/
+    /*padding: 0;*/
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .score-container > .score-div > .score > em {
+    font-style: normal;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .rate,
+main > .container > .contents > .movie-detail > .detail-content > .info > .audience {
+    float: left;
+    padding: 0 0 0 2.1875rem;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .rate .title {
+    margin: 0;
+    display: block;
+    padding: 0 0 0.9375rem 0;
+    line-height: 1.1;
+    font-size: .9333em;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .rate .cnt {
+    display: inline-block;
+    min-height: 2.1875rem;
+    padding: 0 0 0 1.875rem;
+    vertical-align: middle;
+    line-height: 1.1;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-ticket-gray.png) no-repeat 0 center;
+    margin: 0;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .rate .cnt > em,
+main > .container > .contents > .movie-detail > .detail-content > .info > .audience > .cnt {
+    margin: 0 0.25rem 0 0;
+    color: #fff;
+    font-size: 2.1333em;
+    /*font-family: Roboto,Dotum,'돋움',sans-serif;*/
+    font-weight: 400;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .audience > .title {
+    margin: 0;
+    position: relative;
+    display: block;
+    padding: 0 0 0.9375rem 0;
+    line-height: 1.1;
+    font-size: .9333em;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .info > .audience > .cnt {
+    display: inline-block;
+    padding: 0 0 0 1.875rem;
+    vertical-align: middle;
+    line-height: 1.1;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-person.png) no-repeat 0 center;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .poster {
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 45px;
+    z-index: 2;
+    width: 16.25rem;
+    height: 23.375rem;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .poster > .wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    line-height: 0;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .poster > .wrap > .grade {
+    overflow: hidden;
+    position: absolute;
+    left: 0.625rem;
+    top: 0.625rem;
+    z-index: 4;
+}
+
+/*등급 제한*/
+.grade.ageAll {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png);
+    background-size: 1.4375rem 1.4375rem;
+    width: 1.4375rem;
+    height: 1.4375rem;
+}
+
+.grade.age12 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
+    background-size: 1.4375rem 1.4375rem;
+    width: 1.4375rem;
+    height: 1.4375rem;
+}
+
+.grade.age15 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/15_46x46.png);
+    background-size: 1.4375rem 1.4375rem;
+    width: 1.4375rem;
+    height: 1.4375rem;
+}
+
+.grade.age18 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/18_46x46.png);
+    background-size: 1.4375rem 1.4375rem;
+    width: 1.4375rem;
+    height: 1.4375rem;
+}
+
+
+main > .container > .contents > .movie-detail > .detail-content > .poster > .wrap > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.625rem;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .book {
+    border-radius: 0.3125rem;
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 5.2rem;
+    width: 16.25rem;
+}
+
+main > .container > .contents > .movie-detail > .detail-content > .book > .book-link {
+    background-color: #329eb1;
+    display: block;
+    float: left;
+    height: 2.875rem;
+    line-height: 2.75rem;
+    font-size: 1.2em;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+    border: 0;
+    border-radius: 0.3125rem;
+    text-decoration: none;
+    font-weight: 700;
+    width: 16.25rem;
+}
+
+main > .container > .contents > .detail-content > .book > .book-link:hover {
+    background-color: #2b899a;
+    color: rgb(240, 240, 240);
+}
+
+main > .container > .contents > .content-data > .inner-wrap {
+    width: 68.75rem;
+    margin: 0 auto;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list {
+    position: static;
+    width: 100%;
+    background-color: rgb(255,255,255);
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list > ul {
+    position: relative;
+    width: 100%;
+    height: 2.625rem;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list > ul > li.on {
+    border: 0.0625rem solid #503396;
+    border-bottom: 0;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list > ul > li {
+    text-align: center;
+    width: 33.3%;
+    border: 0.0625rem solid #ebebeb;
+    border-bottom-color:#503396;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list > ul > li > a {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 2.5625rem;
+    line-height: 2.5rem;
+    padding: 0;
+    text-align: center;
+    color: #222;
+    font-size: 1.0667em;
+    text-decoration: none;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list > ul > li.on > a {
+    color: #503396;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-summary {
+    margin-top: 1.25rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .txt {
+    overflow: hidden;
+    height: 8.675rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .txt:first-line {
+    color: #222;
+    font-size: 2em;
+    font-weight: 400;
+    line-height: 4.375rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .more-btn {
+    padding-top: 1.875rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .more-btn > .btn {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 2.5rem;
+    border: 0;
+    border-bottom: 0.0625rem solid #eaeaea;
+    background-color: transparent;
+    color: #666;
+    cursor: pointer;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .more-btn > .btn > i {
+    margin: 0 0.375rem 0.2rem 0;
+    width: 0.75rem;
+    height: 0.4375rem;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-btn-more-arr.png);
+    overflow: hidden;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-info {
+    padding: 1.875rem 0;
+    color: #222;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-info > p,
+main > .container > .contents > .content-data > .inner-wrap > .movie-info > .line > p{
+    margin: 0;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-info > .line {
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
