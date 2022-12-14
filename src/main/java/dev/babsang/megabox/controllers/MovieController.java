@@ -16,4 +16,12 @@ public class MovieController {
         ModelAndView modelAndView = new ModelAndView("movie/movie");
         return modelAndView;
     }
+
+    @RequestMapping(value = "movie-detail",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getMovieDetail() {
+        ModelAndView modelAndView = new ModelAndView("movie/movie-detail");
+        return modelAndView;
+    }
 }

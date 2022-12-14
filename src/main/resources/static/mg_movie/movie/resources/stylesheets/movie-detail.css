@@ -415,15 +415,47 @@ main > .container > .contents > .content-data > .inner-wrap > .movie-info > .lin
     justify-content: flex-start;
 }
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col {
+    display: table-cell;
+    width: 25%;
+    border: 1px solid #eaeaea;
+    padding: 30px 0;
+}
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > dl {
+    text-align: center;
+    font-weight: 400;
+}
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > dl > dt {
+    font-size: 1.0667em;
+    color: #555;
+}
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .score {
 
+}
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .score > .circle {
 
+}
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .score > .circle > em {
 
+}
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .score > .percentage {
 
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .score > .percentage > span {
+
+}
 
