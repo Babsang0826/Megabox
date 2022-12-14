@@ -80,7 +80,7 @@ body > .--main > .poster-container > .poster-box > .poster-title > .more-movie >
     text-decoration: underline;
 }
 
-body > .--main > .poster-container > .poster-box > .poster-title > .more-movie> .icon {
+body > .--main > .poster-container > .poster-box > .poster-title > .more-movie > .icon {
     margin-left: 0.7rem;
     font-size: 1.1rem;
     color: var(--color-soft-gray);
@@ -297,7 +297,7 @@ body > .--main > .movie-post-container > .best-mp-container > .best-mp-image > .
 }
 
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-image > .button-container > .detail-button,
-body > .--main > .movie-post-container > .best-mp-container > .best-mp-image > .button-container > .expected-button{
+body > .--main > .movie-post-container > .best-mp-container > .best-mp-image > .button-container > .expected-button {
     width: 9rem;
     height: 3.12rem;
     display: flex;
@@ -384,3 +384,236 @@ body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .r
     background-color: rgb(255, 255, 255);
 }
 
+body > .--main > .mg-guide-container {
+    width: 100%;
+    height: 37rem;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+body > .--main > .mg-guide-container > .guide-title {
+    width: 67rem;
+    height: 7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+body > .--main > .mg-guide-container > .guide-title > span {
+    color: rgb(53, 31, 101);
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+body > .--main > .mg-guide-container > .theater-type-container {
+    width: 67rem;
+    height: 11rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type {
+    width: 10rem;
+    height: 97%;
+}
+
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-dolby {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://img.megabox.co.kr/static/pc/images/main/bg-main-megainfo-dolby.png');
+    border-radius: 0.5rem;
+}
+
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-private {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://img.megabox.co.kr/static/pc/images/main/bg-main-megainfo-private.png');
+    border-radius: 0.5rem;
+}
+
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-boutique {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://img.megabox.co.kr/static/pc/images/main/bg-main-megainfo-boutique.png');
+    border-radius: 0.5rem;
+}
+
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-mx {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://img.megabox.co.kr/static/pc/images/main/bg-main-megainfo-mx.png');
+    background-size: 10.7rem;
+    border-radius: 0.5rem;
+}
+
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-comfort {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://img.megabox.co.kr/static/pc/images/main/bg-main-megainfo-comfort.png');
+    background-size: 10.7rem;
+    border-radius: 0.5rem;
+}
+
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-puppy-cinema {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://img.megabox.co.kr/static/pc/images/main/bg-main-megainfo-puppy.jpg');
+    background-size: 10.7rem;
+    border-radius: 0.5rem;
+}
+
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-private:hover,
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-dolby:hover,
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-boutique:hover,
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-mx:hover,
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-comfort:hover,
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-puppy-cinema:hover{
+    background-position: 0 bottom;
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container {
+    width: 100%;
+    height: 4rem;
+    border-bottom: 0.0625rem solid rgb(226, 226, 226);
+    border-top: 0.0625rem solid rgb(226, 226, 226);
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container > .guide-notice-box {
+    width: 67rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container > .guide-notice-box > .point {
+    width: 5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border-right: 0.0625rem solid rgb(226, 226, 226);
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container > .guide-notice-box > .notice {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 3rem;
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container > .guide-notice-box > .notice > a {
+    color: inherit;
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container > .guide-notice-box > .notice > a:hover {
+    text-decoration: underline;
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container > .guide-notice-box > .date {
+    width: 5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container > .guide-notice-box > .date > a {
+    padding-right: 1rem;
+    border-right: 0.0625rem solid rgb(226, 226, 226);
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container > .guide-notice-box > .more-notice {
+    width: 5rem;
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container > .guide-notice-box > .more-notice > a {
+    margin-left: 1.4rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+body > .--main > .mg-guide-container > .guide-notice-container > .guide-notice-box > .more-notice > a:hover {
+    text-decoration: underline;
+}
+
+body > .--main > .mg-guide-container > .guide-icon-container {
+    width: 63rem;
+    height: 12rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box {
+    width: 62rem;
+    height: 5rem;
+    display: flex;
+}
+
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .service-center,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .qna,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .inquiry,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .group,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .lost,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .coronation{
+    width: 11rem;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .service-center > a,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .qna > a,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .inquiry > a,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .group > a,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .lost > a,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .coronation > a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+}
+
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .service-center > a:hover,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .qna > a:hover,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .inquiry > a:hover,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .group > a:hover,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .lost > a:hover,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .coronation > a:hover {
+    border-bottom: 0.0625rem solid rgb(0,0,0);
+}
+
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .service-center > a > .icon,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .qna > a > .icon,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .inquiry > a > .icon,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .group > a > .icon,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .lost > a > .icon,
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .coronation > a > .icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.3rem;
+    color: rgb(127, 188, 199);
+
+}
+
+/*  text-decoration: none;
+    outline: 1px dotted #000;*/
