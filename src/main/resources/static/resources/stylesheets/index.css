@@ -69,9 +69,14 @@ body > .--main > .poster-container > .poster-box > .poster-title > .more-movie >
     height: 1.7rem;
 }
 
+body > .--main > .poster-container > .poster-box > .poster-title > .more-movie > a:hover {
+    text-decoration: underline;
+}
+
 body > .--main > .poster-container > .poster-box > .poster-title > .more-movie > a > .icon {
     margin-left: 0.7rem;
     font-size: 1.3rem;
+
 }
 
 body > .--main > .poster-container > .poster-box > .movie-list-container {

@@ -1,10 +1,14 @@
 @charset "UTF-8";
 
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css");
+
 html, body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
+    font-weight: 540;
 }
 
 html > body {
@@ -13,12 +17,14 @@ html > body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
     letter-spacing: 0;
     line-height: 1.5;
     font-size: 0.9rem;
     color: #444;
+
     font-weight: 400;
+    font-family: Malgun Gothic, sans-serif;
+
 }
 
 /*네비게이션 메뉴*/
@@ -34,6 +40,15 @@ html > body {
     margin: 0 auto;
 }
 
+#contents > .inner-wrap > .tit {
+    padding: 0 0 1.625rem 0;
+    font-size: 1.8666em;
+    font-weight: 550;
+    letter-spacing: -0.0625rem;
+    line-height: 1.1;
+    color: #222;
+}
+
 #contents > .inner-wrap > .tab-list > #topMenu {
     /*border: 0.0625rem solid #444444;*/
     list-style: none;
@@ -45,17 +60,40 @@ html > body {
     justify-content: center;
 }
 
-#contents > .inner-wrap > .tab-list > #topMenu > li {
+#contents > .inner-wrap > .tab-list > #topMenu > li.on {
     border: 0.0625rem solid #503396;
+    border-bottom: 0.0625rem solid rgb(255, 255, 255);
     margin: 0;
-    padding: 1rem 0;
+    padding: 1rem;
+}
+
+#contents > .inner-wrap > .tab-list > #topMenu > li.on > a {
+    color: #503396;
+}
+
+#contents > .inner-wrap > .tab-list > #topMenu > li.on + li {
+    border: 0.0625rem solid #ebebeb;
+    border-bottom: 0.0625rem solid #503396;
+    border-left: 0.0625rem solid #503396;
+    margin: 0;
+    padding: 1rem;
+}
+
+#contents > .inner-wrap > .tab-list > #topMenu > li {
+    font-weight: 550;
+    margin: 0;
+    padding: 1rem;
+}
+
+#contents > .inner-wrap > .tab-list > #topMenu > li:hover {
+    background-color: #ebebeb;
 }
 
 
 #contents > .inner-wrap > .tab-list > #topMenu > li > a {
-    padding: 1.3rem 14.3rem;
+    padding: 1.1rem 12.8rem 1.25rem;
     color: #444;
-    font-size: 1rem;
+    font-size: 1.2rem;
     text-decoration: none;
 }
 
@@ -66,7 +104,8 @@ html > body {
 /*검색*/
 
 .movie-list-util {
-    margin: 0 0 1rem 0;
+    overflow: hidden;
+    margin: 2.5rem 0 0.9rem 0;
 
     align-items: stretch;
     display: flex;
@@ -75,20 +114,105 @@ html > body {
 }
 
 .movie-list-util > .onAir-condition {
-    color: black;
-/*    수정사항*/
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
+
+.movie-list-util > .onAir-condition > .toggleSwitch {
+    width: 2.0625rem;
+    height: 1.2rem;
+    display: block;
+    position: relative;
+    border-radius: 1.875rem;
+    background-color: rgb(204, 204, 204);
+    /*box-shadow: 0 0 1rem 0.1875rem rgba(0 0 0 / 15%);*/
+    cursor: pointer;
+    margin-right: 0.5rem;
+}
+
+.movie-list-util > .onAir-condition > .toggleSwitch > .toggleBtn {
+    width: 0.875rem;
+    height: 0.875rem;
+    position: absolute;
+    top: 50%;
+    left: 0.125rem;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+}
+
+#toggle:checked ~ .toggleSwitch {
+    background: rgb(52, 163, 183);
+}
+
+#toggle:checked ~ .toggleSwitch .toggleBtn {
+    background: rgb(255, 255, 255);
+    left: calc(100% - 1rem);
+    /*left: 100%;*/
+}
+
+.movie-list-util > .onAir-condition > .toggleSwitch, .toggleButton {
+    transition: all 0.2s ease-in;
+}
+
+.movie-list-util > .onAir-condition > span {
+    font-weight: inherit;
+    font-size: 1rem;
+}
+
+.movie-list-util > .onAir-condition > .search-result {
+    float: left;
+    margin: 0 0 0 1.25rem;
+    padding: 0.0625rem 0 0 0;
+    color: #222;
+    line-height: 2.125rem;
+}
+
+.movie-list-util > .onAir-condition > .search-result > #searchCnt {
+    font-weight: 700;
+}
+
 
 .movie-list-util > .movie-search {
+    position: relative;
+    float: right;
+    width: 12rem;
+    height: 2.25rem;
+    margin: 0;
+    padding: 0 1.9375rem 0 0;
+    border: 0.0625rem solid #d8d9db;
+    border-radius: 0.1875rem;
 
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
-.movie-list-util > .movie-search > .onAir-condition {
-
+.movie-list-util > .movie-search > .input-text {
+    padding: 0 0.625rem;
+    display: block;
+    width: 100%;
+    height: 2.125rem;
+    border: 0;
 }
 
-.movie-list-util > .movie-search > .onAir-condition > .btn-onAir {
-
+.movie-list-util > .movie-search > .btn-search-input {
+    position: absolute;
+    right: 0.0625rem;
+    top: 0.0625rem;
+    overflow: hidden;
+    width: 1.875rem;
+    height: 2rem;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    border: 0;
+    text-indent: -9999px;
+    background: #fff url(https://img.megabox.co.kr/static/pc/images/common/btn/btn-search-input.png) no-repeat center;
 }
 
 /*영화 리스트*/
@@ -96,8 +220,6 @@ html > body {
 #contents > .inner-wrap > .movie-list > ol {
     list-style: none;
     padding: 0;
-    /*margin-left: -3.75rem;*/
-    /*margin-top: 0;*/
     margin: 0 0 0 -3.75rem;
 
     align-items: stretch;
@@ -130,6 +252,42 @@ html > body {
     height: 20.69rem;
 }
 
+#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 11.675rem;
+    height: 18.19rem;
+    color: #fff;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, .8);
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster:hover {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    outline: 0.0625rem dotted rgb(0, 0, 0);
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster > .summary {
+    overflow: hidden;
+    height: 152px;
+}
+
+#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail:has(> .wrap-poster:hover) {
+    opacity: 1;
+}
+
+
 #contents > .inner-wrap > .movie-list > ol > .movie > .movie-info {
     height: 1.875rem;
     display: flex;
@@ -149,7 +307,7 @@ html > body {
     text-overflow: ellipsis;
     padding: 0.125rem 0 0 0.0625rem;
     font-size: 1.3333em;
-    font-weight: 400;
+    font-weight: inherit;
 }
 
 #contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade {
@@ -166,14 +324,17 @@ html > body {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png);
     background-size: 1.4375rem 1.4375rem;
 }
+
 #contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age12 {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
     background-size: 1.4375rem 1.4375rem;
 }
+
 #contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age15 {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/15_46x46.png);
     background-size: 1.4375rem 1.4375rem;
 }
+
 #contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age18 {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/18_46x46.png);
     background-size: 1.4375rem 1.4375rem;
@@ -183,6 +344,7 @@ html > body {
     overflow: hidden;
     padding-top: 0.625rem;
     font-size: 0.9rem;
+    font-weight: 450;
     display: block;
     position: relative;
     float: left
@@ -225,9 +387,9 @@ html > body {
     color: #fff;
     cursor: pointer;
     vertical-align: middle;
-    font-weight: 400;
+    font-weight: inherit;
     border-radius: 0.25rem;
-    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
+    /*font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;*/
     text-align: center;
     height: 2.25rem;
     line-height: 2.25rem;
