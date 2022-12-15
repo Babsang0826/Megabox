@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+html {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+
+}
+
+body > .main > .content {
+    width: 550px;
+    height: 330px;
+    margin-left: -280px;
+    margin-top: -202px;
+    min-height: 250px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    box-shadow: 2px 2px 6px 2px rgb(0 0 0 / 10%);
+}
+
+.content > .step1 > .title-container > h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    background-color: #503396;
+    padding: 30px 0 30px 0;
+    color: #e0e0e0;
+    text-align: center;
+    font-size: 25px;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.step.step1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+
+.input {
+    width: 380px;
+    height: 46px;
+    margin-bottom: 10px;
+    border: 1px solid #c1c1c1;
+    font-size:15px;
+}
+
+.--object-button {
+    border-radius: 4px;
+    line-height: 34px;
+    text-decoration: none;
+    border: 1px solid #503396;
+    background-color: #503396;
+    color: #ebebeb;
+    cursor: pointer;
+    height: 50px;
+    /*padding-top: 0.6rem;*/
+    /*padding-bottom: 0.7rem;*/
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.--object-button:hover {
+    text-decoration: none;
+    background-color: rgba(80, 51, 150, 0.88);
+}
+
+input[type=button]:disabled {
+    background-color: #e0e0e0;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.label.email{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 500px;
+    padding-bottom: 5px;
+}
+
+body > .main > .content > .form > .step.step1 > .table > tbody > tr > td > .warning {
+    color: rgb(231, 76, 60);
+    display: none;
+    font-size: 90%;
+    margin-top: 0.5rem;
+}
+
+body > .main > .content > .form > .step.step1 > .table > tbody > tr > td > .warning.visible {
+    display: block;
+}
+
+body > .main > .content > .form > .warning {
+    background-color: rgb(231, 76, 60);
+    border-radius: 0.5rem;
+    color: rgb(255, 255, 255);
+    margin-top: 2.5rem;
+    padding: 1rem 1.25rem;
+    align-items: center;
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+}
+
+body > .main > .content > .form > .warning.visible {
+    display: flex;
+}

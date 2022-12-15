@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/member/stylesheets/login.css}">
+    <script defer th:src="@{/member/scripts/login.js}"></script>
+</head>
+<body>
+<section id="login" class="login" style="z-index: 501;">
+    <div class="loginPage" style="width: 850px; height: 484px; margin-left: -425px; margin-top: -242px;">
+        <header class="header">
+            <h3 class="title">로그인</h3>
+        </header>
+        <div class="container" style="height: 439px;">
+            <div class="list" style="display: none;">
+                <ul>
+                    <li class="on">
+                        <a href="#" title="회원 로그인 선택">회원 로그인</a>
+                    </li>
+                    <li>
+                        <a href="#" title="비회원 로그인 선택">비회원 로그인</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="containers">
+                <div class="loginTab" id="loginTab">
+                    <a href="#" class="ir">회원 로그인 탭 화면 입니다.</a>
+                    <a href="" class="ir" title="로그인">회원 로그인 탭 화면 입니다.</a>
+                    <div class="loginMember">
+                        <div class="member">
+                            <div class="meb">
+                                <div class="loginInput">
+                                    <input autocomplete="off" id="ibxLoginId" maxlength="20" type="text"
+                                           placeholder="아이디" title="아이디를 입력하세요" class="input-text strTrim">
+                                    <input autocomplete="off" id="ibxLoginPwd" maxlength="20" type="password"
+                                           placeholder="비밀번호" title="비밀번호를 입력하세요" class="input-text mt15">
+                                </div>
+                                <div class="alert"></div>
+                                <div class="chkUtil">
+                                    <label>
+                                        <div class="left">
+                                            <input id="chkIdSave" type="checkbox">
+                                        </div>
+                                    </label>
+                                    <label for="chkIdSave">아이디 저장</label>
+                                </div>
+                                <button id="btnLogin" type="button" class="btnLogin" disabled="disabled">로그인
+                                </button>
+                                <div class="link">
+                                    <a href="#" title="ID/PW 찾기 선택">ID/PW 찾기</a>
+                                    <a href="#" title="회원가입 선택">회원가입</a>
+                                    <a href="#" title="비회원 예매확인 선택">비회원 예매확인</a>
+                                </div>
+                                <div class="snsLink">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

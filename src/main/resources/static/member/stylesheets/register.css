@@ -162,6 +162,7 @@ p {
     border-radius: 10px;
     text-align: center;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .certified > a > i {
@@ -363,10 +364,13 @@ tr {
     align-items: center;
 }
 
+.tdClass {
+    display: flex;
+}
 
 label > .input-text {
     display: inline-block;
-    width: 170%;
+    width: 289px;
     height: 32px;
     padding: 0 10px;
     line-height: 30px;
@@ -447,6 +451,26 @@ input[type=button]:disabled {
     padding: 0;
     font-size: 20px;
 }
+
+.idOverlapping {
+    width: 75px;
+    height: 32px;
+    background-color: #e0e0e0;
+    color: #777777;
+    margin: 0 0 0 8px;
+    padding: 0 5px;
+    border:none;
+    border-radius: 4px;
+    font-size: .9333em;
+    /*margin-right: 1rem;*/
+}
+
+/*.idOverlapping[disable] {*/
+/*    color: #777 !important;*/
+/*    cursor: default !important;*/
+/*    background-color: #e0e0e0 !important;*/
+/*    border-color: #e0e0e0 !important;*/
+/*}*/
 
 
 
@@ -652,8 +676,146 @@ input.input-text.w260px + .tooltip {
 /*    display: none;*/
 /*}*/
 
+.modal-layer .on {
+    display: block;
+}
+
+.modal-layer {
+    overflow-y: scroll;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0);
+    z-index: 505;
+    display: none;
+}
+
+.modal-layer.on {
+    display: block;
+}
+
+
+.modal-layer > .wrap {
+    width: 500px;
+    height: 360px;
+    margin-left: -250px;
+    margin-top: -180px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    min-height: 250px;
+    padding: 45px 0 0 0;
+    box-shadow: 2px 2px 6px 2px rgba(0 0 0 / 10%);
+    background: #fff;
+}
+
+.modal-layer > .wrap > .header {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 45px;
+    background: #503396;
+}
+
+.modal-layer > .wrap > .header > .title {
+    color: #fff;
+    padding: 15px 20px 0 20px;
+    font-size: 1.2em;
+    line-height: 1.1;
+}
+
+.view {
+    position: absolute;
+    width: 500px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 
 
 
+/*이메일 인증 */
+.certified-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
 
 
+.input {
+    width: 380px;
+    height: 46px;
+    margin-bottom: 10px;
+    border: 1px solid #c1c1c1;
+    font-size:15px;
+}
+
+.--object-button {
+    border-radius: 4px;
+    line-height: 34px;
+    text-decoration: none;
+    border: 1px solid #503396;
+    background-color: #503396;
+    color: #ebebeb;
+    cursor: pointer;
+    height: 50px;
+    /*padding-top: 0.6rem;*/
+    /*padding-bottom: 0.7rem;*/
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.--object-button:hover {
+    text-decoration: none;
+    background-color: rgba(80, 51, 150, 0.88);
+}
+
+input[type=button]:disabled {
+    background-color: #e0e0e0;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.label.email{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 480px;
+    padding-bottom: 5px;
+}
+
+.m
+
+body > .main > .content > .form > .step.step1 > .table > tbody > tr > td > .warning {
+    color: rgb(231, 76, 60);
+    display: none;
+    font-size: 90%;
+    margin-top: 0.5rem;
+}
+
+body > .main > .content > .form > .step.step1 > .table > tbody > tr > td > .warning.visible {
+    display: block;
+}
+
+body > .main > .content > .form > .warning {
+    background-color: rgb(231, 76, 60);
+    border-radius: 0.5rem;
+    color: rgb(255, 255, 255);
+    margin-top: 2.5rem;
+    padding: 1rem 1.25rem;
+    align-items: center;
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+}
+
+body > .main > .content > .form > .warning.visible {
+    display: flex;
+}
