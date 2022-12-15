@@ -102,7 +102,6 @@ html > body {
 .movie-list-util {
     overflow: hidden;
     margin: 2.5rem 0 0.9rem 0;
-
     align-items: stretch;
     display: flex;
     flex-direction: row;

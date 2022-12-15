@@ -23,6 +23,8 @@ body {
     flex-direction: column;
 }
 
+
+
 input, select, textarea {
     appearance: none;
     font: inherit;
@@ -32,6 +34,17 @@ input, select, textarea {
     margin: unset;
     outline: none;
     padding: unset;
+}
+
+button {
+    border: 0;
+    outline: 0;
+}
+
+button:focus,
+button:active {
+    outline: none;
+    box-shadow: none;
 }
 
 ul, li {
@@ -111,80 +124,19 @@ body > .--header > .nav > .detail-header > a:not(:nth-child(1)) {
     margin-left: 1rem;
 }
 
-body > .--header > .nav > ul {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+body > .--header > .nav > .category-container > .logo-box {
+    position: absolute;
+    left: 50%;
+    top: 1.5rem;
+    width: 8.8rem;
+    height: 5.6rem;
+    margin: 0 0 0 -4.375rem;
+}
+
+body > .--header > .nav > .category-container > .logo-box > .logo {
+    display: block;
     height: 3rem;
-    white-space: nowrap;
-    z-index: 6;
-}
-
-body > .--header > .nav > ul > .category-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-body > .--header > .nav > ul > .category-container > .first-category > li > a,
-body > .--header > .nav > ul > .category-container > .second-category > li > a {
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-}
-
-body > .--header > .nav > ul > .category-container > .first-category {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    flex: 0.6;
-}
-
-body > .--header > .nav > ul > .category-container > .logo-container {
-    width: 9rem;
-    height: 3rem;
-    padding-bottom: 2rem;
-    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white_new2.png);
-    background-repeat: no-repeat;
-}
-
-body > .--header > .nav > ul > .category-container > .logo-container > .mg-logo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
-body > .--header > .nav > ul > .category-container > .second-category {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    flex: 0.6;
-}
-
-body > .--header > .nav > ul > a > .icon {
-    color: rgb(255, 255, 255);
-    font-size: 1.5rem;
-}
-
-
-body > .--header > .nav > ul > a > .icon.fa-magnifying-glass {
-    margin-left: 1rem;
-    font-size: 1.1rem;
-
-}
-
-body > .--header > .nav > ul > a > .icon.fa-user {
-    font-size: 1.3rem;
-}
-
-body > .--header > .nav > ul > a > .icon.fa-calendar-days {
-    margin-right: 1rem;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white_new2.png) center center no-repeat;
 }
 
 body > .--footer {
@@ -390,6 +342,351 @@ footer > .footer-bottom > .inner-wrap > .footer-sns > a > i {
     height: 15px;
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-footer-search.png);
 }
+
+/*  hover 연습  */
+
+body > .--header > .nav > .category-container {
+    width: 68rem;
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    z-index: 6;
+}
+
+body > .--header > .nav > .category-container:after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+body > .--header > .nav > .category-container > .empty-box-one {
+    flex: 0.1;
+}
+
+body > .--header > .nav > .category-container > .empty-box-two {
+    flex: 1;
+}
+
+body > .--header > .nav > .category-container > .empty-box-three {
+    flex: 0.28;
+}
+
+body > .--header > .nav > .category-container > .menu:hover {
+    border-bottom: 0.0625rem solid rgb(255, 255, 255);
+}
+
+body > .--header > .nav > .category-container > li > a {
+    display: block;
+    padding: 0 1.5rem;
+    line-height: 2.5rem;
+    color: rgb(255, 255, 255);
+    z-index: 6;
+}
+
+body > .--header > .nav > .category-container > li > a > .icon {
+    font-size: 1.6rem;
+}
+
+body > .--header > .nav > .category-container > li > a > .fa-magnifying-glass,
+body > .--header > .nav > .category-container > li > a > .fa-user {
+    font-size: 1.3rem;
+}
+
+body > .--header > .nav > .category-container > li:hover .movie-sub-menu,
+body > .--header > .nav > .category-container > li:hover .reservation-sub-menu,
+body > .--header > .nav > .category-container > li:hover .theater-sub-menu,
+body > .--header > .nav > .category-container > li:hover .center-sub-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    background-color: rgba(0, 0, 0, 30%);
+}
+
+body > .--header > .nav > .category-container .movie-sub-menu,
+body > .--header > .nav > .category-container .reservation-sub-menu,
+body > .--header > .nav > .category-container .theater-sub-menu,
+body > .--header > .nav > .category-container .center-sub-menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 6;
+    margin-block-start: 0.2rem;
+}
+
+body > .--header > .nav > .category-container .movie-sub-menu a,
+body > .--header > .nav > .category-container .reservation-sub-menu a,
+body > .--header > .nav > .category-container .theater-sub-menu a,
+body > .--header > .nav > .category-container .center-sub-menu a {
+    display: block;
+    padding: 5px;
+    color: #fff;
+}
+
+body > .--header > .nav > .category-container .movie-sub-menu > li:nth-of-type(1) {
+    margin-inline-start: 22.5rem;
+}
+
+body > .--header > .nav > .category-container .reservation-sub-menu > li:nth-of-type(1) {
+    margin-inline-start: 27.5rem;
+}
+
+body > .--header > .nav > .category-container .theater-sub-menu > li:nth-of-type(1) {
+    margin-inline-start: 32.5rem;
+}
+
+body > .--header > .nav > .category-container .center-sub-menu > li:nth-of-type(1) {
+    margin-inline-start: 60.5rem;
+}
+
+body > .--header > .search-bar {
+    display: none;
+}
+
+body > .--header > .search-bar.on {
+    width: 100%;
+    height: 24rem;
+    background-color: rgb(53, 31, 103);
+    position: absolute;
+    top: 5.5rem;
+    left: 0;
+    z-index: 7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+body > .--header > .search-bar.on > .rank-tap {
+    width: 67rem;
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 2.8rem;
+}
+
+body > .--header > .search-bar.on > .rank-tap > ul {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+body > .--header > .search-bar.on > .rank-tap > ul > .res-underline.on {
+    border-bottom: 0.1rem solid rgb(255, 255, 255);
+}
+
+body > .--header > .search-bar.on > .rank-tap > ul > .sbo-underline.on {
+    border-bottom: 0.1rem solid rgb(255, 255, 255);
+}
+
+body > .--header > .search-bar.on > .rank-tap > ul > li:nth-of-type(2){
+    margin-left: 1rem;
+}
+
+body > .--header > .search-bar.on > .rank-tap > ul > li > button {
+    background-color: rgb(53, 31, 103);
+    color: rgb(255, 255, 255);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding-bottom: 0.5rem;
+}
+
+
+body > .--header > .search-bar.on > .movie-rank-first {
+    display: none;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 67rem;
+    height: 14rem;
+    z-index: 7;
+    margin-top: 1.5rem;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-image {
+    height: 100%;
+    width: 11rem;
+    background-color: #503396;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-image > img {
+    width: 100%;
+    height: 100%;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-title {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 3rem;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-title > a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    line-height: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-title > a > span:nth-of-type(1) {
+    font-size: 1.3rem;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-title > a > span:nth-of-type(2) {
+    margin-left: 0.8rem;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-title > a > span:nth-of-type(2):hover {
+    text-decoration: underline;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-search {
+    width: 26rem;
+    height: 4rem;
+    margin-right: 4rem;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 0.0625rem solid rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-search > input {
+    font-size: 1.2rem;
+    margin-left: 1rem;
+    outline: none;
+    color: rgb(255, 255, 255);
+    width: 90%;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-search > .icon {
+    font-size: 1.3rem;
+    color: rgb(255, 255, 255);
+    margin-right: 1rem;
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .rank-search > input::placeholder {
+    color: rgb(255, 255, 255);
+}
+
+body > .--header > .search-bar.on > .movie-rank-first.on > .space-box {
+    flex: 1;
+}
+
+
+body > .--header > .search-bar.on > .movie-rank-second {
+    display: none;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 67rem;
+    height: 14rem;
+    z-index: 7;
+    margin-top: 1.5rem;
+}
+
+/*=========================*/
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-image {
+    height: 100%;
+    width: 11rem;
+    background-color: #503396;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-image > img {
+    width: 100%;
+    height: 100%;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-title {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 3rem;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-title > a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    line-height: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-title > a > span:nth-of-type(1) {
+    font-size: 1.3rem;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-title > a > span:nth-of-type(2) {
+    margin-left: 0.8rem;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-title > a > span:nth-of-type(2):hover {
+    text-decoration: underline;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-search {
+    width: 26rem;
+    height: 4rem;
+    margin-right: 4rem;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 0.0625rem solid rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-search > input {
+    font-size: 1.2rem;
+    margin-left: 1rem;
+    outline: none;
+    color: rgb(255, 255, 255);
+    width: 90%;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-search > .icon {
+    font-size: 1.3rem;
+    color: rgb(255, 255, 255);
+    margin-right: 1rem;
+}
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .rank-search > input::placeholder {
+    color: rgb(255, 255, 255);
+}
+
+
+body > .--header > .search-bar.on > .movie-rank-second.on > .space-box {
+    flex: 1;
+}
+
+
+
+
+
+
 
 
 
