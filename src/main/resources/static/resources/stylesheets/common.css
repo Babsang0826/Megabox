@@ -647,7 +647,7 @@ body > .--header > .search-bar.on > .movie-rank-second.on > .rank-title > a > sp
 body > .--header > .search-bar.on > .movie-rank-second.on > .rank-title > a > span:nth-of-type(2):hover {
     text-decoration: underline;
 }
-
+/*ㅇ*/
 body > .--header > .search-bar.on > .movie-rank-second.on > .rank-search {
     width: 26rem;
     height: 4rem;
