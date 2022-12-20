@@ -29,18 +29,25 @@ html > body {
 
 /*네비게이션 메뉴*/
 
-#contents {
+.contents {
     width: 100%;
     margin: 0;
     padding: 5rem 0 0 0;
 }
 
-#contents > .inner-wrap {
+.contents > .inner-wrap.on {
     width: 67.75rem;
     margin: 0 auto;
+    display: block;
 }
 
-#contents > .inner-wrap > .tit {
+.contents > .inner-wrap {
+    width: 67.75rem;
+    margin: 0 auto;
+    display: none;
+}
+
+.contents > .inner-wrap > .tit {
     padding: 0 0 1.625rem 0;
     font-size: 1.8666em;
     font-weight: 550;
@@ -49,7 +56,7 @@ html > body {
     color: #222;
 }
 
-#contents > .inner-wrap > .tab-list > #topMenu {
+.contents > .inner-wrap > .tab-list > .topMenu {
     /*border: 0.0625rem solid #444444;*/
     list-style: none;
     padding: 0;
@@ -60,18 +67,18 @@ html > body {
     justify-content: center;
 }
 
-#contents > .inner-wrap > .tab-list > #topMenu > li.on {
+.contents > .inner-wrap > .tab-list > .topMenu > li.on {
     border: 0.0625rem solid #503396;
     border-bottom: 0.0625rem solid rgb(255, 255, 255);
     margin: 0;
     padding: 1rem;
 }
 
-#contents > .inner-wrap > .tab-list > #topMenu > li.on > a {
+.contents > .inner-wrap > .tab-list > .topMenu > li.on > a {
     color: #503396;
 }
 
-#contents > .inner-wrap > .tab-list > #topMenu > li.on + li {
+.contents > .inner-wrap > .tab-list > .topMenu > li.on + li {
     border: 0.0625rem solid #ebebeb;
     border-bottom: 0.0625rem solid #503396;
     border-left: 0.0625rem solid #503396;
@@ -79,25 +86,31 @@ html > body {
     padding: 1rem;
 }
 
-#contents > .inner-wrap > .tab-list > #topMenu > li {
+.contents > .inner-wrap > .tab-list > .topMenu > li {
     font-weight: 550;
     margin: 0;
     padding: 1rem;
+    border: 0.0625rem solid #ebebeb;
+    border-bottom: 0.0625rem solid #503396;
 }
 
-#contents > .inner-wrap > .tab-list > #topMenu > li:hover {
+.contents > .inner-wrap > .tab-list > .topMenu > li:hover {
     background-color: #ebebeb;
 }
 
+.contents > .inner-wrap > .tab-list > .topMenu > li.on:hover {
+    background-color: rgb(255, 255, 255);
+}
 
-#contents > .inner-wrap > .tab-list > #topMenu > li > a {
+
+.contents > .inner-wrap > .tab-list > .topMenu > li > a {
     padding: 1.1rem 12.8rem 1.25rem;
     color: #444;
     font-size: 1.2rem;
     text-decoration: none;
 }
 
-#contents > .inner-wrap > .tab-list > #topMenu > li:first-of-type {
+.contents > .inner-wrap > .tab-list > .topMenu > li:first-of-type {
     border-right: none;
 }
 
@@ -208,16 +221,13 @@ html > body {
     height: 2rem;
     margin: 0;
     padding: 0;
-    font-size: 0;
-    line-height: 0;
     border: 0;
-    text-indent: -9999px;
     background: #fff url(https://img.megabox.co.kr/static/pc/images/common/btn/btn-search-input.png) no-repeat center;
 }
 
 /*영화 리스트*/
 
-#contents > .inner-wrap > .movie-list > ol {
+.contents > .inner-wrap > .movie-list > ol {
     list-style: none;
     padding: 0;
     margin: 0 0 0 -3.75rem;
@@ -228,7 +238,7 @@ html > body {
     justify-content: flex-start;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie {
+.contents > .inner-wrap > .movie-list > ol > .movie {
     overflow: hidden;
     position: relative;
     float: left;
@@ -239,7 +249,7 @@ html > body {
     margin: 0 0 3.75rem 3.75rem;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .poster {
+.contents > .inner-wrap > .movie-list > ol > .movie > .poster {
     overflow: hidden;
     display: block;
     position: relative;
@@ -247,48 +257,91 @@ html > body {
     text-decoration: none
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-poster {
+.contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-poster {
     width: 14.375rem;
     height: 20.69rem;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail {
+.contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail {
+    opacity: 0;
     position: absolute;
     left: 0;
     top: 0;
-    z-index: -1;
-    width: 11.675rem;
-    height: 18.19rem;
+    /*z-index: -1;*/
+    /*width: 11.675rem;*/
+    /*height: 18.19rem;*/
     color: #fff;
+    height: 20.69rem;
+    width: 14.175rem;
+    transition-duration: 350ms;
+    transition-timing-function: ease-in-out;
+    transition-property: opacity;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster {
+.contents > .inner-wrap > .movie-list > ol > .movie > .poster:hover > .movie-detail {
+    opacity: 1;
+    /*z-index: 10;*/
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*top: 0;*/
+    /*transition: opacity 0.5s;*/
+
+}
+
+.contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster {
     position: relative;
     display: block;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
+    width: 82%;
+    height: 88%;
+    padding: 1.25rem;
     color: #fff;
     background-color: rgba(0, 0, 0, .8);
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster:hover {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    outline: 0.0625rem dotted rgb(0, 0, 0);
-}
+/*.contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster:hover {*/
+/*    color: rgb(255, 255, 255);*/
+/*    text-decoration: none;*/
+/*    outline: 0.0625rem dotted rgb(0, 0, 0);*/
+/*}*/
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster > .summary {
+.contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster > .summary {
     overflow: hidden;
-    height: 152px;
+    height: 9.5rem;
+    font-size: 0.9em;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail:has(> .wrap-poster:hover) {
-    opacity: 1;
+.contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster > .score {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 6.875rem;
+    padding-top: 0.3125rem;
+    border-top: 0.0625rem solid #3c3c3c;
+    text-align: center;
 }
 
+.contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster > .score > .preview {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 2.25rem;
+}
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info {
+.contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster > .score > .preview > .title {
+    display: block;
+    float: left;
+    margin: 0 0.9375rem 0 0;
+    font-size: 0.8667em;
+    color: rgb(255, 255, 255);
+}
+
+.contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster > .score > .preview > p {
+    float: left;
+    font-size: 1.6em;
+    color: #59bec9;
+    margin: 0;
+    padding: 0;
+}
+
+.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info {
     height: 1.875rem;
     display: flex;
     align-items: center;
@@ -299,7 +352,12 @@ html > body {
     line-height: 1.5rem;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .title {
+.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > a > .title {
     overflow: hidden;
     display: block;
     width: 100%;
@@ -310,7 +368,7 @@ html > body {
     font-weight: inherit;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade {
+.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade {
     position: absolute;
     left: 0;
     width: 1.4375rem;
@@ -320,29 +378,29 @@ html > body {
 }
 
 /*등급 제한 png*/
-#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.ageAll {
+.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.ageAll {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png);
     background-size: 1.4375rem 1.4375rem;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age12 {
+.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age12 {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
     background-size: 1.4375rem 1.4375rem;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age15 {
+.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age15 {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/15_46x46.png);
     background-size: 1.4375rem 1.4375rem;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age18 {
+.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age18 {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/18_46x46.png);
     background-size: 1.4375rem 1.4375rem;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .rate-date {
+.contents > .inner-wrap > .movie-list > ol > .movie > .rate-date {
     overflow: hidden;
-    padding-top: 0.625rem;
+    padding-top: 0.425rem;
     font-size: 0.9rem;
     font-weight: 450;
     display: block;
@@ -350,17 +408,17 @@ html > body {
     float: left
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .rate-date > .rate {
+.contents > .inner-wrap > .movie-list > ol > .movie > .rate-date > .rate {
     margin-right: 0.4375rem;
     padding-right: 0.5rem;
     float: left;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .rate-date > .rate::after {
+.contents > .inner-wrap > .movie-list > ol > .movie > .rate-date > .rate::after {
     content: '';
     display: block;
     position: absolute;
-    right: 56%;
+    right: 59%;
     top: 68%;
     width: 0.0625rem;
     height: 0.75rem;
@@ -368,7 +426,7 @@ html > body {
     background-color: #d8d9db;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .button {
+.contents > .inner-wrap > .movie-list > ol > .movie > .button {
     overflow: hidden;
     position: absolute;
     left: 0;
@@ -377,13 +435,13 @@ html > body {
     height: 2.25rem;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .button > .book {
+.contents > .inner-wrap > .movie-list > ol > .movie > .button > .book {
     float: left;
     width: 13.8rem;
     margin-left: 0.3rem;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .button > .book > .book-btn {
+.contents > .inner-wrap > .movie-list > ol > .movie > .button > .book > .book-btn {
     color: #fff;
     cursor: pointer;
     vertical-align: middle;
@@ -402,11 +460,47 @@ html > body {
     padding: 0;
 }
 
-#contents > .inner-wrap > .movie-list > ol > .movie > .button > .book > .book-btn:hover {
+.contents > .inner-wrap > .movie-list > ol > .movie > .button > .book > .book-btn:hover {
     background-color: #351f67;
 }
 
+.movie-list-util > .onAir-condition > .sort-tab > span {
+    display: block;
+    position: relative;
+    float: left;
+    margin: 0 10px;
+}
 
+.movie-list-util > .onAir-condition > .sort-tab > span:before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    display: block;
+    width: 1px;
+    height: 12px;
+    margin: -6px 0 0 0;
+    background-color: #d8d9db;
+}
 
+.movie-list-util > .onAir-condition > .sort-tab > span:first-child {
+    margin-left: 0;
+}
 
+.movie-list-util > .onAir-condition > .sort-tab > span > .btn {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    display: block;
+    cursor: pointer;
+    letter-spacing: -0.5px;
+    font-size: 0.9rem;
+
+}
+
+.movie-list-util > .onAir-condition > .sort-tab > span > .btn.on {
+    color: #222;
+    font-weight: 700;
+}
 

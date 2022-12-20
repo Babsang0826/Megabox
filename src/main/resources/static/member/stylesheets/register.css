@@ -24,10 +24,12 @@ body {
     font-weight: 400;
     font-size: 15px;
 }
+
 a > img {
     width: 167px;
     height: 87px;
 }
+
 p {
     display: block;
     margin-block-start: 1em;
@@ -84,7 +86,7 @@ p {
 /*    line-height: 0;*/
 /*}*/
 
-.container > .containerBox > .containers >  .text {
+.container > .containerBox > .containers > .text {
     list-style: none;
     width: 100%;
     display: flex;
@@ -212,6 +214,7 @@ body > .container > .containerBox > .certified > a > .fa-sharp.fa-solid.fa-envel
     letter-spacing: normal;
     line-height: 22px;
 }
+
 dd {
     display: block;
     margin-inline-start: 40px;
@@ -240,7 +243,7 @@ dd, dl, dt {
     padding: 0;
 }
 
-input, button {  /*나중에 추가*/
+input, button { /*나중에 추가*/
     overflow: visible;
 }
 
@@ -280,11 +283,11 @@ label {
 
 .member-rule-agree > .block > .scroll {
     overflow: hidden;
-    overflow-y:scroll;
+    overflow-y: scroll;
     height: 130px;
     padding: 20px;
     border: 1px solid #d8d9db;
-    font-size: 14px!important;
+    font-size: 14px !important;
 }
 
 col {
@@ -294,6 +297,7 @@ col {
 colgroup {
     display: table-column-group;
 }
+
 .tooltip {
     width: 200px;
     background-color: #555;
@@ -319,7 +323,7 @@ table {
 
 .table-wrap {
     position: relative;
-    border-top:1px solid #555;
+    border-top: 1px solid #555;
 }
 
 tbody {
@@ -340,7 +344,7 @@ tr {
     border-color: inherit;
 }
 
-.board-form  tbody  th {
+.board-form tbody th {
     position: relative;
     height: 50px;
     padding: 7px 15px;
@@ -349,7 +353,7 @@ tr {
     background-color: #f7f8f9;
 }
 
-.board-form  tbody  td {
+.board-form tbody td {
     position: relative;
     height: 50px;
     padding: 7px 15px;
@@ -360,9 +364,9 @@ tr {
 }
 
 
-.input-text {
+label > .input-text {
     display: inline-block;
-    width: 75%;
+    width: 170%;
     height: 32px;
     padding: 0 10px;
     line-height: 30px;
@@ -386,7 +390,7 @@ tr {
     border-color: #666;
 }
 
-.input-text+.button {
+.input-text + .button {
     height: 32px;
     line-height: 29px;
 }
@@ -398,31 +402,61 @@ tr {
     background-color: #fff;
 }
 
-/*.button.disabled {*/
-/*    color: #777!important;*/
-/*    background-color: #e0e0e0!important;*/
-/*    border-color:#e0e0e0!important;*/
+.button.disabled {
+    color: #777 !important;
+    background-color: #e0e0e0 !important;
+    border-color: #e0e0e0 !important;
+}
+
+
+.btnClauAgree {
+    width: 200px;
+    height: 46px;
+    background-color: #503396;
+    color: #ebebeb;
+    padding: 0;
+    font-size: 20px;
+    border:0;
+}
+
+.btnClauAgree:hover {
+    text-decoration: none;
+    background-color: rgba(80, 51, 150, 0.88);
+}
+
+/*#btnJoinInfoRegButton {*/
+/*    width: 200px;*/
+/*    height: 46px;*/
+/*    background-color: #503396;*/
+/*    color: #ebebeb;*/
+/*    padding: 0;*/
+/*    font-size: 20px;*/
+/*    border:0;*/
 /*}*/
 
-.button.small {
-    height: 32px;
-    padding: 0 12px;
-    line-height: 30px;
-    font-size: .9333em;
+/*#btnJoinInfoRegButton:hover {*/
+/*    text-decoration: none;*/
+/*    background-color: rgba(80, 51, 150, 0.88);*/
+/*}*/
+
+input[type=button]:disabled {
+    width: 200px;
+    height: 46px;
+    background-color: #e0e0e0;
+    color: #ebebeb;
+    padding: 0;
+    font-size: 20px;
 }
 
-.button:hover {
-    color: #503396;
-    text-decoration: none;
-    background-color: #f2f4f8;
-}
+
+
 
 .m115 {
-    margin-left: 15px!important;
+    margin-left: 15px !important;
 }
 
 .x-scroll {
-    overflow-x: scroll!important;
+    overflow-x: scroll !important;
 }
 
 .btn-member-bottom {
@@ -453,7 +487,7 @@ tr {
     line-height: 46px;
 }
 
-.button  {
+.button {
     display: inline-block;
     margin: 0;
     padding: 0 15px;
@@ -468,12 +502,12 @@ tr {
     cursor: pointer;
 }
 
-/*.button[disable] {*/
-/*    color: #777!important;*/
-/*    cursor: default!important;*/
-/*    background-color: #e0e0e0!important;*/
-/*    border-color: #e0e0e0!important;*/
-/*}*/
+.button[disable] {
+    color: #777 !important;
+    cursor: default !important;
+    background-color: #e0e0e0 !important;
+    border-color: #e0e0e0 !important;
+}
 
 button {
     letter-spacing: -.5px;
@@ -483,13 +517,13 @@ button {
 /*    width: 260px!important;*/
 /*}*/
 
-input.input-text.w260px+.tooltip {
+input.input-text.w260px + .tooltip {
     left: 60%;
 }
 
 .table-wrap > .board-form tr td .alert {
     margin-top: 5px;
-    color:#e81002;
+    color: #e81002;
     font-size: .9333em;
 }
 
@@ -500,6 +534,7 @@ input.input-text.w260px+.tooltip {
 #label {
     padding-right: 5px;
 }
+
 #kioskYes, #kioskNo {
     margin-right: 5px;
 }
@@ -519,7 +554,7 @@ input.input-text.w260px+.tooltip {
 }
 
 .mt40 {
-    margin-top: 40px!important;
+    margin-top: 40px !important;
 }
 
 .marketing-agree .tit {
@@ -559,7 +594,7 @@ input.input-text.w260px+.tooltip {
 }
 
 .mt30 {
-    margin-top: 30px!important;
+    margin-top: 30px !important;
 }
 
 .marketing-agree .benefit-agree {
@@ -583,6 +618,7 @@ input.input-text.w260px+.tooltip {
     margin: 0 auto;
     padding: 0;
 }
+
 .fa-solid.fa-gift {
     font-size: 100px;
     text-align: center;
@@ -598,8 +634,6 @@ input.input-text.w260px+.tooltip {
     text-align: center;
 
 }
-
-
 
 
 /*.step.step1 {*/

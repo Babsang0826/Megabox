@@ -5,7 +5,7 @@ body {
     overflow-y: scroll;
     letter-spacing: 0;
     line-height: 1.5;
-    font-size: 15px;
+    font-size: 0.9375rem;
     color: #444;
     font-weight: 400;
 }
@@ -39,6 +39,16 @@ main > .container > .contents > .movie-detail {
     background-color: #151515;
 }
 
+main > .container > .contents > .movie-detail.fixed {
+    position: fixed;
+    left: 0;
+    top: 2.625rem;
+    z-index: 100;
+    width: 100%;
+    height: 5rem;
+    margin: 0;
+}
+
 main > .container > .contents > .movie-detail > .bg-img {
     position: absolute;
     left: 50%;
@@ -52,6 +62,11 @@ main > .container > .contents > .movie-detail > .bg-img {
     background-size: 100% auto;
     opacity: .8;
     background-image: url(https://img.megabox.co.kr/SharedImg/2022/12/02/DbLIAXoKPHL5rHaoBohOQ8GbWbwL6vxl_570.jpg);
+}
+
+main > .container > .contents > .movie-detail.fixed > .bg-img {
+    background-attachment: scroll;
+    background-size: 100% auto;
 }
 
 main > .container > .contents > .movie-detail > .bg-patten {
@@ -83,6 +98,15 @@ main > .container > .contents > .movie-detail > .detail-content {
     padding-top: 3.4375rem;
 }
 
+main > .container > .contents > .movie-detail.fixed > .detail-content {
+    position: relative;
+    z-index: 104;
+    width: 68.75rem;
+    height: 5rem;
+    margin: 0 auto;
+    padding-top: 0;
+}
+
 main > .container > .contents > .movie-detail > .detail-content > .title {
     position: static;
     left: inherit;
@@ -94,6 +118,11 @@ main > .container > .contents > .movie-detail > .detail-content > .title {
     font-weight: 400;
     line-height: 1.2;
     text-shadow: 0.125rem 0.125rem 0.625rem rgb(0 0 0 / 70%);
+}
+
+main > .container > .contents > .movie-detail.fixed > .detail-content > .title {
+    padding-top: 2rem;
+    font-size: 1.6em;
 }
 
 main > .container > .contents > .movie-detail > .detail-content > p {
@@ -113,6 +142,10 @@ main > .container > .contents > .movie-detail > .detail-content > .title-en {
     text-overflow: ellipsis;
 }
 
+main > .container > .contents > .movie-detail.fixed > .detail-content > .title-en {
+    display: none;
+}
+
 main > .container > .contents > .movie-detail > .detail-content > .info {
     position: absolute;
     left: 0;
@@ -123,6 +156,10 @@ main > .container > .contents > .movie-detail > .detail-content > .info {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+}
+
+main > .container > .contents > .movie-detail.fixed > .detail-content > .info {
+    display: none;
 }
 
 main > .container > .contents > .movie-detail > .detail-content > .info > .score-container {
@@ -214,10 +251,14 @@ main > .container > .contents > .movie-detail > .detail-content > .poster {
     display: block;
     position: absolute;
     right: 0;
-    top: 45px;
+    top: 2.8125rem;
     z-index: 2;
     width: 16.25rem;
     height: 23.375rem;
+}
+
+main > .container > .contents > .movie-detail.fixed > .detail-content > .poster {
+    display: none;
 }
 
 main > .container > .contents > .movie-detail > .detail-content > .poster > .wrap {
@@ -283,6 +324,11 @@ main > .container > .contents > .movie-detail > .detail-content > .book {
     width: 16.25rem;
 }
 
+main > .container > .contents > .movie-detail.fixed > .detail-content > .book {
+    top: 1.375rem;
+    bottom: inherit;
+}
+
 main > .container > .contents > .movie-detail > .detail-content > .book > .book-link {
     background-color: #329eb1;
     display: block;
@@ -315,6 +361,54 @@ main > .container > .contents > .content-data > .inner-wrap > .tab-list {
     position: static;
     width: 100%;
     background-color: rgb(255,255,255);
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list.fixed {
+    position: fixed;
+    left: 0;
+    right: inherit;
+    top: 7.625rem;
+    z-index: 50;
+    width: 100%;
+    background-color: rgba(255,255,255,.9);
+    box-shadow: 0 0 1.25rem 0 rgb(0 0 0 / 12%);
+}
+
+/*.tab-list:after, .tab-list:before {*/
+/*    content: '';*/
+/*    display: table;*/
+/*}*/
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list.fixed > ul {
+    width: 68.75rem;
+    margin: 0 auto;
+    display: -webkit-box;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list.fixed > ul > li.on {
+    background-color: transparent;
+    margin: 0;
+    border: 0;
+}
+
+/*main > .container > .contents > .content-data > .inner-wrap > .tab-list.move > ul > li:first-child {*/
+/*    margin-left: 0;*/
+/*}*/
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list.fixed > ul > li {
+    width: auto!important;
+    margin: 0 0 0 2.5rem;
+    border: 0;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list.fixed > ul > li.on > a {
+    background-color: transparent;
+    border-color: #503396;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .tab-list.fixed > ul > li > a {
+    height: 100%;
+    border-bottom: 0.125rem solid transparent;
 }
 
 main > .container > .contents > .content-data > .inner-wrap > .tab-list > ul {
@@ -361,6 +455,10 @@ main > .container > .contents > .content-data > .inner-wrap > .movie-summary {
     margin-top: 1.25rem;
 }
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-summary.on > .txt {
+    height: auto;
+}
+
 main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .txt {
     overflow: hidden;
     height: 8.675rem;
@@ -390,6 +488,14 @@ main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .
     cursor: pointer;
 }
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .more-btn > .btn:hover {
+    border-color: #000;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .more-btn > .btn:focus {
+    outline: 0.0625rem dotted #000;
+}
+
 main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .more-btn > .btn > i {
     margin: 0 0.375rem 0.2rem 0;
     width: 0.75rem;
@@ -398,14 +504,38 @@ main > .container > .contents > .content-data > .inner-wrap > .movie-summary > .
     overflow: hidden;
 }
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-summary.on > .more-btn > .btn > i {
+    transform: rotate(180deg);
+}
+
 main > .container > .contents > .content-data > .inner-wrap > .movie-info {
     padding: 1.875rem 0;
     color: #222;
 }
 
 main > .container > .contents > .content-data > .inner-wrap > .movie-info > p,
-main > .container > .contents > .content-data > .inner-wrap > .movie-info > .line > p{
+main > .container > .contents > .content-data > .inner-wrap > .movie-info > .line > p {
+    display: inline-block;
+    position: relative;
     margin: 0;
+    padding: 0 0 0 1.25rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-info > p,
+main > .container > .contents > .content-data > .inner-wrap > .movie-info > .line > p:first-child {
+    padding: 0;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .movie-info > .line > p:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0.5625rem;
+    top: 50%;
+    width: 0.0625rem;
+    height: 0.8125rem;
+    margin-top: -0.375rem;
+    background-color: #d8d9db;
 }
 
 main > .container > .contents > .content-data > .inner-wrap > .movie-info > .line {
@@ -425,8 +555,13 @@ main > .container > .contents > .content-data > .inner-wrap > .movie-graph {
 main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col {
     display: table-cell;
     width: 25%;
-    border: 1px solid #eaeaea;
-    padding: 30px 0;
+    border: 0.0625rem solid #eaeaea;
+    padding: 1.875rem 0;
+}
+
+dl, dt, dd {
+    margin: 0;
+    padding: 0;
 }
 
 main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > dl {
@@ -440,22 +575,255 @@ main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .co
 }
 
 main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .score {
-
+    position: relative;
+    bottom: 0.9375rem;
+    height: 10.125rem;
+    margin-top: 1.875rem;
+    text-align: center;
 }
 
 main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .score > .circle {
-
+    left: 13.4rem;
+    top: 0.75rem;
+    z-index: 12;
+    width: 7.5rem;
+    height: 7.5rem;
+    line-height: 7.5rem;
+    border-radius: 7.5rem;
+    background-color: #6543b1;
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    color: #fff;
+    font-size: 2em;
+    font-weight: 400;
 }
 
 main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .score > .circle > em {
-
+    font-style: normal;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .score > .percentage {
-
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > dl > dd {
+    font-size: 2.2em;
+    color: #6543b1;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .score > .percentage > span {
-
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .graph {
+    overflow: hidden;
+    width: 13.5rem;
+    height: 13.5rem;
+    margin: 0 auto;
 }
 
+main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > .graph > canvas {
+    width: 13.75rem;
+    height: 12.8125rem;
+    display: block;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment-info {
+    margin: 4.375rem 0 0.9375rem 0;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment-info > .comment-info-title {
+    font-size: 1.4666em;
+    color: #503396;
+    padding: 0;
+    line-height: 1.1;
+    letter-spacing: -0.0625rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment-info > .comment-info-title > .comment-cnt {
+    color: #01738b;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment {
+    display: block;
+    position: relative;
+    min-height: 31.25rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .user-profile {
+    position: relative;
+    float: left;
+    width: 6.6525rem;
+    text-align: center;
+    height: 5.5rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .user-profile > .profile-img {
+    width: 3.125rem;
+    height: 3.125rem;
+    border-radius: 50%;
+    margin: 0 auto 0.625rem;
+    overflow: hidden;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .user-profile > .profile-img > img {
+    width: 100%;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .user-profile > .profile-img > p {
+    margin: 0;
+    width: 6.5625rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .9333em;
+    line-height: 1.1;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box {
+    border-radius: 0 0.625rem 0.625rem 0.625rem;
+    border: 0.0625rem solid #eaeaea;
+    background-color: #fff;
+    /*height: 6.2rem;*/
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap {
+    display: table;
+    width: 100%;
+    height: 5.25rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap.review > .title {
+    float: left;
+    height: 5.25rem;
+    width: 6.5625rem;
+    line-height: 5.125rem;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 0 0 0 0.625rem;
+    color: #503396;
+    background-color: #f8f8fa;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap > .text-content {
+    display: table-cell;
+    float: none;
+    width: 53.125rem;
+    height: 5.25rem;
+    vertical-align: middle;
+    padding-left: 1.875rem;
+    text-align: left;
+    color: #666;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap > .text-write {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 8.9375rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap > .text-write > .write-btn {
+    width: 6.5625rem;
+    height: 1.5rem;
+    color: #666;
+    text-decoration: none;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap > .text-write > .write-btn > i {
+    margin-right: 0.3125rem;
+    width: 1.125rem;
+    height: 1.125rem;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-story-write.png);
+    overflow: hidden;
+    display: inline-block;
+    /*margin: -1px 0 0 0;*/
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: text-bottom;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content {
+    background-color: #f8f8fa;
+    color: #503396;
+    border-radius: 0 0.625rem 0.625rem 0;
+    height: 5.25rem;
+    padding: 0;
+    vertical-align: middle;
+}
+
+ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .point,
+ul > .text-form > .text-area > .text-box > .text-wrap.review >.text-content > .recommend{
+    display: table-cell;
+    width: 5.625rem;
+    height: 3.125rem;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    color: #503396;
+}
+
+ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .point > span {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 2.4em;
+    font-weight: 300;
+}
+
+/*ul > .text-form > .text-area > .text-box > .text-wrap.review >.text-content > .recommend {*/
+/*    display: table-cell;*/
+/*    width: 85px;*/
+/*    height: 50px;*/
+/*    padding: 0 20px 0 0;*/
+/*    vertical-align: middle;*/
+/*    color: #503396;*/
+/*}*/
+
+ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .recommend > em {
+    display: inline-block;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    font-style: normal;
+}
+
+ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .text-story {
+    display: table-cell;
+    position: relative;
+    padding: 0 1.25rem 0 1.875rem;
+    text-align: left;
+    color: #666;
+    vertical-align: middle;
+    font-size: .9333em;
+    line-height: 1.4;
+}
+
+ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-write {
+    border-radius: 0 0.625rem 0.625rem 0;
+    background-color: #f8f8fa;
+}
+
+ul > .text-form > .story-date {
+    padding: 0.625rem 0 0 0;
+    text-align: right;
+    font-size: .9333em;
+    line-height: 1.1;
+    color: #666;
+}
+
+ul > .text-form > .story-date > .written-on {
+    display: block;
+}
+
+#contentData.fixed .movie-summary {
+    margin-top: 42rem;
+}

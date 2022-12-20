@@ -9,16 +9,16 @@
 </head>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
 <body>
-<div id="contents">
-    <div class="inner-wrap">
+<div class="contents" id="contents">
+    <div class="inner-wrap on" rel="boxInnerWrap">
         <h2 class="tit">전체영화</h2>
         <div class="tab-list">
-            <ul id="topMenu">
+            <ul class="topMenu">
                 <li class="on">
                     <a href="#" title="박스오피스 탭으로 이동">박스오피스</a>
                 </li>
                 <li>
-                    <a href="#" title="상영예정작 탭으로 이동">상영예정작</a>
+                    <a href="#" title="상영예정작 탭으로 이동" rel="notScreen">상영예정작</a>
                 </li>
             </ul>
         </div>
@@ -30,7 +30,7 @@
                 </label>
                 <span>개봉작만</span>
                 <p class="search-result">
-                    <strong id="searchCnt">8</strong>
+                    <strong class="searchCnt">8</strong>
                     개의 영화가 검색되었습니다.
                 </p>
             </div>
@@ -40,13 +40,13 @@
             </div>
         </div>
         <div class="movie-list">
-            <ol class="list" id="movieListFirst">
+            <ol class="list first">
                 <li class="movie">
                     <div class="poster">
                         <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg"
                              alt="아바타: 물의 길" class="movie-poster">
-                        <div class="movie-detail" style="opacity: 0">
-                            <a href="#" class="wrap-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
                                 <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
                                     '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
                                     살아남기 위해 떠나야 하는 긴 여정과 전투,
@@ -57,16 +57,26 @@
                                     샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
                                     존 랜도가 프로듀싱을 맡았다.
                                 </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
                             </a>
                         </div>
                     </div>
                     <div class="movie-info">
-                        <p class="grade age12">,</p>
-                        <p class="title">아바타: 물의 길</p>
+                        <p class="grade age12"></p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">아바타: 물의 길</p>
+                        </a>
                     </div>
                     <div class="rate-date">
                             <span class="rate">
-                                "예매율 85%"
+                                예매율 85%
                             </span>
                         <span class="date">개봉일 2022.12.14</span>
                     </div>
@@ -80,13 +90,37 @@
                     <div class="poster">
                         <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg"
                              alt="올빼미" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     <div class="movie-info">
                         <p class="grade age15"></p>
-                        <p class="title">올빼미</p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">올빼미</p>
+                        </a>
                     </div>
                     <div class="rate-date">
-                        <span class="rate">"예매율 3.2%"</span>
+                        <span class="rate">예매율 3.2%</span>
                         <span class="date">개봉일 2022.11.23</span>
                     </div>
                     <div class="button">
@@ -99,13 +133,37 @@
                     <div class="poster">
                         <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg"
                              alt="아바타: 물의 길" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     <div class="movie-info">
                         <p class="grade age18"></p>
-                        <p class="title">아바타: 물의 길</p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">아바타: 물의 길</p>
+                        </a>
                     </div>
                     <div class="rate-date">
-                        <span class="rate">"예매율 85%"</span>
+                        <span class="rate">예매율 85%</span>
                         <span class="date">개봉일 2022.12.14</span>
                     </div>
                     <div class="button">
@@ -118,13 +176,37 @@
                     <div class="poster">
                         <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg"
                              alt="올빼미" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     <div class="movie-info">
                         <p class="grade ageAll"></p>
-                        <p class="title">올빼미</p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">올빼미</p>
+                        </a>
                     </div>
                     <div class="rate-date">
-                        <span class="rate">"예매율 3.2%"</span>
+                        <span class="rate">예매율 3.2%</span>
                         <span class="date">개봉일 2022.11.23</span>
                     </div>
                     <div class="button">
@@ -134,19 +216,43 @@
                     </div>
                 </li>
             </ol>
-            <ol class="list" id="movieListSecond">
+            <ol class="list second">
                 <li class="movie">
                     <div class="poster">
                         <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg"
                              alt="아바타: 물의 길" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     <div class="movie-info">
                         <p class="grade age12">,</p>
-                        <p class="title">아바타: 물의 길</p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">아바타: 물의 길</p>
+                        </a>
                     </div>
                     <div class="rate-date">
                             <span class="rate">
-                                "예매율 85%"
+                                예매율 85%
                             </span>
                         <span class="date">개봉일 2022.12.14</span>
                     </div>
@@ -160,13 +266,37 @@
                     <div class="poster">
                         <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg"
                              alt="올빼미" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     <div class="movie-info">
                         <p class="grade age15"></p>
-                        <p class="title">올빼미</p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">올빼미</p>
+                        </a>
                     </div>
                     <div class="rate-date">
-                        <span class="rate">"예매율 3.2%"</span>
+                        <span class="rate">예매율 3.2%</span>
                         <span class="date">개봉일 2022.11.23</span>
                     </div>
                     <div class="button">
@@ -179,13 +309,37 @@
                     <div class="poster">
                         <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg"
                              alt="아바타: 물의 길" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     <div class="movie-info">
                         <p class="grade age18"></p>
-                        <p class="title">아바타: 물의 길</p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">아바타: 물의 길</p>
+                        </a>
                     </div>
                     <div class="rate-date">
-                        <span class="rate">"예매율 85%"</span>
+                        <span class="rate">예매율 85%</span>
                         <span class="date">개봉일 2022.12.14</span>
                     </div>
                     <div class="button">
@@ -198,13 +352,424 @@
                     <div class="poster">
                         <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg"
                              alt="올빼미" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     <div class="movie-info">
                         <p class="grade ageAll"></p>
-                        <p class="title">올빼미</p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">올빼미</p>
+                        </a>
                     </div>
                     <div class="rate-date">
-                        <span class="rate">"예매율 3.2%"</span>
+                        <span class="rate">예매율 3.2%</span>
+                        <span class="date">개봉일 2022.11.23</span>
+                    </div>
+                    <div class="button">
+                        <div class="book">
+                            <a class="book-btn" href="#">예매</a>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="inner-wrap" rel="commingInnerWrap">
+        <h2 class="tit">상영예정작</h2>
+        <div class="tab-list">
+            <ul class="topMenu">
+                <li>
+                    <a href="#" title="박스오피스 탭으로 이동" rel="boxOffice">박스오피스</a>
+                </li>
+                <li class="on">
+                    <a href="#" title="상영예정작 탭으로 이동">상영예정작</a>
+                </li>
+            </ul>
+        </div>
+        <div class="movie-list-util">
+            <div class="onAir-condition">
+                <div class="sort-tab">
+                    <span>
+                        <button class="btn on" type="button">개봉일순</button>
+                    </span>
+                    <span>
+                        <button class="btn" type="button">가나다순</button>
+                    </span>
+                </div>
+                <p class="search-result">
+                    <strong class="searchCnt">8</strong>
+                    개의 영화가 검색되었습니다.
+                </p>
+            </div>
+            <div class="movie-search">
+                <input type="text" name="movie-search" placeholder="영화명 검색" class="input-text">
+                <button type="button" class="btn-search-input"></button>
+            </div>
+        </div>
+        <div class="movie-list">
+            <ol class="list first">
+                <li class="movie">
+                    <div class="poster">
+                        <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg"
+                             alt="아바타: 물의 길" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <p class="grade age12"></p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">아바타: 물의 길</p>
+                        </a>
+                    </div>
+                    <div class="rate-date">
+                            <span class="rate">
+                                예매율 85%
+                            </span>
+                        <span class="date">개봉일 2022.12.14</span>
+                    </div>
+                    <div class="button">
+                        <div class="book">
+                            <a class="book-btn">예매</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="movie">
+                    <div class="poster">
+                        <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg"
+                             alt="올빼미" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <p class="grade age15"></p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">올빼미</p>
+                        </a>
+                    </div>
+                    <div class="rate-date">
+                        <span class="rate">예매율 3.2%</span>
+                        <span class="date">개봉일 2022.11.23</span>
+                    </div>
+                    <div class="button">
+                        <div class="book">
+                            <a class="book-btn">예매</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="movie">
+                    <div class="poster">
+                        <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg"
+                             alt="아바타: 물의 길" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <p class="grade age18"></p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">아바타: 물의 길</p>
+                        </a>
+                    </div>
+                    <div class="rate-date">
+                        <span class="rate">예매율 85%</span>
+                        <span class="date">개봉일 2022.12.14</span>
+                    </div>
+                    <div class="button">
+                        <div class="book">
+                            <a class="book-btn">예매</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="movie">
+                    <div class="poster">
+                        <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg"
+                             alt="올빼미" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <p class="grade ageAll"></p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">올빼미</p>
+                        </a>
+                    </div>
+                    <div class="rate-date">
+                        <span class="rate">예매율 3.2%</span>
+                        <span class="date">개봉일 2022.11.23</span>
+                    </div>
+                    <div class="button">
+                        <div class="book">
+                            <a class="book-btn">예매</a>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <ol class="list second">
+                <li class="movie">
+                    <div class="poster">
+                        <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg"
+                             alt="아바타: 물의 길" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <p class="grade age12">,</p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">아바타: 물의 길</p>
+                        </a>
+                    </div>
+                    <div class="rate-date">
+                            <span class="rate">
+                                예매율 85%
+                            </span>
+                        <span class="date">개봉일 2022.12.14</span>
+                    </div>
+                    <div class="button">
+                        <div class="book">
+                            <a class="book-btn">예매</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="movie">
+                    <div class="poster">
+                        <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg"
+                             alt="올빼미" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <p class="grade age15"></p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">올빼미</p>
+                        </a>
+                    </div>
+                    <div class="rate-date">
+                        <span class="rate">예매율 3.2%</span>
+                        <span class="date">개봉일 2022.11.23</span>
+                    </div>
+                    <div class="button">
+                        <div class="book">
+                            <a class="book-btn">예매</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="movie">
+                    <div class="poster">
+                        <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg"
+                             alt="아바타: 물의 길" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <p class="grade age18"></p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">아바타: 물의 길</p>
+                        </a>
+                    </div>
+                    <div class="rate-date">
+                        <span class="rate">예매율 85%</span>
+                        <span class="date">개봉일 2022.12.14</span>
+                    </div>
+                    <div class="button">
+                        <div class="book">
+                            <a class="book-btn">예매</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="movie">
+                    <div class="poster">
+                        <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg"
+                             alt="올빼미" class="movie-poster">
+                        <div class="movie-detail">
+                            <a href="http://localhost:8080/movie/movie-detail" class="wrap-poster">
+                                <div class="summary">&lt;아바타: 물의 길&gt;은 판도라 행성에서
+                                    '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
+                                    살아남기 위해 떠나야 하는 긴 여정과 전투,
+                                    그리고 견뎌내야 할 상처에 대한 이야기를 그렸다.
+
+                                    월드와이드 역대 흥행 순위 1위를 기록한 전편 &lt;아바타&gt;에 이어
+                                    제임스 카메론 감독이 13년만에 선보이는 영화로,
+                                    샘 워싱턴, 조 샐다나, 시고니 위버, 스티븐 랭, 케이트 윈슬렛이 출연하고
+                                    존 랜도가 프로듀싱을 맡았다.
+                                </div>
+                                <div class="score">
+                                    <div class="preview">
+                                        <p class="title">관람평</p>
+                                        <p class="number">
+                                            9.3
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <p class="grade ageAll"></p>
+                        <a href="http://localhost:8080/movie/movie-detail">
+                            <p class="title">올빼미</p>
+                        </a>
+                    </div>
+                    <div class="rate-date">
+                        <span class="rate">예매율 3.2%</span>
                         <span class="date">개봉일 2022.11.23</span>
                     </div>
                     <div class="button">
