@@ -94,6 +94,10 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     cursor: pointer;
 }
 
+body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule > .time-list > .time-box > .day.on {
+    background-color: rgb(235, 235, 235);
+}
+
 body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule > .time-list > .time-box > .day:hover {
     border-bottom: 0.1rem solid rgb(48, 22, 112);
 }
@@ -115,6 +119,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    border-right: 0.0625rem solid rgb(235, 235, 235);
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie {
@@ -138,6 +143,8 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     border-right: 0.0625rem solid rgb(0, 0, 0);
     border-left: 0.0625rem solid rgb(0, 0, 0);
     margin-top: 0.7rem;
+    cursor: pointer;
+
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list {
@@ -173,22 +180,21 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box > div {
-    width: 5rem;
+    width: 2rem;
     height: 2.5rem;
-}
-
-body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
     background-repeat: no-repeat;
     background-size: 1.5rem;
+    background-position: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
+
 /**/
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box > span {
@@ -218,7 +224,30 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box {
     width: 22.5rem;
     height: 100%;
-    background-color: #e81002;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-right: 0.0625rem solid rgb(235, 235, 235);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater {
+    width: 20rem;
+    height: 32rem;
+    margin-bottom: 0.5rem;
+}
+
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title > .quick-title,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-title,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-title {
+    font-size: 1.3rem;
+}
+
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box {
+    width: 22rem;
+    height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -226,15 +255,153 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater {
-    width: 20rem;
+    width: 19.5rem;
     height: 32rem;
-    background-color: yellow;
     margin-bottom: 0.5rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list {
+    width: 100%;
+    height: 24rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .title {
+    height: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-top: 0.0625rem solid rgb(0, 0, 0);
+    border-right: 0.0625rem solid rgb(0, 0, 0);
+    border-left: 0.0625rem solid rgb(0, 0, 0);
+    margin-top: 0.7rem;
+    cursor: pointer;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 6.4rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-content > span {
+    width: 100%;
+    height: 5.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 0.0625rem solid rgb(235, 235, 235);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list {
+    width: 100%;
+    height: 21rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-block-start: 0.5rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-region {
+    width: 50%;
+    height: 90%;
+    border-right: 0.0625rem solid rgb(235, 235, 235);
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    cursor: pointer;
+
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-region > * {
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city {
+    width: 50%;
+    height: 90%;
+    overflow: auto;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .seoul-city,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gyeonggi-city,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .incheon-city,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .daejeon-city,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .jeonla-city,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gangwon-city,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gyeongsang-city {
+    display: none;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .seoul-city.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gyeonggi-city.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .incheon-city.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .daejeon-city.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .jeonla-city.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gangwon-city.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gyeongsang-city.on {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.8rem;
+    justify-content: flex-start;
+    height: 10rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .seoul-city.on > *,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gyeonggi-city.on > *,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .incheon-city.on > *,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .daejeon-city.on > *,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .jeonla-city.on > *,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gangwon-city.on > *,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gyeongsang-city.on > * {
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .seoul-city.on > .seoul.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gyeonggi-city.on > .gyeonggi.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .incheon-city.on > .incheon.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .daejeon-city.on > .daejeon.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gyeongsang-city.on > .gyeongsang.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .jeonla-city.on > .jeonla.on,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gangwon-city.on > .gangwon.on
+{
+    background-color: rgb(102, 102, 102);
+}
+
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city::-webkit-scrollbar {
+    width: 0.4rem;
+    background-color: rgb(85, 85, 85);
+    border-radius: 0.1rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city::-webkit-scrollbar-thumb {
+    height: 30%;
+    background-color: rgba(0, 0, 0, 70%);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city::-webkit-scrollbar-track {
+    background-color: rgb(235, 235, 235);
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box {
     flex: 1;
-    background-color: #777777;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -245,11 +412,135 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time {
     width: 26rem;
     height: 32.5rem;
-    background-color: yellow;
 }
 
-body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-title,
-body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-title,
-body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-title {
-    font-size: 1.3rem;
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title {
+    width: 26rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title > span > .fa-sun {
+    color: orange;
+    margin-right: 0.5rem;
+    font-size: 0.7rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title > span > .fa-mug-hot {
+    color: saddlebrown;
+    margin-right: 0.5rem;
+    font-size: 0.7rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title > span > .fa-moon {
+    color: lightskyblue;
+    font-size: 0.7rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title > span > .fa-sun > span,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title > span > .fa-mug-hot > span,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title > span > .fa-moon > span {
+    color: rgb(85, 85, 85);
+    font-size: 0.7rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title > .empty-box {
+    flex: 1;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box > .time-container {
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box > div > .fa-chevron-left {
+    cursor: pointer;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box > div > .fa-chevron-right {
+    cursor: pointer;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box > .time-container > .time-wrap {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box > .time-container > .time-wrap > .time:not(:nth-of-type(1)) {
+    margin-left: 1.2rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .icon {
+    font-size: 3rem;
+    color: rgb(85, 85, 85);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > span {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.swal-modal {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+}
+
+.swal-title {
+    font-size: 1rem;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.21);
+    color: rgb(255, 255, 255);
+    background-color: rgb(78, 54, 144);
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+}
+
+.swal-title:first-child {
+    margin-top: 0;
+    display: flex;
+}
+
+.swal-text {
+    font-size: 16px;
+    display: flex;
+    padding: 1rem 1rem;
+    font-weight: 400;
+    color: rgba(0,0,0,.64);
+}
+
+.swal-footer {
+    margin-top: 13px;
+    padding: 13px 16px;
+    border-radius: inherit;
+    text-align: center;
 }
