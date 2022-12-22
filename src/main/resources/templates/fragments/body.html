@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<header class="--header header" th:fragment="header">
+<header class="--header header" th:fragment="header" id="header">
     <nav class="nav">
         <div class="detail-header">
             <a class="link" href="#">로그인</a>
-            <a class="link" href="#">회원가입</a>
+            <a class="link" th:href="@{/member/register}">회원가입</a>
             <a class="link" href="#">빠른예매</a>
         </div>
         <ul class="category-container">
             <li>
-                <a href="#">
-                    <i class="icon fa-solid fa-bars"></i>
+                <a href="#" id="barIcon" class="bar-icon">
+                    <i id="xMarkBar" class="fa-solid fa-xmark"></i>
+                    <i id="bar" class="icon fa-solid fa-bars"></i>
                 </a>
             </li>
             <li>
-                <a href="#" id="searchIcon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                <a href="#" id="searchIcon" class="search-icon">
+                    <i id="xMarkGlass" class="fa-solid fa-xmark"></i>
+                    <i id="glass" class="fa-solid fa-magnifying-glass"></i>
                 </a>
             </li>
             <li class="empty-box-one"></li>
@@ -27,15 +29,15 @@
                 </ul>
             </li>
             <li class="menu">
-                <a href="#">예매</a>
+                <a th:href="@{/reservation/fast-reservation}">예매</a>
                 <ul class="reservation-sub-menu">
-                    <li><a href="#">빠른예매</a></li>
+                    <li><a th:href="@{/reservation/fast-reservation}">빠른예매</a></li>
                     <li><a href="#">상영시간표</a></li>
                 </ul>
             </li>
             <h1 class="logo-box">
                 <a th:href="@{/}" class="logo">
-                    <!--        로고 백그이         -->
+                    <!--        로고 background-image         -->
                 </a>
             </h1>
             <li class="menu">
@@ -63,8 +65,9 @@
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class="fa-solid fa-user"></i>
+                <a href="#" id="userIcon" class="user-icon">
+                    <i id="xMarkUser" class="fa-solid fa-xmark"></i>
+                    <i id="user" class="fa-solid fa-user"></i>
                 </a>
             </li>
         </ul>
@@ -149,8 +152,70 @@
             </div>
         </div>
     </div>
-
-
+    <div class="site-map-container" id="siteMapContainer">
+        <div class="site-map-box">
+            <div class="site-map-title">SITEMAP</div>
+            <div class="map-category-box">
+                <div class="map-category">
+                    <div>영화</div>
+                    <div class="category-content">
+                        <a th:href="@{/movie/movie}">전체영화</a>
+                        <a href="#">영화제</a>
+                        <a href="#">무비포스트</a>
+                    </div>
+                </div>
+                <div class="map-category">
+                    <div>예매</div>
+                    <div class="category-content">
+                        <a href="#">빠른예매</a>
+                        <a href="#">상영시간표</a>
+                    </div>
+                </div>
+                <div class="map-category">
+                    <div>극장</div>
+                    <div class="category-content">
+                        <a href="#">전체극장</a>
+                        <a href="#">특별관</a>
+                    </div>
+                </div>
+                <div class="map-category">
+                    <div>고객센터</div>
+                    <div class="category-content">
+                        <a href="#">고객센터 홈</a>
+                        <a href="#">자주묻는질문</a>
+                        <a href="#">공지사항</a>
+                        <a href="#">1:1문의</a>
+                        <a href="#">단체/대관문의</a>
+                        <a href="#">분실물문의</a>
+                    </div>
+                </div>
+                <div class="map-category">
+                    <div>나의 메가박스</div>
+                    <div class="category-content">
+                        <a href="#">나의메가박스 홈</a>
+                        <a href="#">예매/구매내역</a>
+                        <a href="#">영화관람권</a>
+                        <a href="#">나의 문의내역</a>
+                        <a href="#">회원정보</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-sub-container" id="loginSubContainer">
+        <div class="sub-user-box">
+            <div class="login-content">
+                <span>
+                    로그인 하시면 나의 메가박스를 만날 수 있어요.<br>
+영화를 사랑하는 당신을 위한 꼭 맞는 혜택까지 확인해 보세요!
+                </span>
+            </div>
+            <a href="#">로그인</a>
+            <div class="user-register">
+                <a th:href="@{/member/register}">혹시 아직 회원이 아니신가요?</a>
+            </div>
+        </div>
+    </div>
 </header>
 <footer class="--footer" th:fragment="footer">
     <div class="footer-top">

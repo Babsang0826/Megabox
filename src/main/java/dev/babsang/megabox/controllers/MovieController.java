@@ -24,4 +24,5 @@ public class MovieController {
         ModelAndView modelAndView = new ModelAndView("movie/movie-detail");
         return modelAndView;
     }
+
 }

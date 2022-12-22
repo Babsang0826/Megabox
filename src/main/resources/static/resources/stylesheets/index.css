@@ -287,6 +287,14 @@ body > .--main > .movie-post-container > .best-mp-container > .best-mp-image > .
     width: 100%;
     height: 29rem;
     object-fit: cover;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .movie-post-container > .best-mp-container > .best-mp-image > .mp-image > img {
+    border-radius: 1rem;
 }
 
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-image > .button-container {
@@ -614,6 +622,3 @@ body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box >
     color: rgb(127, 188, 199);
 
 }
-
-/*  text-decoration: none;
-    outline: 1px dotted #000;*/

@@ -1,0 +1,254 @@
+body > .--main > .reservation-container {
+    width: 68rem;
+    height: 49rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box {
+    width: 100%;
+    height: 40rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .title {
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+body > .--main > .reservation-container > .reservation-box > .title > span {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-top: 0.0625rem solid rgb(85, 85, 85);
+    border-left: 0.0625rem solid rgb(216, 217, 219);
+    border-right: 0.0625rem solid rgb(216, 217, 219);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule {
+    width: 100%;
+    display: flex;
+    height: 2.8rem;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule > button {
+    height: 100%;
+    width: 2rem;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule > button:nth-of-type(3) {
+    width: 3rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule > .time-list {
+    display: flex;
+    width: 61rem;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule > .time-list > .time-box {
+    position: absolute;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule > .time-list > .time-box.animated {
+    transition: 2000ms ease-in-out;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule > .time-list > .time-box > .day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 4.35rem;
+    cursor: pointer;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule > .time-list > .time-box > .day:hover {
+    border-bottom: 0.1rem solid rgb(48, 22, 112);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border: 0.0625rem solid rgb(235, 235, 235);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box {
+    width: 17rem;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie {
+    width: 14.5rem;
+    height: 32rem;
+    margin-bottom: 0.5rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list {
+    width: 100%;
+    height: 24rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .title {
+    height: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-top: 0.0625rem solid rgb(0, 0, 0);
+    border-right: 0.0625rem solid rgb(0, 0, 0);
+    border-left: 0.0625rem solid rgb(0, 0, 0);
+    margin-top: 0.7rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list {
+    width: 100%;
+    height: 21rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect {
+    width: 100%;
+    height: 20rem;
+    margin-top: 1rem;
+    overflow: auto;
+    cursor: pointer;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect::-webkit-scrollbar {
+    width: 0.4rem;
+    background-color: rgb(85, 85, 85);
+    border-radius: 0.1rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect::-webkit-scrollbar-thumb {
+    height: 30%;
+    background-color: rgba(0, 0, 0, 70%);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect::-webkit-scrollbar-track {
+    background-color: rgb(235, 235, 235);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box > div {
+    width: 5rem;
+    height: 2.5rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
+    background-repeat: no-repeat;
+    background-size: 1.5rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box > span {
+    margin-left: 1rem;
+    font-size: 0.8rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 6.4rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-content > span {
+    width: 100%;
+    height: 5.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 0.0625rem solid rgb(235, 235, 235);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box {
+    width: 22.5rem;
+    height: 100%;
+    background-color: #e81002;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater {
+    width: 20rem;
+    height: 32rem;
+    background-color: yellow;
+    margin-bottom: 0.5rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box {
+    flex: 1;
+    background-color: #777777;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time {
+    width: 26rem;
+    height: 32.5rem;
+    background-color: yellow;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-title,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-title,
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-title {
+    font-size: 1.3rem;
+}

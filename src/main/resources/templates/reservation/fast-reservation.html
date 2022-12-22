@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/mg_movie/reservation/resources/stylesheets/fast-reservation.css}">
+    <script defer th:src="@{/mg_movie/reservation/resources/scripts/fast-reservation.js}"></script>
+</head>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<body>
+<main class="--main main">
+    <div class="reservation-container">
+        <div class="reservation-box">
+            <div class="title">
+                <span>빠른예매</span>
+            </div>
+            <div class="data-container">
+                <div class="time-schedule">
+                    <button id="previousBtn">
+                        <i class="icon fa-solid fa-chevron-left"></i>
+                    </button>
+                    <div class="time-list">
+                        <div class="time-box"></div>
+                    </div>
+                    <button id="nextBtn">
+                        <i class="icon fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button>
+                        <i class="fa-solid fa-calendar"></i>
+                    </button>
+                </div>
+                <div class="quick-container">
+                    <div class="quick-movie-box">
+                        <div class="quick-movie">
+                            <span class="quick-title">영화</span>
+                            <div class="quick-movie-list">
+                                <div class="title">
+                                    <span>전체</span>
+                                </div>
+                                <div class="list">
+                                    <div class="list-collect">
+                                        <div class="list-box">
+                                            <div></div>
+                                            <span>영화 포스터 제목
+                                            영화 포스터 제목
+                                            영화 포스터 제목</span>
+                                        </div>
+                                        <div class="list-box">
+                                            <div></div>
+                                            <span>영화 포스터 제목
+                                            영화 포스터 제목
+                                            영화 포스터 제목</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="quick-content">
+                                <span>모든영화<br>목록에서 영화를 선택하세요.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quick-theater-box">
+                        <div class="quick-theater">
+                            <span class="quick-title">극장</span>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="quick-time-box">
+                        <div class="quick-time">
+                            <span class="quick-title">시간</span>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</html>

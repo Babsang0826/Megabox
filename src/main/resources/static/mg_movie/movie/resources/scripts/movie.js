@@ -1,5 +1,6 @@
 const contents = window.document.getElementById('contents');
 
+
 contents.querySelector('[rel="notScreen"]').addEventListener('click', () => {
     contents.querySelector('[rel="commingInnerWrap"]').classList.add('on');
     contents.querySelector('[rel="boxInnerWrap"]').classList.remove('on');
