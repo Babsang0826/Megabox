@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Movie-Detail</title>
+    <title>Movie-Post</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
     <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/movie-post.css}">
     <script defer th:src="@{/mg_movie/movie/resources/scripts/movie-post.js}"></script>
@@ -11,11 +11,10 @@
 <body>
 <main class="--main">
     <div class="container">
-        <div class="content">
+        <div class="content" id="content">
             <div class="post-rank-container">
-                <h2 class="title">무비포스트</h2>
                 <div class="inner-wrap">
-<!--                    <h2 class="title">무비포스트</h2>-->
+                    <h2 class="title">무비포스트</h2>
                     <ol class="post-rank">
                         <li>
                             <a href="#" class="top5">
@@ -77,23 +76,151 @@
                                 </p>
                             </a>
                         </li>
+                        <li>
+                            <a href="#" class="top5 my">
+                                <p class="rank">My</p>
+                                <div class="post-cnt">
+                                    <p class="title">POST</p>
+                                    <p class="cnt">0</p>
+                                </div>
+                                <p class="image">
+                                    <img src="https://img.megabox.co.kr/static/pc/images/movie/bg-movie-post-no-login.png"  alt="">
+                                </p>
+                            </a>
+                        </li>
                     </ol>
-                    <div class="my-post-container">
-                        <div>
-                            <p class="rank">My</p>
-                            <div class="post-cnt">
-                                <p class="title">MY POST</p>
-                                <p class="cnt">0</p>
-                            </div>
-                        </div>
-                    </div>
+<!--                    <div class="my-post-container">-->
+<!--                        <div>-->
+<!--                            <p class="rank">My</p>-->
+<!--                            <div class="post-cnt">-->
+<!--                                <p class="title">MY POST</p>-->
+<!--                                <p class="cnt">0</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="write-post">
                         <a href="#" class="write-post-btn">무비포스트 작성</a>
                     </div>
                 </div>
             </div>
             <div class="inner-wrap">
-
+                <div class="tab-menu">
+                    <button type="button" class="on" rel="allMovie">모든 영화</button>
+                    <button type="button" rel="onScreen">현재 상영작</button>
+                </div>
+                <div class="board-list">
+                    <p class="result-cnt">
+                        <strong>
+                            전체 <b>6</b>건
+                        </strong>
+                    </p>
+                    <div class="sorting">
+                        <span>
+                            <button type="button" class="btn on">최신순</button>
+                        </span>
+                        <span>
+                            <button type="button" class="btn">공감순</button>
+                        </span>
+                    </div>
+                    <div class="post-search">
+                        <input type="text" class="search" placeholder="검색어를 입력해주세요">
+                        <button class="search-btn"></button>
+                    </div>
+                </div>
+                <div class="post-list">
+                    <ul class="post-container">
+                        <li class="post">
+                            <div class="wrap">
+                                <div class="img">
+                                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQoiwp3Z_GBUbOp7NBGi8YOff5Xa8AbJBeEdjNgc9fM_DwtBKm7" alt="">
+                                </div>
+                                <div class="content">
+                                    <a href="#" class="writer">choi43**</a>
+                                    <a href="#" class="movie">너굴맨</a>
+                                    <a href="#" class="text-container">
+                                        <p class="text">귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 <br>반가워~</p>
+                                    </a>
+                                    <p class="time">3분전</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="post">
+                            <div class="wrap">
+                                <div class="img">
+                                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQoiwp3Z_GBUbOp7NBGi8YOff5Xa8AbJBeEdjNgc9fM_DwtBKm7" alt="">
+                                </div>
+                                <div class="content">
+                                    <a href="#" class="writer">choi43**</a>
+                                    <a href="#" class="movie">너굴맨</a>
+                                    <a href="#" class="text-container">
+                                        <p class="text">귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 <br>반가워~</p>
+                                    </a>
+                                    <p class="time">3분전</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="post">
+                            <div class="wrap">
+                                <div class="img">
+                                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQoiwp3Z_GBUbOp7NBGi8YOff5Xa8AbJBeEdjNgc9fM_DwtBKm7" alt="">
+                                </div>
+                                <div class="content">
+                                    <a href="#" class="writer">choi43**</a>
+                                    <a href="#" class="movie">너굴맨</a>
+                                    <a href="#" class="text-container">
+                                        <p class="text">귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 <br>반가워~</p>
+                                    </a>
+                                    <p class="time">3분전</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="post">
+                            <div class="wrap">
+                                <div class="img">
+                                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQoiwp3Z_GBUbOp7NBGi8YOff5Xa8AbJBeEdjNgc9fM_DwtBKm7" alt="">
+                                </div>
+                                <div class="content">
+                                    <a href="#" class="writer">choi43**</a>
+                                    <a href="#" class="movie">너굴맨</a>
+                                    <a href="#" class="text-container">
+                                        <p class="text">귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 <br>반가워~</p>
+                                    </a>
+                                    <p class="time">3분전</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="post">
+                            <div class="wrap">
+                                <div class="img">
+                                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQoiwp3Z_GBUbOp7NBGi8YOff5Xa8AbJBeEdjNgc9fM_DwtBKm7" alt="">
+                                </div>
+                                <div class="content">
+                                    <a href="#" class="writer">choi43**</a>
+                                    <a href="#" class="movie">너굴맨</a>
+                                    <a href="#" class="text-container">
+                                        <p class="text">귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 <br>반가워~</p>
+                                    </a>
+                                    <p class="time">3분전</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="post">
+                            <div class="wrap">
+                                <div class="img">
+                                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQoiwp3Z_GBUbOp7NBGi8YOff5Xa8AbJBeEdjNgc9fM_DwtBKm7" alt="">
+                                </div>
+                                <div class="content">
+                                    <a href="#" class="writer">choi43**</a>
+                                    <a href="#" class="movie">너굴맨</a>
+                                    <a href="#" class="text-container">
+                                        <p class="text">귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 귀여운 너구리 <br>반가워~</p>
+                                    </a>
+                                    <p class="time">3분전</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

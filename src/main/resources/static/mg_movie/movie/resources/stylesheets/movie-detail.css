@@ -643,12 +643,12 @@ main > .container > .contents > .content-data > .inner-wrap > .comment {
     min-height: 31.25rem;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form  {
     width: 100%;
     margin-top: 1rem;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form  > .text-area {
     width: 100%;
 
     display: flex;
@@ -657,7 +657,7 @@ main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .t
     justify-content: flex-start;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .user-profile {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form  > .text-area > .user-profile {
     position: relative;
     float: left;
     width: 6.6525rem;
@@ -665,7 +665,7 @@ main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .t
     height: 5.5rem;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .user-profile > .profile-img {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .user-profile > .profile-img {
     width: 3.125rem;
     height: 3.125rem;
     border-radius: 50%;
@@ -673,11 +673,11 @@ main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .t
     overflow: hidden;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .user-profile > .profile-img > img {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .user-profile > .profile-img > img {
     width: 100%;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .user-profile > .profile-img > p {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .user-profile > .profile-img > p {
     margin: 0;
     width: 6.5625rem;
     overflow: hidden;
@@ -686,20 +686,20 @@ main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .t
     line-height: 1.1;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .text-box {
     border-radius: 0 0.625rem 0.625rem 0.625rem;
     border: 0.0625rem solid #eaeaea;
     background-color: #fff;
     /*height: 6.2rem;*/
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap {
     display: table;
     width: 100%;
     height: 5.25rem;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap.review > .title {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap.review > .title {
     float: left;
     height: 5.25rem;
     width: 6.5625rem;
@@ -711,7 +711,7 @@ main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .t
     background-color: #f8f8fa;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap > .text-content {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap > .text-content {
     display: table-cell;
     float: none;
     width: 53.125rem;
@@ -722,21 +722,30 @@ main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .t
     color: #666;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap > .text-write {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap > .text-content > span {
+    color: #01738b;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap > .text-write {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
     width: 8.9375rem;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap > .text-write > .write-btn {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap > .text-write > .write-btn {
     width: 6.5625rem;
     height: 1.5rem;
     color: #666;
     text-decoration: none;
+    cursor: pointer;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap > .text-write > .write-btn > i {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap > .text-write > .write-btn.submit:hover {
+    background-color: #462c7f;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap > .text-write > .write-btn > i {
     margin-right: 0.3125rem;
     width: 1.125rem;
     height: 1.125rem;
@@ -752,7 +761,7 @@ main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .t
     background-repeat: no-repeat;
 }
 
-main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content {
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap.review > .text-content {
     background-color: #f8f8fa;
     color: #503396;
     border-radius: 0 0.625rem 0.625rem 0;
@@ -761,8 +770,8 @@ main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .t
     vertical-align: middle;
 }
 
-ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .point,
-ul > .text-form > .text-area > .text-box > .text-wrap.review >.text-content > .recommend{
+ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .point,
+ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap.review >.text-content > .recommend{
     display: table-cell;
     width: 5.625rem;
     height: 3.125rem;
@@ -772,14 +781,14 @@ ul > .text-form > .text-area > .text-box > .text-wrap.review >.text-content > .r
     color: #503396;
 }
 
-ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .point > span {
+ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .point > span {
     display: inline-block;
     vertical-align: top;
     font-size: 2.4em;
     font-weight: 300;
 }
 
-/*ul > .text-form > .text-area > .text-box > .text-wrap.review >.text-content > .recommend {*/
+/*ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap.review >.text-content > .recommend {*/
 /*    display: table-cell;*/
 /*    width: 85px;*/
 /*    height: 50px;*/
@@ -788,7 +797,7 @@ ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .
 /*    color: #503396;*/
 /*}*/
 
-ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .recommend > em {
+ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .recommend > em {
     display: inline-block;
     width: 100%;
     padding: 0;
@@ -796,7 +805,7 @@ ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .
     font-style: normal;
 }
 
-ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .text-story {
+ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .text-story {
     display: table-cell;
     position: relative;
     padding: 0 1.25rem 0 1.875rem;
@@ -807,12 +816,12 @@ ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-content > .
     line-height: 1.4;
 }
 
-ul > .text-form > .text-area > .text-box > .text-wrap.review > .text-write {
+ul > .comment-container > .text-form > .text-area > .text-box > .text-wrap.review > .text-write {
     border-radius: 0 0.625rem 0.625rem 0;
     background-color: #f8f8fa;
 }
 
-ul > .text-form > .story-date {
+ul > .comment-container > .text-form > .story-date {
     padding: 0.625rem 0 0 0;
     text-align: right;
     font-size: .9333em;
@@ -820,10 +829,94 @@ ul > .text-form > .story-date {
     color: #666;
 }
 
-ul > .text-form > .story-date > .written-on {
+ul > .comment-container > .text-form > .story-date > .written-on {
     display: block;
 }
 
 #contentData.fixed .movie-summary {
     margin-top: 42rem;
+}
+
+/*한줄평 작성 폼*/
+.comment-container > .text-form.write-form {
+    display: none;
+}
+
+.comment-container > .text-form.write-form.on {
+    display: block;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box {
+    display: flex;
+    width: 62.6rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap {
+    display: flex;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap > .title {
+    width: 7.3rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap > .text-content {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap > .text-content > div {
+    align-items: center;
+    display: flex;
+    width: 7.6rem;
+    text-align: center;
+}
+
+/*main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap > .text-content > div > form > label > select {*/
+/*    width: 80%;*/
+/*    color: black;*/
+/*    appearance: auto;*/
+/*}*/
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap > .text-content > div > div > label > select {
+    width: 80%;
+    color: black;
+    appearance: auto;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap > .text-content > .text-story {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-left: 1rem;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap > .text-content > .text-story > label {
+    width: 100%;
+    height: 80%;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap > .text-content > .text-story > label > textarea {
+    resize: none;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap > .text-write {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .text-area > .text-box > .text-wrap > .text-write > input {
+    background-color: #503396;
+    color: white;
+    border-radius: 0.5rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+main > .container > .contents > .content-data > .inner-wrap > .comment > ul > .comment-container > .text-form.write-form > .story-date {
+    cursor: pointer;
 }
