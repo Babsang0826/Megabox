@@ -8,6 +8,8 @@ public class UserEntity {
 
     private String email;
     private String name;
+
+    private int birthday;
     private String contact;
     private String id;
     private String password;
@@ -19,13 +21,21 @@ public class UserEntity {
 
 
 
-
     public String getName() {
         return name;
     }
 
     public UserEntity setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public int getBirthday() {
+        return birthday;
+    }
+
+    public UserEntity setBirthday(int birthday) {
+        this.birthday = birthday;
         return this;
     }
 
