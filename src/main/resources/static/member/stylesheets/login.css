@@ -38,12 +38,15 @@ body {
     width: 100%;
     height: 45px;
     background: #503396;
+    display: block;
 }
 
 .title {
-    padding: 15px 20px 0 20px !important;
+    padding: 15px 20px 0 20px;
     font-size: 1.2em;
     line-height: 1.1;
+    color:#fff;
+    margin: 0;
 }
 
 .container {
@@ -52,7 +55,7 @@ body {
     padding: 50px 20px 0 20px;
 }
 
-fa
+
 
 .container > .list {
     position: static;
@@ -106,9 +109,9 @@ ul {
     padding: 0;
 }
 
-.containers > .loginTab > .loginMember > .member {
-    overflow: hidden;
-}
+/*.containers > .loginTab > .loginMember > .member {*/
+/*    overflow: hidden;*/
+/*}*/
 
 .containers > .loginTab > .loginMember > .member > .meb {
     float: left;
@@ -120,6 +123,7 @@ ul {
     display: block;
     width: 100%;
     height: 46px;
+    font-size: 15px;
 }
 
 .input-text {
@@ -132,6 +136,10 @@ ul {
     border: 1px solid #d8d9db;
     vertical-align: middle;
     font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+}
+
+.input-text:hover {
+    border: 1px solid #444;
 }
 
 .alert {
@@ -169,14 +177,18 @@ label {
     height: 46px;
     padding: 0 30px;
     border: 0;
+    font-weight: 400;
+    font-size: 15px;
+    background-color: #503396;
+    color: #c1c1c1;
+    cursor: pointer;
+
 }
 
-.btnLogin[disabled] {
-    color: #777 !important;
-    cursor: default !important;
-    background-color: #e0e0e0 !important;
-    border-color: #e0e0e0 !important;
+.btnLogin:hover {
+    background-color: #411b83;
 }
+
 
 .containers > .loginTab > .loginMember > .member > .meb > .link {
     padding: 20px 0 30px 0;
@@ -206,3 +218,19 @@ label {
 /*    flex-direction: column;*/
 /*    justify-content: flex-start;*/
 /*}*/
+
+.containers > .loginTab > .loginMember > .member > .meb > .snsLink {
+    display: flex;
+    justify-content: center;
+}
+
+.containers > .loginTab > .loginMember > .member > .meb > .snsLink > a > img {
+    border: 0;
+    width: 40px;
+    height: 40px;
+}
+
+.movie-poster {
+    float: right;
+    padding: 0px 47px 0px 0px;
+}

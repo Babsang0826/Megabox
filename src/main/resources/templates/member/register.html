@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,6 +8,7 @@
     <title>본인 인증</title>
     <script src="https://kit.fontawesome.com/613513fe2d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/member/stylesheets/register.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script defer th:src="@{/member/scripts/register.js}"></script>
 </head>
 <body>
@@ -39,7 +40,7 @@
                     </li>
                 </ol>
             </div>
-            <div class="step step1">
+            <div class="step step1" id="step step1">
                 <p class="page-info-txt" rel="pageInfoTxt">
                     <strong>약관동의 및 정보활용동의</strong>
                     <span>메가박스 서비스 이용을 위한 약관에 동의해주세요</span>
@@ -1054,13 +1055,13 @@
                            type="button" rel="nextButton">
                 </div>
             </div>
-            <div class="step step2">
+            <div class="step step2" id="step step2">
                 <p class="page-info-txt" rel="pageInfoTxt">
                     <strong>회원가입을 위한 본인인증 단계입니다.</strong>
                     <span>원하시는 인증방법을 선택해주세요.</span>
                 </p>
                 <div class="certified" rel="emailAuth">
-                    <div>
+                    <div class="certifiedBox">
                         <i class="fa-regular fa-envelope"></i>
                         <span>이메일 인증</span>
                     </div>
@@ -1070,10 +1071,11 @@
                     <li>본인인증 시 제공되는 정보는 해당 인증기관에서 직접 수집하며, 인증 이외의 용도로 이용 또는 저장 되지 않습니다.</li>
                 </ul>
             </div>
-            <section rel="emailAuthPopUp" class="modal-layer">
+            <section rel="emailAuthPopUp" class="modal-layer" id="emailAuthPopUp">
                 <div class="wrap" id="emailAuthWrap">
                     <header class="header">
                         <h3 class="title">이메일 인증</h3>
+                        <i class="fa-solid fa-xmark" rel="closeButton"></i>
                     </header>
                     <div class="certified-container">
                         <table class="table">
@@ -1084,66 +1086,30 @@
                                         <span hidden>이메일</span>
                                         <input autofocus class="--object-input input" maxlength="50" name="email"
                                                placeholder=" 이메일 주소를 입력해 주세요." type="email">
-                                        <input class="--object-button" name="emailSend" value="인증번호 전송" type="button">
+                                        <input class="--object-button email-send" name="emailSend" value="인증번호 전송"
+                                               type="button">
                                     </label>
                                     <label class="label email">
                                         <span hidden>인증번호</span>
                                         <input autofocus class="--object-input input" disabled maxlength="6"
                                                name="emailAuthCode" placeholder=" 인증번호를 입력해 주세요." type="text">
                                         <input name="emailAuthSalt" type="hidden">
-                                        <input class="--object-button"  name="emailVerify" value="인증번호 확인"
+                                        <input class="--object-button" name="emailVerify" value="인증번호 확인"
                                                type="button">
                                     </label>
-                                    <span class="warning" rel="emailWarning">이메일 주소를 입력해주세요.</span>
+                                    <span class="warning" rel="emailWarning"></span>
+                                    <div class="btn-member-bottom">
+                                        <input class="btnClauAgree" id="emailAuthComplete" value="회원가입하러 가기"
+                                               type="button" disabled name="emailAuthComplete" rel="emailAuthComplete">
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-<!--                    <div class="layerContainer">-->
-<!--                        <div class="box-one v1 a-c">-->
-<!--                            <select>-->
-<!--                                <option value="seoul">서울</option>-->
-<!--                                <option value="gyeonggi">경기도</option>-->
-<!--                                <option value="incheon">인천</option>-->
-<!--                                <option value="daejeon">대전/충청/세종</option>-->
-<!--                                <option value="gyeongsang">부산/대구/경상</option>-->
-<!--                                <option value="jeolla">광주/전라</option>-->
-<!--                                <option value="gangwon">강원</option>-->
-<!--                            </select>-->
-<!--                            <select>-->
-<!--                                <option value="">극장선택</option>-->
-<!--                                <option value="seoul">강남</option>-->
-<!--                                <option value="seoul">강남대로(씨티)</option>-->
-<!--                                <option value="seoul">강동</option>-->
-<!--                                <option value="">고양스타필드</option>-->
-<!--                                <option value="">광명AK플라자</option>-->
-<!--                                <option value="">광명소하</option>-->
-<!--                                <option value="">검단</option>-->
-<!--                                <option value="">송도</option>-->
-<!--                                <option value="">영종</option>-->
-<!--                                <option value="">공주</option>-->
-<!--                                <option value="">논산</option>-->
-<!--                                <option value="">대전</option>-->
-<!--                                <option value="">경북도청</option>-->
-<!--                                <option value="">경산하양</option>-->
-<!--                                <option value="">경주</option>-->
-<!--                                <option value="">광주상무</option>-->
-<!--                                <option value="">광주하남</option>-->
-<!--                                <option value="">목포하당</option>-->
-<!--                                <option value="">남춘천</option>-->
-<!--                                <option value="">속초</option>-->
-<!--                                <option value="">원주</option>-->
-<!--                            </select>-->
-<!--                            <button type="button" class="button">추가</button>-->
-<!--                        </div>-->
-<!--                        <div class=""-->
-
-<!--                    </div>-->
-<!--                </div>-->
                 </div>
             </section>
-            <div class="step step3">
+            <div class="step step3" id="step step3">
                 <p class="page-info-txt" rel="pageInfoTxt">
                     <strong>이승현님 안녕하세요.</strong>
                     <span>회원정보를 입력해주세요.</span>
@@ -1159,15 +1125,45 @@
                         <tbody>
                         <tr>
                             <th scope="row">
-                                생년월일
+                                <label for="loginName">
+                                    이름
+                                </label>
                             </th>
-                            <td id="birthday">1996년 12월 12일</td>
+                            <td>
+                                <label>
+                                    <input maxlength="5" id="loginName" name="name" type="text"
+                                           placeholder="이름을 입력해 주세요." class="input-text">
+                                </label>
+                                <div id="name-error-text" class="alert" rel="warning-name">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">
-                                휴대폰 번호
+                                <a>생년월일</a>
                             </th>
-                            <td id="phoneNumber">010-6405-6966</td>
+                            <td>
+                                <label>
+                                    <input id="birthday"  name="birthday" maxlength="8" type="text" placeholder="생년월일 앞8자리"
+                                           class="input-text">
+                                </label>
+                                <div id="birthday-error-text" class="alert" rel="warning-birthday"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <label for="loginContact">
+                                    연락처
+                                </label>
+                            </th>
+                            <td>
+                                <label>
+                                    <input maxlength="16" id="loginContact" name="contact" type="text"
+                                           placeholder="연락처를 ' - ' 없이 입력해 주세요." class="input-text">
+                                </label>
+                                <div id="contact-error-text" class="alert" rel="warning-contact">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">
@@ -1179,11 +1175,12 @@
                                 <div class="duplication-check">
                                     <label>
                                         <input maxlength="12" id="loginId" type="text" placeholder="영문,숫자 조합(8~12자)"
-                                               class="input-text" name="id">
+                                               class="input-text" name="loginId">
                                     </label>
+                                    <button type="button" class="idOverlapping" name="overlappingButton"
+                                            rel="overlappingButton">중복확인
+                                    </button>
                                 </div>
-                                <button type="button" class="idOverlapping" disabled rel="overlappingButton">중복확인
-                                </button>
                                 <div id="id-error-text" class="alert" rel="warning-id"></div>
                             </td>
                         </tr>
@@ -1195,7 +1192,7 @@
                             </th>
                             <td>
                                 <label>
-                                    <input maxlength="16" id="loginPassword" name="password" type="password"
+                                    <input maxlength="16" id="loginPassword" name="pwd" type="password"
                                            placeholder="영문,숫자,특수기호 중 2가지 이상 조합" class="input-text w260px">
                                 </label>
                                 <div id="password-error-text" class="alert" rel="warning-password">
@@ -1210,11 +1207,10 @@
                             </th>
                             <td>
                                 <label>
-                                    <input maxlength="16" id="loginPasswordCheck" type="password"
+                                    <input maxlength="16" id="loginPasswordCheck" type="password" name="passwordCheck"
                                            placeholder="영문,숫자,특수기호 중 2가지 이상 조합" class="input-text">
                                 </label>
-                                <div id="password-error-textCheck" class="alert" rel="warning">
-                                    비밀번호는 영문, 숫자, 특수기호 중 2가지 이상 조합하여 10자리 이상 16자리 이하 입니다.
+                                <div id="password-error-textCheck" class="alert" rel="warning-passowrdCheck">
                                 </div>
                             </td>
                         </tr>
@@ -1226,46 +1222,39 @@
                             </th>
                             <td>
                                 <label>
-                                    <input maxlength="50" id="loginEmailCheck" type="text"
+                                    <input maxlength="50" id="loginEmailCheck" name="loginEmailCheck" type="text"
                                            placeholder="이메일 주소를 입력해주세요." class="input-text">
                                 </label>
                                 <div id="email-error-textCheck" class="alert" rel="warning-email">
                                 </div>
                             </td>
                         </tr>
-<!--                        <tr>-->
-<!--                            <th scope="row">-->
-<!--                                무인발권기-->
-<!--                                <br>-->
-<!--                                기능 설정-->
-<!--                            </th>-->
-<!--                            <td>-->
-<!--                                <input type="radio" id="kioskYes" name="kiosk">-->
-<!--                                <label for="kioskYes" id="label">-->
-<!--                                    사용-->
-<!--                                </label>-->
-<!--                                <input type="radio" id="kioskNo" name="kiosk">-->
-<!--                                <label for="kioskNo">-->
-<!--                                    사용안함-->
-<!--                                </label>-->
+                        <tr>
+                            <th>주소</th>
+                            <td>
+                                <label class="label address">
+                                    <span hidden>우편번호</span>
+                                    <input autofocus class="input-text" maxlength="6" name="addressPostal"
+                                           placeholder="우편번호" readonly type="text">
+                                    <input class="findAddressButton" name="addressFind" value="주소 찾기" type="button">
+                                </label>
+                                <label class="label address">
+                                    <span hidden>기본 주소</span>
+                                    <input autofocus class="input-text" maxlength="100" name="addressPrimary"
+                                           readonly placeholder="주소 찾기를 통해 주소를 입력해 주세요." type="text">
+                                </label>
+                                <label class="label address">
+                                    <span hidden>상세 주소</span>
+                                    <input autofocus class="input-text" maxlength="100" name="addressSecondary"
+                                           placeholder="상세 주소를 입력해 주세요." type="text">
+                                </label>
+                                <div class="panel address" rel="addressFindPanel">
+                                    <div class="dialog" rel="addressFindPanelDialog"></div>
+                                </div>
+                                <div id="address-error-textCheck" class="alert" rel="warning-address">
 
-<!--                                <span class="font-size-14 m115">-->
-<!--                                ※'생년월일 + 휴대폰번호로'티켓출력-->
-<!--                            </span>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th scope="row">-->
-<!--                                나만의 메가박스-->
-<!--                            </th>-->
-<!--                            <td id="favorTheater">-->
-<!--                                자주 방문하는 메가박스를 등록해 주세요.-->
-<!--                                <a href="#" title="자주 방문하는 메가박스 설정 선택" class="button gray-line small w75px m108"-->
-<!--                                   w-data="500" h-data="360">-->
-<!--                                    설정-->
-<!--                                </a>-->
-<!--                            </td>-->
-<!--                        </tr>-->
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -1297,14 +1286,14 @@
                         <p class="mt30">혜택 수신설정</p>
 
                         <div class="benefit-agree">
-                            <input type="checkbox" id="push" class="checkBox">
+                            <input type="checkbox" id="push" class="checkBox" name="receive">
                             <label for="push">알림</label>
 
-                            <input type="checkbox" id="sms" class="checkBox">
+                            <input type="checkbox" id="sms" class="checkBox" name="receive">
                             <label for="sms">SMS</label>
 
-                            <input type="checkbox" id="email" class="checkBox">
-                            <label for="email">이메일</label>
+                            <input type="checkbox" id="mail" class="checkBox" name="receive">
+                            <label for="mail">이메일</label>
                         </div>
 
                         <p class="mt20">
@@ -1317,11 +1306,10 @@
                            type="button" rel="registerButton" disabled>
                 </div>
             </div>
-            <div class="step step4">
+            <div class="step step4" id="step step4">
                 <div class="join-complete">
                     <i class="fa-solid fa-gift"></i>
                     <p class="name">
-                        이승현님 메가박스 가입을 환영합니다.
                     </p>
                     <p class="txt">
                         이제부터 메가박스에서 제공하는 다양한 멤버십 혜택을 이용하실 수 있습니다.
@@ -1333,7 +1321,6 @@
             </div>
         </div>
     </div>
-
 </form>
 </body>
 </html>
