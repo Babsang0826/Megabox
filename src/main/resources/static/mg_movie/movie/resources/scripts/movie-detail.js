@@ -50,11 +50,11 @@ const loadComments = (commentObject) => {
     xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status >= 200 && xhr.status < 300) {
-                const responseArray = JSON.parse(xhr.responseText);
                 const appendComment = (commentObject) => {
+                    console.log(commentObject['userId']);
                     const commentHtmlText = `
-                        <div class="comment-container" id="commentContainer">
-                            <li class="text-form" id="textForm">
+                        <div class="comment-container" rel="commentContainer">
+                            <li class="text-form" rel="textForm">
                                 <div class="text-area">
                                     <div class="user-profile">
                                         <div class="profile-img">
@@ -96,6 +96,7 @@ const loadComments = (commentObject) => {
 
                     commentContainer.append(textElement);
                 }
+                const responseArray = JSON.parse(xhr.responseText);
                 for (let commentObject of responseArray) {
                     appendComment(commentObject);
                 }
