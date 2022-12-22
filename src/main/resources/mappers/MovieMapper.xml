@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.babsang.megabox.mappers.IMovieMapper">
+
+    <select id="selectMovieCommentByMid"
+    resultType="dev.babsang.megabox.entities.movie.MovieCommentEntity">
+        select `index`         as `index`,
+               user_id         as userId,
+               movie_index     as mid,
+               score           as score,
+               recommend_point as recommendPoint,
+               content         as content,
+               written_on      as writtenOn
+        from mg_movie.movie_comment
+        where movie_index = #{mid}
+        limit 1
+    </select>
+
+    <select id="selectMovieCommentsByMid"
+            resultType="dev.babsang.megabox.entities.movie.MovieCommentEntity">
+        select `index`         as `index`,
+               user_id         as userId,
+               movie_index     as mid,
+               score           as score,
+               recommend_point as recommendPoint,
+               content         as content,
+               written_on      as writtenOn
+        from mg_movie.movie_comment
+        where movie_index = #{mid}
+    </select>
+
+    <insert id="insertComment"
+            useGeneratedKeys="true"
+            keyProperty="index"
+            keyColumn="index"
+            parameterType="dev.babsang.megabox.entities.movie.MovieCommentEntity">
+        insert into mg_movie.movie_comment(user_id, score, recommend_point, content, written_on, movie_index)
+        values (#{userId}, #{score}, #{recommendPoint}, #{content},
+                IFNULL(#{writtenOn}, DEFAULT(`written_on`)), #{mid})
+    </insert>
+
+</mapper>
