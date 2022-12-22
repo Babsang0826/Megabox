@@ -173,7 +173,86 @@ public class MemberService {
 
     }
 
-    public Enum<? extends IResult> recoverPassword(EmailAuthEntity emailAuth, UserEntity user) { //user는 이메일과 패스워드만 가지고 있다.
+    public Enum<? extends IResult> resetPasswordEmail(UserEntity user) {
+        UserEntity existingUser = this.memberMapper.selectUserByEmail(user.getEmail());
+        if (existingUser == null) {
+            return CommonResult.FAILURE;
+        }
+        return CommonResult.SUCCESS;
+    }
+    @Transactional
+    public Enum<? extends IResult> recoverPasswordSend(EmailAuthEntity emailAuth) throws MessagingException {
+        UserEntity recoverStudy = this.memberMapper.selectUserByEmail(emailAuth.getEmail());
+        if (recoverStudy == null) {
+            return CommonResult.FAILURE;
+        }
+        String authCode = RandomStringUtils.randomNumeric(6);
+        String authSalt = String.format("%s%s%f%f",
+                authCode,
+                emailAuth.getEmail(),
+                Math.random(),
+                Math.random());
+        authSalt = CryptoUtils.hashSha512(authSalt);
+        Date createdOn = new Date();
+        Date expiresOn = DateUtils.addMinutes(createdOn, 5);
+        emailAuth.setCode(authCode);
+        emailAuth.setSalt(authSalt);
+        emailAuth.setCreatedOn(createdOn);
+        emailAuth.setExpiresOn(expiresOn);
+        emailAuth.setExpired(false);
+        if (this.memberMapper.insertEmailAuth(emailAuth) == 0) {
+            return CommonResult.FAILURE;
+        }
+
+        Context context = new Context();
+        context.setVariable("email", emailAuth.getEmail());
+        context.setVariable("code", emailAuth.getCode());
+        context.setVariable("salt", emailAuth.getSalt());
+
+        String text = this.templateEngine.process("member/userPasswordResetEmail", context);
+        MimeMessage mail = this.mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mail, "UTF-8");
+        helper.setFrom("ljh525769@gmail.com");
+        helper.setTo(emailAuth.getEmail());
+        helper.setSubject("[스터디] 비밀번호 재설정 인증 링크");
+        helper.setText(text, true);
+        this.mailSender.send(mail);
+
+        return CommonResult.SUCCESS;
+    }
+
+    public Enum<? extends IResult> recoverPasswordCheck(EmailAuthEntity emailAuth) {
+        EmailAuthEntity existingEmailAuth = this.memberMapper.selectEmailAuthByIndex(emailAuth.getIndex());
+        if (existingEmailAuth == null || !existingEmailAuth.isExpired()) {
+            return CommonResult.FAILURE;
+        }
+        emailAuth.setCode(existingEmailAuth.getCode());
+        emailAuth.setSalt(existingEmailAuth.getSalt());
+        return CommonResult.SUCCESS;
+    }
+
+
+    public Enum<? extends IResult> recoverPasswordAuth(EmailAuthEntity emailAuth) {
+        EmailAuthEntity existingEmailAuth = this.memberMapper.selectEmailAuthByEmailCodeSalt(
+                emailAuth.getEmail(),
+                emailAuth.getCode(),
+                emailAuth.getSalt());
+
+        if (existingEmailAuth == null) {
+            return CommonResult.FAILURE;
+        }
+        if (new Date().compareTo(existingEmailAuth.getExpiresOn()) > 0) {
+            return CommonResult.FAILURE;
+
+        }
+        existingEmailAuth.setExpired(true);
+        if (this.memberMapper.updateEmailAuth(existingEmailAuth) == 0) {
+            return CommonResult.FAILURE;
+        }
+        return CommonResult.SUCCESS;
+    }
+
+    public Enum<? extends IResult> updatePassword(EmailAuthEntity emailAuth, UserEntity user) { //user는 이메일과 패스워드만 가지고 있다.
         EmailAuthEntity existingEmailAuth = this.memberMapper.selectEmailAuthByEmailCodeSalt(
                 emailAuth.getEmail(),
                 emailAuth.getCode(),
@@ -191,4 +270,5 @@ public class MemberService {
         }
         return CommonResult.SUCCESS;
     }
+
 }

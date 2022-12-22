@@ -708,19 +708,11 @@ input.input-text.w260px + .tooltip {
 /*    display: none;*/
 /*}*/
 
-/*.step.step2 {*/
-/*    display: none;*/
-/*}*/
-
-/*.step.step3 {*/
-/*    display: none;*/
-/*}*/
-
-/*.step.step4 {*/
-/*    display: none;*/
-/*}*/
-
-
+.step.step2,
+.step.step3,
+.step.step4 {
+    display: none;
+}
 
 
 .modal-layer .on {
@@ -881,3 +873,7 @@ body > .main > .content > .form > .warning {
 body > .main > .content > .form > .warning.visible {
     display: flex;
 }
+
+
+
+

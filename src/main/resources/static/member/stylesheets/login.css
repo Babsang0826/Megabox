@@ -11,51 +11,49 @@ body {
     color: #444;
     font-weight: 400;
     font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+    /*background: rgba(0, 0 ,0 , 5%);*/
 }
 
-.login {
-    display: block;
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-
-.loginPage {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 300px;
-    min-height: 250px;
+.loginPage{
+    padding: 40px 0 0 0;
+    width: 70%;
     margin: 0;
-    padding: 45px 0 0 0;
-    box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, .1);
-    background: #fff;
+    background: rgba(0, 0 ,0 , 0.3%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
+/*.loginPage > .title {*/
+/*    text-align: center;*/
+/*    left: 0;*/
+/*    width: 64%;*/
+/*}*/
 
-.header {
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 45px;
-    background: #503396;
-    display: block;
-}
-
-.title {
-    padding: 15px 20px 0 20px;
-    font-size: 1.2em;
+.loginPage > .container > .containers > .title > h2 {
+    font-size: 1.8666em;
+    font-weight: 500;
+    letter-spacing: -1px;
     line-height: 1.1;
-    color:#fff;
-    margin: 0;
+    color: #222;
+    /*text-align: left;*/
+    padding-left: 10px;
 }
-
 .container {
-    overflow-y: auto;
-    background-color: #fff;
-    padding: 50px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    margin: 40px 0 84px 0;
+
 }
-
-
 
 .container > .list {
     position: static;
@@ -83,7 +81,7 @@ ul {
 }
 
 .container > .list > ul > .on {
-    border: 1px solid #503396;
+
     border-bottom: 0;
 }
 
@@ -100,6 +98,15 @@ ul {
     height: 1px;
     opacity: 0;
 }
+.containers {
+    margin-top: 15px;
+
+    /*border: 1px solid #503396;*/
+    padding: 20px 20px 20px 20px;
+    /*box-shadow: 2px 2px 2px 2px rgba(0 0 0 / 10%);*/
+    background-color: white;
+
+}
 
 .containers > .loginTab > .loginMember {
     position: relative;
@@ -109,21 +116,22 @@ ul {
     padding: 0;
 }
 
-/*.containers > .loginTab > .loginMember > .member {*/
-/*    overflow: hidden;*/
-/*}*/
 
 .containers > .loginTab > .loginMember > .member > .meb {
-    float: left;
-    width: 380px;
-    height: 450px;
+    width: 470px;
+    height: 500px;
+    margin-top: 45px;
+
+    /*border: 1px solid purple;*/
+    /*padding: 120px 10px 10px 10px;*/
 }
 
 .loginInput > .input-text {
     display: block;
     width: 100%;
-    height: 46px;
-    font-size: 15px;
+    height: 55px;
+    font-size: 18px;
+    padding-left: 5px;
 }
 
 .input-text {
@@ -151,6 +159,7 @@ ul {
 .containers > .loginTab > .loginMember > .member > .meb > .chkUtil {
     overflow: hidden;
     padding: 15px 0 35px 0;
+    font-size: 18px;
 }
 
 .containers > .loginTab > .loginMember > .member > .meb > .chkUtil > .left {
@@ -174,7 +183,7 @@ label {
 .btnLogin {
     display: block;
     width: 100%;
-    height: 46px;
+    height: 60px;
     padding: 0 30px;
     border: 0;
     font-weight: 400;
@@ -206,7 +215,7 @@ label {
     vertical-align: middle;
     margin: 0 0 0 27px;
     padding: 0;
-    font-size: .9333em;
+    font-size: 16px;
     color: #666;
 }
 
