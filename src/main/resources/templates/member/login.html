@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,62 +10,69 @@
     <script defer th:src="@{/member/scripts/login.js}"></script>
 </head>
 <body>
-<section id="login" class="login" style="z-index: 501;">
-    <div class="loginPage" style="width: 850px; height: 484px; margin-left: -425px; margin-top: -242px;">
-        <header class="header">
-            <h3 class="title">로그인</h3>
-        </header>
-        <div class="container" style="height: 439px;">
-            <div class="list" style="display: none;">
-                <ul>
-                    <li class="on">
-                        <a href="#" title="회원 로그인 선택">회원 로그인</a>
-                    </li>
-                    <li>
-                        <a href="#" title="비회원 로그인 선택">비회원 로그인</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="containers">
-                <div class="loginTab" id="loginTab">
-                    <a href="#" class="ir">회원 로그인 탭 화면 입니다.</a>
-                    <a href="" class="ir" title="로그인">회원 로그인 탭 화면 입니다.</a>
-                    <div class="loginMember">
-                        <div class="member">
-                            <div class="meb">
-                                <div class="loginInput">
-                                    <input autocomplete="off" id="ibxLoginId" maxlength="20" type="text"
-                                           placeholder="아이디" title="아이디를 입력하세요" class="input-text strTrim">
-                                    <input autocomplete="off" id="ibxLoginPwd" maxlength="20" type="password"
-                                           placeholder="비밀번호" title="비밀번호를 입력하세요" class="input-text mt15">
-                                </div>
-                                <div class="alert"></div>
-                                <div class="chkUtil">
-                                    <label>
-                                        <div class="left">
-                                            <input id="chkIdSave" type="checkbox">
-                                        </div>
-                                    </label>
-                                    <label for="chkIdSave">아이디 저장</label>
-                                </div>
-                                <button id="btnLogin" type="button" class="btnLogin" disabled="disabled">로그인
-                                </button>
-                                <div class="link">
-                                    <a href="#" title="ID/PW 찾기 선택">ID/PW 찾기</a>
-                                    <a href="#" title="회원가입 선택">회원가입</a>
-                                    <a href="#" title="비회원 예매확인 선택">비회원 예매확인</a>
-                                </div>
-                                <div class="snsLink">
+<form id="form" class="form">
+    <section id="login" class="login" style="z-index: 501;">
+        <div class="loginPage" style="width: 850px; height: 465px; margin-left: -425px; margin-top: -242px;">
+            <header class="header">
+                <h3 class="title">로그인</h3>
+            </header>
+            <div class="container" style="height: 400px;">
+                <div class="list" style="display: none;">
+                    <ul>
+                        <li class="on">
+                            <a href="#" title="회원 로그인 선택">회원 로그인</a>
+                        </li>
+                        <li>
+                            <a href="#" title="비회원 로그인 선택">비회원 로그인</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="containers">
+                    <div class="loginTab" id="loginTab">
+                        <a href="#" class="ir">회원 로그인 탭 화면 입니다.</a>
+                        <a href="" class="ir" title="로그인">회원 로그인 탭 화면 입니다.</a>
+                        <div class="loginMember">
+                            <div class="member">
+                                <div class="meb">
+                                    <div class="loginInput">
+                                        <input autocomplete="off" id="ibxLoginId" maxlength="20" type="text"
+                                               name="loginId"
+                                               placeholder="아이디" title="아이디를 입력하세요" class="input-text strTrim">
+                                        <input autocomplete="off" id="ibxLoginPwd" maxlength="20" type="password"
+                                               name="pwd"
+                                               placeholder="비밀번호" title="비밀번호를 입력하세요" class="input-text mt15">
+                                    </div>
+                                    <div class="alert"></div>
+                                    <div class="chkUtil">
+                                        <label>
+                                            <div class="left">
+                                                <input id="chkIdSave" type="checkbox">
+                                            </div>
+                                        </label>
+                                        <label for="chkIdSave">아이디 저장</label>
+                                    </div>
 
+                                    <input name="login" type="submit" value="로그인" class="btnLogin">
+                                    <div class="link">
+                                        <a href="#" title="ID/PW 찾기 선택">ID/PW 찾기</a>
+                                        <a href="#" title="회원가입 선택">회원가입</a>
+                                        <a href="#" title="비회원 예매확인 선택">비회원 예매확인</a>
+                                    </div>
+                                    <div class="snsLink">
+                                        <a href="#" title="카카오톡 로그인 선택">
+                                            <img src="/resources/images/kakao.png" alt="카카오톡">
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <img src="https://img.megabox.co.kr/SharedImg/2022/12/08/ntQtE2rRF1Lh0njZZRVYLIdRQsfAErIf_420.jpg"
+                     alt="아바타: 물의 길" class="movie-poster">
             </div>
         </div>
-    </div>
-</section>
-
+    </section>
+</form>
 </body>
 </html>

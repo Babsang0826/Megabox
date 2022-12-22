@@ -324,7 +324,7 @@ table {
 
 .table-wrap {
     position: relative;
-    border-top: 1px solid #555;
+    border-top: 1px solid #d1d5dd;
 }
 
 tbody {
@@ -407,9 +407,9 @@ label > .input-text {
 }
 
 .button.disabled {
-    color: #777 !important;
-    background-color: #e0e0e0 !important;
-    border-color: #e0e0e0 !important;
+    color: #777;
+    background-color: #e0e0e0;
+    border-color: #e0e0e0;
 }
 
 
@@ -420,7 +420,7 @@ label > .input-text {
     color: #ebebeb;
     padding: 0;
     font-size: 20px;
-    border:0;
+    border: 0;
 }
 
 .btnClauAgree:hover {
@@ -444,36 +444,81 @@ label > .input-text {
 /*}*/
 
 input[type=button]:disabled {
-    width: 200px;
-    height: 46px;
+    /*width: 200px;*/
+    /*height: 46px;*/
     background-color: #e0e0e0;
     color: #ebebeb;
     padding: 0;
-    font-size: 20px;
+    /*font-size: 20px;*/
+    border: none;
 }
 
 .idOverlapping {
-    width: 75px;
+    width: 53px;
     height: 32px;
-    background-color: #e0e0e0;
-    color: #777777;
-    margin: 0 0 0 8px;
-    padding: 0 5px;
-    border:none;
+    background-color: #503396;
+    color: #e0e0e0;
+    margin: 0 0 0 4px;
+    border: none;
     border-radius: 4px;
     font-size: .9333em;
+    cursor: pointer;
     /*margin-right: 1rem;*/
 }
 
-/*.idOverlapping[disable] {*/
-/*    color: #777 !important;*/
-/*    cursor: default !important;*/
-/*    background-color: #e0e0e0 !important;*/
-/*    border-color: #e0e0e0 !important;*/
-/*}*/
+.idOverlapping:hover {
+    background-color: rgba(80, 51, 150, 0.88);
+    color: #e0e0e0;
+}
+
+.idOverlapping[disabled] {
+    background-color: #c1c1c1;
+    cursor: auto;
+}
 
 
+.findAddressButton {
+    width: 55px;
+    height: 32px;
+    background-color: #503396;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    font-size: .9333em;
+    cursor: pointer;
+}
 
+.findAddressButton:hover {
+    background-color: rgba(80, 51, 150, 0.88);
+    color: #e0e0e0;
+}
+
+
+.panel.address {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 70%);
+    display: none;
+    position: fixed;
+}
+
+.panel.address.visible {
+    display: block;
+}
+
+.dialog {
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    max-width: 30rem;
+    max-height: 40rem;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
 
 .m115 {
     margin-left: 15px !important;
@@ -548,7 +593,6 @@ input.input-text.w260px + .tooltip {
 .table-wrap > .board-form tr td .alert {
     margin-top: 5px;
     color: #e81002;
-    font-size: .9333em;
 }
 
 [type=button], button {
@@ -676,6 +720,9 @@ input.input-text.w260px + .tooltip {
 /*    display: none;*/
 /*}*/
 
+
+
+
 .modal-layer .on {
     display: block;
 }
@@ -687,7 +734,7 @@ input.input-text.w260px + .tooltip {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     z-index: 505;
     display: none;
 }
@@ -696,6 +743,15 @@ input.input-text.w260px + .tooltip {
     display: block;
 }
 
+.certifiedBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.step.step2 > .certified > .certifiedBox > span:hover {
+    color: #503396;
+}
 
 .modal-layer > .wrap {
     width: 500px;
@@ -716,9 +772,11 @@ input.input-text.w260px + .tooltip {
     position: absolute;
     top: 0;
     left: 0;
-    width:100%;
+    width: 100%;
     height: 45px;
     background: #503396;
+    display: flex;
+    justify-content: space-between;
 }
 
 .modal-layer > .wrap > .header > .title {
@@ -728,6 +786,17 @@ input.input-text.w260px + .tooltip {
     line-height: 1.1;
 }
 
+.modal-layer > .wrap > .header > i {
+    font-size: 25px;
+    color: white;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+
 .view {
     position: absolute;
     width: 500px;
@@ -736,7 +805,6 @@ input.input-text.w260px + .tooltip {
     align-items: center;
     flex-direction: column;
 }
-
 
 
 /*이메일 인증 */
@@ -754,7 +822,7 @@ input.input-text.w260px + .tooltip {
     height: 46px;
     margin-bottom: 10px;
     border: 1px solid #c1c1c1;
-    font-size:15px;
+    font-size: 15px;
 }
 
 .--object-button {
@@ -777,12 +845,8 @@ input.input-text.w260px + .tooltip {
     background-color: rgba(80, 51, 150, 0.88);
 }
 
-input[type=button]:disabled {
-    background-color: #e0e0e0;
-    color: rgba(0, 0, 0, 0.8);
-}
 
-.label.email{
+.label.email {
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -791,16 +855,14 @@ input[type=button]:disabled {
     padding-bottom: 5px;
 }
 
-.m
-
-body > .main > .content > .form > .step.step1 > .table > tbody > tr > td > .warning {
+body > .form > .container > .containerBox > .modal-layer > .wrap > .certified-container > table > tbody > tr > td > .warning {
     color: rgb(231, 76, 60);
     display: none;
     font-size: 90%;
     margin-top: 0.5rem;
 }
 
-body > .main > .content > .form > .step.step1 > .table > tbody > tr > td > .warning.visible {
+body > .form > .container > .containerBox > .modal-layer > .wrap > .certified-container > table > tbody > tr > td > .warning {
     display: block;
 }
 
