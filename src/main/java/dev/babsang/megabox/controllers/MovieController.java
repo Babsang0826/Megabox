@@ -40,13 +40,13 @@ public class MovieController {
     public ModelAndView getMovieDetail(@RequestParam(value = "mid", required = false) int mid) {
         ModelAndView modelAndView = new ModelAndView("movie/movie-detail");
 
-        if (this.movieService.getComment(mid) == null) {
+        if (this.movieService.getComments(mid) == null) {
             modelAndView.addObject("result", CommonResult.FAILURE.name());
         } else {
             modelAndView.addObject("result", CommonResult.SUCCESS.name());
             modelAndView.addObject("comment", this.movieService.getComment(mid));
-            modelAndView.addObject("mid", this.movieService.getComment(mid).getMid());
         }
+        modelAndView.addObject("mid", mid);
         return modelAndView;
     }
 
