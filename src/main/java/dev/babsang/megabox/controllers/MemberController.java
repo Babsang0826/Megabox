@@ -160,16 +160,16 @@ public class MemberController {
         return modelAndView;
     }
 
-//    @RequestMapping(value = "userPasswordReset",
-//            method = RequestMethod.PATCH,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public String patchRecoverPassword(EmailAuthEntity emailAuth, UserEntity user) {
-//        Enum<?> result = this.memberService.recoverPassword(emailAuth, user);
-//        JSONObject responseObject = new JSONObject();
-//        responseObject.put("result", result.name().toLowerCase());
-//        responseObject.put("id", user.getId());
-//        return responseObject.toString();
-//    }
+    @RequestMapping(value = "userPasswordReset",
+    method = RequestMethod.POST,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postUserPasswordReset(UserEntity user) {
+        Enum<? extends IResult> result = this.memberService.recoverPassword(user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
 
   }
