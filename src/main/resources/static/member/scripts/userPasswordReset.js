@@ -49,7 +49,6 @@ form['emailSend'].addEventListener('click', () => {
                         alert("입력하신 이메일로 인증을 진행할 수 잇는 링크를 전송하였습니다." +
                             " 해당 링크 확인 후 해당 페이지로 돌아와 주세요.");
                         emailAuthIndex = responseObject['index'];
-                        form['email'].value = responseObject['email'];
                         form['email'].setAttribute('disabled', 'disabled');
                         form['emailSend'].setAttribute('disabled', 'disabled');
                         form['password'].removeAttribute('disabled');
