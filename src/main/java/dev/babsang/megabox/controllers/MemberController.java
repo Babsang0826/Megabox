@@ -150,10 +150,11 @@ public class MemberController {
             responseObject.put("password", user.getPassword());
             responseObject.put("name", user.getName());
             responseObject.put("id", user.getId());
+            responseObject.put("email", user.getEmail());
         }
         return responseObject.toString();
     }
-
+// 비밀번호 재설정 페이지
     @RequestMapping(value = "userPasswordReset", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getUserPasswordReset() {
         ModelAndView modelAndView = new ModelAndView("member/userPasswordReset");
@@ -164,10 +165,52 @@ public class MemberController {
     method = RequestMethod.POST,
     produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postUserPasswordReset(UserEntity user) {
-        Enum<? extends IResult> result = this.memberService.recoverPassword(user);
+    public String postUserPasswordReset(EmailAuthEntity emailAuth) throws MessagingException{
+        Enum<? extends IResult> result = this.memberService.recoverPasswordSend(emailAuth);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
+        if(result == CommonResult.SUCCESS) {
+            responseObject.put("index", emailAuth.getIndex());
+        }
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "recoverPasswordEmail",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    @ResponseBody
+    public ModelAndView getRecoverPasswordEmail(EmailAuthEntity emailAuth) {
+        Enum<?> result = this.memberService.recoverPasswordAuth(emailAuth);
+        ModelAndView modelAndView = new ModelAndView("member/recoverPasswordEmail");
+        modelAndView.addObject("result", result.name());
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "recoverPasswordEmail",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postRecoverPasswordEmail(EmailAuthEntity emailAuth) {
+        Enum<?> result = this.memberService.recoverPasswordCheck(emailAuth);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        if (result == CommonResult.SUCCESS) {
+            responseObject.put("code", emailAuth.getCode());
+            responseObject.put("salt", emailAuth.getSalt());
+        }
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "userPasswordReset",
+            method = RequestMethod.PATCH,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchRecoverPassword(EmailAuthEntity emailAuth, UserEntity user) {
+        Enum<?> result = this.memberService.updatePassword(emailAuth, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+
         return responseObject.toString();
     }
 

@@ -35,5 +35,8 @@ public interface IMemberMapper {
                                                  @Param(value = "contact") String contact,
                                                  @Param(value = "email") String email);
 
+    EmailAuthEntity selectEmailAuthByIndex(@Param(value = "index")int index);
+
+
     int updateUser(UserEntity user);
 }

@@ -189,6 +189,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     background-repeat: no-repeat;
     background-size: 1.5rem;
 }
+/**/
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box > span {
     margin-left: 1rem;
