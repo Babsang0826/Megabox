@@ -187,11 +187,10 @@ label {
     padding: 0 30px;
     border: 0;
     font-weight: 400;
-    font-size: 15px;
     background-color: #503396;
     color: #c1c1c1;
     cursor: pointer;
-
+    font-size: 20px;
 }
 
 .btnLogin:hover {

@@ -8,6 +8,8 @@
     <title>login</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
     <link rel="stylesheet" th:href="@{/member/stylesheets/login.css}">
+    <script type="text/javascript"
+            src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=94a12e6ae62af8fbc88e09e7433d6c08"></script>
     <script defer th:src="@{/member/scripts/login.js}"></script>
 </head>
 <body>
@@ -55,10 +57,19 @@
                                             <a href="#" title="비회원 예매확인 선택">비회원 예매확인</a>
                                         </div>
                                         <div class="snsLink">
-                                            <a href="#" title="카카오톡 로그인 선택">
+                                            <a href="https://kauth.kakao.com/oauth/authorize?client_id=ab3e0e3a866959cb53f8a5d683ad4cd7&redirect_uri=http://localhost:8080/member/kakao&response_type=code" title="카카오톡 로그인 선택"
+                                            target="_blank" class="button" id="loginButton">
                                                 <img src="/resources/images/kakao.png" alt="카카오톡">
                                             </a>
                                         </div>
+
+<!--                                        <div class="button-container">-->
+<!--                                            <a href="https://kauth.kakao.com/oauth/authorize?client_id=137cbbb98ac38f2199a20dd210d752d8&redirect_uri=http://localhost:8080/member/kakao&response_type=code"-->
+<!--                                               target="_blank" class="button" id="loginButton" th:if="${session.user == null}">로그인</a>-->
+<!--                                            <a class="button" id="logoutButton"-->
+<!--                                               th:href="@{'/member/logout'}"-->
+<!--                                               th:if="${session.user != null}">로그아웃</a>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>

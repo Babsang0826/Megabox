@@ -1,9 +1,9 @@
 package dev.babsang.megabox.services;
 
 import dev.babsang.megabox.entities.member.EmailAuthEntity;
+import dev.babsang.megabox.entities.member.KakaoUserEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.enums.CommonResult;
-import dev.babsang.megabox.enums.member.RegisterResult;
 import dev.babsang.megabox.enums.member.SendEmailAuthResult;
 import dev.babsang.megabox.enums.member.VerifyEmailAuthResult;
 import dev.babsang.megabox.enums.member.idResult;
@@ -12,6 +12,7 @@ import dev.babsang.megabox.mappers.IMemberMapper;
 import dev.babsang.megabox.utils.CryptoUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -22,6 +23,9 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -180,6 +184,7 @@ public class MemberService {
         }
         return CommonResult.SUCCESS;
     }
+
     @Transactional
     public Enum<? extends IResult> recoverPasswordSend(EmailAuthEntity emailAuth) throws MessagingException {
         UserEntity recoverStudy = this.memberMapper.selectUserByEmail(emailAuth.getEmail());
@@ -271,4 +276,67 @@ public class MemberService {
         return CommonResult.SUCCESS;
     }
 
+
+    public String getKakaoAccessToken(String code) throws IOException {
+        URL url = new URL("https://kauth.kakao.com/oauth/token");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+        int responseCode;
+        try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream())) {
+            try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
+                StringBuilder requestBuilder = new StringBuilder();
+                requestBuilder.append("grant_type=authorization_code");
+                requestBuilder.append("&client_id=ab3e0e3a866959cb53f8a5d683ad4cd7");
+                requestBuilder.append("&redirect_uri=http://localhost:8080/member/kakao");
+                requestBuilder.append("&code=").append(code);
+                bufferedWriter.write(requestBuilder.toString());
+                bufferedWriter.flush();
+                responseCode = connection.getResponseCode();
+            }
+            System.out.println("응답 코드 : " + responseCode);
+        }
+        StringBuilder responseBuilder = new StringBuilder();
+        try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream())) {
+            try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    responseBuilder.append(line);
+                }
+            }
+            System.out.println("응답 내용 :" + responseBuilder);
+        }
+        JSONObject responseObject = new JSONObject(responseBuilder.toString());
+        return responseObject.getString("access_token");
+    }
+
+    public KakaoUserEntity getKakaoUserInfo(String accessToken) throws IOException {
+        URL url = new URL("https://kapi.kakao.com/v2/user/me");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestProperty("Authorization", String.format("Bearer %s", accessToken));
+        connection.setRequestMethod("GET");
+        int responseCode = connection.getResponseCode();
+        StringBuilder responseBuilder = new StringBuilder();
+        try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream())) {
+            try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    responseBuilder.append(line);
+                }
+            }
+        }
+        System.out.println("응답 내용 : " + responseBuilder);
+        JSONObject responseObject = new JSONObject(responseBuilder.toString());
+        JSONObject propertyObject = responseObject.getJSONObject("properties");
+        String id = String.valueOf(responseObject.getLong("id"));
+        KakaoUserEntity user = this.memberMapper.selectKakaoUserById(id);
+        if (user == null) {
+            user = new KakaoUserEntity();
+            user.setId(id);
+            user.setNickname(propertyObject.getString("nickname"));
+
+            this.memberMapper.insertKakaoUser(user);
+        }
+        return user;
+    }
 }
