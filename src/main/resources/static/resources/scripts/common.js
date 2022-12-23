@@ -1,6 +1,6 @@
 const searchIcon = window.document.getElementById('searchIcon');
 const searchBar = window.document.getElementById('searchBar');
-
+//
 const reservButton = window.document.getElementById('reservation');
 const sortByOrderButton = window.document.getElementById('sortByOrder');
 
