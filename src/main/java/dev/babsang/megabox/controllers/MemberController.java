@@ -1,6 +1,7 @@
 package dev.babsang.megabox.controllers;
 
 import dev.babsang.megabox.entities.member.EmailAuthEntity;
+import dev.babsang.megabox.entities.member.KakaoUserEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.interfaces.IResult;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 
@@ -214,5 +216,33 @@ public class MemberController {
         return responseObject.toString();
     }
 
+    @GetMapping(value = "kakao", produces = MediaType.TEXT_HTML_VALUE)
+    @ResponseBody
+    public ModelAndView getKakao(@RequestParam(value = "code") String code,
+                                 @RequestParam(value = "error", required = false) String error,
+                                 @RequestParam(value = "error_description", required = false) String errorDescription,
+                                 HttpSession session) throws IOException {
+        String accessToken = this.memberService.getKakaoAccessToken(code);
+        KakaoUserEntity user = this.memberService.getKakaoUserInfo(accessToken);
+
+        session.setAttribute("user", user);
+        return new ModelAndView("member/kakao");
+    }
+
+    @GetMapping(value = "logout")
+    public ModelAndView getLogOut(HttpSession session) {
+        session.setAttribute("user", null);
+        session.invalidate();
+        return new ModelAndView("redirect:/");
+    }
+
+//    @RequestMapping(value = "logout",
+//            method = RequestMethod.GET,
+//            produces = MediaType.TEXT_HTML_VALUE)
+//    public ModelAndView getLogout(HttpSession session) {
+//        session.setAttribute("user", null);
+//        ModelAndView modelAndView = new ModelAndView("redirect:login");
+//        return modelAndView;
+//    }
 
   }

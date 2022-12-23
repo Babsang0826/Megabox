@@ -1,6 +1,7 @@
 package dev.babsang.megabox.mappers;
 
 import dev.babsang.megabox.entities.member.EmailAuthEntity;
+import dev.babsang.megabox.entities.member.KakaoUserEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -13,6 +14,8 @@ public interface IMemberMapper {
     UserEntity selectUserByEmail(@Param(value = "email") String email);
 
     UserEntity selectUserById(@Param(value = "id") String id);
+    KakaoUserEntity selectKakaoUserById(@Param(value = "id") String id);
+    int insertKakaoUser(KakaoUserEntity user);
 
     EmailAuthEntity selectEmailAuthByEmailCodeSalt(@Param(value = "email") String email,
                                                    @Param(value = "code") String code,

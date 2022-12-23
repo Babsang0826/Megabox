@@ -80,6 +80,24 @@
         LIMIT 1
     </select>
 
+    <select id="selectKakaoUserById"
+            resultType="dev.babsang.megabox.entities.member.KakaoUserEntity">
+        SELECT `id`            AS `id`,
+               `nickname`      AS `nickname`,
+               `registered_on` AS `registeredOn`
+        FROM `mg_member`.`kakao_user`
+        WHERE `id` = #{id}
+        LIMIT 1
+    </select>
+
+    <insert id="insertKakaoUser"
+            parameterType="dev.babsang.megabox.entities.member.KakaoUserEntity">
+        INSERT INTO `mg_member`.`kakao_user` (`id`, `nickname`, `registered_on`)
+        VALUES (#{id},
+                #{nickname},
+                IFNULL(#{registeredOn}, DEFAULT(`registered_on`)))
+    </insert>
+
 
     <insert id="insertUser"
             parameterType="dev.babsang.megabox.entities.member.UserEntity">
