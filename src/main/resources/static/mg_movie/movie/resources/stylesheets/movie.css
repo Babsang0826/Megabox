@@ -302,7 +302,7 @@ html > body {
 .contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster > .summary {
     overflow: hidden;
     height: 9.5rem;
-    font-size: 0.9em;
+    font-size: 1em;
 }
 
 .contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster > .score {
