@@ -13,17 +13,19 @@
     <div class="container">
         <div class="contents" id="contents">
             <div class="movie-detail" id="movieDetail">
-                <div class="bg-img"></div>
+                <div class="bg-img">
+                    <img th:src="${movie.getBackgroundImage()}" alt="background">
+                </div>
                 <div class="bg-patten"></div>
                 <div class="bg-mask"></div>
                 <div class="detail-content">
-                    <p class="title">올빼미</p>
-                    <p class="title-en">the night owl</p>
+                    <p class="title" th:text="${movie.getTitle()}">올빼미</p>
+                    <p class="title-en" th:text="${movie.getTitleEn()}">the night owl</p>
                     <div class="info">
                         <div class="score-container">
                             <p class="title">실관람 평점</p>
                             <div class="score-div">
-                                <p class="score"><em>9.2</em></p>
+                                <p class="score"><em th:text="${scoreAvg}">9.2</em></p>
                             </div>
                         </div>
                         <div class="rate">
@@ -37,9 +39,9 @@
                     </div>
                     <div class="poster">
                         <div class="wrap">
-                            <p class="grade age15"></p>
-                            <img src="https://img.megabox.co.kr/SharedImg/2022/11/24/xFO8r2xbXzxoMD9iXbuKC1n5Bo79InhQ_420.jpg"
-                                 alt="올빼미">
+                            <p class="grade" th:class="${movie.getAgeLimit()}"></p>
+                            <img th:src="${movie.getMoviePoster()}" src=""
+                                 alt="poster">
                         </div>
                     </div>
                     <div class="book">
@@ -63,7 +65,7 @@
                         </ul>
                     </div>
                     <div class="movie-summary" rel="movieSummary">
-                        <div class="txt">
+                        <div class="txt" id="summary">
                             맹인이지만 뛰어난 침술 실력을 지닌 ‘경수’는<br>어의 ‘이형익’에게 그 재주를 인정받아 궁으로 들어간다.<br>그 무렵, 청에 인질로 끌려갔던 ‘소현세자’가 8년
                             만에
                             귀국하고,<br>‘인조’는 아들을 향한 반가움도 잠시 정체 모를 불안감에 휩싸인다.<br>그러던 어느 밤, 어둠 속에서는 희미하게 볼 수 있는 ‘경수’가<br>‘소현세자’의
@@ -79,12 +81,18 @@
                         </div>
                     </div>
                     <div class="movie-info">
-                        <p>상영타입 : 2D</p>
+                        <p>상영타입 :&nbsp;</p>
+                        <p class="value" th:text="${movie.getScreenType()}">2D</p>
                         <div class="line">
-                            <p>감독 : 안태진</p>
-                            <p>장르 : 스릴러/118분</p>
-                            <p>등급 : 15세이상관람가</p>
-                            <p>개봉일 : 2022.11.23</p>
+                            <p>감독 :&nbsp;</p>
+                            <p class="value" th:text="${movie.getDirector()}">안태진</p>
+                            <p>장르 :&nbsp;</p>
+                            <p class="value" th:text="${movie.getGenre()}">스릴러/118분</p>
+                            <p>등급 :&nbsp;</p>
+<!--                            <p class="value" th:text="${movie.getAgeLimit()}">15세이상관람가</p>-->
+                            <p class="value" th:if="${movie.getAgeLimit() == 'age15' }">15세이상관람가</p>
+                            <p>개봉일 :&nbsp;</p>
+                            <p class="value" th:text="${releaseDate}">2022.11.23</p>
                         </div>
                         <p>출연진 : 류준열, 유해진, 최무성, 조성하, 박명훈, 김성철, 안은진, 조윤서</p>
                     </div>
@@ -95,7 +103,7 @@
                             </dl>
                             <div class="score">
                                 <div class="circle">
-                                    <em>9.2</em>
+                                    <em th:text="${scoreAvg}">9.2</em>
                                 </div>
                             </div>
                             <dl>
@@ -120,8 +128,8 @@
                     </div>
                     <div class="comment-info">
                         <h2 class="comment-info-title">
-                            올빼미에 대한
-                            <span class="comment-cnt">10,906</span>
+                            <p th:text="${movie.getTitle()}">올빼미</p>에 대한&nbsp;
+                            <span class="comment-cnt" th:text="${commentCnt}">10,906</span>
                             개의 이야기가 있어요!
                         </h2>
                     </div>
@@ -140,7 +148,7 @@
                                         <div class="text-box">
                                             <div class="text-wrap">
                                                 <div class="text-content">
-                                                    <span>올빼미</span>
+                                                    <span th:text="${movie.getTitle()}">올빼미</span>
                                                     재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
                                                 </div>
                                                 <div class="text-write" rel="textWrite">
@@ -154,7 +162,7 @@
                                     </div>
                                 </li>
                                 <!--                            작성 폼-->
-                                <li class="text-form write-form" rel="writeForm" >
+                                <li class="text-form write-form" rel="writeForm">
                                     <form class="text-area" id="writeForm">
                                         <input type="hidden" th:value="${mid}" name="mid">
                                         <div class="user-profile">
@@ -162,7 +170,7 @@
                                                 <img src="https://www.megabox.co.kr/static/pc/images/mypage/bg-photo.png"
                                                      alt="프로필 사진" title="프로필 사진">
                                             </div>
-                                            <p class="user-id">choi43**</p>
+                                            <p class="user-id">choi4349</p>
                                         </div>
                                         <div class="text-box">
                                             <div class="text-wrap review">
@@ -215,12 +223,14 @@
                                                     <div class="text-story">
                                                         <label>
                                                         <textarea type="text"
-                                                                  placeholder="&#13;&#10;한줄평을 작성해주세요." name="content"></textarea>
+                                                                  placeholder="&#13;&#10;한줄평을 작성해주세요."
+                                                                  name="content"></textarea>
                                                         </label>
                                                     </div>
                                                 </div>
                                                 <div class="text-write">
-                                                    <input type="submit" class="write-btn submit" rel="writeBtn" value="작성">
+                                                    <input type="submit" class="write-btn submit" rel="writeBtn"
+                                                           value="작성">
                                                 </div>
                                             </div>
                                         </div>

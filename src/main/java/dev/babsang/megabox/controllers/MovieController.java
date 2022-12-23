@@ -2,6 +2,7 @@ package dev.babsang.megabox.controllers;
 
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.MovieCommentEntity;
+import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.services.MovieService;
 import org.json.JSONArray;
@@ -40,11 +41,27 @@ public class MovieController {
     public ModelAndView getMovieDetail(@RequestParam(value = "mid", required = false) int mid) {
         ModelAndView modelAndView = new ModelAndView("movie/movie-detail");
 
-        if (this.movieService.getComments(mid) == null) {
+        MovieCommentEntity[] comments = this.movieService.getComments(mid);
+        MovieEntity movie = this.movieService.getMovie(mid);
+        if (comments == null) {
             modelAndView.addObject("result", CommonResult.FAILURE.name());
         } else {
             modelAndView.addObject("result", CommonResult.SUCCESS.name());
-            modelAndView.addObject("comment", this.movieService.getComment(mid));
+//            modelAndView.addObject("comment",comments);
+            modelAndView.addObject("comment",this.movieService.getComment(mid));
+            modelAndView.addObject("movie",movie);
+            modelAndView.addObject("releaseDate",new SimpleDateFormat("yyyy-MM-dd").format(movie.getReleaseDate()));
+            double sum = 0D;
+            int cnt = 0;
+            for (MovieCommentEntity comment : comments) {
+                sum += comment.getScore();
+                cnt++;
+            }
+            sum /= comments.length;
+            sum = Math.round(sum*10) / 10.0;
+            modelAndView.addObject("scoreAvg", sum);
+            modelAndView.addObject("commentCnt", cnt);
+
         }
         modelAndView.addObject("mid", mid);
         return modelAndView;
@@ -90,7 +107,7 @@ public class MovieController {
             commentObject.put("score", comment.getScore());
             commentObject.put("content", comment.getContent());
             commentObject.put("recommendPoint", comment.getRecommendPoint());
-            commentObject.put("writtenOn", new SimpleDateFormat("HH:mm:ss").format(comment.getWrittenOn()));
+            commentObject.put("writtenOn", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(comment.getWrittenOn()));
             responseArray.put(commentObject);
         }
 

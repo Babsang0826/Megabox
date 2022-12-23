@@ -3,6 +3,11 @@ window.onscroll = function () {
     scrollFunction()
 };
 
+let date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // utc 표준시 도출
+let kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+let today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+
 function scrollFunction() {
     if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
         document.getElementById('movieDetail').classList.add('fixed');
@@ -35,12 +40,12 @@ const changeValue = (target) => {
 
 }
 
-
 //한줄평
 const writeForm = window.document.getElementById('writeForm');
 const commentContainer = window.document.getElementById('commentContainer');
 
 const loadComments = (commentObject) => {
+
     commentContainer.innerHTML = '';
     const url = new URL(window.location.href);
     const searchParams = url.searchParams;
@@ -50,8 +55,33 @@ const loadComments = (commentObject) => {
     xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status >= 200 && xhr.status < 300) {
+                const responseArray = JSON.parse(xhr.responseText);
+                //작성 시간 함수
+                function writtenTime(commentObject) {
+                    const today = new Date();
+                    const timeValue = new Date(`${commentObject['writtenOn']}`);
+
+                    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+                    if (betweenTime < 1) {
+                        return '방금전';
+                    }
+                    if (betweenTime < 60) {
+                        return `${betweenTime}분전`;
+                    }
+
+                    const betweenTimeHour = Math.floor(betweenTime / 60);
+                    if (betweenTimeHour < 24) {
+                        return `${betweenTimeHour}시간전`;
+                    }
+
+                    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+                    if (betweenTimeDay < 365) {
+                        return `${betweenTimeDay}일전`;
+                    }
+
+                    return `${Math.floor(betweenTimeDay / 365)}년전`;
+                }
                 const appendComment = (commentObject) => {
-                    console.log(commentObject['userId']);
                     const commentHtmlText = `
                         <div class="comment-container" rel="commentContainer">
                             <li class="text-form" rel="textForm">
@@ -61,7 +91,7 @@ const loadComments = (commentObject) => {
                                             <img src="https://www.megabox.co.kr/static/pc/images/mypage/bg-photo.png"
                                                  alt="프로필 사진" title="프로필 사진">
                                         </div>
-                                        <p class="user-id">${commentObject['userId']}</p>
+                                        <p class="user-id">${commentObject['userId'].replace(/.{2}$/, "**")}</p>
                                     </div>
                                     <div class="text-box">
                                         <div class="text-wrap review">
@@ -83,7 +113,8 @@ const loadComments = (commentObject) => {
                                 </div>
                                 <div class="story-date">
                                     <div class="written-on">
-                                        <span>${commentObject['writtenOn']}</span>
+<!--                                        <span>${commentObject['writtenOn']}</span>-->
+                                        <span>${writtenTime(commentObject)}</span>
                                     </div>
                                 </div>
                             </li>
@@ -96,10 +127,13 @@ const loadComments = (commentObject) => {
 
                     commentContainer.append(textElement);
                 }
-                const responseArray = JSON.parse(xhr.responseText);
+                // const responseArray = JSON.parse(xhr.responseText);
+
                 for (let commentObject of responseArray) {
                     appendComment(commentObject);
                 }
+
+
             } else {
 
             }

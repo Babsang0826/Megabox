@@ -5,16 +5,18 @@
 <mapper namespace="dev.babsang.megabox.mappers.IMovieMapper">
 
     <select id="selectMovieCommentByMid"
-    resultType="dev.babsang.megabox.entities.movie.MovieCommentEntity">
+            resultType="dev.babsang.megabox.vos.movie.MovieCommentVo">
         select `index`         as `index`,
                user_id         as userId,
                movie_index     as mid,
                score           as score,
                recommend_point as recommendPoint,
                content         as content,
-               written_on      as writtenOn
+               written_on      as writtenOn,
+               count(`index`)  as commentCnt
         from mg_movie.movie_comment
         where movie_index = #{mid}
+        group by `index`
         limit 1
     </select>
 
@@ -29,6 +31,27 @@
                written_on      as writtenOn
         from mg_movie.movie_comment
         where movie_index = #{mid}
+    </select>
+
+    <select id="selectMovieByIndex" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
+        select `index`          as `index`,
+               title            as title,
+               title_en         as titleEn,
+               release_date     as releaseDate,
+               end_date         as endDate,
+               summary          as summary,
+               age_limit        as ageLimit,
+               movie_state      as movieState,
+               genre            as genre,
+               director         as director,
+               actor            as actor,
+               running_time     as runnungTime,
+               total_audience   as totalAudience,
+               screen_type      as screenType,
+               movie_poster     as moviePoster,
+               background_image as backgroundImage
+        from mg_movie.movies
+        where `index` = #{mid}
     </select>
 
     <insert id="insertComment"
