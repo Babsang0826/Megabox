@@ -14,4 +14,6 @@ public class ReservationController {
         ModelAndView modelAndView = new ModelAndView("reservation/fast-reservation");
         return modelAndView;
     }
+
+
 }

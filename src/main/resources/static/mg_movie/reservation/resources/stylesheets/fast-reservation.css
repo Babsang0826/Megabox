@@ -92,6 +92,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     height: 100%;
     width: 4.35rem;
     cursor: pointer;
+    background-color: rgb(255, 255, 255);
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .time-schedule > .time-list > .time-box > .day.on {
@@ -194,6 +195,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     align-items: center;
     justify-content: center;
 }
+
 /**/
 
 /**/
@@ -335,6 +337,10 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     overflow: auto;
 }
 
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > li {
+    cursor: pointer;
+}
+
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .seoul-city,
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gyeonggi-city,
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .incheon-city,
@@ -380,8 +386,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .daejeon-city.on > .daejeon.on,
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gyeongsang-city.on > .gyeongsang.on,
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .jeonla-city.on > .jeonla.on,
-body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gangwon-city.on > .gangwon.on
-{
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gangwon-city.on > .gangwon.on {
     background-color: rgb(102, 102, 102);
 }
 
@@ -536,7 +541,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     display: flex;
     padding: 1rem 1rem;
     font-weight: 400;
-    color: rgba(0,0,0,.64);
+    color: rgba(0, 0, 0, .64);
 }
 
 .swal-footer {

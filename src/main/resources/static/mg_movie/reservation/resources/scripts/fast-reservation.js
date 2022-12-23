@@ -23,14 +23,16 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
     let week = new Date(date.setDate(i)).getDay();
     let thisWeek = WEEKDAY[week];
-    if (i === currentDay) {
-        timeBox.innerHTML = timeBox.innerHTML + '<div class="day current" style="background-color: rgb(0,0,0,10%)">' + i + '•' + thisWeek + '</div>';
-    }
+    // if (i === currentDay) {
+    //     timeBox.innerHTML = timeBox.innerHTML + '<div class="day current" style="background-color: rgb(0,0,0,10%)">' + i + '•' + thisWeek + '</div>';
+    // }
     if (thisWeek === '일') {
         timeBox.innerHTML = timeBox.innerHTML + '<div class="day current" style="color: red">' + i + '•' + thisWeek + '</div>';
     } else if (thisWeek === '토') {
         timeBox.innerHTML = timeBox.innerHTML + '<div class="day current" style="color: blue">' + i + '•' + thisWeek + '</div>';
     } else if (thisWeek !== '토' && thisWeek !== '일' && i !== currentDay) {
+        timeBox.innerHTML = timeBox.innerHTML + '<div class="day current">' + i + '•' + thisWeek + '</div>';
+    } else {
         timeBox.innerHTML = timeBox.innerHTML + '<div class="day current">' + i + '•' + thisWeek + '</div>';
     }
 }
@@ -84,20 +86,28 @@ function moveSlide(num) {
 }
 
 const movieDay = window.document.querySelectorAll('.day');
-console.log(movieDay);
 
+// day 클릭 로직
 for (let i = 0; i < movieDay.length; i++) {
-    let count = 0;
+    movieDay[0].style.backgroundColor = 'rgb(235,235,235)';
     movieDay[i].addEventListener('click', () => {
-        movieDay[i].classList.toggle('on');
-        if (movieDay[i].classList.contains('on')) {
-            count =1 ;
-        }
-        if (count > 1) {
+        movieDay[0].style.backgroundColor = 'rgb(255, 255, 255)';
+        if(movieDay[i].classList[0] === 'on') {
             movieDay[i].classList.remove('on');
+        }else {
+            for(let i = 0; i < movieDay.length; i++) {
+                movieDay[i].classList.remove('on');
+            }
+            movieDay[i].classList.add('on');
         }
+        movieDay[0].addEventListener('click', () => {
+            movieDay[0].style.backgroundColor = 'rgb(235, 235, 235)';
+        })
     });
 }
+
+
+
 
 const regionSeoul = window.document.querySelector('.region-seoul');
 const regionGyeonggi = window.document.querySelector('.region-gyeonggi');
