@@ -3,22 +3,19 @@ window.onscroll = function () {
     scrollFunction()
 };
 
-let date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // utc 표준시 도출
-let kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-let today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-
 function scrollFunction() {
     if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+        document.getElementById('pageUtil').classList.add('fixed');
         document.getElementById('movieDetail').classList.add('fixed');
         document.getElementById('tabList').classList.add('fixed');
         document.getElementById('contentData').classList.add('fixed');
     } else {
+        document.getElementById('pageUtil').classList.remove('fixed');
         document.getElementById('movieDetail').classList.remove('fixed')
         document.getElementById('tabList').classList.remove('fixed')
         document.getElementById('contentData').classList.remove('fixed');
     }
-}
+};
 
 // 더보기 클릭 시
 const contents = window.document.getElementById('contents');
@@ -34,6 +31,34 @@ contents.querySelector('[rel="textWrite"]').addEventListener('click', () => {
 
 contents.querySelector('[rel="commentClose"]').addEventListener('click', () => {
     contents.querySelector('[rel="writeForm"]').classList.remove('on');
+});
+
+//탭메뉴 스크롤 이동
+const mainInfoLi = contents.querySelector('[rel="mainInfoLi"]');
+const commentScoreLi = contents.querySelector('[rel="commentScoreLi"]');
+const moviePostLi = contents.querySelector('[rel="moviePostLi"]');
+//주요정보
+mainInfoLi.addEventListener('click', () => {
+    moviePostLi.classList.remove('on');
+    commentScoreLi.classList.remove('on');
+    mainInfoLi.classList.add('on');
+    let location = contents.querySelector('.movie-summary').offsetTop -160;
+    window.scrollTo({top: location, behavior: 'smooth'});
+});
+
+//실관람평
+commentScoreLi.addEventListener('click', () => {
+    moviePostLi.classList.remove('on');
+    mainInfoLi.classList.remove('on');
+    commentScoreLi.classList.add('on');
+    let location = contents.querySelector('.comment-info').offsetTop -130;
+    window.scrollTo({top: location, behavior: 'smooth'});
+});
+//무비포스트
+moviePostLi.addEventListener('click', () => {
+    mainInfoLi.classList.remove('on');
+    commentScoreLi.classList.remove('on');
+    moviePostLi.classList.add('on');
 });
 
 const changeValue = (target) => {
@@ -56,6 +81,7 @@ const loadComments = (commentObject) => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const responseArray = JSON.parse(xhr.responseText);
+
                 //작성 시간 함수
                 function writtenTime(commentObject) {
                     const today = new Date();
@@ -81,6 +107,7 @@ const loadComments = (commentObject) => {
 
                     return `${Math.floor(betweenTimeDay / 365)}년전`;
                 }
+
                 const appendComment = (commentObject) => {
                     const commentHtmlText = `
                         <div class="comment-container" rel="commentContainer">

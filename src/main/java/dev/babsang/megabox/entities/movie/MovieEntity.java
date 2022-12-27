@@ -16,10 +16,45 @@ public class MovieEntity {
     private String director;
     private String actor;
     private int runningTime;
-    private int totalAudience;
     private String screenType;
     private String moviePoster;
     private String backgroundImage;
+    private int adultPrice;
+    private int teenagerPrice;
+    private int etcPrice;
+    private double scoreAvg;
+
+    public double getScoreAvg() {
+        return scoreAvg;
+    }
+
+    public void setScoreAvg(double scoreAvg) {
+        this.scoreAvg = scoreAvg;
+    }
+
+    public int getAdultPrice() {
+        return adultPrice;
+    }
+
+    public void setAdultPrice(int adultPrice) {
+        this.adultPrice = adultPrice;
+    }
+
+    public int getTeenagerPrice() {
+        return teenagerPrice;
+    }
+
+    public void setTeenagerPrice(int teenagerPrice) {
+        this.teenagerPrice = teenagerPrice;
+    }
+
+    public int getEtcPrice() {
+        return etcPrice;
+    }
+
+    public void setEtcPrice(int etcPrice) {
+        this.etcPrice = etcPrice;
+    }
 
     public Date getEndDate() {
         return endDate;
@@ -123,14 +158,6 @@ public class MovieEntity {
 
     public void setRunningTime(int runningTime) {
         this.runningTime = runningTime;
-    }
-
-    public int getTotalAudience() {
-        return totalAudience;
-    }
-
-    public void setTotalAudience(int totalAudience) {
-        this.totalAudience = totalAudience;
     }
 
     public String getScreenType() {
