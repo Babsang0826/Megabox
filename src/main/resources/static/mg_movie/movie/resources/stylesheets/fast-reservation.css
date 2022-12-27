@@ -161,8 +161,8 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     width: 100%;
     height: 20rem;
     margin-top: 1rem;
-    overflow: auto;
     cursor: pointer;
+    overflow: hidden;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect::-webkit-scrollbar {
@@ -183,26 +183,36 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box > div {
     width: 2rem;
     height: 2.5rem;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box {
-    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
+    /*background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);*/
     background-repeat: no-repeat;
     background-size: 1.5rem;
     background-position: left;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    height: 2rem;
+    width: 20rem;
 }
 
-/**/
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box.on {
+    background-color: rgb(85, 85, 85);
+}
 
-/**/
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box.on > span {
+    color: rgb(255, 255, 255);
+}
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box > span {
-    margin-left: 1rem;
+    margin-left: 0.3rem;
     font-size: 0.8rem;
+    color: black;
+    width: 11rem;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-content {
@@ -222,6 +232,12 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     align-items: center;
     justify-content: center;
     border: 0.0625rem solid rgb(235, 235, 235);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-content > span > .content-image {
+    width: 3rem;
+    height: 3rem;
+    background-color: #e81002;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box {
@@ -388,6 +404,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .jeonla-city.on > .jeonla.on,
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city > .gangwon-city.on > .gangwon.on {
     background-color: rgb(102, 102, 102);
+    color: rgb(255, 255, 255);
 }
 
 
@@ -416,7 +433,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time {
-    width: 26rem;
+    width: 28.3rem;
     height: 32.5rem;
 }
 
@@ -426,10 +443,12 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     align-items: center;
     justify-content: center;
     margin-top: 1rem;
+    border-top: 0.0625rem solid rgb(235, 235, 235);
+    border-bottom: 0.0625rem solid rgb(235, 235, 235);
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title {
-    width: 26rem;
+    width: 28rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -461,7 +480,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .quick-time-title > .empty-box {
-    flex: 1;
+    flex: 0.9;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box > .time-container {
@@ -496,13 +515,29 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time {
-    width: 100%;
-    height: 100%;
+    width: 28.4rem;
+    height: 28rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    overflow: auto;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time::-webkit-scrollbar-thumb {
+    height: 30%;
+    background-color: rgba(0, 0, 0, 70%);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time::-webkit-scrollbar {
+    width: 0.4rem;
+    background-color: rgb(85, 85, 85);
+    border-radius: 0.1rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time::-webkit-scrollbar-track {
+    background-color: rgb(235, 235, 235);
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .icon {
@@ -513,6 +548,117 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > span {
     margin-top: 0.5rem;
     font-size: 0.95rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover {
+    display: none;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 27.3rem;
+    height: 0;
+    margin-bottom: 4rem;
+    border-bottom: 0.0625rem solid rgb(235, 235, 235);
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box:hover {
+    background-color: rgb(225, 225, 225);
+    cursor: pointer;
+}
+
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box {
+    width: 100%;
+    height: 4.1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-time {
+    width: 6rem;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-time > .time-icon {
+    width: 1.4rem;
+    height: 100%;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-time > .time-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 0.75rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-time > .time-box > span:nth-of-type(1) {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-time > .time-box > span:nth-of-type(2) {
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-title-state {
+    width: 21rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 1.5rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-title-state > span:nth-of-type(2) {
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-place {
+    width: 5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-place > span {
+    font-size: 0.8rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-place > .seat-box {
+    width: 3.5rem;
+    height: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 0.0625rem solid rgb(235, 235, 235);
+    margin-right: 0.4rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-place > .seat-box > span {
+    font-size: 0.8rem;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-place > .seat-box > span:nth-of-type(1) {
+    color: rgb(1, 115, 139);
+    font-weight: 700;
+}
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-place > .seat-box > span:nth-of-type(2) {
+    color: rgb(102, 102, 102);
 }
 
 .swal-modal {

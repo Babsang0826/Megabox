@@ -22,7 +22,7 @@ import java.security.NoSuchAlgorithmException;
 @Controller(value = "dev.babsang.megabox.controllers.MemberController")
 @RequestMapping(value = "member")
 public class MemberController {
-    private MemberService memberService;
+    private final MemberService memberService;
 
     @Autowired
     public MemberController(MemberService memberService) {

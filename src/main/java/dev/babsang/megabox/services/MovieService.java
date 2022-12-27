@@ -22,6 +22,7 @@ public class MovieService {
         return this.movieMapper.selectMovieCommentByMid(mid);
     }
 
+
     //댓글 insert
     public Enum<? extends IResult> writeComment(MovieCommentEntity comment) {
         return this.movieMapper.insertComment(comment) > 0
@@ -37,5 +38,9 @@ public class MovieService {
 
     public MovieEntity getMovie(int mid) {
         return this.movieMapper.selectMovieByIndex(mid);
+    }
+
+    public MovieEntity[] getMovieReservation(){
+        return this.movieMapper.selectMovieReservation();
     }
 }

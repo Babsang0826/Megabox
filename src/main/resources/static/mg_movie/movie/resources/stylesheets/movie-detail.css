@@ -279,35 +279,6 @@ main > .container > .contents > .movie-detail > .detail-content > .poster > .wra
     z-index: 4;
 }
 
-/*등급 제한*/
-.grade.ageAll {
-    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png);
-    background-size: 1.4375rem 1.4375rem;
-    width: 1.4375rem;
-    height: 1.4375rem;
-}
-
-.grade.age12 {
-    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
-    background-size: 1.4375rem 1.4375rem;
-    width: 1.4375rem;
-    height: 1.4375rem;
-}
-
-.grade.age15 {
-    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/15_46x46.png);
-    background-size: 1.4375rem 1.4375rem;
-    width: 1.4375rem;
-    height: 1.4375rem;
-}
-
-.grade.age18 {
-    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/18_46x46.png);
-    background-size: 1.4375rem 1.4375rem;
-    width: 1.4375rem;
-    height: 1.4375rem;
-}
-
 
 main > .container > .contents > .movie-detail > .detail-content > .poster > .wrap > img {
     display: block;

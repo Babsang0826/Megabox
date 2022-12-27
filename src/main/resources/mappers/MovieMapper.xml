@@ -3,55 +3,71 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dev.babsang.megabox.mappers.IMovieMapper">
-
     <select id="selectMovieCommentByMid"
             resultType="dev.babsang.megabox.vos.movie.MovieCommentVo">
-        select `index`         as `index`,
-               user_id         as userId,
-               movie_index     as mid,
-               score           as score,
-               recommend_point as recommendPoint,
-               content         as content,
-               written_on      as writtenOn,
-               count(`index`)  as commentCnt
-        from mg_movie.movie_comment
-        where movie_index = #{mid}
-        group by `index`
-        limit 1
+        SELECT `index`           AS `index`,
+               `user_id`         AS `userId`,
+               `movie_index`     AS `mid`,
+               `score`           AS `score`,
+               `recommend_point` AS `recommendPoint`,
+               `content`         AS `content`,
+               `written_on`      AS `writtenOn`,
+               count(`index`)    AS `commentCnt`
+        FROM `mg_movie`.`movie_comment`
+        WHERE `movie_index` = #{mid}
+        GROUP BY `index`
+        LIMIT 1
     </select>
 
     <select id="selectMovieCommentsByMid"
             resultType="dev.babsang.megabox.entities.movie.MovieCommentEntity">
-        select `index`         as `index`,
-               user_id         as userId,
-               movie_index     as mid,
-               score           as score,
-               recommend_point as recommendPoint,
-               content         as content,
-               written_on      as writtenOn
-        from mg_movie.movie_comment
-        where movie_index = #{mid}
+        SELECT `index`           AS `index`,
+               `user_id`         AS `userId`,
+               `movie_index`     AS `mid`,
+               `score`           AS `score`,
+               `recommend_point` AS `recommendPoint`,
+               `content`         AS `content`,
+               `written_on`      AS `writtenOn`
+        FROM `mg_movie`.`movie_comment`
+        WHERE `movie_index` = #{mid}
     </select>
 
     <select id="selectMovieByIndex" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
-        select `index`          as `index`,
-               title            as title,
-               title_en         as titleEn,
-               release_date     as releaseDate,
-               end_date         as endDate,
-               summary          as summary,
-               age_limit        as ageLimit,
-               movie_state      as movieState,
-               genre            as genre,
-               director         as director,
-               actor            as actor,
-               running_time     as runnungTime,
-               total_audience   as totalAudience,
-               screen_type      as screenType,
-               movie_poster     as moviePoster,
-               background_image as backgroundImage
-        from mg_movie.movies
-        where `index` = #{mid}
+        SELECT `index`            AS `index`,
+               `title`            AS `title`,
+               `title_en`         AS `titleEn`,
+               `release_date`     AS `releaseDate`,
+               `end_date`         AS `endDate`,
+               `summary`          AS `summary`,
+               `age_limit`        AS `ageLimit`,
+               `movie_state`      AS `movieState`,
+               `genre`            AS `genre`,
+               `director`         AS `director`,
+               `actor`            AS `actor`,
+               `running_time`     AS `runnungTime`,
+               `screen_type`      AS `screenType`,
+               `movie_poster`     AS `moviePoster`,
+               `background_image` AS `backgroundImage`
+        FROM `mg_movie`.`movies`
+        WHERE `index` = #{mid}
+    </select>
+    <select id="selectMovieReservation" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
+        SELECT `index`            AS `index`,
+               `title`            AS `title`,
+               `title_en`         AS `titleEn`,
+               `release_date`     AS `releaseDate`,
+               `end_date`         AS `endDate`,
+               `summary`          AS `summary`,
+               `age_limit`        AS `ageLimit`,
+               `movie_state`      AS `movieState`,
+               `genre`            AS `genre`,
+               `director`         AS `director`,
+               `actor`            AS `actor`,
+               `running_time`     AS `runnungTime`,
+               `screen_type`      AS `screenType`,
+               `movie_poster`     AS `moviePoster`,
+               `background_image` AS `backgroundImage`
+        FROM `mg_movie`.`movies`
     </select>
 
     <insert id="insertComment"
@@ -59,8 +75,9 @@
             keyProperty="index"
             keyColumn="index"
             parameterType="dev.babsang.megabox.entities.movie.MovieCommentEntity">
-        insert into mg_movie.movie_comment(user_id, score, recommend_point, content, written_on, movie_index)
-        values (#{userId}, #{score}, #{recommendPoint}, #{content},
+        INSERT INTO `mg_movie`.`movie_comment`(`user_id`, `score`, `recommend_point`, `content`, `written_on`,
+                                               `movie_index`)
+        VALUES (#{userId}, #{score}, #{recommendPoint}, #{content},
                 IFNULL(#{writtenOn}, DEFAULT(`written_on`)), #{mid})
     </insert>
 

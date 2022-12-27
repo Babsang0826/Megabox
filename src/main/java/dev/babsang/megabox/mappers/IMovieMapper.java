@@ -15,6 +15,8 @@ public interface IMovieMapper {
     MovieCommentEntity[] selectMovieCommentsByMid(@Param(value = "mid") int mid);
     MovieEntity selectMovieByIndex(@Param(value = "mid") int mid);
 
+    MovieEntity[] selectMovieReservation();
+
     int insertComment(MovieCommentEntity comment);
 
 }

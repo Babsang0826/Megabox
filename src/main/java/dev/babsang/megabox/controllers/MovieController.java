@@ -5,6 +5,7 @@ import dev.babsang.megabox.entities.movie.MovieCommentEntity;
 import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.services.MovieService;
+import org.apache.ibatis.annotations.Param;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 @Controller(value = "dev.babsang.megabox.controllers.MovieController")
 @RequestMapping(value = "movie")
@@ -48,9 +50,9 @@ public class MovieController {
         } else {
             modelAndView.addObject("result", CommonResult.SUCCESS.name());
 //            modelAndView.addObject("comment",comments);
-            modelAndView.addObject("comment",this.movieService.getComment(mid));
-            modelAndView.addObject("movie",movie);
-            modelAndView.addObject("releaseDate",new SimpleDateFormat("yyyy-MM-dd").format(movie.getReleaseDate()));
+            modelAndView.addObject("comment", this.movieService.getComment(mid));
+            modelAndView.addObject("movie", movie);
+            modelAndView.addObject("releaseDate", new SimpleDateFormat("yyyy-MM-dd").format(movie.getReleaseDate()));
             double sum = 0D;
             int cnt = 0;
             for (MovieCommentEntity comment : comments) {
@@ -58,7 +60,7 @@ public class MovieController {
                 cnt++;
             }
             sum /= comments.length;
-            sum = Math.round(sum*10) / 10.0;
+            sum = Math.round(sum * 10) / 10.0;
             modelAndView.addObject("scoreAvg", sum);
             modelAndView.addObject("commentCnt", cnt);
 
@@ -121,4 +123,14 @@ public class MovieController {
     public ModelAndView getMoviePost() {
         return new ModelAndView("movie/movie-post");
     }
+
+    @RequestMapping(value = "fast-reservation", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getFastReservation() {
+        ModelAndView modelAndView = new ModelAndView("movie/fast-reservation");
+        MovieEntity[] movies = this.movieService.getMovieReservation();
+        modelAndView.addObject("movies", movies);
+        return modelAndView;
+    }
 }
+
+

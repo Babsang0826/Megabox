@@ -343,6 +343,37 @@ footer > .footer-bottom > .inner-wrap > .footer-sns > a > i {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-footer-search.png);
 }
 
+
+/*등급 제한*/
+.grade.ageAll {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png);
+    background-size: 1.4375rem 1.4375rem;
+    width: 1.4375rem;
+    height: 1.4375rem;
+}
+
+.grade.age12 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
+    background-size: 1.4375rem 1.4375rem;
+    width: 1.4375rem;
+    height: 1.4375rem;
+}
+
+.grade.age15 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/15_46x46.png);
+    background-size: 1.4375rem 1.4375rem;
+    width: 1.4375rem;
+    height: 1.4375rem;
+}
+
+.grade.age18 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/18_46x46.png);
+    background-size: 1.4375rem 1.4375rem;
+    width: 1.4375rem;
+    height: 1.4375rem;
+}
+
+
 /*  hover 연습  */
 
 body > .--header > .nav > .category-container {
@@ -1097,13 +1128,33 @@ footer > .footer-bottom > .inner-wrap > .footer-sns > a > i {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-footer-search.png);
 }
 
-.--cover>.--icon{
-    width: 4rem;
-    height: 4rem;
+.--cover {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 80%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 9;
+    color: rgb(255, 255, 255);
+
+}
+
+.--cover.visible {
+    display: flex;
+}
+
+.--cover > .--icon {
+    width: 6rem;
+    height: 6rem;
     animation-name: anim-cover-icon;
-    animation-duration: 1500ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    animation-duration: 1000ms;
     animation-play-state: running;
     pointer-events: none;
     user-select: none;
@@ -1111,23 +1162,23 @@ footer > .footer-bottom > .inner-wrap > .footer-sns > a > i {
 }
 
 @keyframes anim-cover-icon {
-    0%{
+    0% {
         transform: rotate(0deg);
     }
-    100%{
+    100% {
         transform: rotate(360deg);
     }
 }
 
-.--cover>.--text{
+.--cover > .--text {
     max-width: 20rem;
-    font-size: 1.375rem;
-    line-height: 150%;
-    margin-top: 2rem;
-    pointer-events: none;
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
     text-align: center;
-    user-select: none;
     white-space: pre-wrap;
+    line-height: 150%;
+    user-select: none;
+    pointer-events: none;
 }
 
 
