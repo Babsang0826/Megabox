@@ -11,67 +11,53 @@ public class ScreenInfoEntity {
     private Date mvStartTime;
     private Date mvEndTime;
 
-    public ScreenInfoEntity(int index, int movieIndex, int auditoriumIndex, Date screenDate, Date mvStartTime, Date mvEndTime) {
-        this.index = index;
-        this.movieIndex = movieIndex;
-        this.auditoriumIndex = auditoriumIndex;
-        this.screenDate = screenDate;
-        this.mvStartTime = mvStartTime;
-        this.mvEndTime = mvEndTime;
-    }
 
     public int getIndex() {
         return index;
     }
 
-    public ScreenInfoEntity setIndex(int index) {
+    public void setIndex(int index) {
         this.index = index;
-        return this;
     }
 
     public int getMovieIndex() {
         return movieIndex;
     }
 
-    public ScreenInfoEntity setMovieIndex(int movieIndex) {
+    public void setMovieIndex(int movieIndex) {
         this.movieIndex = movieIndex;
-        return this;
     }
 
     public int getAuditoriumIndex() {
         return auditoriumIndex;
     }
 
-    public ScreenInfoEntity setAuditoriumIndex(int auditoriumIndex) {
+    public void setAuditoriumIndex(int auditoriumIndex) {
         this.auditoriumIndex = auditoriumIndex;
-        return this;
     }
 
     public Date getScreenDate() {
         return screenDate;
     }
 
-    public ScreenInfoEntity setScreenDate(Date screenDate) {
+    public void setScreenDate(Date screenDate) {
         this.screenDate = screenDate;
-        return this;
     }
 
     public Date getMvStartTime() {
         return mvStartTime;
     }
 
-    public ScreenInfoEntity setMvStartTime(Date mvStartTime) {
+    public void setMvStartTime(Date mvStartTime) {
         this.mvStartTime = mvStartTime;
-        return this;
     }
 
     public Date getMvEndTime() {
         return mvEndTime;
     }
 
-    public ScreenInfoEntity setMvEndTime(Date mvEndTime) {
+    public void setMvEndTime(Date mvEndTime) {
         this.mvEndTime = mvEndTime;
-        return this;
     }
 
     @Override

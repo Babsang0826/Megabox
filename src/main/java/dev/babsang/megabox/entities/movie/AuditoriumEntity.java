@@ -2,8 +2,9 @@ package dev.babsang.megabox.entities.movie;
 
 import java.util.Objects;
 
-public class RegionEntity {
+public class AuditoriumEntity {
     private int index;
+    private int branchIndex;
     private String text;
 
     public int getIndex() {
@@ -12,6 +13,14 @@ public class RegionEntity {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public int getBranchIndex() {
+        return branchIndex;
+    }
+
+    public void setBranchIndex(int branchIndex) {
+        this.branchIndex = branchIndex;
     }
 
     public String getText() {
@@ -26,7 +35,7 @@ public class RegionEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RegionEntity that = (RegionEntity) o;
+        AuditoriumEntity that = (AuditoriumEntity) o;
         return index == that.index;
     }
 

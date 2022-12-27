@@ -8,47 +8,37 @@ public class SeatEntity {
     private int row;
     private int auditoriumIndex;
 
-    public SeatEntity(int index, String column, int row, int auditoriumIndex) {
-        this.index = index;
-        this.column = column;
-        this.row = row;
-        this.auditoriumIndex = auditoriumIndex;
-    }
 
     public int getIndex() {
         return index;
     }
 
-    public SeatEntity setIndex(int index) {
+    public void setIndex(int index) {
         this.index = index;
-        return this;
     }
 
     public String getColumn() {
         return column;
     }
 
-    public SeatEntity setColumn(String column) {
+    public void setColumn(String column) {
         this.column = column;
-        return this;
     }
 
     public int getRow() {
         return row;
     }
 
-    public SeatEntity setRow(int row) {
+    public void setRow(int row) {
         this.row = row;
-        return this;
     }
 
     public int getAuditoriumIndex() {
         return auditoriumIndex;
     }
 
-    public SeatEntity setAuditoriumIndex(int auditoriumIndex) {
+    public void setAuditoriumIndex(int auditoriumIndex) {
         this.auditoriumIndex = auditoriumIndex;
-        return this;
     }
 
     @Override

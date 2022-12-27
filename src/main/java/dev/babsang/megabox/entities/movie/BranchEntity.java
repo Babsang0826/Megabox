@@ -7,37 +7,28 @@ public class BranchEntity {
     private String text;
     private int regionIndex;
 
-    public BranchEntity(int index, String text, int regionIndex) {
-        this.index = index;
-        this.text = text;
-        this.regionIndex = regionIndex;
-    }
-
     public int getIndex() {
         return index;
     }
 
-    public BranchEntity setIndex(int index) {
+    public void setIndex(int index) {
         this.index = index;
-        return this;
     }
 
     public String getText() {
         return text;
     }
 
-    public BranchEntity setText(String text) {
+    public void setText(String text) {
         this.text = text;
-        return this;
     }
 
     public int getRegionIndex() {
         return regionIndex;
     }
 
-    public BranchEntity setRegionIndex(int regionIndex) {
+    public void setRegionIndex(int regionIndex) {
         this.regionIndex = regionIndex;
-        return this;
     }
 
     @Override
