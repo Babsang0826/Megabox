@@ -156,7 +156,7 @@ public class MovieController {
     @RequestMapping(value = "fast-reservation", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getFastReservation() {
         ModelAndView modelAndView = new ModelAndView("movie/fast-reservation");
-        MovieEntity[] movies = this.movieService.getMovieReservation();
+        MovieEntity[] movies = this.movieService.getMovies();
         modelAndView.addObject("movies", movies);
         return modelAndView;
     }
