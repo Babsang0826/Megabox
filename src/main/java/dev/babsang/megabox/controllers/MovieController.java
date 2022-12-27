@@ -1,10 +1,12 @@
 package dev.babsang.megabox.controllers;
 
 import dev.babsang.megabox.entities.member.UserEntity;
+import dev.babsang.megabox.entities.movie.BookingEntity;
 import dev.babsang.megabox.entities.movie.MovieCommentEntity;
 import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.services.MovieService;
+import dev.babsang.megabox.vos.movie.MovieVo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 @Controller(value = "dev.babsang.megabox.controllers.MovieController")
 @RequestMapping(value = "movie")
@@ -31,7 +34,30 @@ public class MovieController {
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getMovie() {
-        return new ModelAndView("movie/movie");
+        ModelAndView modelAndView = new ModelAndView("movie/movie");
+
+        //전체 영화
+        MovieEntity[] movies = this.movieService.getMovies();
+
+        for (MovieEntity movie : movies) {
+            MovieCommentEntity[] comments = this.movieService.getComments(movie.getIndex());
+
+            double sum = 0D;
+            for (MovieCommentEntity comment : comments) {
+                sum += comment.getScore();
+            }
+            sum /= comments.length;
+            sum = Math.round(sum * 10) / 10.0;
+
+            movie.setScoreAvg(sum);
+        }
+        modelAndView.addObject("movies", movies);
+
+        //개봉 예정 영화
+        MovieEntity[] commingMovies = this.movieService.getCommingMovies();
+        modelAndView.addObject("commigMovies", commingMovies);
+
+        return modelAndView;
     }
 
     //movie-detail
@@ -42,15 +68,14 @@ public class MovieController {
         ModelAndView modelAndView = new ModelAndView("movie/movie-detail");
 
         MovieCommentEntity[] comments = this.movieService.getComments(mid);
-        MovieEntity movie = this.movieService.getMovie(mid);
+        MovieVo movie = this.movieService.getMovieVo(mid);
+        BookingEntity[] booking = this.movieService.getBooking();
         if (comments == null) {
             modelAndView.addObject("result", CommonResult.FAILURE.name());
         } else {
             modelAndView.addObject("result", CommonResult.SUCCESS.name());
-//            modelAndView.addObject("comment",comments);
-            modelAndView.addObject("comment",this.movieService.getComment(mid));
-            modelAndView.addObject("movie",movie);
-            modelAndView.addObject("releaseDate",new SimpleDateFormat("yyyy-MM-dd").format(movie.getReleaseDate()));
+            modelAndView.addObject("comment", this.movieService.getComment(mid));
+            modelAndView.addObject("movie", movie);
             double sum = 0D;
             int cnt = 0;
             for (MovieCommentEntity comment : comments) {
@@ -58,12 +83,17 @@ public class MovieController {
                 cnt++;
             }
             sum /= comments.length;
-            sum = Math.round(sum*10) / 10.0;
+            sum = Math.round(sum * 10) / 10.0;
             modelAndView.addObject("scoreAvg", sum);
             modelAndView.addObject("commentCnt", cnt);
+            double bookingCnt = movie.getTotalAudience();
+            double totalBookingCnt = booking.length;
+            double bookingRate = bookingCnt / totalBookingCnt * 100;
+            modelAndView.addObject("bookingRate", bookingRate);
 
         }
         modelAndView.addObject("mid", mid);
+
         return modelAndView;
     }
 

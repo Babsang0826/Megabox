@@ -46,12 +46,98 @@
                director         as director,
                actor            as actor,
                running_time     as runnungTime,
-               total_audience   as totalAudience,
                screen_type      as screenType,
                movie_poster     as moviePoster,
-               background_image as backgroundImage
+               background_image as backgroundImage,
+               adult_price      as adultPrice,
+               teenager_price   as teenagerPrice,
+               etc_price        as etcPrice,
+               score_avg as scoreAvg
         from mg_movie.movies
         where `index` = #{mid}
+    </select>
+
+    <select id="selectMovies" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
+        select `index`          as `index`,
+               title            as title,
+               title_en         as titleEn,
+               release_date     as releaseDate,
+               end_date         as endDate,
+               summary          as summary,
+               age_limit        as ageLimit,
+               movie_state      as movieState,
+               genre            as genre,
+               director         as director,
+               actor            as actor,
+               running_time     as runningTime,
+               screen_type      as screenTyoe,
+               movie_poster     as moviePoster,
+               background_image as backgroundImage,
+               adult_price      as adultPrice,
+               teenager_price   as teenagerPrice,
+               etc_price        as etcPrice,
+               score_avg        as scoreAvg
+        from mg_movie.movies
+    </select>
+
+    <select id="selectCommingMovies" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
+        select `index`          as `index`,
+               title            as title,
+               title_en         as titleEn,
+               release_date     as releaseDate,
+               end_date         as endDate,
+               summary          as summary,
+               age_limit        as ageLimit,
+               movie_state      as movieState,
+               genre            as genre,
+               director         as director,
+               actor            as actor,
+               running_time     as runningTime,
+               screen_type      as screenTyoe,
+               movie_poster     as moviePoster,
+               background_image as backgroundImage,
+               adult_price      as adultPrice,
+               teenager_price   as teenagerPrice,
+               etc_price        as etcPrice,
+               score_avg        as scoreAvg
+        from mg_movie.movies
+        where movies.release_date > now();
+    </select>
+
+    <select id="selectMovieVo" resultType="dev.babsang.megabox.vos.movie.MovieVo">
+        select movie.`index`          as `index`,
+               movie.title            as title,
+               movie.title_en         as titleEn,
+               movie.release_date     as releaseDate,
+               movie.end_date         as endDate,
+               movie.summary          as summary,
+               movie.age_limit        as ageLimit,
+               movie.movie_state      as movieState,
+               movie.genre            as genre,
+               movie.director         as director,
+               movie.actor            as actor,
+               movie.running_time     as runningTime,
+               movie.screen_type      as screenTyoe,
+               movie.movie_poster     as moviePoster,
+               movie.background_image as backgroundImage,
+               movie.adult_price      as adultPrice,
+               movie.teenager_price   as teenagerPrice,
+               movie.etc_price        as etcPrice,
+               movie.score_avg        as scoreAvg,
+               count(booking.`index`) as totalAudience
+        from mg_movie.movies as movie
+                 left join mg_movie.screen_info as screenInfo on movie.index = screenInfo.movie_index
+                 left join mg_movie.booking as booking on screenInfo.index = booking.screen_info_index
+        where movie_index = #{mid}
+    </select>
+
+    <select id="selectBooking" resultType="dev.babsang.megabox.entities.movie.BookingEntity">
+        select `index`           as `index`,
+               screen_info_index as screenInfoIndex,
+               user_id           as userId,
+               seat_index        as seatIndex,
+               payment           as payment
+        from mg_movie.booking
     </select>
 
     <insert id="insertComment"

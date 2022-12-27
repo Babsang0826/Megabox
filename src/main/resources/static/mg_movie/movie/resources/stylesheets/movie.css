@@ -23,8 +23,83 @@ html > body {
     font-weight: 400;
 }
 
-/*네비게이션 메뉴*/
+.page-util {
+    display: none;
+}
 
+.page-util.fixed {
+    position: fixed;
+    left: 0;
+    right: inherit;
+    top: 0;
+    z-index: 51;
+    background-color: #444;
+
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+}
+
+.page-util > .inner-wrap {
+    width: 68.75rem;
+    margin: 0 auto;
+}
+
+.page-util > .inner-wrap > .location {
+    float: left;
+    height: 2.625rem;
+    margin-left: 0.5rem;
+}
+
+.inner-wrap > .location > a:first-of-type {
+    overflow: hidden;
+    display: block;
+    float: left;
+    width: 0.8125rem;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-indent: -9999px;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-location-home.png) no-repeat center;
+}
+
+main > .container > .page-util > .inner-wrap > .location > a:first-of-type:hover {
+    filter: brightness(85%);
+}
+
+.page-util > .inner-wrap > .location > a {
+    display: block;
+    position: relative;
+    float: left;
+    height: 2.625rem;
+    margin: 0 0 0 1.5625rem;
+    padding: 0;
+    line-height: 2.875rem;
+    color: rgb(255,255,255);
+    font-size: 0.9375rem;
+}
+
+.page-util > .inner-wrap > .location > a:first-of-type {
+    margin-left: 0;
+}
+
+.page-util > .inner-wrap > .location > a:hover {
+    text-decoration: underline;
+}
+
+.page-util > .inner-wrap > .location > a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -0.875rem;
+    top: 0;
+    width: 0.3125rem;
+    height: 2.625rem;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-location-arr.png) no-repeat left center;
+}
+
+/*네비게이션 메뉴*/
 .contents {
     width: 100%;
     margin: 0;
@@ -52,7 +127,57 @@ html > body {
     color: #222;
 }
 
-.contents > .inner-wrap > .tab-list > .topMenu {
+
+.contents > .inner-wrap > .tab-list.fixed {
+    position: fixed;
+    left: 0;
+    right: inherit;
+    top: 42px;
+    z-index: 50;
+    width: 100%;
+    background-color: rgba(255,255,255,.9);
+    box-shadow: 0 0 20px 0 rgb(0 0 0 / 12%);
+    height: 42px;
+}
+
+.contents > .inner-wrap.on > .tab-list.fixed > .topMenu {
+    width: 68.75rem;
+    /*margin-left: 5rem;*/
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 auto;
+    display: -webkit-box;
+}
+
+.contents > .inner-wrap.on > .tab-list.fixed > .topMenu > li {
+    padding: 0;
+    margin-left: 0.5rem;
+    border: 0;
+    height: 100%;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contents > .inner-wrap.on > .tab-list.fixed > .topMenu > li:first-of-type {
+    margin-left: 0;
+}
+
+.contents > .inner-wrap.on > .tab-list.fixed > .topMenu > .on {
+    background-color: transparent;
+    border-bottom: 0.125rem solid #503396;
+}
+
+.contents > .inner-wrap.on > .tab-list.fixed > .topMenu > li > a {
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.contents > .inner-wrap.on > .tab-list > .topMenu {
     /*border: 0.0625rem solid #444444;*/
     list-style: none;
     padding: 0;
@@ -86,6 +211,7 @@ html > body {
     font-weight: 550;
     margin: 0;
     padding: 1rem;
+    /*width: 100%;*/
     border: 0.0625rem solid #ebebeb;
     border-bottom: 0.0625rem solid #503396;
 }
@@ -172,10 +298,11 @@ html > body {
 
 .movie-list-util > .onAir-condition > .search-result {
     float: left;
-    margin: 0 0 0 1.25rem;
+    margin: 0 0 0.2rem 1.25rem;
     padding: 0.0625rem 0 0 0;
     color: #222;
     line-height: 2.125rem;
+    font-size: 1rem;
 }
 
 .movie-list-util > .onAir-condition > .search-result > #searchCnt {
@@ -192,6 +319,7 @@ html > body {
     padding: 0 1.9375rem 0 0;
     border: 0.0625rem solid #d8d9db;
     border-radius: 0.1875rem;
+    font-size: 1rem;
 
     align-items: stretch;
     display: flex;
@@ -227,8 +355,10 @@ html > body {
     padding: 0;
     margin: 0 0 0 -3.75rem;
 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     align-items: stretch;
-    display: flex;
+    /*display: flex;*/
     flex-direction: row;
     justify-content: flex-start;
 }
@@ -350,6 +480,10 @@ html > body {
 .contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > a {
     text-decoration: none;
     color: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 87%;
 }
 
 .contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > a > .title {
@@ -359,7 +493,7 @@ html > body {
     white-space: nowrap;
     text-overflow: ellipsis;
     padding: 0.125rem 0 0 0.0625rem;
-    font-size: 1.3333em;
+    font-size: 1.25rem;
     font-weight: inherit;
 }
 
@@ -396,7 +530,7 @@ html > body {
 .contents > .inner-wrap > .movie-list > ol > .movie > .rate-date {
     overflow: hidden;
     padding-top: 0.425rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 450;
     display: block;
     position: relative;
@@ -432,8 +566,9 @@ html > body {
 
 .contents > .inner-wrap > .movie-list > ol > .movie > .button > .book {
     float: left;
-    width: 13.8rem;
-    margin-left: 0.3rem;
+    /*width: 13.8rem;*/
+    /*margin-left: 0.3rem;*/
+    width: 100%;
 }
 
 .contents > .inner-wrap > .movie-list > ol > .movie > .button > .book > .book-btn {
@@ -490,7 +625,7 @@ html > body {
     display: block;
     cursor: pointer;
     letter-spacing: -0.5px;
-    font-size: 0.9rem;
+    font-size: 1rem;
 
 }
 

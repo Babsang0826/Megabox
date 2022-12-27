@@ -11,6 +11,16 @@
 <body>
 <main class="--main">
     <div class="container">
+        <div class="page-util" id="pageUtil">
+            <div class="inner-wrap">
+                <div class="location">
+                    <a th:href="@{/}">Home</a>
+                    <a th:href="@{./movie}">영화</a>
+                    <a th:href="@{./movie}">전체영화</a>
+                    <a th:href="@{./movie}">박스오피스</a>
+                </div>
+            </div>
+        </div>
         <div class="contents" id="contents">
             <div class="movie-detail" id="movieDetail">
                 <div class="bg-img">
@@ -30,11 +40,12 @@
                         </div>
                         <div class="rate">
                             <p class="title">예매율</p>
-                            <p class="cnt"><em>2</em>위 (3.6%)</p>
+                            <p class="cnt"><em>2</em>위</p>
+                            <p class="percentage" th:text="'(' + ${bookingRate} + '%)'"></p>
                         </div>
                         <div class="audience">
                             <p class="title">누적관객수</p>
-                            <p class="cnt"><em>2,585,755</em>명</p>
+                            <p class="cnt"><em th:text="${movie.getTotalAudience()}">2,585,755</em>명</p>
                         </div>
                     </div>
                     <div class="poster">
@@ -53,26 +64,19 @@
                 <div class="inner-wrap">
                     <div class="tab-list" id="tabList">
                         <ul>
-                            <li class="on">
-                                <a href="#">주요정보</a>
+                            <li class="on" rel="mainInfoLi">
+                                <a rel="mainInfo">주요정보</a>
                             </li>
-                            <li>
-                                <a href="#">실관람평</a>
+                            <li rel="commentScoreLi" name="tabList">
+                                <a rel="commentScore">실관람평</a>
                             </li>
-                            <li>
-                                <a href="#">무비포스트</a>
+                            <li rel="moviePostLi" name="tabList">
+                                <a rel="moviePost">무비포스트</a>
                             </li>
                         </ul>
                     </div>
                     <div class="movie-summary" rel="movieSummary">
-                        <div class="txt" id="summary">
-                            맹인이지만 뛰어난 침술 실력을 지닌 ‘경수’는<br>어의 ‘이형익’에게 그 재주를 인정받아 궁으로 들어간다.<br>그 무렵, 청에 인질로 끌려갔던 ‘소현세자’가 8년
-                            만에
-                            귀국하고,<br>‘인조’는 아들을 향한 반가움도 잠시 정체 모를 불안감에 휩싸인다.<br>그러던 어느 밤, 어둠 속에서는 희미하게 볼 수 있는 ‘경수’가<br>‘소현세자’의
-                            죽음을 목격하게 되고<br>진실을 알리려는 찰나 더 큰 비밀과 음모가 드러나며<br>목숨마저 위태로운 상황에 빠진다.<br>아들의 죽음 후 ‘인조’의 불안감은 광기로
-                            변하여
-                            폭주하기 시작하고<br>세자의 죽음을 목격한 ‘경수’로 인해 관련된 인물들의 민낯이 서서히 드러나게 되는데...
-                        </div>
+                        <div class="txt" id="summary" th:utext="${movie.getSummary()}"></div>
                         <div class="more-btn">
                             <button type="button" class="btn" rel="moreBtn">
                                 <span rel="moreBtnText">더보기</span>
@@ -89,12 +93,15 @@
                             <p>장르 :&nbsp;</p>
                             <p class="value" th:text="${movie.getGenre()}">스릴러/118분</p>
                             <p>등급 :&nbsp;</p>
-<!--                            <p class="value" th:text="${movie.getAgeLimit()}">15세이상관람가</p>-->
-                            <p class="value" th:if="${movie.getAgeLimit() == 'age15' }">15세이상관람가</p>
+                            <p class="value" th:if="${movie.getAgeLimit().equals('grade ageAll')}">전체관람가</p>
+                            <p class="value" th:if="${movie.getAgeLimit().equals('grade age12')}">12세이상관람가</p>
+                            <p class="value" th:if="${movie.getAgeLimit().equals('grade age15')}">15세이상관람가</p>
+                            <p class="value" th:if="${movie.getAgeLimit().equals('grade age18')}">청소년관람불가</p>
                             <p>개봉일 :&nbsp;</p>
-                            <p class="value" th:text="${releaseDate}">2022.11.23</p>
+                            <p class="value" th:text="${#dates.format(movie.getReleaseDate(), 'yyyy.MM.dd')}">2022.11.23</p>
                         </div>
-                        <p>출연진 : 류준열, 유해진, 최무성, 조성하, 박명훈, 김성철, 안은진, 조윤서</p>
+                        <p>출연진 :&nbsp;</p>
+                        <p th:text="${movie.getActor()}">류준열, 유해진, 최무성, 조성하, 박명훈, 김성철, 안은진, 조윤서</p>
                     </div>
                     <div class="movie-graph">
                         <div class="col">
@@ -109,14 +116,14 @@
                             <dl>
                                 <dt>예매율</dt>
                                 <dd class="percentage">
-                                    <span>3.2%</span>
+                                    <span th:text="${bookingRate} + '%'">3.2%</span>
                                 </dd>
                             </dl>
                         </div>
                         <div class="col">
                             <dl>
                                 <dt>누적관객수</dt>
-                                <dd class="total">
+                                <dd class="total" th:text="${movie.getTotalAudience()} + '명'">
                                     2,652,071
                                 </dd>
                             </dl>

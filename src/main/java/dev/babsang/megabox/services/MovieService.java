@@ -1,11 +1,13 @@
 package dev.babsang.megabox.services;
 
+import dev.babsang.megabox.entities.movie.BookingEntity;
 import dev.babsang.megabox.entities.movie.MovieCommentEntity;
 import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.mappers.IMovieMapper;
 import dev.babsang.megabox.vos.movie.MovieCommentVo;
+import dev.babsang.megabox.vos.movie.MovieVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,4 +40,15 @@ public class MovieService {
     public MovieEntity getMovie(int mid) {
         return this.movieMapper.selectMovieByIndex(mid);
     }
+
+    public MovieEntity[] getMovies() {
+        return this.movieMapper.selectMovies();
+    }
+
+    public MovieEntity[] getCommingMovies() {
+        return this.movieMapper.selectCommingMovies();
+    }
+
+    public MovieVo getMovieVo(int mid) { return this.movieMapper.selectMovieVo(mid); }
+    public BookingEntity[] getBooking() { return this.movieMapper.selectBooking(); }
 }
