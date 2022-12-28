@@ -18,22 +18,22 @@
             <h1 class="ci"><a th:href="@{/}" title="메인 페이지로 이동"><img src="/resources/images/megabox-logo.png"></a></h1>
             <div class="containers">
                 <ol class="text">
-                    <li class="menu">
+                    <li class="menu" id="one">
                         <p class="step on">
                             <em>STEP1.</em> <span>약관동의</span>
                         </p>
                     </li>
-                    <li class="menu">
+                    <li class="menu" id="two">
                         <p class="step">
                             <em>STEP2.</em> <span>본인인증</span>
                         </p>
                     </li>
-                    <li class="menu">
+                    <li class="menu" id="three">
                         <p class="step">
                             <em>STEP3.</em> <span>정보입력</span>
                         </p>
                     </li>
-                    <li class="menu">
+                    <li class="menu" id="four">
                         <p class="step">
                             <em>STEP4.</em> <span>가입완료</span>
                         </p>
@@ -47,14 +47,14 @@
                 </p>
                 <div class="member-rule-agree">
                     <div class="all-check">
-                        <label for="chkAll">
-                            <input type="checkbox" id="chkAll" rel="all" class="checkAll" name="chkAll">
+                        <label>
+                            <input type="checkbox" id="chkAll" rel="all" class="chkAll" name="chkAll">
                             필수항목 전체동의
                         </label>
                     </div>
                     <div class="block">
                         <div class="chk">
-                            <input type="checkbox" id="chkPerson" name="checkBox" class="chkBox">
+                            <input type="checkbox" id="chkPerson" name="chkBox" class="chkBox" onclick='checkSelectAll()'>
                             <label for="chkPerson" class="must">
                                 서비스 이용 약관 동의(필수)
                             </label>
@@ -571,7 +571,7 @@
                     <div class="block">
                         <div class="chk">
                             <label for="chkPersonInfo" class="must">
-                                <input type="checkbox" id="chkPersonInfo" name="checkBox" class="chkBox">
+                                <input type="checkbox" id="chkPersonInfo" name="chkBox" class="chkBox" onclick='checkSelectAll()'>
                                 서비스 이용 약관 동의(필수)
                             </label>
                         </div>
@@ -1252,7 +1252,6 @@
                                     <div class="dialog" rel="addressFindPanelDialog"></div>
                                 </div>
                                 <div id="address-error-textCheck" class="alert" rel="warning-address">
-
                             </td>
                         </tr>
                         </tbody>
@@ -1274,13 +1273,13 @@
 
                         <div class="radio-agree">
                             <label>
-                                <input type="radio" id="agree" name="marketingAgree" class="chkAll">
+                                <input type="radio" id="agree" name="marketingAgree" class="checkAll">
                             </label>
-                            <label for="agree">동의</label>
+                            <label>동의</label>
                             <label>
-                                <input type="radio" id="notagree" name="marketingAgree" class="chkCancel">
+                                <input type="radio" id="notagree" name="marketingAgree" class="checkCancel">
                             </label>
-                            <label for="notagree">미동의</label>
+                            <label>미동의</label>
                         </div>
 
                         <p class="mt30">혜택 수신설정</p>

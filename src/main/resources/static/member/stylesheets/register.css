@@ -96,6 +96,12 @@ p {
     border-bottom: 1px solid #eae7e7;
 }
 
+.container > .containerBox > .containers > .text > #one
+
+{
+    border-bottom: 1px solid #503396;
+}
+
 .container > .containerBox > .containers > .text > .menu {
     /*margin: 0 11px 0 11px;*/
     padding: 0;

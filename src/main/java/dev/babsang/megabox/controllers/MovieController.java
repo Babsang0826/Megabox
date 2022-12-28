@@ -1,5 +1,6 @@
 package dev.babsang.megabox.controllers;
 
+import dev.babsang.megabox.entities.member.KakaoUserEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.MovieCommentEntity;
 import dev.babsang.megabox.entities.movie.MovieEntity;
@@ -10,7 +11,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,9 +48,9 @@ public class MovieController {
         } else {
             modelAndView.addObject("result", CommonResult.SUCCESS.name());
 //            modelAndView.addObject("comment",comments);
-            modelAndView.addObject("comment",this.movieService.getComment(mid));
-            modelAndView.addObject("movie",movie);
-            modelAndView.addObject("releaseDate",new SimpleDateFormat("yyyy-MM-dd").format(movie.getReleaseDate()));
+            modelAndView.addObject("comment", this.movieService.getComment(mid));
+            modelAndView.addObject("movie", movie);
+            modelAndView.addObject("releaseDate", new SimpleDateFormat("yyyy-MM-dd").format(movie.getReleaseDate()));
             double sum = 0D;
             int cnt = 0;
             for (MovieCommentEntity comment : comments) {
@@ -58,7 +58,7 @@ public class MovieController {
                 cnt++;
             }
             sum /= comments.length;
-            sum = Math.round(sum*10) / 10.0;
+            sum = Math.round(sum * 10) / 10.0;
             modelAndView.addObject("scoreAvg", sum);
             modelAndView.addObject("commentCnt", cnt);
 
@@ -120,5 +120,39 @@ public class MovieController {
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getMoviePost() {
         return new ModelAndView("movie/movie-post");
+
+    }
+
+    //극장->전체극장
+    @RequestMapping(value = "theater-list", method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getTheater() {
+        ModelAndView modelAndView = new ModelAndView("movie/theater-list");
+        return modelAndView;
+    }
+
+    //공지사항
+    @RequestMapping(value = "notice", method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getNotice() {
+        ModelAndView modelAndView = new ModelAndView("movie/notice");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "write",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getWrite(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                 @SessionAttribute(value = "kakaoUser", required = false) KakaoUserEntity kakaoUser
+                                 ){
+        ModelAndView modelAndView;
+
+        if (user == null) {
+            modelAndView = new ModelAndView("redirect:/member/login");
+        } else {
+            modelAndView = new ModelAndView("movie/write");
+
+        }
+        return modelAndView;
     }
 }

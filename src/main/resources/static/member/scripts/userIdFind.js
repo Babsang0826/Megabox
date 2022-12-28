@@ -5,24 +5,34 @@ form['findId'].addEventListener('click', () => {
         form['name'].focus();
         form.querySelector('[rel="warning-name"]').innerText = '이름를 입력해 주세요'
         return;
+    } else {
+        form.querySelector('[rel="warning-name"]').innerText = ''
     }
     if (form['birthday'].value === '') {
         form['birthday'].focus();
         form.querySelector('[rel="warning-birthday"]').innerText = '생년월일 앞8자리를 입력해 주세요.'
         return;
+    } else {
+        form.querySelector('[rel="warning-birthday"]').innerText = ''
     }
     if (!new RegExp('^(19[0-9][0-9]|20\\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$').test(form['birthday'].value)) {
         form.querySelector('[rel="warning-birthday"]').innerText = '생년월일 양식이 맞지않습니다.'
         return;
+    } else {
+        form.querySelector('[rel="warning-birthday"]').innerText = ''
     }
     if(form['contact'].value === '') {
         form['contact'].focus();
         form.querySelector('[rel="warning-contact"]').innerText = '전화번호를 입력해 주세요.'
         return;
+    } else {
+        form.querySelector('[rel="warning-contact"]').innerText = ''
     }
     if (!new RegExp('^(01[016789]{1})[0-9]{3,4}[0-9]{4}$').test(form['contact'].value)) {
         form.querySelector('[rel="warning-contact"]').innerText = '전화번호 양식에 맞지않습니다.'
         return;
+    } else {
+        form.querySelector('[rel="warning-contact"]').innerText = ''
     }
     const xhr = new XMLHttpRequest();
     const formData = new FormData();

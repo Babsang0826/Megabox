@@ -93,7 +93,7 @@ body > .form > .container > .col-wrap > .col > .tab-list > ul > li.on {
     border-bottom: 0;
 }
 
-body > .form > .container > .col-wrap > .col > .tab-list > ul > li.on > a{
+body > .form > .container > .col-wrap > .col > .tab-list > ul > li.on > a {
     z-index: 3;
     color: #503396;
     background-color: #fff;
@@ -120,7 +120,7 @@ body > .form > .container > .col-wrap > .col > .tab-list > ul > li {
     border-bottom: 1px solid #503396;
 }
 
-.tab-list>ul>li:first-child:nth-last-child(2), .tab-list>ul>li:first-child:nth-last-child(2)~li {
+.tab-list > ul > li:first-child:nth-last-child(2), .tab-list > ul > li:first-child:nth-last-child(2) ~ li {
     width: 50%;
 }
 
@@ -222,16 +222,17 @@ a {
     padding: 0;
     font-size: 20px;
     line-height: 46px;
-    background: #6543b1;
+    background: #503396;
     color: #d8d9db;
     display: inline-block;
     font-weight: 400;
     border-radius: 4px;
     vertical-align: middle;
+    border: none;
 }
 
 .btn-member-bottom > .button:hover {
-    background: #503396;
+    background-color: rgba(80, 51, 150, 0.88);
     cursor: pointer;
 }
 

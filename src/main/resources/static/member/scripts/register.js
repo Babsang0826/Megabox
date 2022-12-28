@@ -20,108 +20,68 @@ const EmailWarning = {
     }
 };
 
-const checkAll = document.querySelector('.checkAll');
-const chkBox = document.querySelectorAll('.chkBox');
+
 const chkAll = document.querySelector('.chkAll');
-const checkBoxes = document.querySelectorAll('.checkBox');
-const chkCancel = document.querySelector('.chkCancel')
-
-checkAll.onclick = function () {
-    if (checkAll.checked === false) {
-        for (let i = 0; i < chkBox.length; i++) {
-            chkBox[i].checked = false;
-        }
-    } else {
-        for (let i = 0; i < chkBox.length; i++) {
-            chkBox[i].checked = true;
-        }
-    }
-};
-
-for (let i = 0; i < chkBox.length; i++) {
-    chkBox[i].onclick = function () {
-        if (this.checked === false) {
-            checkAll.checked = false;
-        }
-    }
-}
-
-
+const chkBox = document.querySelectorAll('.chkBox');
+// 전체 체크박스 선택/해제
 chkAll.onclick = function () {
-    if (chkAll.checked === false) {
-        for (let i = 0; i < checkBoxes.length; i++) {
-            checkBoxes[i].checked = false;
+    if (chkAll.checked === true) {
+        for (let i = 0; i < 2; i++) {
+            chkBox[i].checked = true;
+            document.getElementById('btnClauAgree').removeAttribute("disabled");
         }
     } else {
-        for (let i = 0; i < checkBoxes.length; i++) {
-            checkBoxes[i].checked = true;
+        for (let i = 0; i < 2; i++) {
+            chkBox[i].checked = false;
+            document.getElementById('btnClauAgree').setAttribute('disabled', 'disabled');
         }
     }
 };
 
-chkCancel.onclick = function () {
-    if (chkCancel.checked === true) {
-        for (let i = 0; i < checkBoxes.length; i++) {
-            checkBoxes[i].checked = false;
-        }
-    }
-};
+// 하위 체크박스 선택시 전체 체크박스 선택/ 해제 시 전체 체크박스 해제
+function checkSelectAll() {
+    // 전체 체크박스
+    const checkboxes
+        = document.querySelectorAll('input[name="chkBox"]');
+    // 선택된 체크박스
+    const checked
+        = document.querySelectorAll('input[name="chkBox"]:checked');
+    // select all 체크박스
+    const selectAll
+        = document.querySelector('input[name="chkAll"]');
 
-for (let i = 0; i < checkBoxes.length; i++) {
-    checkBoxes[i].onclick = function () {
-        if (this.checked === false) {
-            chkAll.checked = false;
-        }
-        if (this.checked === false) {
-            chkCancel.checked = true;
-        }
-        if (this.checked === true) {
-            chkAll.checked = true;
-        }
-    }
-}
-
-
-const checkBox = document.querySelector("input[name=chkAll]");
-
-checkBox.addEventListener('change', function () {
-    if (this.checked) {
+    if (checkboxes.length === checked.length) {
+        selectAll.checked = true;
         document.getElementById('btnClauAgree').removeAttribute("disabled");
-    }
-    if (!this.checked) {
+    } else {
+        selectAll.checked = false;
         document.getElementById('btnClauAgree').setAttribute('disabled', 'disabled');
     }
-});
+}
 
 
-// const checkBoxTwo = document.querySelector("input[name=marketingAgree]");
-const agreeCheck = document.getElementById('agree');
-const notAgreeCheck = document.getElementById('notagree');
-const receiveCheck = document.querySelector("input[name=receive]");
+const checkAll = document.querySelector('.checkAll');
+const checkCancel = document.querySelector('.checkCancel');
+const checkBox = document.querySelectorAll('.checkBox');
 
-agreeCheck.addEventListener('change', function () {
-    if (this.checked) {
-        document.getElementById('marketAgree').removeAttribute("disabled");
-    } else {
-        document.getElementById('marketAgree').setAttribute('disabled', 'disabled');
+// 동의 체크 시 하위 체크박스 전체 선택
+checkAll.onclick = function () {
+    if (checkAll.checked === true) {
+        for (let i = 0; i < 3; i++) {
+            checkBox[i].checked = true;
+            document.getElementById('marketAgree').removeAttribute("disabled");
+        }
     }
-});
-
-notAgreeCheck.addEventListener('change', function () {
-    if (this.checked) {
-        document.getElementById('marketAgree').removeAttribute("disabled");
-        // } else {
-        //     document.getElementById('marketAgree').setAttribute('disabled', 'disabled');
+};
+// 미동의 체크 시 하위 체크박스 전체 해제
+checkCancel.onclick = function () {
+    if (checkCancel.checked === true) {
+        for (let i = 0; i < 3; i++) {
+            checkBox[i].checked = false;
+            document.getElementById('marketAgree').removeAttribute("disabled");
+        }
     }
-});
-
-// receiveCheck.addEventListener('change', function () {
-//     if (this.checked) {
-//         document.getElementById('marketAgree').removeAttribute("disabled");
-//     } else {
-//         document.getElementById('marketAgree').setAttribute('disabled', 'disabled');
-//     }
-// });
+}
 
 
 form.querySelector('[rel="emailAuth"]').addEventListener('click', () => {
@@ -164,12 +124,9 @@ form.querySelector('.email-send').addEventListener('click', () => {
         form['email'].focus();
         return;
     }
-
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('email', form['email'].value);
-
-    console.log(form['email'].value);
     xhr.open('POST', './email');
     xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -258,36 +215,68 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
 
         if (form['name'].value === '') {
             form.querySelector('[rel="warning-name"]').innerText = '이름를 입력해 주세요'
+            form['name'].focus();
             return;
+        } else {
+            form.querySelector('[rel="warning-name"]').innerText = ''
         }
         if (form['birthday'].value === '') {
             form.querySelector('[rel="warning-birthday"]').innerText = '생년월일을 입력해 주세요'
+            form['birthday'].focus();
             return
+        } else {
+            form.querySelector('[rel="warning-birthday"]').innerText = ''
         }
+
         if (!new RegExp('^(19[0-9][0-9]|20\\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$').test(form['birthday'].value)) {
             form.querySelector('[rel="warning-birthday"]').innerText = '생년월일 양식이 맞지않습니다.'
+            form['birthday'].focus();
             return;
+        } else {
+            form.querySelector('[rel="warning-birthday"]').innerText = ''
+
         }
         if (form['contact'].value === '') {
             form.querySelector('[rel="warning-contact"]').innerText = '연락처를 입력해 주세요'
+            form['contact'].focus();
             return;
+        } else {
+            form.querySelector('[rel="warning-contact"]').innerText = ''
         }
-        if (form['loginId'].value === '') {
-            form.querySelector('[rel="warning-id"]').innerText = '아이디를 입력해 주세요'
-            return;
-        }
+        // if (form['loginId'].value === '') {
+        //     form.querySelector('[rel="warning-id"]').innerText = '아이디를 입력해 주세요'
+        //     form['loginId'].focus();
+        //     return;
+        // }
         if (!new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$').test(form['pwd'].value)) {
             form.querySelector('[rel="warning-password"]').innerText = '비밀번호는 8자이상, 숫자, 대문자, 소문자, 특수문자들 모두 포함해야합니다.'
+            form['pwd'].focus();
             return;
+        } else {
+            form.querySelector('[rel="warning-password"]').innerText = ''
+
         }
         if (form['pwd'].value !== form['passwordCheck'].value) {
             form.querySelector('[rel="warning-passowrdCheck"]').innerText = '비밀번호가 일치하지 않습니다.'
+            form['passwordCheck'].focus();
             return;
+        } else {
+            form.querySelector('[rel="warning-passowrdCheck"]').innerText = ''
+
         }
         if (form['addressPostal'].value === '' || form['addressPrimary'].value === '' || form['addressSecondary'].value === '') {
             form.querySelector('[rel="warning-address"]').innerText = '주소를 입력해 주세요.'
+            form['addressPostal'].focus();
+            return;
+        } else {
+            form.querySelector('[rel="warning-address"]').innerText = ''
+        }
+        if (!form['overlappingButton'].disabled) {
+            alert("아이디 중복검사를 해주세요.");
+            form['loginId'].focus();
             return;
         }
+        alert("회원가입 진행중입니다.\n\n잠시만 기다려 주세요.")
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
         formData.append('email', form['email'].value);
@@ -306,9 +295,13 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                     const responseObject = JSON.parse(xhr.responseText);
                     switch (responseObject['result']) {
                         case 'success':
-                            alert("성공입니다.");
+                            alert("회원가입이 완료되었습니다.");
                             document.getElementById("step step3").style.display = "none";
                             document.getElementById("step step4").style.display = "block";
+                            document.getElementById("three").style.border = "none"
+                            document.getElementById("four").style.borderBottom = "1px solid #503396";
+                            window.location.href = "http://localhost:8080/member/login"
+
                             break;
                         case 'failure':
                             alert("이미 등록된 사용자 입니다.");
@@ -324,7 +317,8 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
         ;
         xhr.send(formData);
     }
-);
+)
+;
 
 form.querySelector('[rel="overlappingButton"]').addEventListener('click', () => {
     const xhr = new XMLHttpRequest();
@@ -362,12 +356,16 @@ form.querySelector('[rel="overlappingButton"]').addEventListener('click', () => 
 form.querySelector('[rel="nextButton"]').addEventListener('click', () => {
     document.getElementById("step step1").style.display = "none";
     document.getElementById("step step2").style.display = "block";
+    document.getElementById("one").style.border = "none"
+    document.getElementById("two").style.borderBottom = "1px solid #503396";
 });
 
 form.querySelector('[rel="emailAuthComplete"]').addEventListener('click', () => {
     document.getElementById("step step2").style.display = "none";
     document.getElementById("step step3").style.display = "block";
     document.getElementById("emailAuthPopUp").style.display = "none";
+    document.getElementById("two").style.border = "none"
+    document.getElementById("three").style.borderBottom = "1px solid #503396";
 });
 
 
