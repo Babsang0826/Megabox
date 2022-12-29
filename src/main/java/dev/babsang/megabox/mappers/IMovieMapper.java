@@ -1,6 +1,5 @@
 package dev.babsang.megabox.mappers;
 
-import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.MovieCommentEntity;
 import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.vos.movie.MovieCommentVo;

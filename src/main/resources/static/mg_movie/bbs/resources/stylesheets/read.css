@@ -1,0 +1,212 @@
+.inner-wrap {
+    width: 1100px;
+    margin: 0 auto;
+    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
+}
+
+#contents {
+    float: right;
+    width: calc(100% - 150px);
+    margin: 0;
+    padding: 40px 0 0 0;
+}
+
+h2.tit {
+    padding: 0 0 26px 0;
+    font-size: 1.8666em;
+    font-weight: 400;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    color: #222;
+}
+
+.table-wrap {
+    position: relative;
+    border-top: 1px solid #555;
+}
+
+.board-view .tit-area {
+    display: table;
+    width: 100%;
+    padding: 15px 0;
+}
+
+.board-view .tit-area .tit {
+    display: table-cell;
+    margin: 0;
+    padding: 0;
+    font-size: 1.1429em;
+    color: #444;
+    font-weight: 400;
+}
+
+.board-view .info {
+    padding-bottom: 20px;
+    font-size: .9333em;
+}
+
+.board-view .info p:first-child {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.board-view .info p {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 0 8px;
+    padding: 0 0 0 11px;
+}
+
+.board-view .info p .tit {
+    position: relative;
+    margin-right: 3px;
+    color: #444;
+    font-weight: 400;
+}
+
+.board-view .info p span, .board-view .info p strong {
+    display: inline-block;
+    vertical-align: top;
+    color: #666;
+}
+
+.board-view .info p {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 0 8px;
+    padding: 0 0 0 11px;
+}
+
+.board-view .cont {
+    overflow: hidden;
+    width: 100%;
+    padding: 20px 0;
+    border-top: 1px solid #eaeaea;
+    font-size: 20px;
+}
+
+.prev-next {
+    border: 1px solid #eaeaea;
+    border-width: 1px 0;
+}
+
+.prev-next .line {
+    position: relative;
+    padding: 0 0 0 170px;
+    word-break: break-all;
+}
+
+.prev-next .line.prev .tit {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-prev-list.png);
+}
+
+.prev-next .line.next .tit {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-next-list.png);
+}
+
+.prev-next .line .tit {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+    padding: 0 20px;
+    text-align: left;
+    line-height: 45px;
+    color: #222;
+    font-weight: 400;
+    background-color: #f7f8f9;
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+}
+
+.prev-next .line p {
+    margin: 0;
+    padding: 0;
+}
+
+.prev-next .line .link {
+    display: block;
+    line-height: 45px;
+}
+
+.prev-next .line + .line {
+    border-top: 1px solid #eaeaea;
+}
+
+.prev-next .line {
+    position: relative;
+    padding: 0 0 0 170px;
+    word-break: break-all;
+}
+
+.prev-next .line a.link {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    color: #444;
+    font-weight: 400;
+}
+
+.prev-next .line .link {
+    display: block;
+    line-height: 45px;
+    padding-left: 40px;
+}
+
+a:visited {
+    color: #666;
+    text-decoration: none;
+    outline: 1px dotted #000;
+}
+
+
+.pt40 {
+    padding-top: 40px;
+}
+
+.btn-group {
+    padding: 20px 0 30px 0;
+    margin: 0;
+    text-align: center;
+}
+
+a.button:active,
+a.button:focus,
+a.button:hover,
+a.button:visited {
+    color: #503396;
+}
+
+.btn-group .button {
+    margin: 0 3px;
+}
+
+.button.large {
+    height: 46px;
+    padding: 0 30px;
+    line-height: 44px;
+}
+
+a.button {
+    text-decoration: none;
+}
+
+.button {
+    display: inline-block;
+    text-align: center;
+    font-weight: 400;
+    border-radius: 4px;
+    border: 1px solid #503396;
+    vertical-align: middle;
+    background-color: #fff;
+    color: #d1d5dd;
+    cursor: pointer;
+}
+
+.button:hover {
+    color: #503396;
+    background-color: #f8f8fa;
+}

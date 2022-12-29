@@ -1,10 +1,10 @@
 package dev.babsang.megabox.controllers;
 
-import dev.babsang.megabox.entities.member.KakaoUserEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.MovieCommentEntity;
 import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.enums.CommonResult;
+import dev.babsang.megabox.enums.bbs.WriteResult;
 import dev.babsang.megabox.services.MovieService;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -123,36 +123,4 @@ public class MovieController {
 
     }
 
-    //극장->전체극장
-    @RequestMapping(value = "theater-list", method = RequestMethod.GET,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getTheater() {
-        ModelAndView modelAndView = new ModelAndView("movie/theater-list");
-        return modelAndView;
-    }
-
-    //공지사항
-    @RequestMapping(value = "notice", method = RequestMethod.GET,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getNotice() {
-        ModelAndView modelAndView = new ModelAndView("movie/notice");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "write",
-            method = RequestMethod.GET,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getWrite(@SessionAttribute(value = "user", required = false) UserEntity user,
-                                 @SessionAttribute(value = "kakaoUser", required = false) KakaoUserEntity kakaoUser
-                                 ){
-        ModelAndView modelAndView;
-
-        if (user == null) {
-            modelAndView = new ModelAndView("redirect:/member/login");
-        } else {
-            modelAndView = new ModelAndView("movie/write");
-
-        }
-        return modelAndView;
-    }
 }

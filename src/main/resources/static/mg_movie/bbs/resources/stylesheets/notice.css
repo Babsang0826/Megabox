@@ -79,6 +79,7 @@ strong {
     text-align: center;
     background-color: transparent;
     text-decoration: none;
+    font-size: 18px;
 }
 
 .container > .inner-wrap > .content > .tab-block ul li:first-child,
@@ -244,6 +245,8 @@ table caption {
     margin: 0;
     padding: 0;
     vertical-align: middle;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 a:link {
@@ -308,7 +311,7 @@ a:link {
 .writeButton {
     float: right;
     border: 1px solid #ebebeb;
-    padding: 8px 15px 8px 15px;
+    /*padding: 8px 15px 8px 15px;*/
     border-radius: 5px;
     font-weight: 500;
     background-color: #01738b;
@@ -316,10 +319,20 @@ a:link {
 
 .writeButton a {
     color: white;
+    padding: 8px 15px 8px 15px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .writeButton:hover {
     background-color: #d8d9db;
     cursor: pointer;
     border: 1px solid #c1c1c1;
+}
+
+tr {
+    font-size: 18px;
+    font-weight: 600;
 }
