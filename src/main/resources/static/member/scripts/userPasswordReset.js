@@ -74,15 +74,20 @@ form['passwordSend'].addEventListener('click', () => {
         form['passwordCheck'].focus();
         form['passwordCheck'].select();
         return;
+    } else {
+        form.querySelector('[rel="warning-passwordCheck"]').innerText = ''
     }
     if (form['password'].value === '') {
-        Warning.show('새로운 비밀번호를 입력해 주세요.');
         form.querySelector('[rel="warning-password"]').innerText = '비밀번호을 입력해 주세요.'
         return;
+    } else {
+        form.querySelector('[rel="warning-password"]').innerText = ''
     }
     if (!new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$').test(form['password'].value)) {
         form.querySelector('[rel="warning-password"]').innerText = '비밀번호는 8자이상, 숫자, 대문자, 소문자, 특수문자들 모두 포함해야합니다.'
         return;
+    } else {
+        form.querySelector('[rel="warning-password"]').innerText = ''
     }
     const xhr = new XMLHttpRequest();
     const formData = new FormData();

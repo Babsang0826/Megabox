@@ -2,6 +2,7 @@ package dev.babsang.megabox.services;
 
 import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
+import dev.babsang.megabox.enums.bbs.WriteResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.mappers.IMovieMapper;
 import dev.babsang.megabox.vos.movie.MovieCommentVo;
@@ -9,6 +10,7 @@ import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service(value = "dev.babsang.megabox.services.MovieService")
 public class MovieService {
@@ -72,4 +74,5 @@ public class MovieService {
     public BookingEntity[] getBookings() {
         return this.movieMapper.selectBooking();
     }
+
 }

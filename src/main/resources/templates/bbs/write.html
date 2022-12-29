@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>스터디 - 로그인</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <script defer th:src="@{/resources/libraries/ckeditor/ckeditor.js}"></script>
+    <script defer th:src="@{/mg_movie/bbs/resources/scripts/write.js}"></script>
+    <link rel="stylesheet" th:href="@{/mg_movie/bbs/resources/stylesheets/write.css}">
+</head>
+<body>
+<script th:if="${result.equals('FAILURE')}">
+    alert('존재하지않는 게시판 입니다.');
+    if (window.history.length > 1) { // 뒤로 갈 수 있다면
+        window.history.back();
+    } else {
+        window.close();
+    }
+</script>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<main class="--main main">
+    <form class="content --content" id="form">
+        <h1 class="h1" th:text="${board + ' 글쓰기'}"></h1>
+        <input name="bid" type="hidden" th:value="${bid}">
+        <table class="table" id="table">
+            <tbody>
+            <tr>
+                <th>구분</th>
+                <td>
+                    <label class="label">
+                        <span hidden>제목</span>
+                        <div class="selectBox">
+                            <select name="sort" class="select" onchange="this.value">
+                                <option value="공지">공지</option>
+                                <option value="이벤트">이벤트</option>
+                                <option value="라이브뷰잉">라이브뷰잉</option>
+                                <option value="클래식 중계">클래식 중계</option>
+                                <option value="무대인사">무대인사</option>
+                            </select>
+                            <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>
+                        </div>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th>지역</th>
+                <td>
+                    <label class="label">
+                        <div class="selectBox">
+                            <select name="region" class="select" onchange="this.value">
+                                <option value="부산/대구/경상">부산/대구/경상</option>
+                            </select>
+                            <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>
+                        </div>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th>지점</th>
+                <td>
+                    <label class="label">
+                        <div class="selectBox" id="theaterSelect">
+                            <select name="branch" class="select" onchange="this.value">
+                                <option value=" " selected>극장 선택</option>
+                                <option value="경북도청">경북도청</option>
+                                <option value="경산하양">경산하양</option>
+                                <option value="경주">경주</option>
+                                <option value="구미강동">구미강동</option>
+                                <option value="김천">김천</option>
+                            </select>
+                            <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>
+                        </div>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th>제목</th>
+                <td>
+                    <label class="label">
+                        <span hidden>제목</span>
+                        <input class="--object-input input" maxlength="100" name="title"
+                               placeholder="제목을 입력해 주세요." type="text">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td>
+                    <label class="label">
+                        <span hidden>내용</span>
+                        <textarea class="--object-input input" maxlength="100000" name="content"
+                                  placeholder="내용을 입력해 주세요." type="text"></textarea>
+                    </label>
+                </td>
+            </tr>
+            <tr class="warning-row" rel="warningRow">
+                <th></th>
+                <td>
+                <span class="warning">
+                    <i class="icon fa-solid fa-triangle-exclamation"></i>
+                    <span class="text">제목을 입력해 주세요.</span>
+                </span>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <div class="button-container">
+                        <input class="--object-button" name="back" type="button" value="돌아가기">
+                        <input class="--object-button" name="submit" type="submit" value="작성하기">
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</main>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</body>
+</html>

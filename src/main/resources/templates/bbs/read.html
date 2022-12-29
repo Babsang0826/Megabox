@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Read</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/mg_movie/bbs/resources/stylesheets/read.css}">
+    <script defer th:src="@{/mg_movie/bbs/resources/scripts/read.js}"></script>
+    <script type="text/javascript"
+            src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=94a12e6ae62af8fbc88e09e7433d6c08"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<form id="form" class="form">
+    <div class="inner-wrap">
+        <div id="contents" class="">
+            <h2 class="tit">공지사항</h2>
+
+            <div class="table-wrap">
+                <div class="board-view">
+                    <div class="tit-area">
+                        <p th:text="${article.getTitle()}"></p>
+                    </div>
+                    <div class="info">
+                        <p>
+                            <span class="tit">영화관</span>
+                            <span th:text="${article.getBranch()}"></span>
+                        </p>
+                        <p>
+                            <span>구분</span>
+                            <span th:text="${article.getSort()}"></span>
+                        </p>
+                        <p>
+                            <span class="tit">등록일</span>
+                            <span th:text="${#dates.format(article.getWrittenOn(), 'yyyy-MM-dd')}"></span>
+                        </p>
+                    </div>
+                    <div class="cont" th:text="${article.getContent()}"></div>
+                </div>
+            </div>
+
+            <div class="prev-next">
+                <div class="line prev">
+                    <p class="tit">이전</p>
+                    <p class="link">이전글이 없습니다.</p>
+                </div>
+                <div class="line next">
+                    <p class="tit">다음</p>
+                    <a href="#" class="link moveBtn" data-no="10743"
+                       title="[대전신세계 아트앤사이언스] 1월 1일(일) 백화점 휴점일 극장방문시 주차 안내">[대전신세계 아트앤사이언스] 1월 1일(일) 백화점 휴점일 극장방문시 주차
+                        안내</a>
+                </div>
+            </div>
+
+            <div class="btn-group pt40">
+                <a th:href="@{/bbs/notice}" class="button large listBtn" title="목록">목록</a>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+</body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</html>

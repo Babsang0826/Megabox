@@ -3,8 +3,11 @@
 <header class="--header header" th:fragment="header" id="header">
     <nav class="nav">
         <div class="detail-header">
-            <a class="link" th:href="@{/member/login}">로그인</a>
-            <a class="link" th:href="@{/member/register}">회원가입</a>
+            <a class="link" th:if="${session.user == null}" th:href="@{/member/login}">로그인</a>
+            <a class="link" th:if="${session.user != null}" th:href="@{/member/logout}">로그아웃</a>
+            <a class="link" th:if="${session.user == null}" th:href="@{/member/register}">회원가입</a>
+            <a class="link" th:if="${session.user != null}" th:href="@{/member/register}">알림</a>
+
             <a class="link" href="#">빠른예매</a>
         </div>
         <ul class="category-container">
@@ -41,7 +44,7 @@
                 </a>
             </h1>
             <li class="menu">
-                <a href="#">극장</a>
+                <a th:href="@{/bbs/theater-list}">극장</a>
                 <ul class="theater-sub-menu">
                     <li><a href="#">전체극장</a></li>
                     <li><a href="#">특별관</a></li>
@@ -51,7 +54,7 @@
             <li class="menu">
                 <a href="#">고객센터</a>
                 <ul class="center-sub-menu">
-                    <li><a href="#">공지사항</a></li>
+                    <li><a th:href="@{/bbs/notice}">공지사항</a></li>
                     <li><a href="#">Q&A</a></li>
                 </ul>
             </li>
@@ -217,6 +220,10 @@
         </div>
     </div>
 </header>
+<div class="--cover" id="cover" th:fragment="cover">
+    <img alt="" class="--icon" th:src="@{/resources/images/loading.png}">
+    <span class="--text" rel="text">무언가를 불러오고 있습니다. 잠시만 기다려 주세요.</span>
+</div>
 <footer class="--footer" th:fragment="footer">
     <div class="footer-top">
         <div class="inner-wrap">
@@ -258,9 +265,7 @@
             </div>
         </div>
     </div>
+
 </footer>
-<div class="--cover" id="cover" th:fragment="cover">
-    <img alt="" class="--icon" th:src="@{/resources/images/loading.png}">
-    <span class="--text" rel="text">무언가를 불러오고 있습니다. 잠시만 기다려 주세요.</span>
-</div>
+
 </html>

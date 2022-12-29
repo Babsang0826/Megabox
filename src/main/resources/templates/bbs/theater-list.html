@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>theater-list</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/theater-list.css}">
+    <script defer th:src="@{/mg_movie/movie/resources/scripts/theater-list.js}"></script>
+    <script type="text/javascript"
+            src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=94a12e6ae62af8fbc88e09e7433d6c08"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<form id="form" class="form">
+    <div class="container">
+        <div class="page-util">
+            <div class="inner-wrap">
+                <div class="location">
+                    <span><i class="fa-solid fa-house"></i></span>
+                    <a href="#" title="극장 페이지">
+                        극장
+                    </a>
+                    <a href="#" title="전체극장">
+                        전체극장
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content" class="contents">
+        <div class="theater-main mb40">
+            <div class="inner-wrap">
+                <div class="left">
+                    <p class="titleText">megabox</p>
+                    <p class="txt">
+                        메가박스에
+                        <br>
+                        오신 것을
+                        <br>
+                        환영합니다.
+                    </p>
+                </div>
+                <div class="theater-swiper swiper-container-initialized swiper-container-horizontal">
+                    <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+
+                        <div class="cell swiper-slide swiper-slide-active" tabindex="0"
+                             style="width: 245px; margin-right: 40px;">
+                            <a href="#" class="eventBtn" data-no="12320" data-netfunnel=""
+                               title="[더 부티크 목동현대백화점] 오픈 이벤트 상세보기">
+                                <div class="img new"></div>
+                                <div class="cont new">
+                                    <p class="label">
+                                        신규오픈
+                                    </p>
+                                    <p class="local"></p>
+                                    <p class="name">더 부티크 목동현대백화점</p>
+                                    <p class="date">22.12.16</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="cell swiper-slide swiper-slide-next" tabindex="0"
+                             style="width: 245px; margin-right: 40px;">
+                            <a href="#" class="eventBtn" data-no="12291" data-netfunnel="" title="[포항지점] 오픈 이벤트 상세보기">
+                                <div class="img new"></div>
+                                <div class="cont new">
+                                    <p class="label">
+                                        신규오픈
+                                    </p>
+                                    <p class="local"></p>
+                                    <p class="name">포항</p>
+                                    <p class="date">22.12.10</p>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+            </div>
+        </div>
+        <div class="inner-wraps">
+            <h2 class="tit new">전체 극장</h2>
+            <div class="theater-box">
+                <div class="theater-place">
+                    <ul>
+                        <li class="on">
+                            <button type="button" class="sel-city" rel="region-gyeongsang">부산/대구/경상</button>
+                            <div class="theater-list" id="gyeongsang-city">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="gyeongsang">경북도청</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gyeongsang">경산하양</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gyeongsang">경주</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gyeongsang">구미강동</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gyeongsang">김천</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <button type="button" class="sel-city" rel="region-seoul">서울</button>
+                            <div class="theater-list" id="seoul-city">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="seoul">강남</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="seoul">강남대로</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="seoul">강남강동</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="seoul">군자</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="seoul">동대문</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <button type="button" class="sel-city" rel="region-gyeonggi">경기</button>
+                            <div class="theater-list" id="gyeonggi-city">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="gyeonggi">고양스타필드</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gyeonggi">광명AK플라자</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gyeonggi">광명소하</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gyeonggi">금정AK플라자</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gyeonggi">김포한강신도시</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <button type="button" class="sel-city" rel="region-incheon">인천</button>
+                            <div class="theater-list" id="incheon-city">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="incheon">검단</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="incheon">송도</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="incheon">영종</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="incheon">인천논현</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="incheon">청라지겔</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <button type="button" class="sel-city" rel="region-daejeon">대전/충청/세종</button>
+                            <div class="theater-list" id="daejeon-city">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="daejeon">공주</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="daejeon">논산</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="daejeon">대전</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="daejeon">대전신세계 아트앤사이언스</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="daejeon">대전유성</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <button type="button" class="sel-city" rel="region-jeonla">광주/전라</button>
+                            <div class="theater-list" id="jeonla-city">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="jeonla">광주상무</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="jeonla">광주하남</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="jeonla">목포하(포르모)</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="jeonla">순천</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="jeonla">여수웅천</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li style="border-right: none">
+                            <button type="button" class="sel-city" rel="region-gangwon">강원</button>
+                            <div class="theater-list" id="gangwon-city">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="gangwon">남춘천</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gangwon">속초</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gangwon">원주</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gangwon">원주센트럴</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="gangwon">춘천석사</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bottom">
+                    <a href="#" title="로그인하기" id="moveLogin" class="button">로그인하기</a>
+                </div>
+            </div>
+
+            <div class="tit-util">
+                <h3 class="tit">극장 공지사항</h3>
+            </div>
+            <div class="more">
+            <a th:href="@{/bbs/notice}" title="극장 공지사항">
+                더 보기
+            </a>
+            <i class="fa-solid fa-chevron-right"></i>
+            </div>
+            <div class="table-wrap">
+                <table class="board-list">
+                    <caption>
+
+                    </caption>
+                    <colgroup>
+                        <col style="width: 150px;">
+                        <col>
+                        <col style="width: 150px;">
+                        <col style="width: 120px;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col">극장</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">지역</th>
+                        <th scope="col">등록일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>안산중앙</td>
+                        <th scope="row">
+                            <a href="#">
+                                [안산중앙] 주차할인 적용 시간 임시 확대 안내
+                            </a>
+                        </th>
+                        <td>경기</td>
+                        <td>2022.12.23</td>
+                    </tr>
+                    <tr>
+                        <td>안산중앙</td>
+                        <th scope="row">
+                            <a href="#">
+                                [안산중앙] 주차할인 적용 시간 임시 확대 안내
+                            </a>
+                        </th>
+                        <td>경기</td>
+                        <td>2022.12.23</td>
+                    </tr>
+                    <tr>
+                        <td>안산중앙</td>
+                        <th scope="row">
+                            <a href="#">
+                                [안산중앙] 주차할인 적용 시간 임시 확대 안내
+                            </a>
+                        </th>
+                        <td>경기</td>
+                        <td>2022.12.23</td>
+                    </tr>
+                    <tr>
+                        <td>안산중앙</td>
+                        <th scope="row">
+                            <a href="#">
+                                [안산중앙] 주차할인 적용 시간 임시 확대 안내
+                            </a>
+                        </th>
+                        <td>경기</td>
+                        <td>2022.12.23</td>
+                    </tr>
+                    <tr>
+                        <td>안산중앙</td>
+                        <th scope="row">
+                            <a href="#">
+                                [안산중앙] 주차할인 적용 시간 임시 확대 안내
+                            </a>
+                        </th>
+                        <td>경기</td>
+                        <td>2022.12.23</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</html>

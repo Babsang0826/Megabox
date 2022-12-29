@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.babsang.megabox.mappers.IBbsMapper">
+
+
+    <select id="selectBoardById"
+            resultType="dev.babsang.megabox.entities.bbs.BoardsEntity">
+        select `id`   AS `id`,
+               `text` AS `text`
+        FROM `mg_bbs`.boards
+        WHERE binary `id` = #{id}
+        LIMIT 1
+    </select>
+
+    <insert id="insertArticle"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="dev.babsang.megabox.entities.bbs.ArticleEntity">
+        INSERT INTO `mg_bbs`.`article` (board_id, sort, region, branch, title, content, written_on, modified_on)
+        VALUES (#{boardId}, #{sort},#{region}, #{branch}, #{title}, #{content},
+                IFNULL(#{writtenOn}, DEFAULT(`written_on`)),
+                IFNULL(#{modifiedOn}, DEFAULT(`modified_on`)))
+    </insert>
+
+    <select id="selectArticleByIndex"
+            resultType="dev.babsang.megabox.entities.bbs.ArticleEntity">
+        SELECT `index`       AS `index`,
+               `board_id`    AS `boardId`,
+               `sort`        AS `sort`,
+               `region`      as `region`,
+               `branch`      as `branch`,
+               `title`       AS `title`,
+               `content`     AS `content`,
+               `written_on`  AS `writtenOn`,
+               `modified_on` AS `modifiedOn`
+        FROM `mg_bbs`.`article` AS `article`
+        WHERE BINARY `index` = #{index}
+        LIMIT 1
+    </select>
+
+    <update id="updateArticle"
+            parameterType="dev.babsang.megabox.entities.bbs.ArticleEntity">
+        UPDATE `mg_bbs`.`article`
+        SET `board_id`    = #{boardId},
+            `sort`        = #{sort},
+            `region`      = #{region},
+            `branch`      = #{branch},
+            `title`       = #{title},
+            `content`     = #{content},
+            `written_on`  = #{writtenOn},
+            `modified_on` = #{modifiedOn}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
+
+    <select id="selectArticle" resultType="dev.babsang.megabox.entities.bbs.ArticleEntity">
+        select `index`       as `index`,
+               `board_id`    as `boardId`,
+               `sort`        as `sort`,
+               `region`      as `region`,
+               `branch`      as `branch`,
+               `title`       as `title`,
+               `content`     as `content`,
+               `written_on`  as `writtenOn`,
+               `modified_on` as `modifiedOn`
+        from mg_bbs.article
+    </select>
+</mapper>
