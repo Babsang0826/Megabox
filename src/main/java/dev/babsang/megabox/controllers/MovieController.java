@@ -1,11 +1,6 @@
 package dev.babsang.megabox.controllers;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.*;
-import dev.babsang.megabox.entities.movie.BookingEntity;
-import dev.babsang.megabox.entities.movie.MovieCommentEntity;
-import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.services.MovieService;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
@@ -190,11 +185,10 @@ public class MovieController {
     }
 
     @RequestMapping(value = "seat",
-    method = RequestMethod.GET,
-    produces = MediaType.TEXT_HTML_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getSeat() {
         ModelAndView modelAndView = new ModelAndView("movie/seat");
-
 
         return modelAndView;
     }

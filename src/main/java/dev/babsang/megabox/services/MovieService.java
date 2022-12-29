@@ -10,8 +10,6 @@ import dev.babsang.megabox.vos.movie.MovieVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
 @Service(value = "dev.babsang.megabox.services.MovieService")
 public class MovieService {
     private final IMovieMapper movieMapper;
@@ -37,9 +35,7 @@ public class MovieService {
     public MovieCommentEntity[] getComments(int mid) {
         return this.movieMapper.selectMovieCommentsByMid(mid);
     }
-    public MovieEntity getMovie(int mid) {
-        return this.movieMapper.selectMovieByIndex(mid);
-    }
+
     public MovieEntity[] getMovies() {
         return this.movieMapper.selectMovies();
     }
@@ -56,9 +52,24 @@ public class MovieService {
         return this.movieMapper.selectScreenInfos();
     }
 
-    public MovieVo[] getCommingMovies() { return this.movieMapper.selectCommingMovies(); }
-    public MovieVo getMovieVo(int mid) { return this.movieMapper.selectMovieVo(mid); }
-    public MovieVo[] getMovieVosByMid(int mid) { return this.movieMapper.selectMovieVosByMid(mid); }
-    public MovieVo[] getMovieVos() { return this.movieMapper.selectMovieVos(); }
-    public BookingEntity[] getBookings() { return this.movieMapper.selectBooking(); }
+    public MovieVo[] getCommingMovies() {
+        return this.movieMapper.selectCommingMovies();
+    }
+
+    public MovieVo getMovieVo(int mid) {
+        return this.movieMapper.selectMovieVo(mid);
+    }
+
+    public MovieVo[] getMovieVosByMid(int mid) {
+        return this.movieMapper.selectMovieVosByMid(mid);
+    }
+    // 추후 사용예정
+
+    public MovieVo[] getMovieVos() {
+        return this.movieMapper.selectMovieVos();
+    }
+
+    public BookingEntity[] getBookings() {
+        return this.movieMapper.selectBooking();
+    }
 }

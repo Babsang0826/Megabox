@@ -187,8 +187,6 @@
                  LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
                  LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
         group by `movie`.`index`
-
-        WHERE `movie_index` = #{mid}
     </select>
 
     <select id="selectRegion"
