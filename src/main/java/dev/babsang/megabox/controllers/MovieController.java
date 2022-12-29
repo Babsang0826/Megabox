@@ -2,7 +2,6 @@ package dev.babsang.megabox.controllers;
 
 import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
-import dev.babsang.megabox.enums.bbs.WriteResult;
 import dev.babsang.megabox.services.MovieService;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
@@ -168,7 +167,6 @@ public class MovieController {
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getMoviePost() {
         return new ModelAndView("movie/movie-post");
-
     }
 
     @RequestMapping(value = "fast-reservation", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
