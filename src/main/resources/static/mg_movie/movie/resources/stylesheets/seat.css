@@ -94,7 +94,7 @@ body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-sect
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
 }
 
@@ -105,24 +105,40 @@ body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-sect
     border: 1px solid #d8d9db;
     border-bottom: 0;
     min-height: 52px;
-    width: 100%;
+    width: 97.4%;
 }
 
 body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-cnt > .cell {
     margin-right: 1rem;
     display: flex;
+    align-items: center;
 }
 
 body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-cnt > .cell > .text {
-
+    padding: 0 10px 0 0;
+    line-height: 32px;
 }
 
 body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-cnt > .cell > .cnt {
     display: flex;
 }
 
-body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-cnt > .cell > .cnt > button {
+body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-cnt > .cell > .cnt > .down {
+    float: left;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 1.2em;
+}
 
+body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-cnt > .cell > .cnt > .up {
+    float: left;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 0 5px 5px 0;
+    font-size: 1.2em;
 }
 
 body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-cnt > .cell > .cnt > .number {
@@ -130,14 +146,32 @@ body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-sect
 }
 
 body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-cnt > .cell > .cnt > .number > button {
-    height: 100%;
+    /*height: 100%;*/
+    width: 42px;
+    height: 32px;
+    /*border: 1px solid #ccc;*/
+    /*border-width: 1px 0;*/
 }
 
 body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-layout {
-
+    position: relative;
+    height: 454px;
+    border: 1px solid #d8d9db;
+    border-top: 0;
+    width: 100%;
 }
 
+body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-layout > .seat-wrap {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 452px;
+    padding: 30px 0;
+}
 
+body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-section > .seat-area > .seat-layout > .seat-wrap > .seat-container {
+
+}
 
 
 

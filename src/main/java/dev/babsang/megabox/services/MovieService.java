@@ -36,9 +36,6 @@ public class MovieService {
     public MovieCommentEntity[] getComments(int mid) {
         return this.movieMapper.selectMovieCommentsByMid(mid);
     }
-    public MovieEntity getMovie(int mid) {
-        return this.movieMapper.selectMovieByIndex(mid);
-    }
     public MovieEntity[] getMovies() {
         return this.movieMapper.selectMovies();
     }
