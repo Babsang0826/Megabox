@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메가박스 :: 좌석 선택</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/seat.css}">
+    <script defer th:src="@{/mg_movie/movie/resources/scripts/seat.js}"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="body-wrap">
+    <div class="container">
+        <div class="inner-wrap">
+            <div class="book">
+                <h2 class="title">빠른예매</h2>
+                <div class="seat-select">
+                    <div class="seat-section">
+                        <div class="seat-title">
+                            <h3 class="audience-cnt">관람인원 선택</h3>
+                            <div class="reset">
+                                <button type="button" class="reset-button">
+                                    <i></i>초기화
+                                </button>
+                            </div>
+                        </div>
+                        <div class="seat-area">
+                            <div class="seat-cnt">
+                                <div class="cell">
+                                    <p class="text">성인</p>
+                                    <div class="cnt">
+                                        <button class="down" type="button">-</button>
+                                        <div class="number">
+                                            <button class="now" type="button">0</button>
+                                        </div>
+                                        <button class="up" type="button">+</button>
+                                    </div>
+                                </div>
+                                <div class="cell">
+                                    <p class="text">청소년</p>
+                                    <div class="cnt">
+                                        <button class="down" type="button">-</button>
+                                        <div class="number">
+                                            <button class="now" type="button">0</button>
+                                        </div>
+                                        <button class="up" type="button">+</button>
+                                    </div>
+                                </div>
+                                <div class="cell">
+                                    <p class="text">우대</p>
+                                    <div class="cnt">
+                                        <button class="down" type="button">-</button>
+                                        <div class="number">
+                                            <button class="now" type="button">0</button>
+                                        </div>
+                                        <button class="up" type="button">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="seat-layout">
+                                <div class="seat-wrap">
+                                    <div class="seat-container">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="seat-result">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+</body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</html>

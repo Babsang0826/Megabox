@@ -1,6 +1,5 @@
 package dev.babsang.megabox.mappers;
 
-import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.BookingEntity;
 import dev.babsang.megabox.entities.movie.MovieCommentEntity;
 import dev.babsang.megabox.entities.movie.MovieEntity;
@@ -17,8 +16,11 @@ public interface IMovieMapper {
     MovieCommentEntity[] selectMovieCommentsByMid(@Param(value = "mid") int mid);
     MovieEntity selectMovieByIndex(@Param(value = "mid") int mid);
     MovieEntity[] selectMovies();
-    MovieEntity[] selectCommingMovies();
+//    MovieVo[] selectCommingMovieVos();
+    MovieVo[] selectCommingMovies();
     MovieVo selectMovieVo(@Param(value = "mid") int mid);
+    MovieVo[] selectMovieVosByMid(@Param(value = "mid") int mid);
+    MovieVo[] selectMovieVos();
     BookingEntity[] selectBooking();
 
 

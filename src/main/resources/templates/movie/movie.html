@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Movie</title>
+    <title>MegaBox :: 박스오피스</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
     <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/movie.css}">
     <script defer th:src="@{/mg_movie/movie/resources/scripts/movie.js}"></script>
@@ -54,7 +54,7 @@
                     <div class="poster">
                         <img th:src="${movie.getMoviePoster()}" alt="" class="movie-poster">
                         <div class="movie-detail">
-                            <a th:href="@{./movie-detail (mid=${movie.getIndex()})}"  class="wrap-poster">
+                            <a th:href="@{./movie-detail (mid=${movie.getIndex()})}" class="wrap-poster">
                                 <div class="summary" th:text="${movie.getSummary().replaceAll('<br>','')}"></div>
                                 <div class="score">
                                     <div class="preview">
@@ -74,9 +74,9 @@
                         </a>
                     </div>
                     <div class="rate-date">
-                            <span class="rate">
-                                예매율 85%
-                            </span>
+<!--                                                    <span class="rate">-->
+                        <span class="rate" th:text="'예매율 ' + ${movie.getBookRate()} + '%'">
+                            예매율 85%</span>
                         <span class="date" th:text="'개봉일 ' + ${#dates.format(movie.getReleaseDate(), 'yyyy.MM.dd')}">개봉일 2022.12.14</span>
                     </div>
                     <div class="button">
@@ -111,7 +111,7 @@
                     </span>
                 </div>
                 <p class="search-result">
-                    <strong class="searchCnt" th:text="${commigMovies.length}">8</strong>
+                    <strong class="searchCnt" th:text="${movies.length}">8</strong>
                     개의 영화가 검색되었습니다.
                 </p>
             </div>
@@ -122,11 +122,11 @@
         </div>
         <div class="movie-list">
             <ol class="list first">
-                <li class="movie" th:each="movie : ${commigMovies}">
+                <li class="movie" th:each="movie : ${commingMovies1}">
                     <div class="poster">
                         <img th:src="${movie.getMoviePoster()}" alt="" class="movie-poster">
                         <div class="movie-detail">
-                            <a th:href="@{./movie-detail (mid=${movie.getIndex()})}"  class="wrap-poster">
+                            <a th:href="@{./movie-detail (mid=${movie.getIndex()})}" class="wrap-poster">
                                 <div class="summary" th:text="${movie.getSummary().replaceAll('<br>','')}"></div>
                                 <div class="score">
                                     <div class="preview">
@@ -146,9 +146,7 @@
                         </a>
                     </div>
                     <div class="rate-date">
-                            <span class="rate">
-                                예매율 85%
-                            </span>
+                            <span class="rate" th:text="'예매율 '+ ${movie.getBookRate() + '%'}">개봉 예정택</span>
                         <span class="date" th:text="'개봉일 ' + ${#dates.format(movie.getReleaseDate(), 'yyyy.MM.dd')}">개봉일 2022.12.14</span>
                     </div>
                     <div class="button">
