@@ -1,8 +1,7 @@
 const nextBtn = window.document.getElementById('nextBtn'); // 다음버튼
 const previousBtn = window.document.getElementById('previousBtn'); // 이전버튼
 const timeBox = window.document.querySelector('.time-box'); // 보여줘야 할 칸
-
-//
+const reservationContainer = window.document.querySelector('.reservation-container');
 
 let date = new Date(); // 현재 날짜(로컬 기준) 가져오기
 let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // utc 표준시 도출
@@ -117,9 +116,24 @@ function moveSlide(num) {
     currentIdx = num;
 }
 
-// 에약 Day클릭 로직
-const movieDay = window.document.querySelectorAll('.day');
-const listBox = window.document.querySelectorAll('.list-box');
+function alertTwo() {
+    swal("알림", "해당 일자에 상영 시간표가 없습니다.");
+}
+
+
+const region = window.document.querySelector('.region');
+const city = window.document.querySelectorAll('.city');
+const cityName = window.document.querySelectorAll('.city-name');
+
+
+function alertOne() {
+    swal("알림", "극장은 최대 3개까지 선택이 가능합니다.");
+}
+
+
+// 날짜 클릭시 나타나는 영화 및 날짜 클릭 관련 이벤트
+const movieDay = window.document.querySelectorAll('.day'); // 날짜 클릭
+const listBox = window.document.querySelectorAll('.list-box'); // 영화 클릭
 for (let j = 0; j < listBox.length; j++) {
     for (let i = 0; i < movieDay.length; i++) {
         listBox[j].style.cursor = 'default';
@@ -127,7 +141,7 @@ for (let j = 0; j < listBox.length; j++) {
         movieDay[0].style.backgroundColor = 'rgb(235,235,235)';
         movieDay[i].addEventListener('click', () => {
             if (listBox[j].querySelector('[rel="release-date"]').value > thisMonthArr[i]) {
-                listBox[j].style.cursor = 'default';
+                listBox[j].style.pointerEvents = 'none';
                 listBox[j].style.opacity = '40%';
             }
             if (listBox[j].querySelector('[rel="release-date"]').value <= thisMonthArr[i]) {
@@ -135,7 +149,7 @@ for (let j = 0; j < listBox.length; j++) {
                 listBox[j].style.opacity = '100%';
             }
             if (listBox[j].querySelector('[rel="end-date"]').value < thisMonthArr[i]) {
-                listBox[j].style.cursor = 'default';
+                listBox[j].style.pointerEvents = 'none';
                 listBox[j].style.opacity = '40%';
             } else if (listBox[j].querySelector('[rel="end-date"]').value <= thisMonthArr[i]) {
                 listBox[j].style.cursor = 'pointer';
@@ -144,14 +158,14 @@ for (let j = 0; j < listBox.length; j++) {
 
 
             if (listBox[j].querySelector('[rel="release-date"]').value > nextMonthArr[i - (thisMonthArr.length)]) {
-                listBox[j].style.cursor = 'default';
+                listBox[j].style.pointerEvents = 'none';
                 listBox[j].style.opacity = '40%';
             } else if (listBox[j].querySelector('[rel="release-date"]').value <= nextMonthArr[i - (thisMonthArr.length)]) {
                 listBox[j].style.cursor = 'pointer';
                 listBox[j].style.opacity = '100%';
             }
             if (listBox[j].querySelector('[rel="end-date"]').value < nextMonthArr[i - (thisMonthArr.length)]) {
-                listBox[j].style.cursor = 'default';
+                listBox[j].style.pointerEvents = 'none';
                 listBox[j].style.opacity = '40%';
             } else if (listBox[j].querySelector('[rel="end-date"]').value <= nextMonthArr[i - (thisMonthArr.length)]) {
                 listBox[j].style.cursor = 'pointer';
@@ -167,7 +181,7 @@ for (let j = 0; j < listBox.length; j++) {
                 movieDay[i].classList.add('on');
             }
             movieDay[0].addEventListener('click', () => {
-                    movieDay[0].style.backgroundColor = 'rgb(235, 235, 235)';
+                movieDay[0].style.backgroundColor = 'rgb(235, 235, 235)';
             })
         });
     }
@@ -179,272 +193,46 @@ for (let j = 0; j < listBox.length; j++) {
                 listBox[i].classList.remove('on');
             }
             listBox[j].classList.add('on');
+
         }
+
     });
-
 }
 
-
-const regionSeoul = window.document.querySelector('.region-seoul');
-const regionGyeonggi = window.document.querySelector('.region-gyeonggi');
-const regionIncheon = window.document.querySelector('.region-incheon');
-const regionDaejeon = window.document.querySelector('.region-daejeon');
-const regionGyeongsang = window.document.querySelector('.region-gyeongsang');
-const regionJeonla = window.document.querySelector('.region-jeonla');
-const regionGangwon = window.document.querySelector('.region-gangwon');
-
-const seoulCity = window.document.querySelector('.seoul-city');
-const gyeonggiCity = window.document.querySelector('.gyeonggi-city');
-const incheonCity = window.document.querySelector('.incheon-city');
-const daejeonCity = window.document.querySelector('.daejeon-city');
-const gyeongsangCity = window.document.querySelector('.gyeongsang-city');
-const jeonlaCity = window.document.querySelector('.jeonla-city');
-const gangwonCity = window.document.querySelector('.gangwon-city');
-
-const seoulLi = window.document.querySelectorAll('.seoul');
-const gyeonggiLi = window.document.querySelectorAll('.gyeonggi');
-const incheonLi = window.document.querySelectorAll('.incheon');
-const daejeonLi = window.document.querySelectorAll('.daejeon');
-const gyeongsangLi = window.document.querySelectorAll('.gyeongsang');
-const jeonlaLi = window.document.querySelectorAll('.jeonla');
-const gangwonLi = window.document.querySelectorAll('.gangwon');
-
-
-function alert() {
-    swal("알림", "극장은 최대 3개까지 선택이 가능합니다.");
-}
-
-regionSeoul.addEventListener('click', () => {
-    regionSeoul.style.backgroundColor = 'rgb(235, 235, 235)';
-    regionIncheon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionJeonla.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeonggi.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionDaejeon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGangwon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeongsang.style.backgroundColor = 'rgb(255, 255, 255)';
-    seoulCity.classList.add('on');
-    gyeonggiCity.classList.remove('on');
-    incheonCity.classList.remove('on');
-    daejeonCity.classList.remove('on');
-    jeonlaCity.classList.remove('on');
-    gyeongsangCity.classList.remove('on');
-    gangwonCity.classList.remove('on');
+// 지역 선택시 이벤트
+region.addEventListener('click', () => {
+    region.style.backgroundColor = 'rgb(235, 235, 235)';
+    city.forEach(x => {
+        x.classList.add('on');
+    });
     let count = 0;
-    for (let i = 0; i < seoulLi.length; i++) {
-        seoulLi[i].addEventListener('click', () => {
-            seoulLi[i].classList.toggle('on');
-            if (seoulLi[i].classList.contains('on')) {
+    for (let i = 0; i < cityName.length; i++) {
+        cityName[i].addEventListener('click', () => {
+            cityName[i].classList.toggle('on');
+            if (cityName[i].classList.contains('on')) {
                 count++;
             } else {
                 count--;
             }
             if (count > 3) {
-                alert('극장은 최대 3개까지 선택이 가능합니다.');
-                seoulLi[i].classList.remove('on');
+                alertOne('극장은 최대 3개까지 선택이 가능합니다.');
+                cityName[i].classList.remove('on');
                 count = 3;
             }
         });
     }
 });
 
+// 1. 처음 극장을 눌렀을때는 그 지점 관련 모든 영화가 다 나와야 한다.(현재시간보다 추후에 있는)
+// 2. 영화 제목과 극장을 눌렀을때는 제목과 극장이 둘다 일치하고 현재시간보다 뒤에 있는 영화만 나와야 한다.
+// 3. 영화 제목, 극장, 날짜를 모두 눌렀을 때는 3개가 다 일치하는 결과가 나와야 한다.(현재시간보다 추후에 있는)
+// 4. 날짜를 클릭하지 않았을때에는 오늘기준으로 영화를 검색해준다. (오늘날짜 + 영화만 클릭시에는 영화가 보여지지 않음) / (오늘날짜 + 극장을 선택시에는 모든 결과를 보여줌)
 
-regionGyeonggi.addEventListener('click', () => {
-    regionGyeonggi.style.backgroundColor = 'rgb(235, 235, 235)';
-    regionSeoul.style.backgroundColor = 'rgb(255,255,255)';
-    regionJeonla.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionDaejeon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGangwon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeongsang.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionIncheon.style.backgroundColor = 'rgb(255, 255, 255)';
-    gyeonggiCity.classList.add('on');
-    seoulCity.classList.remove('on');
-    incheonCity.classList.remove('on');
-    daejeonCity.classList.remove('on');
-    jeonlaCity.classList.remove('on');
-    gyeongsangCity.classList.remove('on');
-    gangwonCity.classList.remove('on');
-    let count = 0;
-    for (let i = 0; i < gyeonggiLi.length; i++) {
-        gyeonggiLi[i].addEventListener('click', () => {
-            gyeonggiLi[i].classList.toggle('on');
-            if (gyeonggiLi[i].classList.contains('on')) {
-                count++;
-            } else {
-                count--;
-            }
-            if (count > 3) {
-                alert('극장은 최대 3개까지 선택이 가능합니다.');
-                gyeonggiLi[i].classList.remove('on');
-                count = 3;
-            }
-        });
-    }
-});
 
-regionIncheon.addEventListener('click', () => {
-    regionIncheon.style.backgroundColor = 'rgb(235, 235, 235)';
-    regionSeoul.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionJeonla.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeonggi.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionDaejeon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGangwon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeongsang.style.backgroundColor = 'rgb(255, 255, 255)';
-    incheonCity.classList.add('on');
-    seoulCity.classList.remove('on');
-    gyeonggiCity.classList.remove('on');
-    daejeonCity.classList.remove('on');
-    jeonlaCity.classList.remove('on');
-    gyeongsangCity.classList.remove('on');
-    gangwonCity.classList.remove('on');
-    let count = 0;
-    for (let i = 0; i < incheonLi.length; i++) {
-        incheonLi[i].addEventListener('click', () => {
-            incheonLi[i].classList.toggle('on');
-            if (incheonLi[i].classList.contains('on')) {
-                count++;
-            } else {
-                count--;
-            }
-            if (count > 3) {
-                alert('극장은 최대 3개까지 선택이 가능합니다.');
-                incheonLi[i].classList.remove('on');
-                count = 3;
-            }
-        });
-    }
-});
 
-regionDaejeon.addEventListener('click', () => {
-    regionDaejeon.style.backgroundColor = 'rgb(235, 235, 235)';
-    regionSeoul.style.backgroundColor = 'rgb(255,255,255)';
-    regionJeonla.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeonggi.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionIncheon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGangwon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeongsang.style.backgroundColor = 'rgb(255, 255, 255)';
-    daejeonCity.classList.add('on');
-    seoulCity.classList.remove('on');
-    gyeonggiCity.classList.remove('on');
-    incheonCity.classList.remove('on');
-    jeonlaCity.classList.remove('on');
-    gyeongsangCity.classList.remove('on');
-    gangwonCity.classList.remove('on');
-    let count = 0;
-    for (let i = 0; i < daejeonLi.length; i++) {
-        daejeonLi[i].addEventListener('click', () => {
-            daejeonLi[i].classList.toggle('on');
-            if (daejeonLi[i].classList.contains('on')) {
-                count++;
-            } else {
-                count--;
-            }
-            if (count > 3) {
-                alert('극장은 최대 3개까지 선택이 가능합니다.');
-                daejeonLi[i].classList.remove('on');
-                count = 3;
-            }
-        });
-    }
-});
 
-regionGyeongsang.addEventListener('click', () => {
-    regionGyeongsang.style.backgroundColor = 'rgb(235, 235, 235)';
-    regionSeoul.style.backgroundColor = 'rgb(255,255,255)';
-    regionJeonla.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeonggi.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionIncheon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGangwon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionDaejeon.style.backgroundColor = 'rgb(255, 255, 255)';
-    gyeongsangCity.classList.add('on');
-    seoulCity.classList.remove('on');
-    gyeonggiCity.classList.remove('on');
-    incheonCity.classList.remove('on');
-    daejeonCity.classList.remove('on');
-    jeonlaCity.classList.remove('on');
-    gangwonCity.classList.remove('on');
-    let count = 0;
-    for (let i = 0; i < gyeongsangLi.length; i++) {
-        gyeongsangLi[i].addEventListener('click', () => {
-            gyeongsangLi[i].classList.toggle('on');
-            if (gyeongsangLi[i].classList.contains('on')) {
-                count++;
-            } else {
-                count--;
-            }
-            if (count > 3) {
-                alert('극장은 최대 3개까지 선택이 가능합니다.');
-                gyeongsangLi[i].classList.remove('on');
-                count = 3;
-            }
-        });
-    }
-});
 
-regionJeonla.addEventListener('click', () => {
-    regionJeonla.style.backgroundColor = 'rgb(235, 235, 235)';
-    regionSeoul.style.backgroundColor = 'rgb(255,255,255)';
-    regionDaejeon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeonggi.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionIncheon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGangwon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeongsang.style.backgroundColor = 'rgb(255, 255, 255)';
-    jeonlaCity.classList.add('on');
-    seoulCity.classList.remove('on');
-    gyeonggiCity.classList.remove('on');
-    incheonCity.classList.remove('on');
-    daejeonCity.classList.remove('on');
-    gyeongsangCity.classList.remove('on');
-    gangwonCity.classList.remove('on');
-    let count = 0;
-    for (let i = 0; i < jeonlaLi.length; i++) {
-        jeonlaLi[i].addEventListener('click', () => {
-            jeonlaLi[i].classList.toggle('on');
-            if (jeonlaLi[i].classList.contains('on')) {
-                count++;
-            } else {
-                count--;
-            }
-            if (count > 3) {
-                alert('극장은 최대 3개까지 선택이 가능합니다.');
-                jeonlaLi[i].classList.remove('on');
-                count = 3;
-            }
-        });
-    }
-});
 
-regionGangwon.addEventListener('click', () => {
-    regionGangwon.style.backgroundColor = 'rgb(235, 235, 235)';
-    regionSeoul.style.backgroundColor = 'rgb(255,255,255)';
-    regionDaejeon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeonggi.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionIncheon.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionGyeongsang.style.backgroundColor = 'rgb(255, 255, 255)';
-    regionJeonla.style.backgroundColor = 'rgb(255, 255, 255)';
-    gangwonCity.classList.add('on');
-    seoulCity.classList.remove('on');
-    gyeonggiCity.classList.remove('on');
-    incheonCity.classList.remove('on');
-    daejeonCity.classList.remove('on');
-    gyeongsangCity.classList.remove('on');
-    jeonlaCity.classList.remove('on');
-    let count = 0;
-    for (let i = 0; i < gangwonLi.length; i++) {
-        gangwonLi[i].addEventListener('click', () => {
-            gangwonLi[i].classList.toggle('on');
-            if (gangwonLi[i].classList.contains('on')) {
-                count++;
-            } else {
-                count--;
-            }
-            if (count > 3) {
-                alert('극장은 최대 3개까지 선택이 가능합니다.');
-                gangwonLi[i].classList.remove('on');
-                count = 3;
-            }
-        });
-    }
-});
 
 const timeWrap = window.document.querySelector('.time-wrap');
 

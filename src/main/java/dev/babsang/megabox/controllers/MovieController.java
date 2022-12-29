@@ -1,11 +1,11 @@
 package dev.babsang.megabox.controllers;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import dev.babsang.megabox.entities.member.UserEntity;
-import dev.babsang.megabox.entities.movie.BookingEntity;
-import dev.babsang.megabox.entities.movie.MovieCommentEntity;
-import dev.babsang.megabox.entities.movie.MovieEntity;
+import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.services.MovieService;
+import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
 import org.apache.ibatis.annotations.Param;
 import org.json.JSONArray;
@@ -155,9 +155,16 @@ public class MovieController {
 
     @RequestMapping(value = "fast-reservation", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getFastReservation() {
+
         ModelAndView modelAndView = new ModelAndView("movie/fast-reservation");
         MovieEntity[] movies = this.movieService.getMovies();
+        RegionEntity region = this.movieService.getRegion();
+        BranchEntity[] branches = this.movieService.getBranches();
+        MovieScreenInfoVo[] infos = this.movieService.getScreenInfos();
+        modelAndView.addObject("infos", infos);
         modelAndView.addObject("movies", movies);
+        modelAndView.addObject("region", region);
+        modelAndView.addObject("branches", branches);
         return modelAndView;
     }
 }

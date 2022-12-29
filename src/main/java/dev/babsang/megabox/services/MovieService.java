@@ -1,15 +1,16 @@
 package dev.babsang.megabox.services;
 
-import dev.babsang.megabox.entities.movie.BookingEntity;
-import dev.babsang.megabox.entities.movie.MovieCommentEntity;
-import dev.babsang.megabox.entities.movie.MovieEntity;
+import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.mappers.IMovieMapper;
 import dev.babsang.megabox.vos.movie.MovieCommentVo;
+import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 
 @Service(value = "dev.babsang.megabox.services.MovieService")
 public class MovieService {
@@ -47,6 +48,18 @@ public class MovieService {
 
     public MovieEntity[] getCommingMovies() {
         return this.movieMapper.selectCommingMovies();
+    }
+
+    public RegionEntity getRegion() {
+        return this.movieMapper.selectRegion();
+    }
+
+    public BranchEntity[] getBranches() {
+        return this.movieMapper.selectBranches();
+    }
+
+    public MovieScreenInfoVo[] getScreenInfos() {
+        return this.movieMapper.selectScreenInfos();
     }
 
     public MovieVo getMovieVo(int mid) { return this.movieMapper.selectMovieVo(mid); }

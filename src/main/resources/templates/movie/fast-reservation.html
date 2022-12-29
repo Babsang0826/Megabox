@@ -8,13 +8,11 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script defer th:src="@{/mg_movie/movie/resources/scripts/fast-reservation.js}"></script>
-    <script src="../../../../../../study-member-bbs/src/main/resources/static/bbs/resources/scripts/modify.js"></script>
 </head>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
 <body>
 <main class="--main main">
-    <div class="reservation-container">
-        <input type="hidden" name="mid">
+    <form class="reservation-container">
         <div class="reservation-box">
             <div class="title">
                 <span>빠른예매</span>
@@ -53,7 +51,10 @@
                                             <input rel="end-date" hidden name="endDate"
                                                    th:value="${#dates.format(movie.getEndDate(), 'yyyy-MM-dd')}">
                                             <div th:class="${movie.getAgeLimit()}"></div>
-                                            <span th:text="${movie.getTitle()}">영화포스터제목</span>
+                                            <span th:text="${movie.getTitle()}">
+                                                <input rel="list-movie-title" hidden name="listMovieTitle"
+                                                       th:value="${movie.getTitle()}">
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -73,81 +74,20 @@
                                 </div>
                                 <div class="list">
                                     <ul class="quick-region">
-                                        <li class="region-seoul">
-                                            <span>서울(19)</span>
-                                        </li>
-                                        <li class="region-gyeonggi">
-                                            <span>경기(31)</span>
-                                        </li>
-                                        <li class="region-incheon">
-                                            <span>인천(5)</span>
-                                        </li>
-                                        <li class="region-daejeon">
-                                            <span>대전/충청/세종(15)</span>
-                                        </li>
-                                        <li class="region-gyeongsang">
-                                            <span>부산/대구/경상(25)</span>
-                                        </li>
-                                        <li class="region-jeonla">
-                                            <span>광주/전라(9)</span>
-                                        </li>
-                                        <li class="region-gangwon">
-                                            <span>강원(5)</span>
+                                        <!--/*@thymesVar id="region" type="dev.babsang.megabox.entities.movie.RegionEntity"*/-->
+                                        <li class="region" th:text="${region.getText()}">
+
                                         </li>
                                     </ul>
                                     <ul class="quick-city">
-                                        <li class="seoul-city">
-                                            <span class="seoul">강남</span>
-                                            <span class="seoul">강남대로</span>
-                                            <span class="seoul">강남강동</span>
-                                            <span class="seoul">군자</span>
-                                            <span class="seoul">동대문</span>
-                                        </li>
-                                        <li class="gyeonggi-city">
-                                            <span class="gyeonggi">고양스타필드</span>
-                                            <span class="gyeonggi">광명AK플라자</span>
-                                            <span class="gyeonggi">광명소하</span>
-                                            <span class="gyeonggi">금정AK플라자</span>
-                                            <span class="gyeonggi">김포한강신도시</span>
-                                        </li>
-                                        <li class="incheon-city">
-                                            <span class="incheon">검단</span>
-                                            <span class="incheon">송도</span>
-                                            <span class="incheon">영종</span>
-                                            <span class="incheon">인천논현</span>
-                                            <span class="incheon">청라지젤</span>
-                                        </li>
-                                        <li class="daejeon-city">
-                                            <span class="daejeon">공주</span>
-                                            <span class="daejeon">논산</span>
-                                            <span class="daejeon">대전</span>
-                                            <span class="daejeon">대전신세계 아트앤사이언스</span>
-                                            <span class="daejeon">대전유성</span>
-                                        </li>
-                                        <li class="gyeongsang-city">
-                                            <span class="gyeongsang">경북도청</span>
-                                            <span class="gyeongsang">경산하양</span>
-                                            <span class="gyeongsang">경주</span>
-                                            <span class="gyeongsang">구미강동</span>
-                                            <span class="gyeongsang">김천</span>
+                                        <!--/*@thymesVar id="branches" type="dev.babsang.megabox.entities.movie.BranchEntity[]"*/-->
+                                        <li class="city" th:each="branch : ${branches}">
+                                            <span class="city-name" th:text="${branch.getText()}">
 
-                                        </li>
-                                        <li class="jeonla-city">
-                                            <span class="jeonla">광주상무</span>
-                                            <span class="jeonla">광주하남</span>
-                                            <span class="jeonla">목포하당(포르모)</span>
-                                            <span class="jeonla">순천</span>
-                                            <span class="jeonla">여수웅천</span>
-
-                                        </li>
-                                        <li class="gangwon-city">
-                                            <span class="gangwon">남춘천</span>
-                                            <span class="gangwon">속초</span>
-                                            <span class="gangwon">원주</span>
-                                            <span class="gangwon">원주센트럴</span>
-                                            <span class="gangwon">춘천석사</span>
+                                            </span>
                                         </li>
                                     </ul>
+
                                 </div>
                             </div>
                             <div class="quick-content">
@@ -190,393 +130,31 @@
                                 </div>
                             </div>
                             <div class="select-movie-time">
-<!--                                <i class="icon fa-solid fa-film"></i>-->
-<!--                                <span>영화와 극장을 선택하시면</span>-->
-<!--                                <span>상영시간표를 비교하여 볼 수 있습니다.</span>-->
-                                <div class="movie-time-cover on">
+                                <!--                                <i class="icon fa-solid fa-film"></i>-->
+                                <!--                                <span>영화와 극장을 선택하시면</span>-->
+                                <!--                                <span>상영시간표를 비교하여 볼 수 있습니다.</span>-->
+                                <!--/*@thymesVar id="infos" type="dev.babsang.megabox.vos.movie.MovieScreenInfoVo"*/-->
+                                <div class="movie-time-cover" th:each="info : ${infos}">
                                     <div class="movie-time-info-box">
                                         <div class="movie-time">
                                             <div class="time-icon"></div>
                                             <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
+                                                <span rel="screen-date" class="screen-date"
+                                                      th:text="${#dates.format(info.getMvStartTime(), 'HH:mm')}"
+                                                      th:value="${#dates.format(info.getScreenDate(), 'yyyy-MM-dd')}">
+                                                </span>
+                                                <span th:text="${#dates.format(info.getMvEndTime(), '~HH:mm')}"></span>
                                             </div>
                                         </div>
                                         <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
+                                            <span rel="movie-title" th:text="${info.getInfoMovieTitle()}">올빼미</span>
+                                            <span th:text="${info.getInfoMovieState}">2D</span>
                                         </div>
                                         <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="movie-time-cover on">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span>09:30</span>
-                                                <span>~11:40</span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span>올빼미</span>
-                                            <span>2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span>강남</span>
-                                            <span>3관</span>
+                                            <span rel="movie-branch" class="movie-branch"
+                                                  th:text="${info.getInfoBranchText()}"
+                                                  th:value="${info.getInfoBranchText()}">강남</span>
+                                            <span th:text="${info.getInfoAudText()}">3관</span>
                                             <div class="seat-box">
                                                 <span>196</span>
                                                 <span>/232</span>
@@ -590,9 +168,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </main>
 </body>
 <th:block th:replace="~{fragments/body :: footer}"></th:block>
-
 </html>
