@@ -37,17 +37,11 @@ public class MovieService {
     public MovieCommentEntity[] getComments(int mid) {
         return this.movieMapper.selectMovieCommentsByMid(mid);
     }
-
     public MovieEntity getMovie(int mid) {
         return this.movieMapper.selectMovieByIndex(mid);
     }
-
     public MovieEntity[] getMovies() {
         return this.movieMapper.selectMovies();
-    }
-
-    public MovieEntity[] getCommingMovies() {
-        return this.movieMapper.selectCommingMovies();
     }
 
     public RegionEntity getRegion() {
@@ -62,6 +56,9 @@ public class MovieService {
         return this.movieMapper.selectScreenInfos();
     }
 
+    public MovieVo[] getCommingMovies() { return this.movieMapper.selectCommingMovies(); }
     public MovieVo getMovieVo(int mid) { return this.movieMapper.selectMovieVo(mid); }
-    public BookingEntity[] getBooking() { return this.movieMapper.selectBooking(); }
+    public MovieVo[] getMovieVosByMid(int mid) { return this.movieMapper.selectMovieVosByMid(mid); }
+    public MovieVo[] getMovieVos() { return this.movieMapper.selectMovieVos(); }
+    public BookingEntity[] getBookings() { return this.movieMapper.selectBooking(); }
 }

@@ -530,7 +530,7 @@ main > .container > .page-util > .inner-wrap > .location > a:first-of-type:hover
 .contents > .inner-wrap > .movie-list > ol > .movie > .rate-date {
     overflow: hidden;
     padding-top: 0.425rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 450;
     display: block;
     position: relative;

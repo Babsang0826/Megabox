@@ -3,22 +3,22 @@ package dev.babsang.megabox.controllers;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.*;
+import dev.babsang.megabox.entities.movie.BookingEntity;
+import dev.babsang.megabox.entities.movie.MovieCommentEntity;
+import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.services.MovieService;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
-import org.apache.ibatis.annotations.Param;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
 @Controller(value = "dev.babsang.megabox.controllers.MovieController")
 @RequestMapping(value = "movie")
@@ -38,9 +38,9 @@ public class MovieController {
         ModelAndView modelAndView = new ModelAndView("movie/movie");
 
         //전체 영화
-        MovieEntity[] movies = this.movieService.getMovies();
-
-        for (MovieEntity movie : movies) {
+        MovieVo[] movies = this.movieService.getMovieVos();
+        BookingEntity[] booking = this.movieService.getBookings();
+        for (MovieVo movie : movies) {
             MovieCommentEntity[] comments = this.movieService.getComments(movie.getIndex());
 
             double sum = 0D;
@@ -51,12 +51,33 @@ public class MovieController {
             sum = Math.round(sum * 10) / 10.0;
 
             movie.setScoreAvg(sum);
+
+            double bookingRate = Math.round((double)movie.getTotalAudience() / booking.length * 100 * 10) / 10.0;
+
+            movie.setBookRate(bookingRate);
         }
+
         modelAndView.addObject("movies", movies);
 
         //개봉 예정 영화
-        MovieEntity[] commingMovies = this.movieService.getCommingMovies();
-        modelAndView.addObject("commigMovies", commingMovies);
+        MovieVo[] commingMovies = this.movieService.getCommingMovies();
+        for (MovieVo movie : commingMovies) {
+            MovieCommentEntity[] comments = this.movieService.getComments(movie.getIndex());
+
+            double sum = 0D;
+            for (MovieCommentEntity comment : comments) {
+                sum += comment.getScore();
+            }
+            sum /= comments.length;
+            sum = Math.round(sum * 10) / 10.0;
+
+            movie.setScoreAvg(sum);
+
+            double bookingRate = Math.round((double)movie.getTotalAudience() / booking.length * 100 * 10) / 10.0;
+
+            movie.setBookRate(bookingRate);
+        }
+        modelAndView.addObject("commingMovies1", commingMovies);
 
         return modelAndView;
     }
@@ -70,7 +91,7 @@ public class MovieController {
 
         MovieCommentEntity[] comments = this.movieService.getComments(mid);
         MovieVo movie = this.movieService.getMovieVo(mid);
-        BookingEntity[] booking = this.movieService.getBooking();
+        BookingEntity[] booking = this.movieService.getBookings();
         if (comments == null) {
             modelAndView.addObject("result", CommonResult.FAILURE.name());
         } else {
@@ -89,7 +110,7 @@ public class MovieController {
             modelAndView.addObject("commentCnt", cnt);
             double bookingCnt = movie.getTotalAudience();
             double totalBookingCnt = booking.length;
-            double bookingRate = bookingCnt / totalBookingCnt * 100;
+            double bookingRate = Math.round(bookingCnt / totalBookingCnt * 100 * 10) / 10.0;
             modelAndView.addObject("bookingRate", bookingRate);
 
         }
@@ -165,6 +186,16 @@ public class MovieController {
         modelAndView.addObject("movies", movies);
         modelAndView.addObject("region", region);
         modelAndView.addObject("branches", branches);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "seat",
+    method = RequestMethod.GET,
+    produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getSeat() {
+        ModelAndView modelAndView = new ModelAndView("movie/seat");
+
+
         return modelAndView;
     }
 }

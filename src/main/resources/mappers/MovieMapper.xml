@@ -15,8 +15,7 @@
                count(`index`)    AS `commentCnt`
         FROM `mg_movie`.`movie_comment`
         WHERE `movie_index` = #{mid}
-        GROUP BY `index`
-        LIMIT 1
+        GROUP BY `index` LIMIT 1
     </select>
 
     <select id="selectMovieCommentsByMid"
@@ -79,28 +78,60 @@
         FROM `mg_movie`.`movies`
     </select>
 
-    <select id="selectCommingMovies" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
-        SELECT `index`            AS `index`,
-               `title`            AS `title`,
-               `title_en`         AS `titleEn`,
-               `release_date`     AS `releaseDate`,
-               `end_date`         AS `endDate`,
-               `summary`          AS `summary`,
-               `age_limit`        AS `ageLimit`,
-               `movie_state`      AS `movieState`,
-               `genre`            AS `genre`,
-               `director`         AS `director`,
-               `actor`            AS `actor`,
-               `running_time`     AS `runningTime`,
-               `screen_type`      AS `screenTyoe`,
-               `movie_poster`     AS `moviePoster`,
-               `background_image` AS `backgroundImage`,
-               `adult_price`      AS `adultPrice`,
-               `teenager_price`   AS `teenagerPrice`,
-               `etc_price`        AS `etcPrice`,
-               `score_avg`        AS `scoreAvg`
-        FROM `mg_movie`.`movies`
-        WHERE `movies`.`release_date` > now();
+    <select id="selectCommingMovies" resultType="dev.babsang.megabox.vos.movie.MovieVo">
+        SELECT movie.`index`                  AS `index`,
+               movie.`title`                  AS `title`,
+               movie.`title_en`               AS `titleEn`,
+               movie.`release_date`           AS `releaseDate`,
+               movie.`end_date`               AS `endDate`,
+               movie.`summary`                AS `summary`,
+               movie.`age_limit`              AS `ageLimit`,
+               movie.`movie_state`            AS `movieState`,
+               movie.`genre`                  AS `genre`,
+               movie.`director`               AS `director`,
+               movie.`actor`                  AS `actor`,
+               movie.`running_time`           AS `runningTime`,
+               movie.`screen_type`            AS `screenTyoe`,
+               movie.`movie_poster`           AS `moviePoster`,
+               movie.`background_image`       AS `backgroundImage`,
+               movie.`adult_price`            AS `adultPrice`,
+               movie.`teenager_price`         AS `teenagerPrice`,
+               movie.`etc_price`              AS `etcPrice`,
+               movie.`score_avg`              AS `scoreAvg`,
+               count(`booking`.`index`) AS `totalAudience`
+        FROM `mg_movie`.`movies` AS `movie`
+                 LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
+                 LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
+        WHERE movie.`release_date` > now()
+        group by `movie`.`index`
+    </select>
+
+    <select id="selectMovieVosByMid" resultType="dev.babsang.megabox.vos.movie.MovieVo">
+        SELECT `movie`.`index`            AS `index`,
+               `movie`.`title`            AS `title`,
+               `movie`.`title_en`         AS `titleEn`,
+               `movie`.`release_date`     AS `releaseDate`,
+               `movie`.`end_date`         AS `endDate`,
+               `movie`.`summary`          AS `summary`,
+               `movie`.`age_limit`        AS `ageLimit`,
+               `movie`.`movie_state`      AS `movieState`,
+               `movie`.`genre`            AS `genre`,
+               `movie`.`director`         AS `director`,
+               `movie`.`actor`            AS `actor`,
+               `movie`.`running_time`     AS `runningTime`,
+               `movie`.`screen_type`      AS `screenTyoe`,
+               `movie`.`movie_poster`     AS `moviePoster`,
+               `movie`.`background_image` AS `backgroundImage`,
+               `movie`.`adult_price`      AS `adultPrice`,
+               `movie`.`teenager_price`   AS `teenagerPrice`,
+               `movie`.`etc_price`        AS `etcPrice`,
+               `movie`.`score_avg`        AS `scoreAvg`,
+               count(`booking`.`index`)   as `totalAudience`
+        FROM `mg_movie`.`movies` AS `movie`
+                 LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
+                 LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
+        WHERE `movie_index` = #{mid}
+        group by `movie`.`index`
     </select>
 
     <select id="selectMovieVo" resultType="dev.babsang.megabox.vos.movie.MovieVo">
@@ -127,6 +158,35 @@
         FROM `mg_movie`.`movies` AS `movie`
                  LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
                  LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
+        where movie_index = #{mid}
+        group by `movie`.`index`
+    </select>
+
+    <select id="selectMovieVos" resultType="dev.babsang.megabox.vos.movie.MovieVo">
+        SELECT `movie`.`index`            AS `index`,
+               `movie`.`title`            AS `title`,
+               `movie`.`title_en`         AS `titleEn`,
+               `movie`.`release_date`     AS `releaseDate`,
+               `movie`.`end_date`         AS `endDate`,
+               `movie`.`summary`          AS `summary`,
+               `movie`.`age_limit`        AS `ageLimit`,
+               `movie`.`movie_state`      AS `movieState`,
+               `movie`.`genre`            AS `genre`,
+               `movie`.`director`         AS `director`,
+               `movie`.`actor`            AS `actor`,
+               `movie`.`running_time`     AS `runningTime`,
+               `movie`.`screen_type`      AS `screenTyoe`,
+               `movie`.`movie_poster`     AS `moviePoster`,
+               `movie`.`background_image` AS `backgroundImage`,
+               `movie`.`adult_price`      AS `adultPrice`,
+               `movie`.`teenager_price`   AS `teenagerPrice`,
+               `movie`.`etc_price`        AS `etcPrice`,
+               `movie`.`score_avg`        AS `scoreAvg`,
+               count(`booking`.`index`)   as `totalAudience`
+        FROM `mg_movie`.`movies` AS `movie`
+                 LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
+                 LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
+        group by `movie`.`index`
 
         WHERE `movie_index` = #{mid}
     </select>
