@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>theater-list</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/mg_movie/theater/stylesheets/page.css}">
+    <script defer th:src="@{/mg_movie/theater/scripts/page.js}"></script>
+    <script type="text/javascript"
+            src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=94a12e6ae62af8fbc88e09e7433d6c08"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<form id="form" class="form">
+<div id="contents" class="no-padding">
+    <!-- theater-detail-page -->
+    <div class="theater-detail-page">
+        <div class="bg-img"></div>
+        <div class="bg-pattern"></div>
+        <div class="bg-mask"></div>
+        <!-- theater-all -->
+        <div class="theater-all">
+            <!-- theater-area-list -->
+            <div class="theater-area-list">
+                <ul class="area-depth1">
+                    <li>
+                        <a href="http://localhost:8080/theater/page?rid=1" class="depth1">북대구(칠곡)</a>
+                    </li>
+                    <li class="">
+                        <a href="http://localhost:8080/theater/page?rid=2" class="depth1">경북도청</a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:8080/theater/page?rid=3" class="depth1">경산하양</a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:8080/theater/page?rid=4" class="depth1">경주</a>
+                    </li>
+                    <li class="">
+                        <a href="http://localhost:8080/theater/page?rid=5" class="depth1">구미강동</a>
+                    </li>
+                </ul>
+            </div>
+            <p class="name" th:text="${theater.getText()}"></p>
+        </div>
+
+    </div>
+    <div class="inner-wrap pt40">
+
+        <div class="tab-list fixed mb40 tab-layer">
+            <ul>
+                <li class="on"><a href="#" title="극장정보 탭으로 이동">극장정보</a></li>
+                <li><a th:href="@{/theater/time}" title="상영시간표 탭으로 이동">상영시간표</a></li>
+                <li><a href="#" title="관람료 탭으로 이동">관람료</a></li>
+            </ul>
+        </div>
+        <div class="tab-cont-wrap">
+            <div id="tab01" class="tab-cont on">
+                <div class="theater-info-text mt40">
+                    <p class="big" th:utext="${theater.getTitle()}">
+                    </p>
+                    <p th:utext="${theater.getSecondTitle()}"></p>
+                </div>
+                <h2 class="tit small mt70">시설안내</h2>
+                <h3 class="tit small">보유시설</h3>
+                <div class="theater-facility">
+                    <p><i class="iconset ico-facility-theater"></i>일반상영관</p>
+                    <p><i class="iconset ico-facility-disabled"></i>장애인석</p>
+                </div>
+                <h3 class="tit small mt30">층별안내</h3>
+                <ul class="dot-list">
+                    <li><span class="font-gblue" th:utext="${theater.getFloor()}"></span></li>
+                    <li><span class="font-gblue" th:utext="${theater.getFloorSecond()}"></span></li>
+                    <li><span class="font-gblue" th:utext="${theater.getFloorThird()}"></span></li>
+                </ul>
+                <h2 class="tit small mt70">교통안내</h2>
+                <h3 class="tit small">약도</h3>
+                <ul class="dot-list">
+                    <li><span class="font-gblue" th:utext="${theater.getAddress()}"></span></li>
+                </ul>
+                <div class="location-map-btn mt15">
+                    <div class="btn-group left">
+                        <a href="#"
+                           class="button purple" target="_blank" title="새창열림">실시간 길찾기</a>
+                    </div>
+                </div>
+                <h3 class="tit small mt30">주차</h3>
+                <div class="parking-info">
+                    <div class="parking-section">
+                        <div class="icon-box"><i class="iconset ico-parking" title="주차안내">주차안내</i></div>
+                        <div class="info">
+                            <p class="tit">주차안내</p>
+                            <ul class="dot-list">
+                                <li th:utext="${theater.getParkingInformation()}">케이씨네몰 건물 정면 지하주차장 이용</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="parking-section">
+                        <div class="icon-box"><i class="iconset ico-parking-confirm" title="주차확인">주차확인</i></div>
+                        <div class="info">
+                            <p class="tit">주차확인</p>
+                            <ul class="dot-list">
+                                <li th:utext="${theater.getParkingConfirmation()}">매표소 및 매점에서 할인권 지급(출차 시 정산)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="parking-section">
+                        <div class="icon-box"><i class="iconset ico-cash" title="주차요금">주차요금</i></div>
+                        <div class="info">
+                            <p class="tit">주차요금</p>
+                            <ul class="dot-list">
+                                <li th:utext="${theater.getParkingFee()}">입차 시간을 기준으로 합니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="tit small mt30">대중교통</h3>
+
+                <div class="public-transportation">
+                    <div class="transportation-section">
+                        <div class="icon-box"><i class="iconset ico-bus" title="버스">버스</i></div>
+
+                        <div class="info">
+                            <p class="tit">버스</p>
+                            <ul class="dot-list">
+                                <li th:utext="${theater.getTransport()}">11번,77번,88번,구담순한-2,예천군농어촌버스</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+</body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</html>

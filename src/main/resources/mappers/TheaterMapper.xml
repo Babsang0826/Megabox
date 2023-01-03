@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.babsang.megabox.mappers.ITheaterMapper">
+
+    <select id="selectArticleNew" resultType="dev.babsang.megabox.vos.bbs.BbsIndexCountVo">
+        select `index`       as `index`,
+               `board_id`    as `boardId`,
+               `user_id`     as `userId`,
+               `sort`        as `sort`,
+               `region`      as `region`,
+               `branch`      as `branch`,
+               `title`       as `title`,
+               `content`     as `content`,
+               `written_on`  as `writtenOn`,
+               `modified_on` as `modifiedOn`
+        from mg_bbs.article
+        ORDER BY `index` desc
+        limit 5
+    </select>
+
+    <select id="selectMovies" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
+        SELECT `index`            AS `index`,
+               `title`            AS `title`,
+               `title_en`         AS `titleEn`,
+               `release_date`     AS `releaseDate`,
+               `end_date`         AS `endDate`,
+               `summary`          AS `summary`,
+               `age_limit`        AS `ageLimit`,
+               `movie_state`      AS `movieState`,
+               `genre`            AS `genre`,
+               `director`         AS `director`,
+               `actor`            AS `actor`,
+               `running_time`     AS `runningTime`,
+               `screen_type`      AS `screenTyoe`,
+               `movie_poster`     AS `moviePoster`,
+               `background_image` AS `backgroundImage`,
+               `adult_price`      AS `adultPrice`,
+               `teenager_price`   AS `teenagerPrice`,
+               `etc_price`        AS `etcPrice`,
+               `score_avg`        AS `scoreAvg`
+        FROM `mg_movie`.`movies`
+        LIMIT 1
+    </select>
+
+    <select id="selectRegion"
+            resultType="dev.babsang.megabox.entities.movie.RegionEntity">
+        SELECT `index` AS `index`,
+               `text`  AS `text`
+        FROM `mg_movie`.`region`
+    </select>
+
+    <select id="selectBranches"
+            resultType="dev.babsang.megabox.entities.movie.BranchEntity">
+        SELECT `index`        AS `index`,
+               `text`         AS `text`,
+               `region_index` AS `regionIndex`
+        FROM `mg_movie`.`branch`
+        LIMIT 1
+    </select>
+
+    <select id="selectScreenInfos"
+            resultType="dev.babsang.megabox.vos.movie.MovieScreenInfoVo">
+        SELECT `screenInfo`.`index`            AS `index`,
+               `screenInfo`.`movie_index`      AS `movieIndex`,
+               `screenInfo`.`auditorium_index` AS `auditoriumIndex`,
+               `screenInfo`.`screen_date`      AS `screenDate`,
+               `screenInfo`.`mv_start_time`    AS `mvStartTime`,
+               `screenInfo`.`mv_end_time`      AS `mvEndTime`,
+               `movie`.`title`                 AS `infoMovieTitle`,
+               `movie`.`screen_type`           AS `infoMovieState`,
+               `auditorium`.`text`             AS `infoAudText`,
+               `branch`.`text`                 AS `infoBranchText`
+        FROM `mg_movie`.`screen_info` AS `screenInfo`
+                 LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
+                 LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
+                           ON `screenInfo`.`auditorium_index` = `auditorium`.`index`
+                 LEFT JOIN `mg_movie`.`branch` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
+        LIMIT 1
+    </select>
+
+    <!--    <select id="selectBranchesIndex"-->
+    <!--            resultType="dev.babsang.megabox.entities.movie.BranchEntity">-->
+    <!--        SELECT `index`        AS `index`,-->
+    <!--               `text`         AS `text`,-->
+    <!--               `region_index` AS `regionIndex`-->
+    <!--        FROM `mg_movie`.`branch`-->
+    <!--        WHERE BINARY `index` = #{index}-->
+    <!--        LIMIT 1-->
+    <!--    </select>-->
+    <select id="selectBranchesIndex"
+            resultType="dev.babsang.megabox.entities.theater.TheaterEntity">
+        SELECT `index`                AS `index`,
+               `text`                 AS `text`,
+               `title`                AS `title`,
+               `second_title`         AS secondTitle,
+               `floor`                AS `floor`,
+               `floor_second`         AS `floorSecond`,
+               `floor_third`          AS `floorThird`,
+               `address`              AS `adress`,
+               `parking_information`  AS `parkingInformation`,
+               `parking_confirmation` AS `parkingConfirmation`,
+               `parking_fee`          AS `parkingFee`,
+               `transport`            AS `transport`
+        FROM `mg_theater`.branch_theater
+        WHERE BINARY `index` = #{index}
+        LIMIT 1
+    </select>
+
+
+</mapper>

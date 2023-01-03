@@ -2,6 +2,8 @@ package dev.babsang.megabox.mappers;
 
 import dev.babsang.megabox.entities.bbs.ArticleEntity;
 import dev.babsang.megabox.entities.bbs.BoardsEntity;
+import dev.babsang.megabox.entities.bbs.ImageEntity;
+import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +19,16 @@ public interface IBbsMapper {
     int updateArticle(ArticleEntity article);
 
     ArticleEntity[] selectArticle();
+
+    BbsIndexCountVo[] selectArticleIndex();
+    BbsIndexCountVo selectArticleIndex1();
+
+
+    // 이미지 넣기
+    int insertImage(ImageEntity image);
+
+    ImageEntity selectImageByIndex(@Param(value = "index") int index);
+
+    int deleteArticleByIndex(@Param(value = "index") int index);
+
 }

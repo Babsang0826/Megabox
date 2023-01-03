@@ -6,6 +6,8 @@ import java.util.Objects;
 public class ArticleEntity {
     private int index;
     private String boardId;
+
+    private String userId;
     private String sort;
 
     private String region;
@@ -30,6 +32,15 @@ public class ArticleEntity {
 
     public ArticleEntity setBoardId(String boardId) {
         this.boardId = boardId;
+        return this;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public ArticleEntity setUserId(String userId) {
+        this.userId = userId;
         return this;
     }
 

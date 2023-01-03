@@ -19,8 +19,9 @@
             keyColumn="index"
             keyProperty="index"
             parameterType="dev.babsang.megabox.entities.bbs.ArticleEntity">
-        INSERT INTO `mg_bbs`.`article` (board_id, sort, region, branch, title, content, written_on, modified_on)
-        VALUES (#{boardId}, #{sort},#{region}, #{branch}, #{title}, #{content},
+        INSERT INTO `mg_bbs`.`article` (board_id, user_id, sort, region, branch, title, content, written_on,
+                                        modified_on)
+        VALUES (#{boardId}, #{userId}, #{sort}, #{region}, #{branch}, #{title}, #{content},
                 IFNULL(#{writtenOn}, DEFAULT(`written_on`)),
                 IFNULL(#{modifiedOn}, DEFAULT(`modified_on`)))
     </insert>
@@ -29,6 +30,7 @@
             resultType="dev.babsang.megabox.entities.bbs.ArticleEntity">
         SELECT `index`       AS `index`,
                `board_id`    AS `boardId`,
+               `user_id`     AS `userId`,
                `sort`        AS `sort`,
                `region`      as `region`,
                `branch`      as `branch`,
@@ -45,6 +47,7 @@
             parameterType="dev.babsang.megabox.entities.bbs.ArticleEntity">
         UPDATE `mg_bbs`.`article`
         SET `board_id`    = #{boardId},
+            `user_id`     = #{userId},
             `sort`        = #{sort},
             `region`      = #{region},
             `branch`      = #{branch},
@@ -59,6 +62,7 @@
     <select id="selectArticle" resultType="dev.babsang.megabox.entities.bbs.ArticleEntity">
         select `index`       as `index`,
                `board_id`    as `boardId`,
+               `user_id`     as `userId`,
                `sort`        as `sort`,
                `region`      as `region`,
                `branch`      as `branch`,
@@ -68,4 +72,67 @@
                `modified_on` as `modifiedOn`
         from mg_bbs.article
     </select>
+
+    <select id="selectArticleIndex" resultType="dev.babsang.megabox.vos.bbs.BbsIndexCountVo">
+        select `index`        as `index`,
+               `board_id`     as `boardId`,
+               `user_id`      as `userId`,
+               `sort`         as `sort`,
+               `region`       as `region`,
+               `branch`       as `branch`,
+               `title`        as `title`,
+               `content`      as `content`,
+               `written_on`   as `writtenOn`,
+               `modified_on`  as `modifiedOn`,
+               COUNT(`index`) as `indexCount`
+        from mg_bbs.article
+        GROUP BY `index`
+        ORDER BY `index` desc
+    </select>
+
+    <select id="selectArticleIndex1" resultType="dev.babsang.megabox.vos.bbs.BbsIndexCountVo">
+        select `index`        as `index`,
+               `board_id`     as `boardId`,
+               `user_id`      as `userId`,
+               `sort`         as `sort`,
+               `region`       as `region`,
+               `branch`       as `branch`,
+               `title`        as `title`,
+               `content`      as `content`,
+               `written_on`   as `writtenOn`,
+               `modified_on`  as `modifiedOn`,
+               COUNT(`index`) as `indexCount`
+        from mg_bbs.article
+        GROUP BY `index`
+        ORDER BY `index` desc
+        limit 1
+    </select>
+
+    <insert id="insertImage"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="dev.babsang.megabox.entities.bbs.ImageEntity">
+        INSERT INTO `mg_bbs`.`images` (file_name, file_mime, data)
+        VALUES (#{fileName}, #{fileMime}, #{data})
+    </insert>
+
+    <select id="selectImageByIndex"
+            resultType="dev.babsang.megabox.entities.bbs.ImageEntity">
+        SELECT `index`     AS `index`,
+               `file_name` AS `fileName`,
+               `file_mime` AS `fileMime`,
+               `data`      AS `data`
+        FROM `mg_bbs`.`images`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+    <delete id="deleteArticleByIndex">
+        DELETE
+        FROM `mg_bbs`.article
+        WHERE `index` = #{index}
+        LIMIT 1
+    </delete>
+
 </mapper>
