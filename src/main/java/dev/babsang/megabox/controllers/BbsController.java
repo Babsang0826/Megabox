@@ -3,16 +3,24 @@ package dev.babsang.megabox.controllers;
 
 import dev.babsang.megabox.entities.bbs.ArticleEntity;
 import dev.babsang.megabox.entities.bbs.BoardsEntity;
+import dev.babsang.megabox.entities.bbs.ImageEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.enums.bbs.WriteResult;
 import dev.babsang.megabox.services.BbsService;
+import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
 
 @Controller(value = "dev.babsang.megabox.controllers.BbsController")
 @RequestMapping(value = "bbs")
@@ -24,14 +32,6 @@ public class BbsController {
         this.bbsService = bbsService;
     }
 
-
-    //극장->전체극장
-    @RequestMapping(value = "theater-list", method = RequestMethod.GET,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getTheater() {
-        ModelAndView modelAndView = new ModelAndView("bbs/theater-list");
-        return modelAndView;
-    }
 
     //공지사항 및 글쓰기
 
@@ -73,6 +73,7 @@ public class BbsController {
         } else if (bid == null) {
             result = WriteResult.NO_SUCH_BOARD;
         } else {
+            article.setUserId(user.getId());
             article.setBoardId(bid);
             result = this.bbsService.write(article);
         }
@@ -87,19 +88,19 @@ public class BbsController {
     }
 
 
-
     // 게시글 읽어오기
     @RequestMapping(value = "notice", method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getNotice() {
         ModelAndView modelAndView = new ModelAndView("bbs/notice");
-        ArticleEntity[] articles = this.bbsService.getArticles();
+        BbsIndexCountVo[] articles = this.bbsService.getArticleIndex();
         modelAndView.addObject("articles", articles);
-//        for (ArticleEntity article : articles) {
-//            System.out.println("인덱스 : " + article.getIndex());
-//            System.out.println("타이틀 : " + article.getTitle());
-//            System.out.println("콘텐트 : " + article.getContent());
-//        }
+        int articleCnt = 0;
+        for (ArticleEntity article : articles) {
+            articleCnt++;
+        }
+        modelAndView.addObject("articleCnt", articleCnt);
+
         return modelAndView;
     }
 
@@ -116,9 +117,95 @@ public class BbsController {
 
         modelAndView.addObject("board", this.bbsService.getBoard(article.getBoardId()));
 
-        modelAndView.addObject(article.getIndex());
+        modelAndView.addObject("aid", article.getIndex());
 
         return modelAndView;
+    }
+
+    // 이미지 넣기
+    //이미지 다운로드 용
+    @RequestMapping(value = "image", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getImage(@RequestParam(value = "id") int id) {
+        ImageEntity image = this.bbsService.getImage(id);
+
+        if (image == null) { //404일때
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", image.getFileMime());
+        return new ResponseEntity<>(image.getData(), headers, HttpStatus.OK);
+    }
+
+    //이미지 넣기(업로드)
+    @RequestMapping(value = "image",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postImage(@RequestParam(value = "upload") MultipartFile file) throws IOException {
+        ImageEntity image = new ImageEntity();
+        image.setFileName(file.getOriginalFilename());
+        image.setFileMime(file.getContentType());
+        image.setData(file.getBytes());
+
+        Enum<?> result = this.bbsService.addImage(image);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        if (result == CommonResult.SUCCESS) {
+            responseObject.put("url", "http://localhost:8080/bbs/image?id=" + image.getIndex());
+        }
+        return responseObject.toString();
+    }
+
+    // 삭제
+    @RequestMapping(value = "delete",
+    method = RequestMethod.DELETE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteArticle(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                @RequestParam(value = "aid", required = false) int aid,
+                                ArticleEntity article) {
+        article.setIndex(aid);
+        Enum<?> result = this.bbsService.deleteArticle(user, article);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        responseObject.put("aid", aid);
+
+        return responseObject.toString();
+    }
+
+
+    @RequestMapping(value = "modify", method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getModify(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                  @RequestParam(value = "aid") int aid) {
+        ModelAndView modelAndView = new ModelAndView("bbs/modify");
+        ArticleEntity article = new ArticleEntity();
+        JSONObject responseObject = new JSONObject();
+        article.setIndex(aid);
+        Enum<?> result = this.bbsService.prepareModifyArticle(article, user);
+        modelAndView.addObject("article", article);
+        modelAndView.addObject("result", result.name());
+        responseObject.put("aid", aid);
+        if (result == CommonResult.SUCCESS) {
+            modelAndView.addObject("board", this.bbsService.getBoard(article.getBoardId()));
+        }
+        return modelAndView;
+    }
+    @RequestMapping(value = "modify",
+            method = RequestMethod.PATCH,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchModify(@SessionAttribute(value = "user", required = false) UserEntity user,
+                              @RequestParam(value = "aid") int aid,
+                              ArticleEntity article) {
+        article.setIndex(aid);
+        Enum<?> result = this.bbsService.modifyArticle(article, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        if (result == CommonResult.SUCCESS) {
+            responseObject.put("aid", aid);
+        }
+        return responseObject.toString();
     }
 
 

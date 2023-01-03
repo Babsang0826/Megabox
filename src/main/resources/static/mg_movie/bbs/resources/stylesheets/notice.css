@@ -5,8 +5,20 @@ body, html {
     padding: 0;
 }
 
+body > .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 a {
     text-decoration: none;
+}
+
+em {
+    color: #01738b;
 }
 
 body {
@@ -100,9 +112,6 @@ strong {
     flex: 1;
 }
 
-.count {
-    color: #01738b;
-}
 
 select::-ms-expand {
     display: none;
@@ -335,4 +344,13 @@ a:link {
 tr {
     font-size: 18px;
     font-weight: 600;
+}
+
+.board > tbody > tr > th a {
+    color: #222222;
+}
+
+.board > tbody > tr > th a:hover {
+    color: #777777;
+    text-decoration: underline;
 }

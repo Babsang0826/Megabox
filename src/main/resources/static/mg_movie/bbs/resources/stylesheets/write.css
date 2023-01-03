@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+.container {
+    display: flex;
+    padding: 0 15px 20px 15px;
+}
+
 
 body > .main > .content {
     align-items: stretch;
@@ -214,7 +219,6 @@ body > .--footer > .--content {
     width: 100%;
     /* 아무리 늘려도 너비가 80rem 보다는 넓어지지 않는다. 그리고 양 옆에 공간있음. 궁금하면 검사 눌러서 검사해봐 */
     max-width: 80rem;
-    margin: 0 2rem;
 }
 
 body > .--header > .--content > .--menu {
@@ -285,7 +289,7 @@ select::-ms-expand {
     width: inherit;
     height: inherit;
     background: transparent;
-    border: none;
+    border: 1px solid #777777;
     outline: none;
     position: relative;
     z-index: 3;
@@ -303,3 +307,8 @@ select::-ms-expand {
     justify-content: center;
     align-items: center;
 }
+
+.ck-editor__editable {
+    min-height: 20rem;
+}
+

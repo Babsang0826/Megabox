@@ -28,6 +28,7 @@ public class MemberController {
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
+
     @RequestMapping(value = "register", method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getRegister() {
@@ -81,7 +82,7 @@ public class MemberController {
     }
 
 
-//    아이디 중복검사
+    //    아이디 중복검사
     @RequestMapping(value = "register",
             method = RequestMethod.PATCH,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -130,12 +131,13 @@ public class MemberController {
         Enum<? extends IResult> result = this.memberService.recoverId(user);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
-        if(result == CommonResult.SUCCESS) {
+        if (result == CommonResult.SUCCESS) {
             responseObject.put("id", user.getId());
             responseObject.put("name", user.getName());
         }
         return responseObject.toString();
     }
+
     @RequestMapping(value = "userPasswordFind", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getUserPasswordFind() {
         ModelAndView modelAndView = new ModelAndView("member/userPasswordFind");
@@ -148,7 +150,7 @@ public class MemberController {
         Enum<? extends IResult> result = this.memberService.recoverPassword(user);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
-        if(result == CommonResult.SUCCESS) {
+        if (result == CommonResult.SUCCESS) {
             responseObject.put("password", user.getPassword());
             responseObject.put("name", user.getName());
             responseObject.put("id", user.getId());
@@ -156,7 +158,8 @@ public class MemberController {
         }
         return responseObject.toString();
     }
-// 비밀번호 재설정 페이지
+
+    // 비밀번호 재설정 페이지
     @RequestMapping(value = "userPasswordReset", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getUserPasswordReset() {
         ModelAndView modelAndView = new ModelAndView("member/userPasswordReset");
@@ -164,14 +167,14 @@ public class MemberController {
     }
 
     @RequestMapping(value = "userPasswordReset",
-    method = RequestMethod.POST,
-    produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postUserPasswordReset(EmailAuthEntity emailAuth) throws MessagingException{
+    public String postUserPasswordReset(EmailAuthEntity emailAuth) throws MessagingException {
         Enum<? extends IResult> result = this.memberService.recoverPasswordSend(emailAuth);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
-        if(result == CommonResult.SUCCESS) {
+        if (result == CommonResult.SUCCESS) {
             responseObject.put("index", emailAuth.getIndex());
         }
         return responseObject.toString();
@@ -245,4 +248,4 @@ public class MemberController {
 //        return modelAndView;
 //    }
 
-  }
+}
