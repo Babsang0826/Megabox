@@ -45,6 +45,7 @@ public class TheaterController {
         modelAndView.addObject("rid", theater.getIndex());
         return modelAndView;
     }
+    //
 
     @RequestMapping(value = "time", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getTheaterTime(@RequestParam(value = "rid", required = false) int rid) {
