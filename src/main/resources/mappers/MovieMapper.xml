@@ -15,7 +15,8 @@
                count(`index`)    AS `commentCnt`
         FROM `mg_movie`.`movie_comment`
         WHERE `movie_index` = #{mid}
-        GROUP BY `index` LIMIT 1
+        GROUP BY `index`
+        LIMIT 1
     </select>
 
     <select id="selectMovieCommentsByMid"
@@ -79,31 +80,31 @@
     </select>
 
     <select id="selectCommingMovies" resultType="dev.babsang.megabox.vos.movie.MovieVo">
-        SELECT movie.`index`                  AS `index`,
-               movie.`title`                  AS `title`,
-               movie.`title_en`               AS `titleEn`,
-               movie.`release_date`           AS `releaseDate`,
-               movie.`end_date`               AS `endDate`,
-               movie.`summary`                AS `summary`,
-               movie.`age_limit`              AS `ageLimit`,
-               movie.`movie_state`            AS `movieState`,
-               movie.`genre`                  AS `genre`,
-               movie.`director`               AS `director`,
-               movie.`actor`                  AS `actor`,
-               movie.`running_time`           AS `runningTime`,
-               movie.`screen_type`            AS `screenTyoe`,
-               movie.`movie_poster`           AS `moviePoster`,
-               movie.`background_image`       AS `backgroundImage`,
-               movie.`adult_price`            AS `adultPrice`,
-               movie.`teenager_price`         AS `teenagerPrice`,
-               movie.`etc_price`              AS `etcPrice`,
-               movie.`score_avg`              AS `scoreAvg`,
-               count(`booking`.`index`) AS `totalAudience`
+        SELECT `movie`.`index`            AS `index`,
+               `movie`.`title`            AS `title`,
+               `movie`.`title_en`         AS `titleEn`,
+               `movie`.`release_date`     AS `releaseDate`,
+               `movie`.`end_date`         AS `endDate`,
+               `movie`.`summary`          AS `summary`,
+               `movie`.`age_limit`        AS `ageLimit`,
+               `movie`.`movie_state`      AS `movieState`,
+               `movie`.`genre`            AS `genre`,
+               `movie`.`director`         AS `director`,
+               `movie`.`actor`            AS `actor`,
+               `movie`.`running_time`     AS `runningTime`,
+               `movie`.`screen_type`      AS `screenTyoe`,
+               `movie`.`movie_poster`     AS `moviePoster`,
+               `movie`.`background_image` AS `backgroundImage`,
+               `movie`.`adult_price`      AS `adultPrice`,
+               `movie`.`teenager_price`   AS `teenagerPrice`,
+               `movie`.`etc_price`        AS `etcPrice`,
+               `movie`.`score_avg`        AS `scoreAvg`,
+               count(`booking`.`index`)   AS `totalAudience`
         FROM `mg_movie`.`movies` AS `movie`
                  LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
                  LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
         WHERE movie.`release_date` > now()
-        group by `movie`.`index`
+        GROUP BY `movie`.`index`
     </select>
 
     <select id="selectMovieVosByMid" resultType="dev.babsang.megabox.vos.movie.MovieVo">
@@ -158,7 +159,7 @@
         FROM `mg_movie`.`movies` AS `movie`
                  LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
                  LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
-        where movie_index = #{mid}
+        WHERE `movie_index` = #{mid}
         group by `movie`.`index`
     </select>
 
@@ -215,13 +216,45 @@
                `movie`.`title`                 AS `infoMovieTitle`,
                `movie`.`screen_type`           AS `infoMovieState`,
                `auditorium`.`text`             AS `infoAudText`,
-               `branch`.`text`                 AS `infoBranchText`
+               `branch`.`index`                AS `infoBranchIndex`,
+               `branch`.`text`                 AS `infoBranchText`,
+               `region`.`text`                 AS `infoRegionText`
         FROM `mg_movie`.`screen_info` AS `screenInfo`
                  LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
                  LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
                            ON `screenInfo`.`auditorium_index` = `auditorium`.`index`
                  LEFT JOIN `mg_movie`.`branch` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
+                 LEFT JOIN `mg_movie`.`region` AS `region` ON `branch`.`region_index` = `region`.`index`
     </select>
+
+<!--        <select id="selectScreenInfoByOptionalList"-->
+<!--                resultType="dev.babsang.megabox.vos.movie.MovieScreenInfoVo">-->
+<!--            SELECT `screenInfo`.`index`            AS `index`,-->
+<!--                   `screenInfo`.`movie_index`      AS `movieIndex`,-->
+<!--                   `screenInfo`.`auditorium_index` AS `auditoriumIndex`,-->
+<!--                   `screenInfo`.`screen_date`      AS `screenDate`,-->
+<!--                   `screenInfo`.`mv_start_time`    AS `mvStartTime`,-->
+<!--                   `screenInfo`.`mv_end_time`      AS `mvEndTime`,-->
+<!--                   `movie`.`title`                 AS `infoMovieTitle`,-->
+<!--                   `movie`.`screen_type`           AS `infoMovieState`,-->
+<!--                   `auditorium`.`text`             AS `infoAudText`,-->
+<!--                   `branch`.`text`                 AS `infoBranchText`,-->
+<!--                   `region`.`text`                 AS `infoRegionText`-->
+<!--            FROM `mg_movie`.`screen_info` AS `screenInfo`-->
+<!--                     LEFT JOIN `mg_movie`.`movies` AS `movie`-->
+<!--                         ON `screenInfo`.`movie_index` = `movie`.`index`-->
+<!--                     LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`-->
+<!--                         ON `screenInfo`.`auditorium_index` = `auditorium`.`index`-->
+<!--                     LEFT JOIN `mg_movie`.`branch` AS `branch`-->
+<!--                         ON `auditorium`.`branch_index` = `branch`.`index`-->
+<!--                    LEFT JOIN `mg_movie`.`region` AS `region`-->
+<!--                         ON `branch`.`region_index` = `region`.`index`-->
+<!--                     WHERE `auditorium`.`text` = #{infoAudText}-->
+<!--                         AND `screenInfo`.`screen_date` = #{screenDate}-->
+<!--                     <if test="title != null">-->
+<!--                         AND `movie`.`title` = #{infoMovieTitle}-->
+<!--                     </if>-->
+<!--        </select>-->
 
     <select id="selectBooking" resultType="dev.babsang.megabox.entities.movie.BookingEntity">
         SELECT `index`             AS `index`,

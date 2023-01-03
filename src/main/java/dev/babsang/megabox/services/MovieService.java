@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 @Service(value = "dev.babsang.megabox.services.MovieService")
 public class MovieService {
     private final IMovieMapper movieMapper;
@@ -70,6 +72,10 @@ public class MovieService {
     public MovieVo[] getMovieVos() {
         return this.movieMapper.selectMovieVos();
     }
+
+//    public MovieScreenInfoVo[] getOptionalList() {
+//        return this.movieMapper.selectScreenInfoByOptionalList();
+//    }
 
     public BookingEntity[] getBookings() {
         return this.movieMapper.selectBooking();

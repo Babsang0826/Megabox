@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller(value = "dev.babsang.megabox.controllers.MovieController")
 @RequestMapping(value = "movie")
@@ -47,7 +48,7 @@ public class MovieController {
 
             movie.setScoreAvg(sum);
 
-            double bookingRate = Math.round((double)movie.getTotalAudience() / booking.length * 100 * 10) / 10.0;
+            double bookingRate = Math.round((double) movie.getTotalAudience() / booking.length * 100 * 10) / 10.0;
 
             movie.setBookRate(bookingRate);
         }
@@ -68,7 +69,7 @@ public class MovieController {
 
             movie.setScoreAvg(sum);
 
-            double bookingRate = Math.round((double)movie.getTotalAudience() / booking.length * 100 * 10) / 10.0;
+            double bookingRate = Math.round((double) movie.getTotalAudience() / booking.length * 100 * 10) / 10.0;
 
             movie.setBookRate(bookingRate);
         }
@@ -169,10 +170,9 @@ public class MovieController {
         return new ModelAndView("movie/movie-post");
     }
 
-    @RequestMapping(value = "fast-reservation", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    @RequestMapping(value = "booking", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getFastReservation() {
-
-        ModelAndView modelAndView = new ModelAndView("movie/fast-reservation");
+        ModelAndView modelAndView = new ModelAndView("movie/booking");
         MovieEntity[] movies = this.movieService.getMovies();
         RegionEntity region = this.movieService.getRegion();
         BranchEntity[] branches = this.movieService.getBranches();
@@ -182,6 +182,43 @@ public class MovieController {
         modelAndView.addObject("region", region);
         modelAndView.addObject("branches", branches);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "booking", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchBooking() {
+        JSONArray branchesJson = new JSONArray();
+        for(BranchEntity branch : this.movieService.getBranches()) {
+            JSONObject branchJson = new JSONObject();
+            branchJson.put("index", branch.getIndex());
+            branchJson.put("text", branch.getText());
+            branchJson.put("regionIndex", branch.getRegionIndex());
+            branchesJson.put(branchJson);
+        }
+        // 상영지점 JSONArray
+
+        JSONArray screenInfosAllJson = new JSONArray();
+        for (MovieScreenInfoVo screenInfo : this.movieService.getScreenInfos()) {
+            JSONObject screenInfoAllJson = new JSONObject();
+            screenInfoAllJson.put("screenInfoIndex", screenInfo.getIndex());
+            screenInfoAllJson.put("screenInfoMovieIndex", screenInfo.getMovieIndex());
+            screenInfoAllJson.put("screenInfoAuditoriumIndex", screenInfo.getAuditoriumIndex());
+            screenInfoAllJson.put("screenInfoMovieStartTime", new SimpleDateFormat("HH:mm").format(screenInfo.getMvStartTime()));
+            screenInfoAllJson.put("screenInfoMovieEndTime", new SimpleDateFormat("HH:mm").format(screenInfo.getMvEndTime()));
+            screenInfoAllJson.put("screenInfoMovieTitle", screenInfo.getInfoMovieTitle());
+            screenInfoAllJson.put("screenInfoDate",new SimpleDateFormat("yyyy-MM-dd").format(screenInfo.getScreenDate()));
+            screenInfoAllJson.put("screenInfoMovieState", screenInfo.getInfoMovieState());
+            screenInfoAllJson.put("screenInfoBranchIndex", screenInfo.getInfoBranchIndex());
+            screenInfoAllJson.put("screenInfoBranchText", screenInfo.getInfoBranchText());
+            screenInfoAllJson.put("screenInfoAuditoriumText", screenInfo.getInfoAudText());
+            screenInfosAllJson.put(screenInfoAllJson);
+        }
+        // 상영정보  JSONArray
+
+        JSONObject responseJson = new JSONObject();
+        responseJson.put("allScreenInfo", screenInfosAllJson);
+        responseJson.put("branch", branchesJson);
+        return responseJson.toString();
     }
 
     @RequestMapping(value = "seat",

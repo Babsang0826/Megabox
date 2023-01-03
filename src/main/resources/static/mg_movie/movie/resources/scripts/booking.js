@@ -1,7 +1,6 @@
 const nextBtn = window.document.getElementById('nextBtn'); // 다음버튼
 const previousBtn = window.document.getElementById('previousBtn'); // 이전버튼
 const timeBox = window.document.querySelector('.time-box'); // 보여줘야 할 칸
-const reservationContainer = window.document.querySelector('.reservation-container');
 
 let date = new Date(); // 현재 날짜(로컬 기준) 가져오기
 let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // utc 표준시 도출
@@ -12,7 +11,6 @@ let today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
 let dateTwo = new Date();
 let year = dateTwo.getFullYear();
 let month = ('0' + (1 + dateTwo.getMonth())).slice(-2);
-let day = ('0' + dateTwo.getDate()).slice(-2);
 
 
 let currentYear = date.getFullYear(); // 현재 년도
@@ -121,11 +119,6 @@ function alertTwo() {
 }
 
 
-const region = window.document.querySelector('.region');
-const city = window.document.querySelectorAll('.city');
-const cityName = window.document.querySelectorAll('.city-name');
-
-
 function alertOne() {
     swal("알림", "극장은 최대 3개까지 선택이 가능합니다.");
 }
@@ -139,7 +132,9 @@ for (let j = 0; j < listBox.length; j++) {
         listBox[j].style.cursor = 'default';
         listBox[j].style.opacity = '40%';
         movieDay[0].style.backgroundColor = 'rgb(235,235,235)';
-        movieDay[i].addEventListener('click', () => {
+        movieDay[i].addEventListener('click', e => {
+            e.preventDefault();
+
             if (listBox[j].querySelector('[rel="release-date"]').value > thisMonthArr[i]) {
                 listBox[j].style.pointerEvents = 'none';
                 listBox[j].style.opacity = '40%';
@@ -180,12 +175,14 @@ for (let j = 0; j < listBox.length; j++) {
                 }
                 movieDay[i].classList.add('on');
             }
-            movieDay[0].addEventListener('click', () => {
+            movieDay[0].addEventListener('click', e => {
+                e.preventDefault();
                 movieDay[0].style.backgroundColor = 'rgb(235, 235, 235)';
             })
         });
     }
-    listBox[j].addEventListener('click', () => {
+    listBox[j].addEventListener('click', e => {
+        e.preventDefault();
         if (listBox[j].classList[0] === 'on') {
             listBox[j].classList.remove('on');
         } else {
@@ -199,43 +196,108 @@ for (let j = 0; j < listBox.length; j++) {
     });
 }
 
-// 지역 선택시 이벤트
-region.addEventListener('click', () => {
-    region.style.backgroundColor = 'rgb(235, 235, 235)';
-    city.forEach(x => {
-        x.classList.add('on');
-    });
-    let count = 0;
-    for (let i = 0; i < cityName.length; i++) {
-        cityName[i].addEventListener('click', () => {
-            cityName[i].classList.toggle('on');
-            if (cityName[i].classList.contains('on')) {
+
+const region = window.document.querySelector('.region'); // 대구 클릭시
+const quickCity = window.document.querySelector('.quick-city'); // 상영지점 자체의 div
+let city = window.document.querySelectorAll('.city'); // 실제 상영지점
+
+const selectMovieTime = window.document.querySelector('.select-movie-time');
+
+let allScreenInfos = []; // xhr에서 받는 response값
+let branches = []; // xhr에서 받는 response값 및 drawBranch사용
+
+// Branch 정보 입력 함수
+const drawBranches = () => {
+    quickCity.innerHTML = '';
+    branches.forEach(branch => {
+        const branchElement = window.document.createElement('div');
+        branchElement.classList.add('city');
+        branchElement.dataset.value = branch['index'];
+        branchElement.innerText = branch['text'];
+        branchElement.addEventListener('click', e => {
+            e.preventDefault();
+            branchElement.classList.toggle('on');
+            let count = 0;
+            let tmp = 0;
+            if (branchElement.classList.contains('on')) {
                 count++;
+                cp
+                console.log(count)
             } else {
                 count--;
             }
             if (count > 3) {
                 alertOne('극장은 최대 3개까지 선택이 가능합니다.');
-                cityName[i].classList.remove('on');
+                branchElement.classList.remove('on');
                 count = 3;
             }
-        });
+        })
+        quickCity.append(branchElement);
+    });
+};
+
+// 최초 예매사이트 접속시 한번 SELECT
+const xhr = new XMLHttpRequest();
+xhr.open('PATCH', './booking');
+xhr.onreadystatechange = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            const responseJson = JSON.parse(xhr.responseText);
+            allScreenInfos = responseJson['allScreenInfo'];
+            branches = responseJson['branch'];
+        } else {
+            alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+        }
     }
+};
+xhr.send();
+
+
+let movieScreenInfos = []; // 영화 보여줄 div 배열
+region.addEventListener('click', e => {
+    e.preventDefault();
+    region.classList.toggle('on');
+    quickCity.classList.toggle('on');
+    drawBranches();
 });
 
-// 1. 처음 극장을 눌렀을때는 그 지점 관련 모든 영화가 다 나와야 한다.(현재시간보다 추후에 있는)
-// 2. 영화 제목과 극장을 눌렀을때는 제목과 극장이 둘다 일치하고 현재시간보다 뒤에 있는 영화만 나와야 한다.
-// 3. 영화 제목, 극장, 날짜를 모두 눌렀을 때는 3개가 다 일치하는 결과가 나와야 한다.(현재시간보다 추후에 있는)
-// 4. 날짜를 클릭하지 않았을때에는 오늘기준으로 영화를 검색해준다. (오늘날짜 + 영화만 클릭시에는 영화가 보여지지 않음) / (오늘날짜 + 극장을 선택시에는 모든 결과를 보여줌)
 
-
-
-
-
+const setSelectedBranch = (index) => {
+    quickCity
+        .querySelectorAll(':scope > .city')
+        .forEach(x => x.removeAttribute('selected'));
+    quickCity
+        .querySelector(`:scope > .city[data-value="${index}"]`)
+        .setAttribute('selected', 'selected');
+};
+//
+const drawScreenInfo = (branch) => {
+    selectMovieTime.innerHTML = '';
+    movieScreenInfos
+        .filter(x => x['screenInfoBranchIndex'] === branch['index'])
+        .forEach(screenInfo => {
+            const subElement = window.document.createElement('div');
+            subElement.classList.add('select-movie-time');
+            const screenInfoElement = window.document.createElement('div');
+            screenInfoElement.classList.add('movie-time-cover');
+            screenInfoElement.dataset.value = screenInfo['value'];
+            screenInfoElement.innerText = screenInfo['text'];
+            // screenInfoElement.addEventListener('click', e => {
+            //     setSelectedCountry(e.target.dataset.value);
+            // });
+            subElement.append(screenInfoElement);
+            selectMovieTime.append(subElement);
+        });
+};
+//
+// const getSelectedScreenInfo = () => {
+//     const selectedBranch = getSelectedBranch();
+//     const selectedScreenInfoElement = selectMovieTime.querySelector('.movie-time-cover[data-value][selected]');
+//     return movieScreenInfos.find(x => x['screenInfoBranchIndex'] === selectedBranch['index'] && x['index'] === selectedScreenInfoElement.dataset.value);
+// }
 
 
 const timeWrap = window.document.querySelector('.time-wrap');
-
 const previousTimeBtn = window.document.getElementById('previousTimeBtn');
 const nextTimeBtn = window.document.getElementById('nextTimeBtn');
 

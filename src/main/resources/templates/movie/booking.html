@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>Movie</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
-    <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/fast-reservation.css}">
+    <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/booking.css}">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script defer th:src="@{/mg_movie/movie/resources/scripts/fast-reservation.js}"></script>
+    <script defer th:src="@{/mg_movie/movie/resources/scripts/booking.js}"></script>
 </head>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
 <body>
@@ -19,15 +19,15 @@
             </div>
             <div class="data-container">
                 <div class="time-schedule">
-                    <button id="previousBtn">
+                    <button id="previousBtn" type="button">
                         <i class="icon fa-solid fa-chevron-left"></i>
                     </button>
                     <div class="time-list">
-                        <div class="time-box">
+                        <button class="time-box">
 
-                        </div>
+                        </button>
                     </div>
-                    <button id="nextBtn">
+                    <button id="nextBtn" type="button">
                         <i class="icon fa-solid fa-chevron-right"></i>
                     </button>
                     <button>
@@ -74,20 +74,19 @@
                                 </div>
                                 <div class="list">
                                     <ul class="quick-region">
-                                        <!--/*@thymesVar id="region" type="dev.babsang.megabox.entities.movie.RegionEntity"*/-->
+                                        <!--/*@thymesVar id="region" type="dev.babsangbranch.megabox.entities.movie.RegionEntity"*/-->
                                         <li class="region" th:text="${region.getText()}">
 
                                         </li>
                                     </ul>
                                     <ul class="quick-city">
                                         <!--/*@thymesVar id="branches" type="dev.babsang.megabox.entities.movie.BranchEntity[]"*/-->
-                                        <li class="city" th:each="branch : ${branches}">
-                                            <span class="city-name" th:text="${branch.getText()}">
+<!--                                        <button class="city" th:each="branch : ${branches}">-->
+<!--                                            <span class="city-name" th:text="${branch.getText()}">-->
 
-                                            </span>
-                                        </li>
+<!--                                            </span>-->
+<!--                                        </button>-->
                                     </ul>
-
                                 </div>
                             </div>
                             <div class="quick-content">
@@ -130,9 +129,11 @@
                                 </div>
                             </div>
                             <div class="select-movie-time">
-                                <!--                                <i class="icon fa-solid fa-film"></i>-->
-                                <!--                                <span>영화와 극장을 선택하시면</span>-->
-                                <!--                                <span>상영시간표를 비교하여 볼 수 있습니다.</span>-->
+                                <div class="before-select-movie-time">
+                                    <i class="icon fa-solid fa-film"></i>
+                                    <span>영화와 극장을 선택하시면</span>
+                                    <span>상영시간표를 비교하여 볼 수 있습니다.</span>
+                                </div>
                                 <!--/*@thymesVar id="infos" type="dev.babsang.megabox.vos.movie.MovieScreenInfoVo"*/-->
                                 <div class="movie-time-cover" th:each="info : ${infos}">
                                     <div class="movie-time-info-box">

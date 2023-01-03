@@ -11,6 +11,8 @@ import dev.babsang.megabox.vos.movie.MovieVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
+
 @Mapper
 public interface IMovieMapper {
 
@@ -27,15 +29,20 @@ public interface IMovieMapper {
 
     BranchEntity[] selectBranches();
 
-//    MovieVo[] selectCommingMovieVos();
+    //    MovieVo[] selectCommingMovieVos();
     MovieVo[] selectCommingMovies();
+
     MovieVo selectMovieVo(@Param(value = "mid") int mid);
 
     MovieVo[] selectMovieVosByMid(@Param(value = "mid") int mid);
+
     MovieVo[] selectMovieVos();
+
     BookingEntity[] selectBooking();
 
-   MovieScreenInfoVo[] selectScreenInfos();
+    MovieScreenInfoVo[] selectScreenInfos();
+
+//    MovieScreenInfoVo[] selectScreenInfoByOptionalList();
 
     int insertComment(MovieCommentEntity comment);
 
