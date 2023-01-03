@@ -221,7 +221,6 @@ const drawBranches = () => {
             let tmp = 0;
             if (branchElement.classList.contains('on')) {
                 count++;
-                cp
                 console.log(count)
             } else {
                 count--;
