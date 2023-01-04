@@ -4,10 +4,18 @@ import java.util.Objects;
 
 public class SeatEntity {
     private int index;
-    private String column;
+    private int columnIndex;
+    private String columnText;
     private int row;
     private int auditoriumIndex;
 
+    public int getColumnIndex() {
+        return columnIndex;
+    }
+
+    public void setColumnIndex(int columnIndex) {
+        this.columnIndex = columnIndex;
+    }
 
     public int getIndex() {
         return index;
@@ -17,12 +25,12 @@ public class SeatEntity {
         this.index = index;
     }
 
-    public String getColumn() {
-        return column;
+    public String getColumnText() {
+        return columnText;
     }
 
-    public void setColumn(String column) {
-        this.column = column;
+    public void setColumnText(String columnText) {
+        this.columnText = columnText;
     }
 
     public int getRow() {

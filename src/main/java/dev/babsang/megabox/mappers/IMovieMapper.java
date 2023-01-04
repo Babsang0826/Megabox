@@ -5,6 +5,7 @@ import dev.babsang.megabox.entities.movie.MovieCommentEntity;
 import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.vos.movie.MovieCommentVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
+import dev.babsang.megabox.vos.movie.SeatVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,6 +23,8 @@ public interface IMovieMapper {
     MovieVo[] selectMovieVosByMid(@Param(value = "mid") int mid);
     MovieVo[] selectMovieVos();
     BookingEntity[] selectBooking();
+    SeatVo[] selectSeatVo();
+    SeatVo[] selectSeatVoGroupByColumn();
 
 
     MovieEntity[] selectMovieReservation();

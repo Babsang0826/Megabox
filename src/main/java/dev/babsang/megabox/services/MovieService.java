@@ -8,6 +8,7 @@ import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.mappers.IMovieMapper;
 import dev.babsang.megabox.vos.movie.MovieCommentVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
+import dev.babsang.megabox.vos.movie.SeatVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,4 +45,6 @@ public class MovieService {
     public MovieVo[] getMovieVosByMid(int mid) { return this.movieMapper.selectMovieVosByMid(mid); }
     public MovieVo[] getMovieVos() { return this.movieMapper.selectMovieVos(); }
     public BookingEntity[] getBookings() { return this.movieMapper.selectBooking(); }
+    public SeatVo[] getSeatVos() { return this.movieMapper.selectSeatVo(); }
+    public SeatVo[] getSeatVosGroupByColumn() { return this.movieMapper.selectSeatVoGroupByColumn(); }
 }
