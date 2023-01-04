@@ -37,32 +37,44 @@ public class TheaterController {
 
     @RequestMapping(value = "page", method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getTheaterPage(@RequestParam(value = "rid", required = false) int rid) {
+    public ModelAndView getTheaterPage(@RequestParam(value = "branchId", required = false) int branchId) {
         ModelAndView modelAndView = new ModelAndView("theater/page");
-        TheaterEntity theater = this.theaterService.getBranchesIndex(rid);
+        TheaterEntity theater = this.theaterService.getBranchesIndex(branchId);
 
         modelAndView.addObject("theater", theater);
-        modelAndView.addObject("rid", theater.getIndex());
+        modelAndView.addObject("branchId", theater.getIndex());
         return modelAndView;
     }
     //
 
     @RequestMapping(value = "time", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getTheaterTime(@RequestParam(value = "rid", required = false) int rid) {
+    public ModelAndView getTheaterTime(@RequestParam(value = "branchId", required = false) int branchId) {
         ModelAndView modelAndView = new ModelAndView("theater/time");
         MovieEntity[] movies = this.theaterService.getMovies();
         RegionEntity region = this.theaterService.getRegion();
         BranchEntity[] branches = this.theaterService.getBranches();
         MovieScreenInfoVo[] infos = this.theaterService.getScreenInfos();
-        TheaterEntity theater = this.theaterService.getBranchesIndex(rid);
+        TheaterEntity theater = this.theaterService.getBranchesIndex(branchId);
 
         modelAndView.addObject("theater", theater);
-        modelAndView.addObject("rid", theater.getIndex());
+        modelAndView.addObject("branchId", branchId);
 
         modelAndView.addObject("infos", infos);
         modelAndView.addObject("movies", movies);
         modelAndView.addObject("region", region);
         modelAndView.addObject("branches", branches);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "map", method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getMap(@RequestParam(value = "branchId") int branchId) {
+        ModelAndView modelAndView = new ModelAndView("theater/map");
+        TheaterEntity theater = this.theaterService.getBranchesIndex(branchId);
+
+
+        modelAndView.addObject("latitude", theater.getLatitude());
+        modelAndView.addObject("longitude", theater.getLongitude());
         return modelAndView;
     }
 

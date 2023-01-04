@@ -75,11 +75,11 @@ body, html {
 }
 .theater-detail-page .theater-all .theater-area-list .area-depth1>li {
     float: left;
-    margin-left: 72px;
+    margin-right: 72px;
 }
-.theater-detail-page .theater-all .theater-area-list .area-depth1>li {
-    float: left;
-    margin-left: 72px;
+
+.theater-detail-page .theater-all .theater-area-list .area-depth1>li > #a {
+    margin-right: -4rem;
 }
 
 .theater-detail-page .theater-all .theater-area-list .area-depth1>li>.depth1 {
@@ -88,6 +88,7 @@ body, html {
     color: #fff;
     line-height: 60px;
     padding: 0 5px;
+
 }
 
 .theater-detail-page .theater-all .theater-area-list a {
@@ -154,11 +155,11 @@ body, html {
 
 .tab-list>ul {
     position: relative;
-    width: 100%;
+    width: 150%;
     height: 42px;
 }
 
-.tab-list>ul>li:first-child:nth-last-child(3) {
+.tab-list>ul>li:first-child:nth-last-child(2) {
     width: 33.334%;
 }
 .tab-list>ul>li.on {
@@ -191,16 +192,11 @@ body, html {
     text-decoration: none;
 }
 
-.tab-list>ul>li:first-child:nth-last-child(3)~li {
+.tab-list>ul>li:first-child:nth-last-child(2)~li {
     width: 32.333%;
     border-bottom: 1px solid #503396;
 }
-.tab-list>ul>li.on+li {
-    border-left: 0;
-}
-.tab-list>ul>li:last-child {
-    border-right: 1px solid #ebebeb;
-}
+
 
 .tab-cont-wrap .tab-cont.on {
     display: block;
@@ -431,3 +427,4 @@ a.button {
     width: 150px;
     text-align: center;
 }
+

@@ -45,5 +45,8 @@ public class TheaterService {
     public TheaterEntity getBranchesIndex(int index) {
         return this.theaterMapper.selectBranchesIndex(index);
     }
+    public TheaterEntity getBranchesMap(int index) {
+        return this.theaterMapper.selectBranchesIndex(index);
+    }
 
 }

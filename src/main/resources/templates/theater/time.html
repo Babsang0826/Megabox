@@ -26,20 +26,20 @@
                 <!-- theater-area-list -->
                 <div class="theater-area-list">
                     <ul class="area-depth1">
-                        <li>
-                            <a href="" class="depth1">북대구(칠곡)</a>
+                        <li class="on">
+                            <a href="http://localhost:8080/theater/page?branchId=1" class="depth1" >북대구(칠곡)</a>
                         </li>
                         <li class="">
-                            <a href="" class="depth1">경북도청</a>
+                            <a href="http://localhost:8080/theater/page?branchId=2" class="depth1">경북도청</a>
                         </li>
                         <li>
-                            <a href="" class="depth1">경산하양</a>
+                            <a href="http://localhost:8080/theater/page?branchId=3" class="depth1">경산하양</a>
                         </li>
                         <li>
-                            <a href="" class="depth1">경주</a>
+                            <a href="http://localhost:8080/theater/page?branchId=4" class="depth1">경주</a>
                         </li>
                         <li class="">
-                            <a href="" class="depth1">구미강동</a>
+                            <a href="http://localhost:8080/theater/page?branchId=5" class="depth1" id="a">구미강동</a>
                         </li>
                     </ul>
                 </div>
@@ -50,9 +50,8 @@
 
             <div class="tab-list fixed mb40 tab-layer">
                 <ul>
-                    <li class="on"><a th:href="@{/theater/page}" title="극장정보 탭으로 이동">극장정보</a></li>
-                    <li><a href="#" title="상영시간표 탭으로 이동">상영시간표</a></li>
-                    <li style="border-bottom: 1px solid #503396"><a href="#" title="관람료 탭으로 이동">관람료</a></li>
+                    <li class="on"><a th:href="@{/theater/page (branchId = ${branchId})}" title="극장정보 탭으로 이동">극장정보</a></li>
+                    <li><a style="color: #503396;" th:href="@{/theater/time (branchId = ${branchId})}" title="상영시간표 탭으로 이동">상영시간표</a></li>
                 </ul>
             </div>
             <div class="reservation-box">

@@ -31,4 +31,10 @@ public interface IBbsMapper {
 
     int deleteArticleByIndex(@Param(value = "index") int index);
 
+
+    ArticleEntity[] selectArticlesByBoardId(@Param(value = "boardId") String boardId,
+                                            @Param(value = "criterion") String criterion,
+                                            @Param(value = "keyword") String keyword,
+                                            @Param(value = "limit") int limit,
+                                            @Param(value = "offset") int offset);
 }

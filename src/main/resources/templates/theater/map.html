@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>실시간 길찾기</title>
+    <script defer th:src="@{/mg_movie/theater/scripts/map.js}"></script>
+    <script type="text/javascript"
+            src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=27d9f2e28c99130fd6821d218391c4b9"></script>
+</head>
+<body>
+<input type="hidden" th:value="${latitude}" id="latitude">
+<input type="hidden" th:value="${longitude}" id="longitude">
+<div id="map" style="width:2000px;height:1000px;"></div>
+<script type="text/javascript"
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=27d9f2e28c99130fd6821d218391c4b9"></script>
+<div id="staticMap" style="width:600px;height:350px;"></div>
+</body>
+</html>

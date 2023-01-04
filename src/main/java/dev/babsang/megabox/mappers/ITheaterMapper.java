@@ -24,5 +24,4 @@ public interface ITheaterMapper {
 
     TheaterEntity selectBranchesIndex(@RequestParam(value = "index") int index);
 
-
 }

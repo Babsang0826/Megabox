@@ -13,6 +13,8 @@ public class TheaterEntity {
     private String floorSecond;
     private String floorThird;
     private String address;
+    private double latitude;
+    private double longitude;
     private String parkingInformation;
     private String parkingConfirmation;
     private String parkingFee;
@@ -90,6 +92,24 @@ public class TheaterEntity {
         this.address = address;
         return this;
     }
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public TheaterEntity setLatitude(double latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public TheaterEntity setLongitude(double longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+
 
     public String getParkingInformation() {
         return parkingInformation;

@@ -57,7 +57,6 @@
                `text`         AS `text`,
                `region_index` AS `regionIndex`
         FROM `mg_movie`.`branch`
-        LIMIT 1
     </select>
 
     <select id="selectScreenInfos"
@@ -71,13 +70,13 @@
                `movie`.`title`                 AS `infoMovieTitle`,
                `movie`.`screen_type`           AS `infoMovieState`,
                `auditorium`.`text`             AS `infoAudText`,
-               `branch`.`text`                 AS `infoBranchText`
+               `branch`.`text`                 AS `infoBranchText`,
+               `auditorium`.`branch_index`     AS `branchIndex`
         FROM `mg_movie`.`screen_info` AS `screenInfo`
                  LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
                  LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
                            ON `screenInfo`.`auditorium_index` = `auditorium`.`index`
                  LEFT JOIN `mg_movie`.`branch` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
-        LIMIT 1
     </select>
 
     <!--    <select id="selectBranchesIndex"-->
@@ -99,14 +98,17 @@
                `floor_second`         AS `floorSecond`,
                `floor_third`          AS `floorThird`,
                `address`              AS `adress`,
+               `latitude`             AS `latitude`,
+               `longitude`            AS `longitude`,
                `parking_information`  AS `parkingInformation`,
                `parking_confirmation` AS `parkingConfirmation`,
                `parking_fee`          AS `parkingFee`,
                `transport`            AS `transport`
         FROM `mg_theater`.branch_theater
         WHERE BINARY `index` = #{index}
-        LIMIT 1
     </select>
+
+
 
 
 </mapper>

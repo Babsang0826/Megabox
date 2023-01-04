@@ -135,4 +135,23 @@
         LIMIT 1
     </delete>
 
+    <select id="selectArticleCountByBoardId"
+            resultType="int">
+        SELECT COUNT(0)
+        FROM `mg_bbs`.`article`
+        WHERE article.board_id = #{boardId}
+
+        <if test="criterion != null and criterion.equals('title')">
+            AND REPLACE(`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="criterion != null and criterion.equals('all')">
+            AND REPLACE(`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            OR REPLACE(`content`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="criterion != null and criterion.equals('branch')">
+            AND BINARY `article`.`branch` = #{branch}
+        </if>
+    </select>
+
+
 </mapper>

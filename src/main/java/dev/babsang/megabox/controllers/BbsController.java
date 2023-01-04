@@ -7,6 +7,7 @@ import dev.babsang.megabox.entities.bbs.ImageEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.enums.bbs.WriteResult;
+import dev.babsang.megabox.models.PagingModel;
 import dev.babsang.megabox.services.BbsService;
 import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
 import org.json.JSONObject;
@@ -207,6 +208,8 @@ public class BbsController {
         }
         return responseObject.toString();
     }
+
+
 
 
 }
