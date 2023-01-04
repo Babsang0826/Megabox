@@ -30,7 +30,7 @@
                     <button id="nextBtn" type="button">
                         <i class="icon fa-solid fa-chevron-right"></i>
                     </button>
-                    <button>
+                    <button type="button">
                         <i class="fa-solid fa-calendar"></i>
                     </button>
                 </div>
@@ -80,12 +80,7 @@
                                         </li>
                                     </ul>
                                     <ul class="quick-city">
-                                        <!--/*@thymesVar id="branches" type="dev.babsang.megabox.entities.movie.BranchEntity[]"*/-->
-<!--                                        <button class="city" th:each="branch : ${branches}">-->
-<!--                                            <span class="city-name" th:text="${branch.getText()}">-->
 
-<!--                                            </span>-->
-<!--                                        </button>-->
                                     </ul>
                                 </div>
                             </div>
@@ -133,35 +128,6 @@
                                     <i class="icon fa-solid fa-film"></i>
                                     <span>영화와 극장을 선택하시면</span>
                                     <span>상영시간표를 비교하여 볼 수 있습니다.</span>
-                                </div>
-                                <!--/*@thymesVar id="infos" type="dev.babsang.megabox.vos.movie.MovieScreenInfoVo"*/-->
-                                <div class="movie-time-cover" th:each="info : ${infos}">
-                                    <div class="movie-time-info-box">
-                                        <div class="movie-time">
-                                            <div class="time-icon"></div>
-                                            <div class="time-box">
-                                                <span rel="screen-date" class="screen-date"
-                                                      th:text="${#dates.format(info.getMvStartTime(), 'HH:mm')}"
-                                                      th:value="${#dates.format(info.getScreenDate(), 'yyyy-MM-dd')}">
-                                                </span>
-                                                <span th:text="${#dates.format(info.getMvEndTime(), '~HH:mm')}"></span>
-                                            </div>
-                                        </div>
-                                        <div class="movie-title-state">
-                                            <span rel="movie-title" th:text="${info.getInfoMovieTitle()}">올빼미</span>
-                                            <span th:text="${info.getInfoMovieState}">2D</span>
-                                        </div>
-                                        <div class="movie-place">
-                                            <span rel="movie-branch" class="movie-branch"
-                                                  th:text="${info.getInfoBranchText()}"
-                                                  th:value="${info.getInfoBranchText()}">강남</span>
-                                            <span th:text="${info.getInfoAudText()}">3관</span>
-                                            <div class="seat-box">
-                                                <span>196</span>
-                                                <span>/232</span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -68,18 +68,21 @@ public class MovieService {
     public MovieVo[] getMovieVosByMid(int mid) {
         return this.movieMapper.selectMovieVosByMid(mid);
     }
-    // 추후 사용예정
 
     public MovieVo[] getMovieVos() {
         return this.movieMapper.selectMovieVos();
     }
 
-//    public MovieScreenInfoVo[] getOptionalList() {
-//        return this.movieMapper.selectScreenInfoByOptionalList();
-//    }
-
     public BookingEntity[] getBookings() {
         return this.movieMapper.selectBooking();
     }
 
+    public SeatVo[] getSeatVos() {
+        return this.movieMapper.selectSeatVo();
+    }
+
+    public SeatVo[] getSeatVosGroupByColumn() {
+        return this.movieMapper.selectSeatVoGroupByColumn();
+    }
 }
+

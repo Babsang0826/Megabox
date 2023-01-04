@@ -1,4 +1,4 @@
-const nextBtn = window.document.getElementById('nextBtn'); // 다음버튼
+const nextBtn = window.document.getElementById('nextBtn'); // 날짜 다음버튼
 const previousBtn = window.document.getElementById('previousBtn'); // 이전버튼
 const timeBox = window.document.querySelector('.time-box'); // 보여줘야 할 칸
 
@@ -23,7 +23,7 @@ let thisMonthLast = endDay.getDate(); // 현재달 마지막 날짜
 let thisMonthLastWeek = endDay.getDay(); // 현재달 마지막 요일(인덱스)
 
 let thisMonthArr = [];
-let thisMonthArrCode = new Array();
+let thisMonthArrCode = [];
 let thisMonthDate;
 // 이번달
 for (let i = currentDay; i <= thisMonthLast; i++) {
@@ -50,7 +50,7 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
 
 
 let nextMonthArr = [];
-let nextMonthArrCode = new Array();
+let nextMonthArrCode = [];
 let nextMonthDate;
 // 다음달
 for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
@@ -83,44 +83,6 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     } else {
         timeBox.innerHTML = timeBox.innerHTML + '<div class="day next">' + i + '•' + thisWeek + '</div>';
     }
-}
-
-
-let currentIdx = 0;
-let slideWidth = 2;
-let slideMargin = 2.35;
-let slideSpeed = 500;
-
-nextBtn.addEventListener('click', function () {
-    moveSlide(currentIdx + 1);
-    if (currentIdx > 7) {
-        timeBox.style.left = '-30.45rem';
-        currentIdx = 7;
-    }
-});
-
-previousBtn.addEventListener('click', function () {
-    moveSlide(currentIdx - 1);
-    if (currentIdx < 0) {
-        timeBox.style.left = '0rem';
-        currentIdx = 0;
-    }
-});
-
-
-function moveSlide(num) {
-    timeBox.style.left = -num * (slideWidth + slideMargin) + 'rem';
-    timeBox.style.transition = slideSpeed + 'ms';
-    currentIdx = num;
-}
-
-function alertTwo() {
-    swal("알림", "해당 일자에 상영 시간표가 없습니다.");
-}
-
-
-function alertOne() {
-    swal("알림", "극장은 최대 3개까지 선택이 가능합니다.");
 }
 
 
@@ -200,13 +162,27 @@ for (let j = 0; j < listBox.length; j++) {
 const region = window.document.querySelector('.region'); // 대구 클릭시
 const quickCity = window.document.querySelector('.quick-city'); // 상영지점 자체의 div
 let city = window.document.querySelectorAll('.city'); // 실제 상영지점
-
+const beforeSelectMovieTime = window.document.querySelector('.before-select-movie-time');
 const selectMovieTime = window.document.querySelector('.select-movie-time');
 
 let allScreenInfos = []; // xhr에서 받는 response값
 let branches = []; // xhr에서 받는 response값 및 drawBranch사용
+let count = 0; // count 세기
 
-// Branch 정보 입력 함수
+console.log(quickCity.querySelectorAll('.city[selected]'))
+// 상영지점 선택
+const getSelectedBranch = () => {
+    const selectedInfoByBranch = quickCity.querySelectorAll('.city[selected]');
+    let selectedText;
+    selectedInfoByBranch.forEach(x => {
+        selectedText = x?.dataset.value;
+    })
+    // const selectedText = quickCity.querySelector('.city[selected]')?.dataset.value;
+    return branches.filter(x => x['index'] === selectedText);
+};
+
+
+// Branch 클릭시 작동 함수
 const drawBranches = () => {
     quickCity.innerHTML = '';
     branches.forEach(branch => {
@@ -217,22 +193,93 @@ const drawBranches = () => {
         branchElement.addEventListener('click', e => {
             e.preventDefault();
             branchElement.classList.toggle('on');
-            let count = 0;
-            let tmp = 0;
             if (branchElement.classList.contains('on')) {
                 count++;
-                console.log(count)
+                region.addEventListener('click', () => {
+                    count = 0;
+                });
+                branchElement.setAttribute('selected', 'selected');
             } else {
                 count--;
+                branchElement.removeAttribute('selected');
             }
             if (count > 3) {
                 alertOne('극장은 최대 3개까지 선택이 가능합니다.');
                 branchElement.classList.remove('on');
+                branchElement.removeAttribute('selected');
                 count = 3;
             }
-        })
+            beforeSelectMovieTime.classList.add('off');
+            drawSubs(getSelectedBranch());
+        });
         quickCity.append(branchElement);
     });
+};
+
+let k = 0;
+const drawSubs = () => {
+    selectMovieTime.innerHTML = '';
+    const a = quickCity.querySelectorAll('.city[selected]');
+    allScreenInfos
+        .filter(x => x['screenInfoBranchIndex'] === branches[k]['index'])
+        .forEach(allScreenInfo => {
+            if (a[k]) {
+                const movieTimeCoverElement = window.document.createElement('div');
+                movieTimeCoverElement.classList.add('movie-time-cover');
+                movieTimeCoverElement.dataset.value = allScreenInfo['screenInfoBranchIndex'];
+                const movieTimeInfoBoxElement = window.document.createElement('div');
+                movieTimeInfoBoxElement.classList.add('movie-time-info-box');
+
+                const movieTimeElement = window.document.createElement('div');
+                movieTimeElement.classList.add('movie-time');
+                const timeIconElement = window.document.createElement('div');
+                timeIconElement.classList.add('time-icon');
+                const timeBoxElement = window.document.createElement('div');
+                timeBoxElement.classList.add('time-box');
+                const screenDateElement = window.document.createElement('span');
+                screenDateElement.classList.add('screen-date');
+                screenDateElement.setAttribute('rel', 'screen-date');
+                screenDateElement.innerText = allScreenInfo['screenInfoMovieStartTime'];
+                const screenEndDateElement = window.document.createElement('span');
+                screenEndDateElement.classList.add('screen-end-date');
+                screenEndDateElement.innerText = allScreenInfo['screenInfoMovieEndTime'];
+                timeBoxElement.append(screenDateElement, screenEndDateElement);
+                timeIconElement.append(timeBoxElement);
+                movieTimeElement.append(timeIconElement, timeBoxElement);
+
+                const movieTitleStateElement = window.document.createElement('div');
+                movieTitleStateElement.classList.add('movie-title-state');
+                const movieTitleElement = window.document.createElement('span');
+                movieTitleElement.classList.add('movie-title');
+                movieTitleElement.innerText = allScreenInfo['screenInfoMovieTitle'];
+                const movieStateElement = window.document.createElement('span');
+                movieStateElement.classList.add('movie-state');
+                movieStateElement.innerText = allScreenInfo['screenInfoMovieState'];
+                movieTitleStateElement.append(movieTitleElement, movieStateElement);
+
+                const moviePlaceElement = window.document.createElement('div');
+                moviePlaceElement.classList.add('movie-place');
+                const movieBranchElement = window.document.createElement('span');
+                movieBranchElement.classList.add('movie-branch');
+                movieBranchElement.innerText = allScreenInfo['screenInfoBranchText'];
+                const movieAuditoriumElement = window.document.createElement('span');
+                movieAuditoriumElement.classList.add('movie-auditorium');
+                movieAuditoriumElement.innerText = allScreenInfo['screenInfoAuditoriumText'];
+                const seatBoxElement = window.document.createElement('div');
+                seatBoxElement.classList.add('seat-box');
+                const remainSeatElement = window.document.createElement('span');
+                remainSeatElement.classList.add('remain-seat');
+                const allSeatElement = window.document.createElement('span');
+                allSeatElement.classList.add('all-seat');
+                seatBoxElement.append(remainSeatElement, allSeatElement);
+                moviePlaceElement.append(movieBranchElement, movieAuditoriumElement, seatBoxElement);
+                movieTimeInfoBoxElement.append(movieTimeElement, movieTitleStateElement, moviePlaceElement);
+                movieTimeCoverElement.append(movieTimeInfoBoxElement);
+                selectMovieTime.append(movieTimeCoverElement);
+                movieTimeCoverElement.classList.add('on');
+            }
+        });
+    k++;
 };
 
 // 최초 예매사이트 접속시 한번 SELECT
@@ -244,6 +291,7 @@ xhr.onreadystatechange = () => {
             const responseJson = JSON.parse(xhr.responseText);
             allScreenInfos = responseJson['allScreenInfo'];
             branches = responseJson['branch'];
+            drawBranches();
         } else {
             alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
         }
@@ -251,49 +299,11 @@ xhr.onreadystatechange = () => {
 };
 xhr.send();
 
-
-let movieScreenInfos = []; // 영화 보여줄 div 배열
 region.addEventListener('click', e => {
     e.preventDefault();
     region.classList.toggle('on');
     quickCity.classList.toggle('on');
-    drawBranches();
 });
-
-
-const setSelectedBranch = (index) => {
-    quickCity
-        .querySelectorAll(':scope > .city')
-        .forEach(x => x.removeAttribute('selected'));
-    quickCity
-        .querySelector(`:scope > .city[data-value="${index}"]`)
-        .setAttribute('selected', 'selected');
-};
-//
-const drawScreenInfo = (branch) => {
-    selectMovieTime.innerHTML = '';
-    movieScreenInfos
-        .filter(x => x['screenInfoBranchIndex'] === branch['index'])
-        .forEach(screenInfo => {
-            const subElement = window.document.createElement('div');
-            subElement.classList.add('select-movie-time');
-            const screenInfoElement = window.document.createElement('div');
-            screenInfoElement.classList.add('movie-time-cover');
-            screenInfoElement.dataset.value = screenInfo['value'];
-            screenInfoElement.innerText = screenInfo['text'];
-            // screenInfoElement.addEventListener('click', e => {
-            //     setSelectedCountry(e.target.dataset.value);
-            // });
-            subElement.append(screenInfoElement);
-            selectMovieTime.append(subElement);
-        });
-};
-//
-// const getSelectedScreenInfo = () => {
-//     const selectedBranch = getSelectedBranch();
-//     const selectedScreenInfoElement = selectMovieTime.querySelector('.movie-time-cover[data-value][selected]');
-//     return movieScreenInfos.find(x => x['screenInfoBranchIndex'] === selectedBranch['index'] && x['index'] === selectedScreenInfoElement.dataset.value);
-// }
 
 
 const timeWrap = window.document.querySelector('.time-wrap');
@@ -334,4 +344,41 @@ function moveTimeSlide(num) {
     timeWrap.style.left = -num * (slideTimeWidth + slideTimeMargin) + 'rem';
     timeWrap.style.transition = slideTimeSpeed + 'ms';
     currentTimeIdx = num;
+}
+
+let currentIdx = 0;
+let slideWidth = 2;
+let slideMargin = 2.35;
+let slideSpeed = 500;
+
+nextBtn.addEventListener('click', function () {
+    moveSlide(currentIdx + 1);
+    if (currentIdx > 7) {
+        timeBox.style.left = '-30.45rem';
+        currentIdx = 7;
+    }
+});
+
+previousBtn.addEventListener('click', function () {
+    moveSlide(currentIdx - 1);
+    if (currentIdx < 0) {
+        timeBox.style.left = '0rem';
+        currentIdx = 0;
+    }
+});
+
+
+function moveSlide(num) {
+    timeBox.style.left = -num * (slideWidth + slideMargin) + 'rem';
+    timeBox.style.transition = slideSpeed + 'ms';
+    currentIdx = num;
+}
+
+function alertTwo() {
+    swal("알림", "해당 일자에 상영 시간표가 없습니다.");
+}
+
+
+function alertOne() {
+    swal("알림", "극장은 최대 3개까지 선택이 가능합니다.");
 }
