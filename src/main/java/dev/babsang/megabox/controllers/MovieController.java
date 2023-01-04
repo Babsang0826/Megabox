@@ -5,6 +5,7 @@ import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.services.MovieService;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
+import dev.babsang.megabox.vos.movie.SeatVo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +108,9 @@ public class MovieController {
             double bookingCnt = movie.getTotalAudience();
             double totalBookingCnt = booking.length;
             double bookingRate = Math.round(bookingCnt / totalBookingCnt * 100 * 10) / 10.0;
+            System.out.println(bookingCnt);
+            System.out.println(totalBookingCnt);
+            System.out.println(bookingRate);
             modelAndView.addObject("bookingRate", bookingRate);
 
         }
@@ -226,6 +230,11 @@ public class MovieController {
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getSeat() {
         ModelAndView modelAndView = new ModelAndView("movie/seat");
+        SeatVo[] seats = this.movieService.getSeatVos();
+        SeatVo[] seatVos = this.movieService.getSeatVosGroupByColumn();
+
+        modelAndView.addObject("seats", seats);
+        modelAndView.addObject("seatVos", seatVos);
 
         return modelAndView;
     }

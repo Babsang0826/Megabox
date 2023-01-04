@@ -8,6 +8,7 @@ import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.vos.movie.MovieCommentVo;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
+import dev.babsang.megabox.vos.movie.SeatVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -39,6 +40,8 @@ public interface IMovieMapper {
     MovieVo[] selectMovieVos();
 
     BookingEntity[] selectBooking();
+    SeatVo[] selectSeatVo();
+    SeatVo[] selectSeatVoGroupByColumn();
 
     MovieScreenInfoVo[] selectScreenInfos();
 

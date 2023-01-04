@@ -136,30 +136,33 @@
     </select>
 
     <select id="selectMovieVo" resultType="dev.babsang.megabox.vos.movie.MovieVo">
-        SELECT `movie`.`index`            AS `index`,
-               `movie`.`title`            AS `title`,
-               `movie`.`title_en`         AS `titleEn`,
-               `movie`.`release_date`     AS `releaseDate`,
-               `movie`.`end_date`         AS `endDate`,
-               `movie`.`summary`          AS `summary`,
-               `movie`.`age_limit`        AS `ageLimit`,
-               `movie`.`movie_state`      AS `movieState`,
-               `movie`.`genre`            AS `genre`,
-               `movie`.`director`         AS `director`,
-               `movie`.`actor`            AS `actor`,
-               `movie`.`running_time`     AS `runningTime`,
-               `movie`.`screen_type`      AS `screenTyoe`,
-               `movie`.`movie_poster`     AS `moviePoster`,
-               `movie`.`background_image` AS `backgroundImage`,
-               `movie`.`adult_price`      AS `adultPrice`,
-               `movie`.`teenager_price`   AS `teenagerPrice`,
-               `movie`.`etc_price`        AS `etcPrice`,
-               `movie`.`score_avg`        AS `scoreAvg`,
-               count(`booking`.`index`)   as `totalAudience`
+        SELECT `movie`.`index`                                  AS `index`,
+               `movie`.`title`                                  AS `title`,
+               `movie`.`title_en`                               AS `titleEn`,
+               `movie`.`release_date`                           AS `releaseDate`,
+               `movie`.`end_date`                               AS `endDate`,
+               `movie`.`summary`                                AS `summary`,
+               `movie`.`age_limit`                              AS `ageLimit`,
+               `movie`.`movie_state`                            AS `movieState`,
+               `movie`.`genre`                                  AS `genre`,
+               `movie`.`director`                               AS `director`,
+               `movie`.`actor`                                  AS `actor`,
+               `movie`.`running_time`                           AS `runningTime`,
+               `movie`.`screen_type`                            AS `screenType`,
+               `movie`.`movie_poster`                           AS `moviePoster`,
+               `movie`.`background_image`                       AS `backgroundImage`,
+               `movie`.`adult_price`                            AS `adultPrice`,
+               `movie`.`teenager_price`                         AS `teenagerPrice`,
+               `movie`.`etc_price`                              AS `etcPrice`,
+               `movie`.`score_avg`                              AS `scoreAvg`,
+               IFNULL((SELECT COUNT(`booking`.`index`)
+                       FROM `mg_movie`.`screen_info` AS `screenInfo`
+                                LEFT JOIN `mg_movie`.`booking` AS `booking`
+                                          ON `screenInfo`.`index` = `booking`.`screen_info_index`
+                       WHERE `screenInfo`.`movie_index` = #{mid}
+                       GROUP BY `screenInfo`.`movie_index`), 0) AS `totalAudience`
         FROM `mg_movie`.`movies` AS `movie`
-                 LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
-                 LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
-        WHERE `movie_index` = #{mid}
+        where `movie`.`index` = #{mid}
         group by `movie`.`index`
     </select>
 
@@ -263,6 +266,27 @@
                `seat_index`        AS `seatIndex`,
                `payment`           AS `payment`
         FROM `mg_movie`.`booking`
+    </select>
+
+    <select id="selectSeatVo" resultType="dev.babsang.megabox.vos.movie.SeatVo">
+        select `index`                    as `index`,
+               column_index               as columnIndex,
+               column_text                as columnText,
+               `row`                      as `row`,
+               auditorium_index           as auditoriumIndex,
+               concat(column_text, `row`) as seatCode
+        from mg_movie.seats
+    </select>
+
+    <select id="selectSeatVoGroupByColumn" resultType="dev.babsang.megabox.vos.movie.SeatVo">
+        select `index`          as `index`,
+               column_index     as columnIndex,
+               column_text      as columnText,
+               `row`            as `row`,
+               auditorium_index as auditoriumIndex,
+               count(`index`)   as numberOfColumn
+        from mg_movie.seats
+        group by `column_index`
     </select>
 
     <insert id="insertComment"

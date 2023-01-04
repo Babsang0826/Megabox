@@ -397,7 +397,7 @@ main > .container > .page-util > .inner-wrap > .location > a:first-of-type:hover
     /*height: 18.19rem;*/
     color: #fff;
     height: 20.69rem;
-    width: 14.175rem;
+    width: 14.375rem;
     transition-duration: 350ms;
     transition-timing-function: ease-in-out;
     transition-property: opacity;
@@ -416,7 +416,7 @@ main > .container > .page-util > .inner-wrap > .location > a:first-of-type:hover
 .contents > .inner-wrap > .movie-list > ol > .movie > .poster > .movie-detail > .wrap-poster {
     position: relative;
     display: block;
-    width: 82%;
+    width: 83%;
     height: 88%;
     padding: 1.25rem;
     color: #fff;
