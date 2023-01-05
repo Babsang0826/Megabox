@@ -10,6 +10,7 @@ import dev.babsang.megabox.enums.bbs.WriteResult;
 import dev.babsang.megabox.models.PagingModel;
 import dev.babsang.megabox.services.BbsService;
 import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
+import dev.babsang.megabox.vos.bbs.PrevNextVo;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Controller(value = "dev.babsang.megabox.controllers.BbsController")
 @RequestMapping(value = "bbs")
@@ -89,21 +91,21 @@ public class BbsController {
     }
 
 
-    // 게시글 읽어오기
-    @RequestMapping(value = "notice", method = RequestMethod.GET,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getNotice() {
-        ModelAndView modelAndView = new ModelAndView("bbs/notice");
-        BbsIndexCountVo[] articles = this.bbsService.getArticleIndex();
-        modelAndView.addObject("articles", articles);
-        int articleCnt = 0;
-        for (ArticleEntity article : articles) {
-            articleCnt++;
-        }
-        modelAndView.addObject("articleCnt", articleCnt);
-
-        return modelAndView;
-    }
+//     게시글 읽어오기
+//    @RequestMapping(value = "notice", method = RequestMethod.GET,
+//            produces = MediaType.TEXT_HTML_VALUE)
+//    public ModelAndView getNotice() {
+//        ModelAndView modelAndView = new ModelAndView("bbs/notice");
+//        BbsIndexCountVo[] articles = this.bbsService.getArticleIndex();
+//        modelAndView.addObject("articles", articles);
+//        int articleCnt = 0;
+//        for (ArticleEntity article : articles) {
+//            articleCnt++;
+//        }
+//        modelAndView.addObject("articleCnt", articleCnt);
+//
+//        return modelAndView;
+//    }
 
     @RequestMapping(value = "read",
             method = RequestMethod.GET,
@@ -114,11 +116,15 @@ public class BbsController {
 
         ArticleEntity article = this.bbsService.getArticle(aid);
 
+        String[] articleTitle = this.bbsService.getPrevNextArticleTitle(article);
+
         modelAndView.addObject("article", article);
 
         modelAndView.addObject("board", this.bbsService.getBoard(article.getBoardId()));
 
         modelAndView.addObject("aid", article.getIndex());
+
+        modelAndView.addObject("articleTitle", articleTitle);
 
         return modelAndView;
     }
@@ -159,8 +165,8 @@ public class BbsController {
 
     // 삭제
     @RequestMapping(value = "delete",
-    method = RequestMethod.DELETE,
-    produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String deleteArticle(@SessionAttribute(value = "user", required = false) UserEntity user,
                                 @RequestParam(value = "aid", required = false) int aid,
@@ -192,6 +198,7 @@ public class BbsController {
         }
         return modelAndView;
     }
+
     @RequestMapping(value = "modify",
             method = RequestMethod.PATCH,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -210,6 +217,29 @@ public class BbsController {
     }
 
 
+    @RequestMapping(value = "notice",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getList(@RequestParam(value = "bid",required = false) String boradId,
+                                @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                @RequestParam(value = "criterion", required = false) String criterion,
+                                @RequestParam(value = "keyword", required = false) String keyword) {
+        //defaultValue = "1"을 사용하면 1이 찍힌다
+        page = Math.max(1, page);
+        ModelAndView modelAndView = new ModelAndView("bbs/notice");
+        BoardsEntity board = this.bbsService.getBoard(boradId);
+        modelAndView.addObject("board", board);
+        if (board != null) {
+            int totalCount = this.bbsService.getArticleCount(board, criterion, keyword);
+            PagingModel paging = new PagingModel(totalCount, page);
+            modelAndView.addObject("paging", paging);
+
+            ArticleEntity[] articles = this.bbsService.getArticles(board, paging, criterion, keyword); // 게시글
+            modelAndView.addObject("articles", articles);
+            modelAndView.addObject("articleCount", totalCount);
+        }
+        return modelAndView;
+    }
 
 
 }

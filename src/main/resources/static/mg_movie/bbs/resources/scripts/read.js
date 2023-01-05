@@ -14,7 +14,7 @@ form.querySelector('[rel="actionDelete"]').addEventListener('click', () => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case 'success':
-                        window.location.href = "./notice"
+                        window.location.href = "./notice?bid=notice"
                         break;
                     case 'no_such_article':
                         alert("삭제하려는 게시물이 더 이상 존재하지 않습니다.");

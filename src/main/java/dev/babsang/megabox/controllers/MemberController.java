@@ -6,6 +6,7 @@ import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.services.MemberService;
+import org.apache.catalina.User;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -98,6 +99,7 @@ public class MemberController {
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getLogin() {
         ModelAndView modelAndView = new ModelAndView("member/login");
+
 
         return modelAndView;
     }
