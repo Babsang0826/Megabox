@@ -238,4 +238,22 @@ public class MovieController {
 
         return modelAndView;
     }
+
+    @RequestMapping(value = "myPage",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getMyPage() {
+        ModelAndView modelAndView = new ModelAndView("member/myPage");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "modify",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getModify() {
+        ModelAndView modelAndView = new ModelAndView("member/myPage-modify");
+
+        return modelAndView;
+    }
 }

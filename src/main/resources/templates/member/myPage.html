@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메가박스 :: 마이페이지</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/member/stylesheets/myPage.css}">
+    <script src="https://kit.fontawesome.com/282afddd53.js" crossorigin="anonymous"></script>
+    <script defer th:src="@{/member/scripts/myPage.js}"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="container">
+    <div class="inner-wrap">
+        <div class="side-menu">
+            <nav>
+                <p class="title">
+                    <a href="#">나의 메가박스</a>
+                </p>
+                <ul>
+                    <li>
+                        <a href="#">예매/구매내역</a>
+                        <ul class="member-info">
+                            <li>
+                                <a href="#">예매내역</a>
+                                <a href="#">구매내역</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">회원정보</a>
+                        <ul class="member-info">
+                            <li>
+                                <a href="#">개인정보 수정</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">영화/스토어 관람권</a>
+                    </li>
+                    <li>
+                        <a href="#">메가박스/제휴쿠폰</a>
+                    </li>
+                    <li>
+                        <a href="#">멤버십 포인트</a>
+                    </li>
+                    <li>
+                        <a href="#">자주쓰는 카드 관리</a>
+                    </li>
+                    <li>
+                        <a href="#">나의 문의내역</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="contents">
+            <div class="myPage-main">
+                <div class="myPage-info">
+                    <div class="top">
+                        <div class="profile-image">
+                            <div class="image-wrap">
+                                <img src="https://img.megabox.co.kr/static/pc/images/mypage/bg-photo.png" alt="">
+                            </div>
+                        </div>
+                        <div class="grade">
+                            <p class="name">
+                                최승명님은<br>일반등급입니다.
+                            </p>
+                            <div class="link-modify">
+                                <a href="#">개인정보 수정</a>
+                                <i class="fa-solid fa-angle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="point">
+                            <div class="title-area">
+                                <p class="title">총 보유 포인트</p>
+                                <i></i>
+                            </div>
+                            <div class="point-area">
+                                <div class="total-point">
+                                    <p>0P</p>
+                                </div>
+                            </div>
+                            <div class="change">
+                                <p class="save">
+                                    <span>적립예정</span>
+                                    <em>0P</em>
+                                </p>
+                                <p class="delete">
+                                    <span>소멸예정</span>
+                                    <em>0P</em>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="recent-visit">
+                            <div class="title-area">
+                                <p class="title">최근 방문 극장</p>
+                            </div>
+                            <div class="list">
+                                <li>북대구(칠곡)</li>
+                                <li>경산하양</li>
+                                <li>동대구(신세계)</li>
+                            </div>
+                        </div>
+                        <div class="coupon">
+                            <div class="title-area">
+                                <p class="title">관람권/쿠폰</p>
+                            </div>
+                            <div class="list">
+                                <li>
+                                    <span>영화관람권</span>
+                                    <em>0매</em>
+                                </li>
+                                <li>
+                                    <span>스토어교환권</span>
+                                    <em>0매</em>
+                                </li>
+                                <li>
+                                    <span>할인/제휴쿠폰</span>
+                                    <em>0매</em>
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="myBook">
+                    <div class="book-title">
+                        <h2 class="title">나의 예매내역</h2>
+                        <a href="#" class="more">더보기</a>
+                    </div>
+                    <div class="book-history">
+                        <ul>
+                            <li class="no-result">
+                                <div>예매 내역이 없습니다.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</html>

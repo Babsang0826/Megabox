@@ -6,19 +6,29 @@ const counts = container.querySelectorAll('[rel="cnt"]');
 const texts = container.querySelectorAll('[rel="text"]');
 const plusBtns = container.querySelectorAll('[rel="upBtn"]');
 const minusBtns = container.querySelectorAll('[rel="downBtn"]');
+const payArea = container.querySelector('[rel="payArea"]');
+const type = payArea.querySelectorAll('.type');
+
+
+let person = Array.from(texts);
 let totalCnt;
+let personCnt = [0, 0, 0];
+
+const pay = payArea.querySelector('.price');
+let totalPriceArr = personCnt;
+let totalPrice = 0;
 
 for (let i = 0; i < cell.length; i++) {
     const plusBtn = plusBtns[i]
     const minusBtn = minusBtns[i];
     const count = counts[i];
-    const text = texts[i];
     let number = count.innerText;
-
 
     totalCnt = parseInt(number);
 
     plusBtn.addEventListener('click', () => {
+
+
         number = parseInt(number) + 1;
         totalCnt = parseInt(totalCnt) + 1;
 
@@ -29,6 +39,26 @@ for (let i = 0; i < cell.length; i++) {
             return;
         }
         count.innerText = number;
+
+        //인원 수 카운트 시 총 결제 금액 값 변경
+        personCnt[i] = number
+        person[i] = texts[i]
+        type[i].innerText = person[i].textContent + ' ' + personCnt[i];
+        if (type[i].textContent === '') {
+            type[i].style.padding = 0;
+        }
+        console.log(type[i]);
+
+        const price = payArea.querySelector('.price');
+        let adultTotalPrice = `${parseInt(adultCount.innerText) * 12000}`
+        let teenagerTotalPrice = `${parseInt(teenagerCount.innerText) * 9000}`
+        let etcTotalPrice = `${parseInt(etcCount.innerText) * 5000}`
+        let totalPrice = parseInt(adultTotalPrice) + parseInt(teenagerTotalPrice) + parseInt(etcTotalPrice)
+
+        price.innerText = totalPrice;
+
+
+        console.log('찐 totalPrice : ' + totalPrice)
     });
 
     totalCnt = number;
@@ -52,15 +82,6 @@ for (let i = 0; i < cell.length; i++) {
     });
 }
 
-// const payArea = container.querySelector('[rel="payArea"]');
-// const personType = payArea.querySelector('.type');
-// const personCnt = payArea.querySelector('.p-cnt');
-//
-// for (let i = 0; i < personType.length; i++) {
-//     console.log(personType[i]);
-//     console.log(personCnt[i]);
-// }
-
 //초기화 버튼 클릭
 const resetBtn = container.querySelectorAll('.reset-button');
 
@@ -77,10 +98,8 @@ for (let i = 0; i < resetBtn.length; i++) {
 const seatArea = container.querySelector('[rel="seatArea"]');
 const seats = seatArea.querySelectorAll('[rel="row"]');
 let selectedSeats = container.querySelectorAll('[rel="selectedSeat"]');
-// const selections = Array.from(selectedSeats);
 
-
-//좌석 선택시
+//좌석 정렬 함수
 const sortSelections = () => {
     const selections = Array.from(selectedSeats);
     let lastOrder = 0;
@@ -96,6 +115,8 @@ const sortSelections = () => {
     }
 }
 
+let chosenSeatTotalCnt = 0;
+
 for (let i = 0; i < seats.length; i++) {
     const seat = seats[i];
     seat.addEventListener('click', () => {
@@ -104,6 +125,7 @@ for (let i = 0; i < seats.length; i++) {
             return;
         }
         let chosenSeatCnt = seatArea.querySelectorAll('.row.on').length
+        chosenSeatTotalCnt = chosenSeatCnt
 
         if (chosenSeatCnt + 1 > totalCnt && !seat.classList.contains('on')) {
             alert('좌석 선택이 완료되었습니다.');
@@ -131,21 +153,21 @@ for (let i = 0; i < seats.length; i++) {
     });
 }
 
-//인원 선택시
-const payArea = container.querySelector('[rel="payArea"]');
-let person = Array.from(texts);
-
-
-//seat 버튼 이벤트
+//좌석 선택에서 다음 클릭 시
 const seatNext = container.querySelector('.next');
-const seatSelect = container.querySelector('[rel="seatSelect"]');
-const seatSelectPayment = container.querySelector('[rel="seatSelectPayment"]');
 seatNext.addEventListener('click', () => {
+    if (totalCnt > chosenSeatTotalCnt + 1) {
+        alert('인원 수에 맞게 좌석을 선택해주세요.');
+        return;
+    }
     seatSelectPayment.classList.add('on');
     seatSelect.classList.remove('on');
 });
 
 //payment 버튼 이벤트
+const seatSelect = container.querySelector('[rel="seatSelect"]');
+const seatSelectPayment = container.querySelector('[rel="seatSelectPayment"]');
+
 const seatPrev = container.querySelector('.prev');
 seatPrev.addEventListener('click', () => {
     seatSelectPayment.classList.remove('on');

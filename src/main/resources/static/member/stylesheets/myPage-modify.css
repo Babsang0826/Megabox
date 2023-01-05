@@ -1,0 +1,199 @@
+body {
+    overflow: auto;
+    overflow-y: scroll;
+    letter-spacing: 0;
+    line-height: 1.5;
+    font-size: 15px;
+    color: #444;
+    font-weight: 400;
+}
+
+.container > .inner-wrap > .contents {
+    float: right;
+    width: calc(100% - 260px);
+    margin: 0;
+    padding: 40px 0 0 0;
+    /*padding-top: 82px;*/
+}
+
+.container > .inner-wrap > .contents > .title {
+    padding: 0 0 26px 0;
+    font-size: 1.8666em;
+    font-weight: 400;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    color: #222;
+}
+
+.contents > div {
+    margin-bottom: 10px;
+}
+.contents > .user-id {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    position: relative;
+    border-top: 1px solid #555;
+}
+.contents > .user-id > .id-text {
+    background: #f7f8f9;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 7px 15px;
+    position: relative;
+    height: 50px;
+    text-align: left;
+    border-bottom: 1px solid #d1d5dd;
+}
+.contents > .user-id > .id {
+    position: relative;
+    height: 50px;
+    padding: 7px 15px;
+    text-align: left;
+    border-bottom: 1px solid #d1d5dd;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.contents > .user-id > .id > p {
+
+}
+.contents > .user-id > .id > a {
+    color: #503396;
+    height: 32px;
+    padding: 0 12px;
+    line-height: 30px;
+    font-size: .9333em;
+    font-weight: 400;
+    border-radius: 4px;
+    border: 1px solid #503396;
+    vertical-align: middle;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+
+.contents > .user-info > .title-area {
+    margin: 40px 0 10px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contents > .user-info > .title-area > .title {
+    font-size: 1.6em;
+    font-weight: 400;
+    color: #503396;
+    float: left;
+    padding: 0!important;
+    line-height: 1.1;
+}
+
+.contents > .user-info > .title-area > .necessary {
+    margin: 0;
+    padding: 0;
+}
+
+.contents > .user-info > .title-area > .necessary > p {
+    margin: 0;
+    padding: 0;
+}
+
+.star {
+    color: #e63e30!important;
+}
+
+em {
+    font-style: normal;
+}
+
+.contents > .user-info > form > .info-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    margin-bottom: 40px;
+    border-top: 1px solid #555;
+}
+
+.info-grid > .text {
+    position: relative;
+    height: auto;
+    /*height: 50px;*/
+    padding: 7px 15px;
+    text-align: left;
+    border-bottom: 1px solid #d1d5dd;
+    background: #f7f8f9;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+
+}
+
+.info-grid > .info {
+    position: relative;
+    /*height: 50px;*/
+    height: auto;
+    padding: 7px 15px;
+    text-align: left;
+    border-bottom: 1px solid #d1d5dd;
+    display: flex;
+    align-items: center;
+}
+
+.info-grid > .info.mobile {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.info-grid > .info > .mobile-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 14rem;
+}
+
+button {
+    height: 32px;
+    border: 1px solid #d1d5dd;
+    border-radius: 0.25rem;
+    background-color: #fff;
+}
+
+.info-grid > .info > .change-mobile {
+    overflow: hidden;
+    position: relative;
+    margin-top: 10px;
+}
+
+.info-grid > .info > .change-mobile > label {
+    width: 100px;
+    line-height: 32px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.info-grid > .info > .change-mobile > .new-mobile {
+    display: inline-block;
+    width: 130px;
+    height: 28px;
+    padding: 0 10px;
+    line-height: 30px;
+    color: #444;
+    border: 1px solid #d8d9db;
+    vertical-align: middle;
+}
+
+
+
+.info-grid > div > p {
+
+}
+
+.info-grid > div > p > .star {
+
+}
+
+
