@@ -111,7 +111,7 @@
                     </span>
                 </div>
                 <p class="search-result">
-                    <strong class="searchCnt" th:text="${movies.length}">8</strong>
+                    <strong class="searchCnt" th:text="${commingMovies.length}">8</strong>
                     개의 영화가 검색되었습니다.
                 </p>
             </div>
@@ -122,7 +122,7 @@
         </div>
         <div class="movie-list">
             <ol class="list first">
-                <li class="movie" th:each="movie : ${commingMovies1}">
+                <li class="movie" th:each="movie : ${commingMovies}">
                     <div class="poster">
                         <img th:src="${movie.getMoviePoster()}" alt="" class="movie-poster">
                         <div class="movie-detail">

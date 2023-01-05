@@ -30,6 +30,8 @@
                `written_on`      AS `writtenOn`
         FROM `mg_movie`.`movie_comment`
         WHERE `movie_index` = #{mid}
+        order by `index` desc
+
     </select>
 
     <select id="selectMovieByIndex" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
@@ -105,6 +107,7 @@
                  LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
         WHERE movie.`release_date` > now()
         GROUP BY `movie`.`index`
+        order by `movie`.`release_date`
     </select>
 
     <select id="selectMovieVosByMid" resultType="dev.babsang.megabox.vos.movie.MovieVo">
@@ -186,11 +189,12 @@
                `movie`.`teenager_price`   AS `teenagerPrice`,
                `movie`.`etc_price`        AS `etcPrice`,
                `movie`.`score_avg`        AS `scoreAvg`,
-               count(`booking`.`index`)   as `totalAudience`
+               count(`booking`.`index`)   AS `totalAudience`
         FROM `mg_movie`.`movies` AS `movie`
                  LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
                  LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
         group by `movie`.`index`
+        order by `totalAudience` desc, release_date
     </select>
 
     <select id="selectRegion"

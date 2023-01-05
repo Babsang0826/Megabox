@@ -5,6 +5,15 @@ import dev.babsang.megabox.entities.movie.MovieEntity;
 public class MovieVo extends MovieEntity {
     private double bookRate;
     private int totalAudience;
+    private int rank;
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
 
     public double getBookRate() {
         return bookRate;

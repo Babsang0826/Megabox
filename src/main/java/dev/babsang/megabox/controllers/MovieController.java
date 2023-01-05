@@ -1,5 +1,6 @@
 package dev.babsang.megabox.controllers;
 
+import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.services.MovieService;
@@ -74,7 +75,7 @@ public class MovieController {
 
             movie.setBookRate(bookingRate);
         }
-        modelAndView.addObject("commingMovies1", commingMovies);
+        modelAndView.addObject("commingMovies", commingMovies);
 
         return modelAndView;
     }
@@ -87,6 +88,7 @@ public class MovieController {
         ModelAndView modelAndView = new ModelAndView("movie/movie-detail");
 
         MovieCommentEntity[] comments = this.movieService.getComments(mid);
+        MovieVo[] movies = this.movieService.getMovieVos();
         MovieVo movie = this.movieService.getMovieVo(mid);
         BookingEntity[] booking = this.movieService.getBookings();
         if (comments == null) {
@@ -108,14 +110,20 @@ public class MovieController {
             double bookingCnt = movie.getTotalAudience();
             double totalBookingCnt = booking.length;
             double bookingRate = Math.round(bookingCnt / totalBookingCnt * 100 * 10) / 10.0;
-            System.out.println(bookingCnt);
-            System.out.println(totalBookingCnt);
-            System.out.println(bookingRate);
             modelAndView.addObject("bookingRate", bookingRate);
 
         }
         modelAndView.addObject("mid", mid);
+        int rank = 0;
+        System.out.println("rank : " + rank);
 
+        for (int i = 0; i < movies.length; i++) {
+            if (movie.equals(movies[i])) {
+                rank = i + 1;
+                modelAndView.addObject("rank", rank);
+            }
+            rank = -1;
+        }
         return modelAndView;
     }
 
@@ -123,21 +131,22 @@ public class MovieController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postMovieDetail(@RequestParam(value = "mid", required = false) int mid, MovieCommentEntity comment) {
+    public String postMovieDetail(@RequestParam(value = "mid", required = false) int mid,
+                                  @SessionAttribute(value = "user", required = false) UserEntity user,
+                                  MovieCommentEntity comment) {
         JSONObject responseObject = new JSONObject();
-//        로그인은 추후 추가하기
-//        if (user == null) {
-//            responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
-//        } else {
-//            comment.setUserId(user.getId());
-        comment.setUserId("choi4349");
-        comment.setMid(mid);
-        Enum<?> result = this.movieService.writeComment(comment);
-        responseObject.put("result", result.name().toLowerCase());
-        if (result == CommonResult.SUCCESS) {
-            responseObject.put("mid", mid);
+        if (user == null) {
+            responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
+        } else {
+            comment.setUserId(user.getId());
+//            comment.setUserId("choi4349");
+            comment.setMid(mid);
+            Enum<?> result = this.movieService.writeComment(comment);
+            responseObject.put("result", result.name().toLowerCase());
+            if (result == CommonResult.SUCCESS) {
+                responseObject.put("mid", mid);
+            }
         }
-//        }
         return responseObject.toString();
     }
 
@@ -192,7 +201,7 @@ public class MovieController {
     @ResponseBody
     public String patchBooking() {
         JSONArray branchesJson = new JSONArray();
-        for(BranchEntity branch : this.movieService.getBranches()) {
+        for (BranchEntity branch : this.movieService.getBranches()) {
             JSONObject branchJson = new JSONObject();
             branchJson.put("index", branch.getIndex());
             branchJson.put("text", branch.getText());
@@ -210,7 +219,7 @@ public class MovieController {
             screenInfoAllJson.put("screenInfoMovieStartTime", new SimpleDateFormat("HH:mm").format(screenInfo.getMvStartTime()));
             screenInfoAllJson.put("screenInfoMovieEndTime", new SimpleDateFormat("HH:mm").format(screenInfo.getMvEndTime()));
             screenInfoAllJson.put("screenInfoMovieTitle", screenInfo.getInfoMovieTitle());
-            screenInfoAllJson.put("screenInfoDate",new SimpleDateFormat("yyyy-MM-dd").format(screenInfo.getScreenDate()));
+            screenInfoAllJson.put("screenInfoDate", new SimpleDateFormat("yyyy-MM-dd").format(screenInfo.getScreenDate()));
             screenInfoAllJson.put("screenInfoMovieState", screenInfo.getInfoMovieState());
             screenInfoAllJson.put("screenInfoBranchIndex", screenInfo.getInfoBranchIndex());
             screenInfoAllJson.put("screenInfoBranchText", screenInfo.getInfoBranchText());

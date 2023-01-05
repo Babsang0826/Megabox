@@ -197,6 +197,9 @@ writeForm.onsubmit = e => {
                         alert('한줄평 작성 완료');
                         loadComments();
                         break;
+                    case 'failure' :
+                        alert('로그인 후 이용가능합니다.');
+                        break;
                     default:
                         alert('알 수 없는 이유로 한줄평을 작성하지 못하였습니다.\n\n잠시 후 다시 시도해 주세요.')
                 }
