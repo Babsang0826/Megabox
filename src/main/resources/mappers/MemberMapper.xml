@@ -122,7 +122,6 @@
                `admin_flag`        AS `adminFlag`
         FROM `mg_member`.users
         WHERE BINARY `id` = #{id}
-          AND `password` = #{password}
         LIMIT 1
     </select>
 

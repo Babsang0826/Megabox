@@ -7,16 +7,17 @@
     <link rel="stylesheet" th:href="@{/member/stylesheets/myPage.css}">
     <link rel="stylesheet" th:href="@{/member/stylesheets/myPage-modify.css}">
     <script src="https://kit.fontawesome.com/282afddd53.js" crossorigin="anonymous"></script>
-    <script defer th:src="@{/member/scripts/myPage.js}"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script defer th:src="@{/member/scripts/myPage-modify.js}"></script>
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
-<div class="container">
+<div class="container" id="container">
     <div class="inner-wrap">
         <div class="side-menu">
             <nav>
                 <p class="title">
-                    <a href="#">나의 메가박스</a>
+                    <a th:href="@{./myPage}">나의 메가박스</a>
                 </p>
                 <ul>
                     <li>
@@ -32,7 +33,7 @@
                         <a href="#">회원정보</a>
                         <ul class="member-info">
                             <li>
-                                <a href="#">개인정보 수정</a>
+                                <a th:href="@{./modify}">개인정보 수정</a>
                             </li>
                         </ul>
                     </li>
@@ -58,9 +59,9 @@
             <h2 class="title">개인정보수정</h2>
             <div>회원님의 정보를 정확히 입력해주세요.</div>
             <div class="user-id">
-                <div class="id-text">아이디</div>
-                <div class="id">
-                    <p>choi4349</p>
+                <div class="text">아이디</div>
+                <div class="content">
+                    <p th:text="${session.user.getId()}" th:value="${session.user.getId()}" rel="id"></p>
                     <a href="#" class="delete-account">회원탈퇴</a>
                 </div>
             </div>
@@ -82,7 +83,8 @@
                             </p>
                         </div>
                         <div class="info name">
-                            <p>최승명</p>
+<!--                            <p th:text="${session.user.getName()}" th:value="${session.user.getName()}" rel="name">sss</p>-->
+                            <input th:value="${session.user.getName()}" rel="name" disabled>
                         </div>
                         <div class="text">
                             <p>생년월일
@@ -90,22 +92,22 @@
                             </p>
                         </div>
                         <div class="info birthday">
-                            <p>1997.04.05</p>
+                            <input th:value="${session.user.getBirthday()}" rel="birthday" disabled>
                         </div>
                         <div class="text">
                             <p>휴대폰
                                 <em class="star">*</em>
                             </p>
                         </div>
-                        <div class="info mobile">
+                        <div class="info mobile" rel="mobile">
                             <div class="mobile-wrap">
-                                <p>010-6811-0753</p>
-                                <button>휴대폰번호 변경</button>
+                                <input th:value="${session.user.getContact()}" disabled rel="nowMobile">
+                                <div rel="changeBtn">휴대폰번호 변경</div>
                             </div>
                             <div class="change-mobile">
                                 <label for="mobile">변경할 휴대폰</label>
-                                <input type="text" class="new-mobile" id="mobile" maxlength="11" placeholder="'-' 없이 입력해주세요.">
-                                <button type="button">번호 변경</button>
+                                <input type="number" class="new-mobile" id="mobile" maxlength="11" placeholder="'-' 없이 입력해주세요." name="mobile">
+<!--                                <button type="button" rel="mobileModifyBtn" name="newMobile">번호 변경</button>-->
                             </div>
                         </div>
                         <div class="text">
@@ -114,7 +116,7 @@
                             </p>
                         </div>
                         <div class="info email">
-                            <p>choi_4349@naver.com</p>
+                            <input th:value="${session.user.getEmail()}" rel="email" disabled>
                         </div>
                         <div class="text">
                             <p>비밀번호
@@ -122,10 +124,34 @@
                             </p>
                         </div>
                         <div class="info password">
-                            <button>비밀번호 변경</button>
+                            <button>
+                                <a th:href="@{./recoverPassword}">비밀번호 변경</a>
+                            </button>
+                        </div>
+                        <div class="text">
+                            <p>주소
+                                <em class="star">*</em>
+                            </p>
+                        </div>
+                        <div class="info address">
+                            <label>
+                                <input disabled th:value="${session.user.getAddressPostal}" class="addressPostal" rel="addressPostal">
+                                <div rel="addressFind">주소 찾기</div>
+                            </label>
+                            <label>
+                                <input disabled th:value="${session.user.getAddressPrimary}" rel="addressPrimary">
+                                <input type="text" placeholder="상세 주소를 입력해주세요." rel="addressSecondary" th:value="${session.user.getAddressSecondary}">
+                            </label>
+                            <div class="panel address" rel="addressFindPanel">
+                                <div class="dialog" rel="addressFindPanelDialog"></div>
+                            </div>
                         </div>
                     </div>
                 </form>
+            </div>
+            <div class="btn-area">
+                <div><a th:href="@{./myPage}">취소</a></div>
+                <div rel="submitBtn">등록</div>
             </div>
         </div>
     </div>

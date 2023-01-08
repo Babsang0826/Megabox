@@ -26,7 +26,8 @@ public interface IMemberMapper {
 
     int insertUser(UserEntity user);
 
-    UserEntity selectUserByEmails(String id, String password);
+    UserEntity selectUserByEmails(@Param(value = "id") String id,
+                                  @Param(value = "password") String password);
 
     UserEntity selectUserByNameBirthdayContact(@Param(value = "name") String name,
                                                @Param(value = "birthday") int birthday,

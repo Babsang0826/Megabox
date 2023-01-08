@@ -44,12 +44,19 @@
                 </p>
             </div>
             <div class="movie-search">
-                <input type="text" name="movie-search" placeholder="영화명 검색" class="input-text">
-                <button type="button" class="btn-search-input"></button>
+<!--                <input type="text" name="movie-search" placeholder="영화명 검색" class="input-text">-->
+<!--                <button type="button" class="btn-search-input"></button>-->
+                <form method="get">
+                    <label>
+                        <input type="text" name="keyword" placeholder="영화명 검색" class="input-text"
+                               th:value="${#request.getParameter('keyword')}">
+                        <button type="submit" class="btn-search-input"></button>
+                    </label>
+                </form>
             </div>
         </div>
         <div class="movie-list">
-            <ol class="list first">
+            <ol class="list first" id="movieContainer">
                 <li class="movie" th:each="movie : ${movies}">
                     <div class="poster">
                         <img th:src="${movie.getMoviePoster()}" alt="" class="movie-poster">
@@ -74,7 +81,7 @@
                         </a>
                     </div>
                     <div class="rate-date">
-<!--                                                    <span class="rate">-->
+                        <!--                                                    <span class="rate">-->
                         <span class="rate" th:text="'예매율 ' + ${movie.getBookRate()} + '%'">
                             예매율 85%</span>
                         <span class="date" th:text="'개봉일 ' + ${#dates.format(movie.getReleaseDate(), 'yyyy.MM.dd')}">개봉일 2022.12.14</span>
@@ -116,12 +123,17 @@
                 </p>
             </div>
             <div class="movie-search">
-                <input type="text" name="movie-search" placeholder="영화명 검색" class="input-text">
-                <button type="button" class="btn-search-input"></button>
+                <form method="get">
+                    <label>
+                        <input type="text" name="keyword" placeholder="영화명 검색" class="input-text"
+                               th:value="${#request.getParameter('keyword')}">
+                        <button type="submit" class="btn-search-input"></button>
+                    </label>
+                </form>
             </div>
         </div>
         <div class="movie-list">
-            <ol class="list first">
+            <ol class="list first" id="commingMovieContainer">
                 <li class="movie" th:each="movie : ${commingMovies}">
                     <div class="poster">
                         <img th:src="${movie.getMoviePoster()}" alt="" class="movie-poster">
@@ -146,7 +158,7 @@
                         </a>
                     </div>
                     <div class="rate-date">
-                            <span class="rate" th:text="'예매율 '+ ${movie.getBookRate() + '%'}">개봉 예정택</span>
+                        <span class="rate" th:text="'예매율 '+ ${movie.getBookRate() + '%'}">개봉 예정택</span>
                         <span class="date" th:text="'개봉일 ' + ${#dates.format(movie.getReleaseDate(), 'yyyy.MM.dd')}">개봉일 2022.12.14</span>
                     </div>
                     <div class="button">

@@ -275,15 +275,15 @@
                             <div class="radios">
                                 <span>
                                     <input type="radio" id="payment-credit" name="radio" class="radio" checked>
-                                    <label for="payment-credit">신용/체크카드</label>
+                                    <label for="payment-credit" class="payment-methods">신용/체크카드</label>
                                 </span>
                                 <span>
                                     <input type="radio" id="payment-mobile" name="radio" class="radio">
-                                    <label for="payment-mobile">휴대폰 결제</label>
+                                    <label for="payment-mobile" class="payment-methods">휴대폰 결제</label>
                                 </span>
                                 <span>
                                     <input type="radio" id="payment-account" name="radio" class="radio">
-                                    <label for="payment-account">내 통장 결제</label>
+                                    <label for="payment-account" class="payment-methods">내 통장 결제</label>
                                 </span>
                             </div>
                             <div class="payments card on" rel="paymentCard">
@@ -335,17 +335,27 @@
                             <div class="price-cal">
                                 <div class="box">
                                     <div class="data">
-                                        <span class="title">성인<em>2</em></span>
-                                        <span class="price">36000</span>
+                                        <span class="title" rel="dataTitle">
+<!--                                            성인<em>2</em>-->
+                                        </span>
+                                        <span class="price">24000</span>
                                     </div>
                                     <div class="data">
-                                        <span class="title">청소년<em>2</em></span>
-                                        <span class="price">30000</span>
+                                        <span class="title" rel="dataTitle">
+<!--                                            청소년<em>2</em>-->
+                                        </span>
+                                        <span class="price">18000</span>
+                                    </div>
+                                    <div class="data">
+                                        <span class="title" rel="dataTitle">
+<!--                                            우대<em>2</em>-->
+                                        </span>
+                                        <span class="price">10000</span>
                                     </div>
                                     <div class="all">
                                         <span class="title">금액</span>
                                         <span class="price">
-                                            <em>66000</em>
+                                            <em class="total-price">0</em>
                                             <span>원</span>
                                         </span>
                                     </div>
@@ -368,7 +378,7 @@
                                 <div class="pay">
                                     <p>최종결제금액</p>
                                     <div class="money">
-                                        <p class="price">66000</p>
+                                        <p class="price" rel="finalPrice">0</p>
                                         <p>원</p>
                                     </div>
                                 </div>

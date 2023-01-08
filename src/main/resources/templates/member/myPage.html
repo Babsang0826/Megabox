@@ -10,12 +10,14 @@
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
-<div class="container">
+<div class="container" id="container">
     <div class="inner-wrap">
+        <input type="hidden" th:value="${session.user.getId}" rel="id">
+        <input type="hidden" th:value="${session.user.getPassword}" rel="password">
         <div class="side-menu">
             <nav>
                 <p class="title">
-                    <a href="#">나의 메가박스</a>
+                    <a th:href="@{./myPage}">나의 메가박스</a>
                 </p>
                 <ul>
                     <li>
@@ -31,7 +33,7 @@
                         <a href="#">회원정보</a>
                         <ul class="member-info">
                             <li>
-                                <a href="#">개인정보 수정</a>
+                                <a th:href="@{./modify}">개인정보 수정</a>
                             </li>
                         </ul>
                     </li>
@@ -64,10 +66,10 @@
                         </div>
                         <div class="grade">
                             <p class="name">
-                                최승명님은<br>일반등급입니다.
+                                <span th:text="${session.user.getName()}"></span>님은<br>일반등급입니다.
                             </p>
                             <div class="link-modify">
-                                <a href="#">개인정보 수정</a>
+                                <a th:href="@{./modify}">개인정보 수정</a>
                                 <i class="fa-solid fa-angle-right"></i>
                             </div>
                         </div>
@@ -80,7 +82,7 @@
                             </div>
                             <div class="point-area">
                                 <div class="total-point">
-                                    <p>0P</p>
+                                    <p th:text="${point} + 'P'">0P</p>
                                 </div>
                             </div>
                             <div class="change">

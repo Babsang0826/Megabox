@@ -1,10 +1,12 @@
 package dev.babsang.megabox.services;
 
+import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
-import dev.babsang.megabox.enums.bbs.WriteResult;
+import dev.babsang.megabox.enums.member.RecoverMyPageResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.mappers.IMovieMapper;
+import dev.babsang.megabox.utils.CryptoUtils;
 import dev.babsang.megabox.vos.movie.MovieCommentVo;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
@@ -12,8 +14,6 @@ import dev.babsang.megabox.vos.movie.SeatVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
 
 @Service(value = "dev.babsang.megabox.services.MovieService")
 public class MovieService {
@@ -69,9 +69,15 @@ public class MovieService {
         return this.movieMapper.selectMovieVosByMid(mid);
     }
 
+    public MovieVo[] getMovieVosKeyword(String keyword) {
+        return this.movieMapper.selectMoviesByKeyword(keyword);
+    }
+
     public MovieVo[] getMovieVos() {
         return this.movieMapper.selectMovieVos();
     }
+
+    public BookingEntity getMovieVosById(String id) { return this.movieMapper.selectMovieVosById(id); }
 
     public BookingEntity[] getBookings() {
         return this.movieMapper.selectBooking();
@@ -84,5 +90,61 @@ public class MovieService {
     public SeatVo[] getSeatVosGroupByColumn() {
         return this.movieMapper.selectSeatVoGroupByColumn();
     }
+
+    public MovieVo[] getMovieByKeyword(String keyword) {
+        return this.movieMapper.selectMoviesByKeyword(keyword);
+    }
+
+    public Enum<? extends IResult> myPageAuth(UserEntity signedUser) {
+        if (signedUser == null) {
+            return RecoverMyPageResult.NO_USER;
+        }
+
+        return CommonResult.SUCCESS;
+    }
+
+    @Transactional
+    public Enum<? extends IResult> updateUser(UserEntity signedUser, UserEntity newUser) {
+        if (signedUser == null) {
+            return RecoverMyPageResult.NO_USER;
+        }
+        UserEntity userByContact = this.movieMapper.selectUserByContact(newUser.getContact());
+        if (userByContact != null && !signedUser.getEmail().equals(userByContact.getEmail())) {
+            return RecoverMyPageResult.DUPLICATE;
+        }
+
+        signedUser.setContact(newUser.getContact());
+        signedUser.setBirthday(newUser.getBirthday());
+        signedUser.setName(newUser.getName());
+        signedUser.setEmail(newUser.getEmail());
+        signedUser.setAddressPostal(newUser.getAddressPostal());
+        signedUser.setAddressPrimary(newUser.getAddressPrimary());
+        signedUser.setAddressSecondary(newUser.getAddressSecondary());
+
+        return this.movieMapper.updateUser(signedUser) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    public Enum<? extends IResult> updatePassword(UserEntity signedUser, UserEntity newUser) {
+        if (signedUser == null) {
+            return RecoverMyPageResult.NO_USER;
+        }
+
+        signedUser.setPassword(CryptoUtils.hashSha512(newUser.getPassword()));
+
+        return this.movieMapper.updateUser(signedUser) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    public Enum<? extends IResult> deleteUser(UserEntity user) {
+
+        return this.movieMapper.deleteUser(user) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+
 }
 

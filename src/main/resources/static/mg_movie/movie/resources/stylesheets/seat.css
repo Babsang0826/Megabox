@@ -269,7 +269,7 @@ body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-sect
     /*position: absolute;*/
     /*left: 53rem;*/
     width: 310px;
-    height: 556px;
+    height: auto;
     margin-left: 20px;
     color: #fff;
     background-color: #333;
@@ -504,11 +504,12 @@ body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-sect
     display: block;
     float: left;
     position: relative;
-    font-size: .8667em;
+    /*font-size: .8667em;*/
     color: #c4c4c4;
     vertical-align: middle;
-    padding-right: 0.5rem;
+    /*padding-right: 0.5rem;*/
     height: 21px;
+    font-size: 14px;
 }
 
 .seat-result > .wrap > .pay-area > .cnt > span:first-of-type {
@@ -855,6 +856,7 @@ body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-sect
 }
 
 .seat-result > .wrap > .price-cal > .box > .data {
+    display: none;
     line-height: 1.1;
 }
 
@@ -907,11 +909,6 @@ body > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-sect
     margin: 0 0 5px 0;
     width: 100%;
     display: block;
-}
-
-.seat-result > .wrap > .pay-area > .cnt > span {
-    float: left;
-    font-size: 14px;
 }
 
 .seat-result > .wrap > .pay-area > .cnt > .extra-discount {

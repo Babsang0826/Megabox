@@ -26,3 +26,33 @@ function scrollFunction() {
         document.getElementById('commingTabList').classList.remove('fixed')
     }
 }
+
+//토글 체크 시
+const toggle = contents.querySelector('#toggle');
+const movieContainer = contents.querySelector('#movieContainer');
+const commingMovieContainer = contents.querySelector('#commingMovieContainer');
+let movies = movieContainer.querySelectorAll('.movie');
+const commingMovies = commingMovieContainer.querySelectorAll('.movie');
+
+// for (let i = 0; i < movies.length; i++) {
+    for (let j = 0; j < commingMovies.length; j++) {
+        console.log(commingMovies[j]);
+    }
+// }
+// if (toggle.checked) {
+//
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

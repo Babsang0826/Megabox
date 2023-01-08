@@ -56,9 +56,10 @@ commentScoreLi.addEventListener('click', () => {
 });
 //무비포스트
 moviePostLi.addEventListener('click', () => {
-    mainInfoLi.classList.remove('on');
+    alert('서비스 준비중 입니다.');
+    mainInfoLi.classList.add('on');
     commentScoreLi.classList.remove('on');
-    moviePostLi.classList.add('on');
+    // moviePostLi.classList.add('on');
 });
 
 const changeValue = (target) => {
@@ -199,7 +200,7 @@ writeForm.onsubmit = e => {
                         break;
                     case 'failure' :
                         alert('로그인 후 이용가능합니다.');
-                        break;
+                        break;시
                     default:
                         alert('알 수 없는 이유로 한줄평을 작성하지 못하였습니다.\n\n잠시 후 다시 시도해 주세요.')
                 }
