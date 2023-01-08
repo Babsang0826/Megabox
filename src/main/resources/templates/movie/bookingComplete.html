@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메가박스 :: 예매완료</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/bookingComplete.css}">
+    <script src="https://kit.fontawesome.com/282afddd53.js" crossorigin="anonymous"></script>
+    <script defer th:src="@{/mg_movie/movie/resources/scripts/bookingComplete.js}"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="container">
+    <div class="contents">
+        <div class="inner-wrap">
+            <div class="bookingComplete">
+                <h2>예매완료</h2>
+                <div class="booking-finish">
+                    <div class="book-info">
+                        <div class="post-area">
+                            <p>
+                                티켓 예매번호
+                                <span>1234-123-12345</span>
+                            </p>
+                            <img src="https://img.megabox.co.kr/SharedImg/2022/12/16/9vUySe7DNMro6tdYRPEbjzF2ebr48MwE_316.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info-area">
+                            <div class="info-top">
+                                <p class="title">
+                                    <strong>예매가 완료되었습니다!</strong>
+                                </p>
+                                <span>
+                                    <i></i>
+                                    고객님의 적립예정 포인트는
+                                    <em>700P</em>
+                                    입니다.
+                                </span>
+                            </div>
+                            <div class="info-middle">
+                                <ul>
+                                    <li>
+                                        <span>예매영화</span>
+                                        아바타: 물의 길 / 2D(자막)
+                                    </li>
+                                    <li>
+                                        <span>관람극징/상영관</span>
+                                        북대구(칠곡) / 4관
+                                    </li>
+                                    <li>
+                                        <span>관람일시</span>
+                                        2023.01.08 (일) 20:00
+                                    </li>
+                                    <li>
+                                        <span>관람인원</span>
+                                        성인 1명
+                                    </li>
+                                    <li>
+                                        <span>좌석번호</span>
+                                        A1
+                                    </li>
+                                    <li>
+                                        <span>전화번호</span>
+                                        010-6811-0753
+                                    </li>
+                                    <li>
+                                        <span>결제정보</span>
+                                        <strong>12000</strong>
+                                        원
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="info-bottom">
+                                <div class="extra-send">
+                                    <p>예매정보 추가 발송</p>
+                                    <a href="#" class="toggle-tip"></a>
+                                    <label>
+                                        <input type="number" class="extra-number" maxlength="11">
+                                    </label>
+                                    <button type="button">전송</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-area">
+                    <a href="#">교환권출력</a>
+                    <a href="#">예매내역</a>
+                </div>
+                <div class="info-area">
+                    <ul>
+                        <li>
+                            상영안내
+                            <ul>
+                                <li>쾌적한 관람 환경을 위해 상영시간 이전에 입장 부탁드립니다.</li>
+                                <li>상영시간 20분전까지 취소 가능하며, 캡쳐화면으로는 입장하실 수 없습니다.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            주차안내
+                            <ul>
+                                <li>영화관 건물 지하, 외부 주차타워 이용 / 영화 관람시 3시간 무료주차 가능(주차권 반드시 지참)</li>
+                                <li>주차장 협소하오니 대중교통 이용 부탁드립니다.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</html>

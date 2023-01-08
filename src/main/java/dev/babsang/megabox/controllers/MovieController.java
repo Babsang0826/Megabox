@@ -1,7 +1,9 @@
 package dev.babsang.megabox.controllers;
 
+import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
+import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.services.MovieService;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller(value = "dev.babsang.megabox.controllers.MovieController")
 @RequestMapping(value = "movie")
@@ -31,11 +32,12 @@ public class MovieController {
     @RequestMapping(value = "movie",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getMovie() {
+    public ModelAndView getMovie(@RequestParam(value = "keyword", required = false) String keyword) {
         ModelAndView modelAndView = new ModelAndView("movie/movie");
 
         //전체 영화
-        MovieVo[] movies = this.movieService.getMovieVos();
+//        MovieVo[] movies = this.movieService.getMovieVos();
+        MovieVo[] movies = this.movieService.getMovieVosKeyword(keyword);
         BookingEntity[] booking = this.movieService.getBookings();
         for (MovieVo movie : movies) {
             MovieCommentEntity[] comments = this.movieService.getComments(movie.getIndex());
@@ -74,7 +76,7 @@ public class MovieController {
 
             movie.setBookRate(bookingRate);
         }
-        modelAndView.addObject("commingMovies1", commingMovies);
+        modelAndView.addObject("commingMovies", commingMovies);
 
         return modelAndView;
     }
@@ -87,6 +89,7 @@ public class MovieController {
         ModelAndView modelAndView = new ModelAndView("movie/movie-detail");
 
         MovieCommentEntity[] comments = this.movieService.getComments(mid);
+        MovieVo[] movies = this.movieService.getMovieVos();
         MovieVo movie = this.movieService.getMovieVo(mid);
         BookingEntity[] booking = this.movieService.getBookings();
         if (comments == null) {
@@ -108,14 +111,20 @@ public class MovieController {
             double bookingCnt = movie.getTotalAudience();
             double totalBookingCnt = booking.length;
             double bookingRate = Math.round(bookingCnt / totalBookingCnt * 100 * 10) / 10.0;
-            System.out.println(bookingCnt);
-            System.out.println(totalBookingCnt);
-            System.out.println(bookingRate);
             modelAndView.addObject("bookingRate", bookingRate);
 
         }
         modelAndView.addObject("mid", mid);
+        int rank = 0;
+        System.out.println("rank : " + rank);
 
+        for (int i = 0; i < movies.length; i++) {
+            if (movie.equals(movies[i])) {
+                rank = i + 1;
+                modelAndView.addObject("rank", rank);
+            }
+            rank = -1;
+        }
         return modelAndView;
     }
 
@@ -123,21 +132,22 @@ public class MovieController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postMovieDetail(@RequestParam(value = "mid", required = false) int mid, MovieCommentEntity comment) {
+    public String postMovieDetail(@RequestParam(value = "mid", required = false) int mid,
+                                  @SessionAttribute(value = "user", required = false) UserEntity user,
+                                  MovieCommentEntity comment) {
         JSONObject responseObject = new JSONObject();
-//        로그인은 추후 추가하기
-//        if (user == null) {
-//            responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
-//        } else {
-//            comment.setUserId(user.getId());
-        comment.setUserId("choi4349");
-        comment.setMid(mid);
-        Enum<?> result = this.movieService.writeComment(comment);
-        responseObject.put("result", result.name().toLowerCase());
-        if (result == CommonResult.SUCCESS) {
-            responseObject.put("mid", mid);
+        if (user == null) {
+            responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
+        } else {
+            comment.setUserId(user.getId());
+//            comment.setUserId("choi4349");
+            comment.setMid(mid);
+            Enum<?> result = this.movieService.writeComment(comment);
+            responseObject.put("result", result.name().toLowerCase());
+            if (result == CommonResult.SUCCESS) {
+                responseObject.put("mid", mid);
+            }
         }
-//        }
         return responseObject.toString();
     }
 
@@ -192,7 +202,7 @@ public class MovieController {
     @ResponseBody
     public String patchBooking() {
         JSONArray branchesJson = new JSONArray();
-        for(BranchEntity branch : this.movieService.getBranches()) {
+        for (BranchEntity branch : this.movieService.getBranches()) {
             JSONObject branchJson = new JSONObject();
             branchJson.put("index", branch.getIndex());
             branchJson.put("text", branch.getText());
@@ -223,7 +233,7 @@ public class MovieController {
             screenInfoAllJson.put("screenInfoMovieTime", new SimpleDateFormat("HH").format(screenInfo.getMvStartTime()));
             screenInfoAllJson.put("screenInfoMovieEndTime", new SimpleDateFormat("HH:mm").format(screenInfo.getMvEndTime()));
             screenInfoAllJson.put("screenInfoMovieTitle", screenInfo.getInfoMovieTitle());
-            screenInfoAllJson.put("screenInfoDate",new SimpleDateFormat("yyyy-MM-dd").format(screenInfo.getScreenDate()));
+            screenInfoAllJson.put("screenInfoDate", new SimpleDateFormat("yyyy-MM-dd").format(screenInfo.getScreenDate()));
             screenInfoAllJson.put("screenInfoMovieState", screenInfo.getInfoMovieState());
             screenInfoAllJson.put("screenInfoBranchIndex", screenInfo.getInfoBranchIndex());
             screenInfoAllJson.put("screenInfoBranchText", screenInfo.getInfoBranchText());
@@ -249,6 +259,97 @@ public class MovieController {
 
         modelAndView.addObject("seats", seats);
         modelAndView.addObject("seatVos", seatVos);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "myPage",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getMyPage(@SessionAttribute(value = "user", required = false) UserEntity user) {
+        ModelAndView modelAndView = new ModelAndView("member/myPage");
+        BookingEntity booking = this.movieService.getMovieVosById(user.getId());
+        if (booking == null) {
+            modelAndView.addObject("point", 0);
+        } else {
+            modelAndView.addObject("point", booking.getPayment() / 200);
+        }
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "myPage",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postMyPage(@SessionAttribute(value = "user", required = false) UserEntity signedUser) {
+        Enum<?> result = this.movieService.myPageAuth(signedUser);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "modify",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getModify() {
+        ModelAndView modelAndView = new ModelAndView("member/myPage-modify");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "modify",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postModify(@SessionAttribute(value = "user", required = false) UserEntity signedUser,
+                             UserEntity newUser) {
+        JSONObject responseObject = new JSONObject();
+        Enum<? extends IResult> result = this.movieService.updateUser(signedUser, newUser);
+        responseObject.put("result", result.name().toLowerCase());
+
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "modify",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteMyPage(@SessionAttribute(value = "user", required = false) UserEntity signedUser) {
+        Enum<?> result = this.movieService.deleteUser(signedUser);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "recoverPassword",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getChangePw() {
+        ModelAndView modelAndView = new ModelAndView("member/recoverPassword");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "recoverPassword",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postRecoverPassword(@SessionAttribute(value = "user") UserEntity signedUser, UserEntity newUser) {
+        Enum<?> result = this.movieService.updatePassword(signedUser, newUser);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "bookingComplete",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getBookingComplete() {
+        ModelAndView modelAndView = new ModelAndView("movie/bookingComplete");
 
         return modelAndView;
     }

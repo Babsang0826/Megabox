@@ -149,8 +149,20 @@ public class MemberService {
 
         if (existingPasswordAuth != null) {
             System.out.println("로그인 성공");
+            user.setEmail(existingPasswordAuth.getEmail());
+            user.setContact(existingPasswordAuth.getContact());
+            user.setPassword(existingPasswordAuth.getPassword());
+            user.setName(existingPasswordAuth.getName());
+            user.setAddressPostal(existingPasswordAuth.getAddressPostal());
+            user.setAddressSecondary(existingPasswordAuth.getAddressSecondary());
+            user.setAddressPrimary(existingPasswordAuth.getAddressPrimary());
+            user.setBirthday(existingPasswordAuth.getBirthday());
+            user.setAdminFlag(existingPasswordAuth.getAdminFlag());
             return CommonResult.SUCCESS;
         }
+
+
+
         return CommonResult.FAILURE;
     }
 

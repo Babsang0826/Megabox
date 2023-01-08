@@ -30,6 +30,8 @@
                `written_on`      AS `writtenOn`
         FROM `mg_movie`.`movie_comment`
         WHERE `movie_index` = #{mid}
+        order by `index` desc
+
     </select>
 
     <select id="selectMovieByIndex" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
@@ -105,6 +107,7 @@
                  LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
         WHERE movie.`release_date` > now()
         GROUP BY `movie`.`index`
+        order by `movie`.`release_date`
     </select>
 
     <select id="selectMovieVosByMid" resultType="dev.babsang.megabox.vos.movie.MovieVo">
@@ -186,11 +189,22 @@
                `movie`.`teenager_price`   AS `teenagerPrice`,
                `movie`.`etc_price`        AS `etcPrice`,
                `movie`.`score_avg`        AS `scoreAvg`,
-               count(`booking`.`index`)   as `totalAudience`
+               count(`booking`.`index`)   AS `totalAudience`
         FROM `mg_movie`.`movies` AS `movie`
                  LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
                  LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
         group by `movie`.`index`
+        order by `totalAudience` desc, release_date
+    </select>
+
+    <select id="selectMovieVosById" resultType="dev.babsang.megabox.entities.movie.BookingEntity">
+        SELECT `index`           as `index`,
+               screen_info_index as screenInfoIndex,
+               user_id           as userId,
+               seat_index        as seatIndex,
+               sum(payment)      as payment
+        from mg_movie.booking
+        where user_id = #{id}
     </select>
 
     <select id="selectMovieVoByListBox" resultType="dev.babsang.megabox.vos.movie.MovieVo">
@@ -293,6 +307,58 @@
         group by `column_index`
     </select>
 
+    <select id="selectMoviesByKeyword" resultType="dev.babsang.megabox.vos.movie.MovieVo">
+        select movie.`index`            AS `index`,
+               movie.`title`            AS `title`,
+               movie.`title_en`         AS `titleEn`,
+               movie.`release_date`     AS `releaseDate`,
+               movie.`end_date`         AS `endDate`,
+               movie.`summary`          AS `summary`,
+               movie.`age_limit`        AS `ageLimit`,
+               movie.`movie_state`      AS `movieState`,
+               movie.`genre`            AS `genre`,
+               movie.`director`         AS `director`,
+               movie.`actor`            AS `actor`,
+               movie.`running_time`     AS `runnungTime`,
+               movie.`screen_type`      AS `screenType`,
+               movie.`movie_poster`     AS `moviePoster`,
+               movie.`background_image` AS `backgroundImage`,
+               movie.`adult_price`      AS `adultPrice`,
+               movie.`teenager_price`   AS `teenagerPrice`,
+               movie.`etc_price`        AS `etcPrice`,
+               movie.`score_avg`        AS `scoreAvg`,
+               count(`booking`.`index`)   AS `totalAudience`
+        FROM `mg_movie`.`movies` AS `movie`
+                 LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
+                 LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
+        where replace(title, ' ', '') like concat('%', replace(#{keyword}, ' ', ''), '%')
+        group by `movie`.`index`
+        order by `totalAudience` desc, release_date
+    </select>
+
+    <select id="selectUserByContact" resultType="dev.babsang.megabox.entities.member.UserEntity">
+        select email             as email,
+               `name`            as `name`,
+               birthday          as birthday,
+               contact           as contact,
+               id                as id
+        from mg_member.users
+        where contact = #{contact}
+    </select>
+
+    <select id="selectUserByEmail" resultType="dev.babsang.megabox.entities.member.UserEntity">
+        select `name`            as `name`,
+               birthday          as birthday,
+               contact           as contact,
+               id                as id,
+               password          as password,
+               address_postal    as addressPostal,
+               address_primary   as addressPrimary,
+               address_secondary as addressSecondary
+        from mg_member.users
+        where email = #{email}
+    </select>
+
     <insert id="insertComment"
             useGeneratedKeys="true"
             keyProperty="index"
@@ -303,5 +369,31 @@
         VALUES (#{userId}, #{score}, #{recommendPoint}, #{content},
                 IFNULL(#{writtenOn}, DEFAULT(`written_on`)), #{mid})
     </insert>
+
+    <update id="updateUser" parameterType="dev.babsang.megabox.entities.member.UserEntity">
+        update mg_member.users
+        set email    = #{email},
+            `name`   = #{name},
+            birthday = #{birthday},
+            contact  = #{contact},
+            id       = #{id},
+            password = #{password}
+        where email = #{email}
+        limit 1
+    </update>
+
+    <update id="updatePassword" parameterType="dev.babsang.megabox.entities.member.UserEntity">
+        update mg_member.users
+        set password = #{password}
+        where email = #{email}
+        limit 1
+    </update>
+
+    <delete id="deleteUser">
+        delete
+        from mg_member.users
+        where email = #{email}
+        limit 1
+    </delete>
 
 </mapper>

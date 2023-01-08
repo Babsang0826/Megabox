@@ -1,0 +1,348 @@
+
+body {
+    overflow: auto;
+    overflow-y: scroll;
+    letter-spacing: 0;
+    line-height: 1.5;
+    font-size: 15px;
+    color: #444;
+    font-weight: 400;
+}
+
+.container {
+    width: 100%;
+    min-width: 1100px;
+    min-height: 100%;
+    margin: -92px 0 -200px 0;
+    padding: 92px 0 300px 0;
+}
+
+.container > .inner-wrap {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+.container > .inner-wrap > .side-menu {
+    float: left;
+    width: 200px;
+    padding: 40px 0 0 0;
+    background-color: #fff;
+}
+
+.container > .inner-wrap > .side-menu > nav {
+    margin: 0;
+    padding: 0;
+}
+
+.container > .inner-wrap > .side-menu > nav > .title {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px 10px 0 0;
+    background-color: rgb(61,61,61);
+}
+
+.container > .inner-wrap > .side-menu > nav > .title > a {
+    display: block;
+    width: 100%;
+    font-size: 1.2em;
+    line-height: 90px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.container > .inner-wrap > .side-menu > nav > ul {
+    border: 2px solid #d8d9db;
+    border-top-width: 1px;
+    border-radius: 0 0 10px 10px;
+}
+
+.container > .inner-wrap > .side-menu > nav > ul > li {
+    border-top: 1px solid #d8d9db;
+}
+
+/*.container > .inner-wrap > .side-menu > nav > ul > li:first-of-type {*/
+/*    border-top: 1px solid #d8d9db;*/
+/*    background-color: rgb(61,61,61);*/
+/*    height: 90px;*/
+/*}*/
+
+/*.container > .inner-wrap > .side-menu > nav > ul > li:first-of-type > a {*/
+/*    color: #fff;*/
+/*}*/
+
+.container > .inner-wrap > .side-menu > nav > ul > li > a {
+    text-decoration: none;
+    line-height: 1.3;
+    display: block;
+    color: #222;
+    padding: 10px 15px;
+    font-weight: 400;
+    background-color: #f2f4f5;
+}
+
+.container > .inner-wrap > .side-menu > nav > ul > li > a:hover,
+.container > .inner-wrap > .side-menu > nav > ul > li > ul > li > a:hover {
+    color: #01738b;
+}
+
+.container > .inner-wrap > .side-menu > nav > ul > li > ul {
+    padding: 20px 0;
+}
+
+.container > .inner-wrap > .side-menu > nav > ul > li > ul > li > a {
+    position: relative;
+    padding: 2px 0 2px 24px;
+    color: #666;
+    display: block;
+    text-decoration: none;
+    line-height: 1.3;
+}
+
+.container > .inner-wrap > .side-menu > nav > ul > li > ul > li > a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 17px;
+    top: 10px;
+    width: 2px;
+    height: 2px;
+    background-color: #aaa;
+}
+
+/*콘텐츠*/
+.contents {
+    float: right;
+    width: calc(100% - 260px);
+    margin: 0;
+    padding: 40px 0 0 0;
+}
+
+.contents > .myPage-main {
+
+}
+
+.contents > .myPage-main > .myPage-info {
+    overflow: hidden;
+    height: 367px;
+    border-radius: 10px;
+    background-color: #f3f4f6;
+}
+
+.contents > .myPage-main > .myPage-info > .top {
+    position: relative;
+    height: 170px;
+    padding: 30px 30px 0 0;
+}
+
+.contents > .myPage-main > .myPage-info > .top > .profile-image {
+    float: left;
+    width: 200px;
+    padding: 20px 0 0 60px;
+}
+
+.contents > .myPage-main > .myPage-info > .top > .profile-image > .image-wrap {
+    position: relative;
+    width: 93px;
+    margin: 0;
+    padding: 0 0 7px 0;
+    background: url(https://img.megabox.co.kr/static/pc/images/mypage/bg-photo-back.png) no-repeat center bottom;
+}
+
+.contents > .myPage-main > .myPage-info > .top > .profile-image > .image-wrap > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 93px;
+}
+
+.contents > .myPage-main > .myPage-info > .top > .grade {
+    float: left;
+    padding-top: 20px;
+}
+
+.contents > .myPage-main > .myPage-info > .top > .grade > .name {
+    font-size: 1.8666em;
+    line-height: 1.3;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+.contents > .myPage-main > .myPage-info > .top > .grade > .link-modify {
+    padding: 15px 0 0 0;
+    display: flex;
+    align-items: center;
+}
+
+.contents > .myPage-main > .myPage-info > .top > .grade > .link-modify > a {
+    margin-right: 5px;
+    color: #666;
+}
+
+.contents > .myPage-main > .myPage-info > .top > .grade > .link-modify > a:hover {
+    text-decoration: underline;
+}
+
+.contents > .myPage-main > .myPage-info > .top > .grade > .link-modify > i {
+    color: #666;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom {
+    overflow: hidden;
+    height: 7rem;
+    padding: 26px 30px 29px 30px;
+    background-color: #eaebed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.contents > .myPage-main > .myPage-info > .bottom > div {
+    float: left;
+    width: 290px;
+    min-height: 116px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > div > .title-area {
+    padding-right: 30px;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .recent-visit > .title-area {
+    padding: 0;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > div > .title-area > .title {
+    float: left;
+    font-size: 1.2em;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .recent-visit,
+.contents > .myPage-main > .myPage-info > .bottom > .coupon {
+    border-left: 1px solid #d8d9db;
+    width: 11rem;
+    padding-left: 2.5rem;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .recent-visit > .list,
+.contents > .myPage-main > .myPage-info > .bottom > .coupon > .list {
+    margin-top: 1rem;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .coupon > .list > li {
+    display: flex;
+    justify-content: space-between;
+}
+
+em {
+    font-style: normal;
+    letter-spacing: 0.1rem;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .point > .point-area > .total-point {
+
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .point > .point-area > .total-point > p{
+    overflow: hidden;
+    display: block;
+    float: left;
+    width: 140px;
+    height: 44px;
+    line-height: 48px;
+    color: #339eb2;
+    font-weight: 400;
+    font-size: 1.8em;
+    vertical-align: middle;
+    letter-spacing: -1px;
+    margin: 0;
+    padding: 0;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .point > .change {
+    overflow: hidden;
+    margin: 10px 30px 0 0;
+    padding: 10px 0 0 0;
+    border-top: 1px solid #d8d9db;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .point > .change > p {
+    float: left;
+    margin: 0 0.5rem 0 0;
+    padding: 0;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .point > .change > p > span {
+
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .point > .change > p > em {
+    margin-left: 4px;
+    color: #222;
+    font-style: normal;
+}
+
+.contents > .myPage-main > .myPage-info > .bottom > .point > .change > p:last-of-type > em {
+    color: #e81003;
+}
+
+.myBook {
+    display: flex;
+    flex-direction: column;
+}
+
+.myBook > .book-title {
+    padding-bottom: 15px;
+    margin-top: 70px;
+}
+
+.myBook > .book-title > .title {
+    line-height: 32px;
+    font-size: 1.4666em;
+    color: #503396;
+    float: left;
+}
+
+.myBook > .book-title > .more {
+    line-height: 32px;
+    float: right;
+    color: #444;
+}
+
+.myBook > .book-title > .more:hover {
+    color: #555;
+    text-decoration: underline;
+}
+
+.myBook > .book-history {
+    border-top: 1px solid #555;
+}
+
+.myBook > .book-history > ul {
+
+}
+
+.myBook > .book-history > ul > li {
+    position: relative;
+    min-height: 140px;
+    margin: 0;
+    padding: 20px 100px 20px 100px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.myBook > .book-history > ul > li.no-result > div {
+    display: block;
+    height: 160px;
+    padding: 0;
+    text-align: center;
+    line-height: 160px;
+    /*border: 1px solid #ddd;*/
+}
+

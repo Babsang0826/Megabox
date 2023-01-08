@@ -1,24 +1,42 @@
 const container = window.document.getElementById('container');
+const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
+console.log(korean.test('안녕'));
 // 인원 선택
 const cell = container.querySelectorAll('[rel="cell"]');
 const counts = container.querySelectorAll('[rel="cnt"]');
 const texts = container.querySelectorAll('[rel="text"]');
 const plusBtns = container.querySelectorAll('[rel="upBtn"]');
 const minusBtns = container.querySelectorAll('[rel="downBtn"]');
+const payArea = container.querySelector('[rel="payArea"]');
+const type = payArea.querySelectorAll('.type');
+const dataTitle = container.querySelectorAll('[rel="dataTitle"]');
+const data = container.querySelectorAll('.data');
+const price = payArea.querySelector('.price');
+const totalPrice = container.querySelector('.total-price');
+const finalPrice = container.querySelector('[rel="finalPrice"]');
+
+
+const adultPrice = 12000;
+const teenagerPrice = 9000;
+const etcPrice = 5000;
+
+
+let person = Array.from(texts);
 let totalCnt;
+let personCnt = [0, 0, 0];
+
 
 for (let i = 0; i < cell.length; i++) {
     const plusBtn = plusBtns[i]
     const minusBtn = minusBtns[i];
     const count = counts[i];
-    const text = texts[i];
     let number = count.innerText;
-
 
     totalCnt = parseInt(number);
 
     plusBtn.addEventListener('click', () => {
+
         number = parseInt(number) + 1;
         totalCnt = parseInt(totalCnt) + 1;
 
@@ -29,6 +47,31 @@ for (let i = 0; i < cell.length; i++) {
             return;
         }
         count.innerText = number;
+
+        //인원 수 카운트 시 총 결제 금액 값 변경
+        personCnt[i] = number
+        person[i] = texts[i]
+        type[i].innerText = person[i].textContent + ' ' + personCnt[i];
+        dataTitle[i].innerText = type[i].innerText;
+        if (korean.test(type[i].innerText) === true) {
+            type[i].style.paddingRight = '0.5rem';
+        }
+
+        if (korean.test(dataTitle[i].innerText) === true) {
+            data[i].style.display = 'block';
+        }
+
+        let adultTotalPrice = `${parseInt(adultCount.innerText) * 12000}`
+        let teenagerTotalPrice = `${parseInt(teenagerCount.innerText) * 9000}`
+        let etcTotalPrice = `${parseInt(etcCount.innerText) * 5000}`
+        let sumPrice = parseInt(adultTotalPrice) + parseInt(teenagerTotalPrice) + parseInt(etcTotalPrice)
+
+        price.innerText = sumPrice;
+        totalPrice.innerText = sumPrice;
+        finalPrice.innerText = sumPrice;
+
+
+        console.log('찐 totalPrice : ' + totalPrice)
     });
 
     totalCnt = number;
@@ -49,17 +92,29 @@ for (let i = 0; i < cell.length; i++) {
             return window.location.reload();
         }
         count.innerText = number;
+
+        personCnt[i] = number
+        person[i] = texts[i]
+        type[i].innerText = person[i].textContent + ' ' + personCnt[i];
+        dataTitle[i].innerText = type[i].innerText;
+        if (type[i].textContent === '') {
+            type[i].style.padding = 0;
+        }
+        console.log(type[i]);
+
+        // const price = payArea.querySelector('.price');
+        let adultTotalPrice = `${parseInt(adultCount.innerText) * 12000}`
+        let teenagerTotalPrice = `${parseInt(teenagerCount.innerText) * 9000}`
+        let etcTotalPrice = `${parseInt(etcCount.innerText) * 5000}`
+
+        let sumPrice = parseInt(adultTotalPrice) + parseInt(teenagerTotalPrice) + parseInt(etcTotalPrice);
+
+        price.innerText = sumPrice;
+        totalPrice.innerText = sumPrice;
+        finalPrice.innerText = sumPrice;
+
     });
 }
-
-// const payArea = container.querySelector('[rel="payArea"]');
-// const personType = payArea.querySelector('.type');
-// const personCnt = payArea.querySelector('.p-cnt');
-//
-// for (let i = 0; i < personType.length; i++) {
-//     console.log(personType[i]);
-//     console.log(personCnt[i]);
-// }
 
 //초기화 버튼 클릭
 const resetBtn = container.querySelectorAll('.reset-button');
@@ -77,10 +132,8 @@ for (let i = 0; i < resetBtn.length; i++) {
 const seatArea = container.querySelector('[rel="seatArea"]');
 const seats = seatArea.querySelectorAll('[rel="row"]');
 let selectedSeats = container.querySelectorAll('[rel="selectedSeat"]');
-// const selections = Array.from(selectedSeats);
 
-
-//좌석 선택시
+//좌석 정렬 함수
 const sortSelections = () => {
     const selections = Array.from(selectedSeats);
     let lastOrder = 0;
@@ -96,6 +149,8 @@ const sortSelections = () => {
     }
 }
 
+let chosenSeatTotalCnt = 0;
+
 for (let i = 0; i < seats.length; i++) {
     const seat = seats[i];
     seat.addEventListener('click', () => {
@@ -104,6 +159,7 @@ for (let i = 0; i < seats.length; i++) {
             return;
         }
         let chosenSeatCnt = seatArea.querySelectorAll('.row.on').length
+        chosenSeatTotalCnt = chosenSeatCnt + 1
 
         if (chosenSeatCnt + 1 > totalCnt && !seat.classList.contains('on')) {
             alert('좌석 선택이 완료되었습니다.');
@@ -131,21 +187,40 @@ for (let i = 0; i < seats.length; i++) {
     });
 }
 
-//인원 선택시
-const payArea = container.querySelector('[rel="payArea"]');
-let person = Array.from(texts);
-
-
-//seat 버튼 이벤트
+//좌석 선택에서 다음 클릭 시
 const seatNext = container.querySelector('.next');
-const seatSelect = container.querySelector('[rel="seatSelect"]');
-const seatSelectPayment = container.querySelector('[rel="seatSelectPayment"]');
 seatNext.addEventListener('click', () => {
+    let selectedSeat = container.querySelectorAll('.seat.choice').length;
+    if (totalCnt > selectedSeat - 1) {
+        alert('인원 수에 맞게 좌석을 선택해주세요.');
+        return;
+    }
+    if (chosenSeatTotalCnt === 0) {
+        alert('인원 및 좌석 선택을 먼저 해주세요.');
+        return;
+    }
     seatSelectPayment.classList.add('on');
     seatSelect.classList.remove('on');
 });
 
+const moviePrice = [12000, 9000, 5000];
+const eachPrice = container.querySelector('.price');
+// const totalPrice = container.querySelector('.total-price');
+//
+// for (let i = 0; i < eachPrice.length; i++) {
+//     eachPrice[i].innerText = moviePrice[i] * counts[i];
+//     // totalPrice.innerText = eachPrice[i];
+//     let sum = 0;
+//     sum += eachPrice[i];
+//     console.log('sum : ' + sum)
+//     totalPrice.innerText = sum;
+// }
+
+
 //payment 버튼 이벤트
+const seatSelect = container.querySelector('[rel="seatSelect"]');
+const seatSelectPayment = container.querySelector('[rel="seatSelectPayment"]');
+
 const seatPrev = container.querySelector('.prev');
 seatPrev.addEventListener('click', () => {
     seatSelectPayment.classList.remove('on');
@@ -167,6 +242,8 @@ for (let i = 0; i < discountTitles.length; i++) {
 //결제 수단
 const paymentChecks = container.querySelectorAll('input[name = radio]');
 const payment = container.querySelectorAll('.payments');
+const paymentMethods = container.querySelectorAll('.payment-methods');
+const selectedPaymentMethod = container.querySelector('.thing');
 
 for (let i = 0; i < paymentChecks.length; i++) {
     const paymentCheck = paymentChecks[i];
@@ -175,6 +252,7 @@ for (let i = 0; i < paymentChecks.length; i++) {
         for (let k = 0; k < payment.length; k++) {
             if (paymentChecks[k].checked) {
                 payment[i].classList.add('on');
+                selectedPaymentMethod.innerText = paymentMethods[i].innerText
             } else {
                 payment[k].classList.remove('on')
             }

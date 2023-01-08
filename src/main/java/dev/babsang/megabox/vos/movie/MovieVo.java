@@ -7,6 +7,24 @@ import java.util.Date;
 public class MovieVo extends MovieEntity {
     private double bookRate;
     private int totalAudience;
+    private int rank;
+    private int point;
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
 
     private int movieBranchIndex;
 

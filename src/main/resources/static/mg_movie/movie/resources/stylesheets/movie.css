@@ -327,7 +327,7 @@ main > .container > .page-util > .inner-wrap > .location > a:first-of-type:hover
     justify-content: flex-start;
 }
 
-.movie-list-util > .movie-search > .input-text {
+.movie-list-util > .movie-search > form > label > .input-text {
     padding: 0 0.625rem;
     display: block;
     width: 100%;
@@ -335,7 +335,7 @@ main > .container > .page-util > .inner-wrap > .location > a:first-of-type:hover
     border: 0;
 }
 
-.movie-list-util > .movie-search > .btn-search-input {
+.movie-list-util > .movie-search > form > label > .btn-search-input {
     position: absolute;
     right: 0.0625rem;
     top: 0.0625rem;
