@@ -73,6 +73,10 @@ public class MovieService {
         return this.movieMapper.selectMovieVos();
     }
 
+    public MovieVo[] getMovieVoByList() {
+        return this.movieMapper.selectMovieVoByListBox();
+    }
+
     public BookingEntity[] getBookings() {
         return this.movieMapper.selectBooking();
     }

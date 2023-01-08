@@ -201,6 +201,18 @@ public class MovieController {
         }
         // 상영지점 JSONArray
 
+        JSONArray moviesJson = new JSONArray();
+        for(MovieVo movie : this.movieService.getMovieVoByList()) {
+            JSONObject movieJson = new JSONObject();
+            movieJson.put("movieIndex", movie.getIndex());
+            movieJson.put("movieTitle", movie.getTitle());
+            movieJson.put("movieBranchIndex", movie.getMovieBranchIndex());
+            movieJson.put("movieReleaseDate",new SimpleDateFormat("yyyy-MM-dd").format(movie.getReleaseDate()));
+            movieJson.put("movieAgeLimit", movie.getAgeLimit());
+            System.out.println(movie.getMovieScreenDate());
+            moviesJson.put(movieJson);
+        }
+
         JSONArray screenInfosAllJson = new JSONArray();
         for (MovieScreenInfoVo screenInfo : this.movieService.getScreenInfos()) {
             JSONObject screenInfoAllJson = new JSONObject();
@@ -208,6 +220,7 @@ public class MovieController {
             screenInfoAllJson.put("screenInfoMovieIndex", screenInfo.getMovieIndex());
             screenInfoAllJson.put("screenInfoAuditoriumIndex", screenInfo.getAuditoriumIndex());
             screenInfoAllJson.put("screenInfoMovieStartTime", new SimpleDateFormat("HH:mm").format(screenInfo.getMvStartTime()));
+            screenInfoAllJson.put("screenInfoMovieTime", new SimpleDateFormat("HH").format(screenInfo.getMvStartTime()));
             screenInfoAllJson.put("screenInfoMovieEndTime", new SimpleDateFormat("HH:mm").format(screenInfo.getMvEndTime()));
             screenInfoAllJson.put("screenInfoMovieTitle", screenInfo.getInfoMovieTitle());
             screenInfoAllJson.put("screenInfoDate",new SimpleDateFormat("yyyy-MM-dd").format(screenInfo.getScreenDate()));
@@ -222,6 +235,7 @@ public class MovieController {
         JSONObject responseJson = new JSONObject();
         responseJson.put("allScreenInfo", screenInfosAllJson);
         responseJson.put("branch", branchesJson);
+        responseJson.put("movieTitle", moviesJson);
         return responseJson.toString();
     }
 

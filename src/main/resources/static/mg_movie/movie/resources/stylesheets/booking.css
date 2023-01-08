@@ -161,7 +161,6 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     width: 100%;
     height: 20rem;
     margin-top: 1rem;
-    cursor: pointer;
     overflow: hidden;
 }
 
@@ -188,7 +187,6 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box {
-    /*background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);*/
     background-repeat: no-repeat;
     background-size: 1.5rem;
     background-position: left;
@@ -197,7 +195,8 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     align-items: center;
     justify-content: flex-start;
     height: 2rem;
-    width: 20rem;
+    width: 15rem;
+    cursor: pointer;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box.on {
@@ -212,7 +211,6 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     margin-left: 0.3rem;
     font-size: 0.8rem;
     color: black;
-    width: 11rem;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-content {
@@ -323,7 +321,6 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    margin-block-start: 0.5rem;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-region {
@@ -483,11 +480,27 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     align-items: center;
     justify-content: space-around;
     position: relative;
+    height: 100%;
 }
 
-body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box > .time-container > .time-wrap > .time:not(:nth-of-type(1)) {
-    margin-left: 1.2rem;
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box > .time-container > .time-wrap > .time {
+    cursor: pointer;
+    height: 100%;
+    width: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
+
+
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box > .time-container > .time-wrap > .time.on {
+    background-color: rgb(235, 235, 235);
+}
+
+/*body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .time-collect-box > .time-container > .time-wrap > .time:not(:nth-of-type(1)) {*/
+/*    margin-left: 1.2rem;*/
+/*}*/
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time {
     width: 28.4rem;

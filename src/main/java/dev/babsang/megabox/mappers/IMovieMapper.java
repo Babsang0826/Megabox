@@ -39,13 +39,13 @@ public interface IMovieMapper {
 
     MovieVo[] selectMovieVos();
 
+    MovieVo[] selectMovieVoByListBox();
+
     BookingEntity[] selectBooking();
     SeatVo[] selectSeatVo();
     SeatVo[] selectSeatVoGroupByColumn();
 
     MovieScreenInfoVo[] selectScreenInfos();
-
-//    MovieScreenInfoVo[] selectScreenInfoByOptionalList();
 
     int insertComment(MovieCommentEntity comment);
 

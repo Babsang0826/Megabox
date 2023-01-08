@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Movie</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
-    <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/booking.css}">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/booking.css}">
     <script defer th:src="@{/mg_movie/movie/resources/scripts/booking.js}"></script>
 </head>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
@@ -23,9 +23,9 @@
                         <i class="icon fa-solid fa-chevron-left"></i>
                     </button>
                     <div class="time-list">
-                        <button class="time-box">
+                        <div class="time-box">
 
-                        </button>
+                        </div>
                     </div>
                     <button id="nextBtn" type="button">
                         <i class="icon fa-solid fa-chevron-right"></i>
@@ -44,18 +44,7 @@
                                 </div>
                                 <div class="list">
                                     <div class="list-collect">
-                                        <!--/*@thymesVar id="movies" type="dev.babsang.megabox.entities.movie.MovieEntity[]"*/-->
-                                        <div class="list-box" th:each="movie : ${movies}">
-                                            <input rel="release-date" hidden name="releaseDate"
-                                                   th:value="${#dates.format(movie.getReleaseDate(), 'yyyy-MM-dd')}">
-                                            <input rel="end-date" hidden name="endDate"
-                                                   th:value="${#dates.format(movie.getEndDate(), 'yyyy-MM-dd')}">
-                                            <div th:class="${movie.getAgeLimit()}"></div>
-                                            <span th:text="${movie.getTitle()}">
-                                                <input rel="list-movie-title" hidden name="listMovieTitle"
-                                                       th:value="${movie.getTitle()}">
-                                            </span>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -79,9 +68,7 @@
 
                                         </li>
                                     </ul>
-                                    <ul class="quick-city">
-
-                                    </ul>
+                                    <ul class="quick-city"></ul>
                                 </div>
                             </div>
                             <div class="quick-content">
@@ -140,3 +127,4 @@
 </body>
 <th:block th:replace="~{fragments/body :: footer}"></th:block>
 </html>
+<!--/*@thymesVar id="movies" type="dev.babsang.megabox.entities.movie.MovieEntity[]"*/-->
