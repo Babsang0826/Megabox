@@ -244,6 +244,7 @@ public class MovieController {
             screenInfoAllJson.put("screenInfoBranchText", screenInfo.getInfoBranchText());
             screenInfoAllJson.put("screenInfoAuditoriumText", screenInfo.getInfoAudText());
             screenInfoAllJson.put("screenInfoMovieAgeLimit", screenInfo.getInfoMovieAgeLimit());
+            screenInfoAllJson.put("screenInfoMoviePoster", screenInfo.getInfoMoviePoster());
             screenInfosAllJson.put(screenInfoAllJson);
         }
         // 상영정보  JSONArray

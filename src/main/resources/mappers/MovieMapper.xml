@@ -268,7 +268,8 @@
                `branch`.`index`                AS `infoBranchIndex`,
                `branch`.`text`                 AS `infoBranchText`,
                `region`.`text`                 AS `infoRegionText`,
-               `movie`.`age_limit`             AS `infoMovieAgeLimit`
+               `movie`.`age_limit`             AS `infoMovieAgeLimit`,
+               `movie`.`movie_poster`          AS `infoMoviePoster`
         FROM `mg_movie`.`screen_info` AS `screenInfo`
                  LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
                  LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`

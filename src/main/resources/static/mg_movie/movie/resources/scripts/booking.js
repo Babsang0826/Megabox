@@ -380,7 +380,7 @@ const drawSubs = () => {
                     movieTimeElement.append(timeIconElement, timeBoxElement);
 
                     const movieTitleStateElement = window.document.createElement('div');
-                    // movieTitleStateElement.classList.add(allScreenInfo['']);
+                    movieTitleStateElement.classList.add('movie-title-state');
                     const movieTitleElement = window.document.createElement('span');
                     movieTitleElement.classList.add('movie-title');
                     movieTitleElement.innerText = allScreenInfo['screenInfoMovieTitle'];
@@ -433,7 +433,6 @@ const drawSubs = () => {
     }
 }
 const seatResultContainer = window.document.querySelector('.seat-result');
-
 const drawSeatResult = () => {
     const citySelected = Array.from(quickCity.querySelectorAll('.city[selected]'));
     const selectedCityIndexes = citySelected.map(x => parseInt(x.dataset.value));
@@ -460,9 +459,7 @@ const drawSeatResult = () => {
             const movieTypeElement = window.document.createElement('p');
             movieTypeElement.classList.add('movie-type');
             movieTypeElement.innerText = allScreenInfo['screenInfoMovieState'];
-
             titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement);
-
             const infoAreaElement = window.document.createElement('div');
             infoAreaElement.classList.add('info-area');
             const branchElement = window.document.createElement('p');
@@ -483,8 +480,8 @@ const drawSeatResult = () => {
             const posterElement = window.document.createElement('p');
             posterElement.classList.add('poster');
             const imageElement = window.document.createElement('img');
+            imageElement.setAttribute('src', allScreenInfo['screenInfoMoviePoster']);
             posterElement.append(imageElement);
-
             infoAreaElement.append(branchElement, auditoriumElement, dateElement, timeElement, posterElement);
             wrapContainer.prepend(titleAreaElement, infoAreaElement);
             seatResultContainer.append(wrapContainer);

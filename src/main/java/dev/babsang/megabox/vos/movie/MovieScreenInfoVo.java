@@ -13,6 +13,8 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
 
     private String infoMovieAgeLimit;  // movie 나이 제한
 
+    private String infoMoviePoster;
+
     public String getInfoMovieTitle() {
         return infoMovieTitle;
     }
@@ -67,5 +69,13 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
 
     public void setInfoMovieAgeLimit(String infoMovieAgeLimit) {
         this.infoMovieAgeLimit = infoMovieAgeLimit;
+    }
+
+    public String getInfoMoviePoster() {
+        return infoMoviePoster;
+    }
+
+    public void setInfoMoviePoster(String infoMoviePoster) {
+        this.infoMoviePoster = infoMoviePoster;
     }
 }
