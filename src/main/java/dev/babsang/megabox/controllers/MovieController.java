@@ -191,10 +191,14 @@ public class MovieController {
         RegionEntity region = this.movieService.getRegion();
         BranchEntity[] branches = this.movieService.getBranches();
         MovieScreenInfoVo[] infos = this.movieService.getScreenInfos();
+        SeatVo[] seats = this.movieService.getSeatVos();
+        SeatVo[] seatVos = this.movieService.getSeatVosGroupByColumn();
         modelAndView.addObject("infos", infos);
         modelAndView.addObject("movies", movies);
         modelAndView.addObject("region", region);
         modelAndView.addObject("branches", branches);
+        modelAndView.addObject("seats", seats);
+        modelAndView.addObject("seatVos", seatVos);
         return modelAndView;
     }
 
@@ -207,6 +211,7 @@ public class MovieController {
             branchJson.put("index", branch.getIndex());
             branchJson.put("text", branch.getText());
             branchJson.put("regionIndex", branch.getRegionIndex());
+
             branchesJson.put(branchJson);
         }
         // 상영지점 JSONArray
@@ -238,6 +243,7 @@ public class MovieController {
             screenInfoAllJson.put("screenInfoBranchIndex", screenInfo.getInfoBranchIndex());
             screenInfoAllJson.put("screenInfoBranchText", screenInfo.getInfoBranchText());
             screenInfoAllJson.put("screenInfoAuditoriumText", screenInfo.getInfoAudText());
+            screenInfoAllJson.put("screenInfoMovieAgeLimit", screenInfo.getInfoMovieAgeLimit());
             screenInfosAllJson.put(screenInfoAllJson);
         }
         // 상영정보  JSONArray
@@ -247,20 +253,6 @@ public class MovieController {
         responseJson.put("branch", branchesJson);
         responseJson.put("movieTitle", moviesJson);
         return responseJson.toString();
-    }
-
-    @RequestMapping(value = "seat",
-            method = RequestMethod.GET,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getSeat() {
-        ModelAndView modelAndView = new ModelAndView("movie/seat");
-        SeatVo[] seats = this.movieService.getSeatVos();
-        SeatVo[] seatVos = this.movieService.getSeatVosGroupByColumn();
-
-        modelAndView.addObject("seats", seats);
-        modelAndView.addObject("seatVos", seatVos);
-
-        return modelAndView;
     }
 
     @RequestMapping(value = "myPage",

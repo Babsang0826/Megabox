@@ -7,7 +7,9 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/booking.css}">
+    <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/seat.css}">
     <script defer th:src="@{/mg_movie/movie/resources/scripts/booking.js}"></script>
+    <script defer th:src="@{/mg_movie/movie/resources/scripts/seat.js}"></script>
 </head>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
 <body>
@@ -123,6 +125,395 @@
             </div>
         </div>
     </form>
+    <div class="body-wrap off">
+        <div class="container" id="container">
+            <div class="inner-wrap">
+                <div class="book">
+                    <h2 class="title">빠른예매</h2>
+                    <div class="seat-select" rel="seatSelect">
+                        <div class="seat-section">
+                            <div class="seat-title">
+                                <h3 class="audience-cnt">관람인원 선택</h3>
+                                <div class="reset">
+                                    <a type="button" class="reset-button">
+                                        <i class="fa-sharp fa-solid fa-rotate"></i>
+                                        초기화
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="seat-area" rel="seatArea">
+                                <div class="seat-cnt">
+                                    <div class="cell" rel="cell">
+                                        <p class="text" rel="text">성인</p>
+                                        <div class="cnt">
+                                            <button class="down" type="button" rel="downBtn">-</button>
+                                            <div class="number">
+                                                <button class="now" type="button" rel="cnt" id="adultCount">0</button>
+                                            </div>
+                                            <button class="up" type="button" rel="upBtn">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="cell" rel="cell">
+                                        <p class="text" rel="text">청소년</p>
+                                        <div class="cnt">
+                                            <button class="down" type="button" rel="downBtn">-</button>
+                                            <div class="number">
+                                                <button class="now" type="button" rel="cnt" id="teenagerCount">0</button>
+                                            </div>
+                                            <button class="up" type="button" rel="upBtn">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="cell" rel="cell">
+                                        <p class="text" rel="text">우대</p>
+                                        <div class="cnt">
+                                            <button class="down" type="button" rel="downBtn">-</button>
+                                            <div class="number">
+                                                <button class="now" type="button" rel="cnt" id="etcCount">0</button>
+                                            </div>
+                                            <button class="up" type="button" rel="upBtn">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="seat-layout">
+                                    <div class="seat-wrap">
+                                        <div class="seat-container">
+                                            <img src="https://megabox.co.kr/static/pc/images/reserve/img-theater-screen.png"
+                                                 alt="">
+                                            <div class="seats">
+                                                <div class="seat-column">
+                                                    <!--/*@thymesVar id="seatVos" type="dev.babsang.megabox.vos.movie.SeatVo[]"*/-->
+                                                    <button class="column" rel="column" th:each="seatVo : ${seatVos}"
+                                                            th:text="${seatVo.getColumnText()}">A
+                                                    </button>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <button class="row" rel="row" th:each="seat : ${seats}"
+                                                            th:text="${seat.getRow()}" th:value="${seat.getSeatCode()}">1
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="seat-result">
+                            <div class="wrap">
+<!--                                <div class="title-area">-->
+<!--                                    <span class="age-limit grade age12"></span>-->
+<!--                                    <p class="title">아바타: 물의 길</p>-->
+<!--                                    <p class="movie-type">2D(자막)</p>-->
+<!--                                </div>-->
+<!--                                <div class="info-area">-->
+<!--                                    <p class="branch">북대구(칠곡)</p>-->
+<!--                                    <p class="auditorium">1관</p>-->
+<!--                                    <p class="date">-->
+<!--                                        <span>2022.12.28</span>-->
+<!--                                        <em>(목)</em>-->
+<!--                                    </p>-->
+<!--                                    <p class="time">12:50 ~ 15:00</p>-->
+<!--                                    <p class="poster">-->
+<!--                                        <img src="https://megabox.co.kr/SharedImg/2022/12/16/9vUySe7DNMro6tdYRPEbjzF2ebr48MwE_150.jpg"-->
+<!--                                             alt="">-->
+<!--                                    </p>-->
+<!--                                </div>-->
+                                <div class="seat-area">
+                                    <div class="describe">
+                                        <h2 class="title">선택 좌석</h2>
+                                        <ul class="list">
+                                            <li>
+                                                <div class="seat choice"></div>
+                                                <p>선택</p>
+                                            </li>
+                                            <li>
+                                                <div class="seat finish"></div>
+                                                <p>예매완료</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chosen-seat">
+                                        <div class="seat-num">
+                                            <div class="seat" rel="selectedSeat">-</div>
+                                            <div class="seat" rel="selectedSeat">-</div>
+                                            <div class="seat" rel="selectedSeat">-</div>
+                                            <div class="seat" rel="selectedSeat">-</div>
+                                            <div class="seat" rel="selectedSeat">-</div>
+                                            <div class="seat" rel="selectedSeat">-</div>
+                                            <div class="seat" rel="selectedSeat">-</div>
+                                            <div class="seat" rel="selectedSeat">-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pay-area" rel="payArea">
+                                    <p class="cnt">
+                                    <span class="type">
+<!--                                        <em class="p-cnt"></em>-->
+                                    </span>
+                                        <span class="type">
+<!--                                        <em class="p-cnt"></em>-->
+                                        </span>
+                                        <span class="type">
+<!--                                        <em class="p-cnt"></em>-->
+                                    </span>
+                                    </p>
+                                    <div class="pay">
+                                        <p>최종결제금액</p>
+                                        <div class="money">
+                                            <p class="price">0</p>
+                                            <p>원</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-area" rel="seatBtn">
+                                    <a href="#">이전</a>
+                                    <a class="next">다음</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="seat-select payment" rel="seatSelectPayment">
+                        <div class="seat-section">
+                            <div class="seat-title">
+                                <h3 class="audience-cnt">관람권 및 할인 적용</h3>
+                                <div class="reset">
+                                    <a type="button" class="reset-button">
+                                        <i class="fa-sharp fa-solid fa-rotate"></i>
+                                        초기화
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="discount">
+                                <div class="discount-list">
+                                    <ul>
+                                        <li>
+                                            <a class="discount-title">
+                                                메가박스 포인트/쿠폰
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                            <div class="point">
+                                                <div class="point-box">
+                                                    <div class="item">
+                                                        <a href="#">메가박스 멤버십 포인트</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">메가박스 할인쿠폰</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">메가박스 VIP 영화쿠폰</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a class="discount-title">
+                                                관람권/모바일상품권
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                            <div class="point">
+                                                <div class="point-box">
+                                                    <div class="item">
+                                                        <a href="#">메가박스 관람권</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">메가박스/페이즈 금액권</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">메가박스 스토어 교환권</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">모바일 관람권</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">도서문화상품권</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">컬쳐랜드 상품권</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">플래티넘/스타카드/프렌즈</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">메가박스 아너즈 카드</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--                                        <div class="point-txt">기프티콘, 기프티쇼, 아이넘버, 도넛북, 스마트콘, 스마일콘, G마켓 예매권은 [모바일-->
+                                            <!--                                            관람권]에서 사용하실 수 있습니다.-->
+                                            <!--                                        </div>-->
+                                        </li>
+                                        <li>
+                                            <a class="discount-title">
+                                                제휴 포인트
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                            <div class="point">
+                                                <div class="point-box">
+                                                    <div class="item">
+                                                        <a href="#">U+멤버십</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">OK 캐시백</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">L-POINT</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">현대오일뱅크</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">해피포인트</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">불루멤버스 포인트</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">현대 M 포인트 카드</a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="#">GS&POINT</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="payment-method">
+                                <div class="title">
+                                    <h3>결제수단 선택</h3>
+                                    <div class="right">
+                                        <input type="checkbox" id="same-use">
+                                        <label for="same-use">다음에도 이 결제수단 선택</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="select-payment">
+                                <div class="radios">
+                                <span>
+                                    <input type="radio" id="payment-credit" name="radio" class="radio" checked>
+                                    <label for="payment-credit" class="payment-methods">신용/체크카드</label>
+                                </span>
+                                    <span>
+                                    <input type="radio" id="payment-mobile" name="radio" class="radio">
+                                    <label for="payment-mobile" class="payment-methods">휴대폰 결제</label>
+                                </span>
+                                    <span>
+                                    <input type="radio" id="payment-account" name="radio" class="radio">
+                                    <label for="payment-account" class="payment-methods">내 통장 결제</label>
+                                </span>
+                                </div>
+                                <div class="payments card on" rel="paymentCard">
+                                    <label for="card-select">카드사 선택</label>
+                                    <div class="card-box">
+                                        <select id="card-select">
+                                            <option class="card-option" value></option>
+                                            <option value="00" selected>카드 선택</option>
+                                            <option value="01">비씨카드</option>
+                                            <option value="02">삼성카드</option>
+                                            <option value="03">신한카드</option>
+                                            <option value="04">국민카드</option>
+                                            <option value="05">농협카드</option>
+                                            <option value="06">현대카드</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="payments mobile" rel="paymentMobile">
+                                    <ul>
+                                        <li>결제하신 금액은 익월 휴대폰 요금에 합산되어 청구되며, 휴대폰 결제한도는 통산사별 월 누적 이용 제한에 따라 적용됩니다.</li>
+                                        <li>매월 말일 23시30분 ~ 익월 00시 10분까지(40분간)는 시스템 점검시간으로 이용이 어려울 수 있습니다.</li>
+                                        <li>휴대폰 결제와 관련된 추가 안내는 FAQ를 참조해주세요.</li>
+                                    </ul>
+                                </div>
+                                <div class="payments account" rel="paymentAccount">
+                                    <ul>
+                                        <li>내통장결제는 본인명의의 계좌를 최초 1회 등록 후 비밀번호 입력만으로 간편하게 이용할 수 있는 현금결제 서비스 입니다.</li>
+                                        <li>은행 점검시간의 경우 내통장결제서비스 이용이 불가합니다.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="seat-result">
+                            <div class="wrap">
+                                <div class="title-area">
+                                    <span class="age-limit grade age12"></span>
+                                    <p class="title">아바타: 물의 길</p>
+                                    <p class="movie-type">2D(자막)</p>
+                                    <p class="branch">북대구(칠곡)</p>
+                                    <p class="date">
+                                        <span>2022.12.28</span>
+                                        <em>(목)</em>
+                                        <span class="time">
+                                        <i class="fa-regular fa-clock"></i>
+                                        12:50 ~ 15:00
+                                    </span>
+                                    </p>
+                                </div>
+                                <div class="price-cal">
+                                    <div class="box">
+                                        <div class="data">
+                                        <span class="title" rel="dataTitle">
+<!--                                            성인<em>2</em>-->
+                                        </span>
+                                            <span class="price">24000</span>
+                                        </div>
+                                        <div class="data">
+                                        <span class="title" rel="dataTitle">
+<!--                                            청소년<em>2</em>-->
+                                        </span>
+                                            <span class="price">18000</span>
+                                        </div>
+                                        <div class="data">
+                                        <span class="title" rel="dataTitle">
+<!--                                            우대<em>2</em>-->
+                                        </span>
+                                            <span class="price">10000</span>
+                                        </div>
+                                        <div class="all">
+                                            <span class="title">금액</span>
+                                            <span class="price">
+                                            <em class="total-price">0</em>
+                                            <span>원</span>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="box discount">
+                                        <div class="all">
+                                            <span class="title">할인적용</span>
+                                            <span class="price">
+                                            <em>0</em>
+                                            <span>원</span>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pay-area">
+                                    <p class="cnt">
+                                        <span>추가차액</span>
+                                        <span class="extra-discount">0</span>
+                                    </p>
+                                    <div class="pay">
+                                        <p>최종결제금액</p>
+                                        <div class="money">
+                                            <p class="price" rel="finalPrice">0</p>
+                                            <p>원</p>
+                                        </div>
+                                    </div>
+                                    <div class="pay-method">
+                                        <span class="title">결제수단</span>
+                                        <span class="thing">신용/체크카드</span>
+                                    </div>
+                                </div>
+                                <div class="btn-area">
+                                    <a href="#" class="prev">이전</a>
+                                    <a href="#" class="next">다음</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 </body>
 <th:block th:replace="~{fragments/body :: footer}"></th:block>

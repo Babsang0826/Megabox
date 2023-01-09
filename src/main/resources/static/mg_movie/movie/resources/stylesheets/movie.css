@@ -497,35 +497,35 @@ main > .container > .page-util > .inner-wrap > .location > a:first-of-type:hover
     font-weight: inherit;
 }
 
-.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade {
-    position: absolute;
-    left: 0;
-    width: 1.4375rem;
-    height: 1.4375rem;
-    padding: 0;
-    margin: 0;
-}
+/*.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade {*/
+/*    position: absolute;*/
+/*    left: 0;*/
+/*    width: 1.4375rem;*/
+/*    height: 1.4375rem;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*}*/
 
 /*등급 제한 png*/
-.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.ageAll {
-    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png);
-    background-size: 1.4375rem 1.4375rem;
-}
+/*.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.ageAll {*/
+/*    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png);*/
+/*    background-size: 1.4375rem 1.4375rem;*/
+/*}*/
 
-.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age12 {
-    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
-    background-size: 1.4375rem 1.4375rem;
-}
+/*.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age12 {*/
+/*    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);*/
+/*    background-size: 1.4375rem 1.4375rem;*/
+/*}*/
 
-.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age15 {
-    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/15_46x46.png);
-    background-size: 1.4375rem 1.4375rem;
-}
+/*.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age15 {*/
+/*    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/15_46x46.png);*/
+/*    background-size: 1.4375rem 1.4375rem;*/
+/*}*/
 
-.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age18 {
-    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/18_46x46.png);
-    background-size: 1.4375rem 1.4375rem;
-}
+/*.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade.age18 {*/
+/*    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/18_46x46.png);*/
+/*    background-size: 1.4375rem 1.4375rem;*/
+/*}*/
 
 .contents > .inner-wrap > .movie-list > ol > .movie > .rate-date {
     overflow: hidden;

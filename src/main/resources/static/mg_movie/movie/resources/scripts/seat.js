@@ -1,7 +1,6 @@
 const container = window.document.getElementById('container');
 const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
-console.log(korean.test('안녕'));
 // 인원 선택
 const cell = container.querySelectorAll('[rel="cell"]');
 const counts = container.querySelectorAll('[rel="cnt"]');
@@ -36,7 +35,6 @@ for (let i = 0; i < cell.length; i++) {
     totalCnt = parseInt(number);
 
     plusBtn.addEventListener('click', () => {
-
         number = parseInt(number) + 1;
         totalCnt = parseInt(totalCnt) + 1;
 
@@ -69,9 +67,6 @@ for (let i = 0; i < cell.length; i++) {
         price.innerText = sumPrice;
         totalPrice.innerText = sumPrice;
         finalPrice.innerText = sumPrice;
-
-
-        console.log('찐 totalPrice : ' + totalPrice)
     });
 
     totalCnt = number;
@@ -100,7 +95,6 @@ for (let i = 0; i < cell.length; i++) {
         if (type[i].textContent === '') {
             type[i].style.padding = 0;
         }
-        console.log(type[i]);
 
         // const price = payArea.querySelector('.price');
         let adultTotalPrice = `${parseInt(adultCount.innerText) * 12000}`
@@ -225,7 +219,7 @@ const seatPrev = container.querySelector('.prev');
 seatPrev.addEventListener('click', () => {
     seatSelectPayment.classList.remove('on');
     seatSelect.classList.add('on');
-})
+});
 
 
 //할인 박스 클릭시

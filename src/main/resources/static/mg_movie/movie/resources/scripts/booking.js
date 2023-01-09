@@ -1,6 +1,9 @@
 const nextBtn = window.document.getElementById('nextBtn'); // 날짜 다음버튼
 const previousBtn = window.document.getElementById('previousBtn'); // 이전버튼
 const timeBox = window.document.querySelector('.time-box'); // 보여줘야 할 칸
+const timeContainer = window.document.querySelector('.reservation-container');
+const paymentContainer = window.document.querySelector('.body-wrap');
+const seatContainer = window.document.querySelector('.seat-select');
 
 const region = window.document.querySelector('.region'); // 대구 클릭시
 const quickCity = window.document.querySelector('.quick-city'); // 상영지점 자체
@@ -171,7 +174,7 @@ const drawListBox = () => {
         listBoxElement.classList.add('list-box');
         listBoxElement.dataset.value = movie['movieTitle'];
         const ageLimitElement = window.document.createElement('div');
-        // ageLimitElement.classList.add(movie['movieAgeLimit'])
+        ageLimitElement.classList.add(movie['movieAgeLimit']);
         const movieTitleElement = window.document.createElement('span');
         movieTitleElement.classList.add('movie-title');
         movieTitleElement.innerText = movie['movieTitle'];
@@ -201,7 +204,6 @@ const drawListBox = () => {
         });
     });
 }
-
 
 
 // Branch 클릭시 작동 함수
@@ -272,6 +274,8 @@ const drawSubs = () => {
                     movieTimeCoverElement.dataset.value = allScreenInfo['screenInfoBranchIndex'];
                     movieTimeCoverElement.dataset.date = allScreenInfo['screenInfoDate'];
                     movieTimeCoverElement.dataset.time = allScreenInfo['screenInfoMovieTime'];
+                    movieTimeCoverElement.dataset.mvStartTime = allScreenInfo['screenInfoMovieStartTime'];
+                    movieTimeCoverElement.dataset.mvEndTime = allScreenInfo['screenInfoMovieEndTime'];
                     const movieTimeInfoBoxElement = window.document.createElement('div');
                     movieTimeInfoBoxElement.classList.add('movie-time-info-box');
 
@@ -328,6 +332,17 @@ const drawSubs = () => {
                     region.addEventListener('click', () => {
                         drawBranches();
                         drawSubs();
+                    });
+                    const readScreenInfo = window.document.querySelectorAll('.movie-time-cover.on');
+                    readScreenInfo.forEach(x => {
+                        x.addEventListener('click', () => {
+                            timeContainer.classList.add('off');
+                            paymentContainer.classList.remove('off');
+                            seatContainer.classList.add('on');
+                        })
+                    });
+                    movieTimeCoverElement.addEventListener('click', () => {
+                        movieTimeCoverElement.setAttribute('selected', 'selected');
                     });
                 });
         }
@@ -342,6 +357,8 @@ const drawSubs = () => {
                     movieTimeCoverElement.dataset.value = allScreenInfo['screenInfoBranchIndex'];
                     movieTimeCoverElement.dataset.date = allScreenInfo['screenInfoDate'];
                     movieTimeCoverElement.dataset.time = allScreenInfo['screenInfoMovieTime'];
+                    movieTimeCoverElement.dataset.mvStartTime = allScreenInfo['screenInfoMovieStartTime'];
+                    movieTimeCoverElement.dataset.mvEndTime = allScreenInfo['screenInfoMovieEndTime'];
                     const movieTimeInfoBoxElement = window.document.createElement('div');
                     movieTimeInfoBoxElement.classList.add('movie-time-info-box');
 
@@ -363,7 +380,7 @@ const drawSubs = () => {
                     movieTimeElement.append(timeIconElement, timeBoxElement);
 
                     const movieTitleStateElement = window.document.createElement('div');
-                    movieTitleStateElement.classList.add('movie-title-state');
+                    // movieTitleStateElement.classList.add(allScreenInfo['']);
                     const movieTitleElement = window.document.createElement('span');
                     movieTitleElement.classList.add('movie-title');
                     movieTitleElement.innerText = allScreenInfo['screenInfoMovieTitle'];
@@ -399,10 +416,82 @@ const drawSubs = () => {
                         drawBranches();
                         drawSubs();
                     });
+                    const readScreenInfo = window.document.querySelectorAll('.movie-time-cover.on');
+                    readScreenInfo.forEach(x => {
+                        x.addEventListener('click', () => {
+                            timeContainer.classList.add('off');
+                            paymentContainer.classList.remove('off');
+                            seatContainer.classList.add('on');
+                        })
+                    });
+                    movieTimeCoverElement.addEventListener('click', () => {
+                        movieTimeCoverElement.setAttribute('selected', 'selected');
+                        drawSeatResult();
+                    });
                 });
         }
     }
 }
+const seatResultContainer = window.document.querySelector('.seat-result');
+
+const drawSeatResult = () => {
+    const citySelected = Array.from(quickCity.querySelectorAll('.city[selected]'));
+    const selectedCityIndexes = citySelected.map(x => parseInt(x.dataset.value));
+    const listTitle = Array.from(window.document.querySelectorAll('.list-box[selected]'));
+    const selectListTitle = listTitle.map(x => x.innerText);
+    const daySelected = Array.from(timeBox.querySelectorAll('.day[selected]'));
+    const selectedDayValue = daySelected.map(x => x.dataset.value);
+    const movieTimeSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
+    const selectedMvStartTime = movieTimeSelected.map(x => x.dataset.mvStartTime);
+    console.log(selectedMvStartTime)
+    const selectedMvEndTime = movieTimeSelected.map(x => x.dataset.mvEndTime);
+    console.log(selectedMvEndTime)
+    allScreenInfos
+        .filter(allScreenInfo => selectListTitle.indexOf(allScreenInfo['screenInfoMovieTitle']) > -1 && selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
+        .forEach(allScreenInfo => {
+            const wrapContainer = window.document.querySelector('.wrap');
+            const titleAreaElement = window.document.createElement('div');
+            titleAreaElement.classList.add('title-area');
+            const ageLimitElement = window.document.createElement('span');
+            ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
+            const titleElement = window.document.createElement('p');
+            titleElement.classList.add('title');
+            titleElement.innerText = allScreenInfo['screenInfoMovieTitle'];
+            const movieTypeElement = window.document.createElement('p');
+            movieTypeElement.classList.add('movie-type');
+            movieTypeElement.innerText = allScreenInfo['screenInfoMovieState'];
+
+            titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement);
+
+            const infoAreaElement = window.document.createElement('div');
+            infoAreaElement.classList.add('info-area');
+            const branchElement = window.document.createElement('p');
+            branchElement.classList.add('branch');
+            branchElement.innerText = allScreenInfo['screenInfoBranchText'];
+            const auditoriumElement = window.document.createElement('p');
+            auditoriumElement.classList.add('auditorium');
+            auditoriumElement.innerText = allScreenInfo['screenInfoAuditoriumText'];
+            const dateElement = window.document.createElement('p');
+            dateElement.classList.add('date');
+            const dateDetailSpanElement = window.document.createElement('span');
+            dateDetailSpanElement.innerText = allScreenInfo['screenInfoDate'];
+            const dateDetailEmElement = window.document.createElement('em');
+            dateElement.append(dateDetailSpanElement, dateDetailEmElement);
+            const timeElement = window.document.createElement('p');
+            timeElement.classList.add('time');
+            timeElement.innerText = allScreenInfo['screenInfoMovieStartTime'] + '~' + allScreenInfo['screenInfoMovieEndTime'];
+            const posterElement = window.document.createElement('p');
+            posterElement.classList.add('poster');
+            const imageElement = window.document.createElement('img');
+            posterElement.append(imageElement);
+
+            infoAreaElement.append(branchElement, auditoriumElement, dateElement, timeElement, posterElement);
+            wrapContainer.prepend(titleAreaElement, infoAreaElement);
+            seatResultContainer.append(wrapContainer);
+        });
+}
+
+
 // 최초 예매사이트 접속시 한번 SELECT
 const xhr = new XMLHttpRequest();
 xhr.open('PATCH', './booking');
@@ -439,7 +528,6 @@ region.addEventListener('click', e => {
 const timeWrap = window.document.querySelector('.time-wrap');
 const previousTimeBtn = window.document.getElementById('previousTimeBtn');
 const nextTimeBtn = window.document.getElementById('nextTimeBtn');
-
 
 
 // time 시간표
@@ -559,3 +647,5 @@ function alertTwo() {
 function alertOne() {
     swal("알림", "극장은 최대 3개까지 선택이 가능합니다.");
 }
+
+

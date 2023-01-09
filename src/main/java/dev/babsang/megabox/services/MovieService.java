@@ -148,7 +148,5 @@ public class MovieService {
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }
-
-
 }
 
