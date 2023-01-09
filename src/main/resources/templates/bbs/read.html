@@ -55,13 +55,14 @@
             <div class="prev-next">
                 <div class="line prev">
                     <p class="tit">이전</p>
-                    <p class="link" th:text="${articleTitle[0]}">이전글이 없습니다.</p>
+                    <a class="link" th:href="@{/bbs/read(aid=${article.getIndex() - 1})}"
+                       th:text="${articleTitle[0]}"></a>
                 </div>
                 <div class="line next">
                     <p class="tit">다음</p>
-                    <a href="#" class="link moveBtn" th:text="${articleTitle[1]}">
-                        [대전신세계 아트앤사이언스] 1월 1일(일) 백화점 휴점일 극장방문시 주차
-                        안내</a>
+                    <a th:href="@{/bbs/read(aid=${article.getIndex() + 1})}"
+                       class="link moveBtn" th:text="${articleTitle[1]}" rel="nextArticle">
+                    </a>
                 </div>
             </div>
 

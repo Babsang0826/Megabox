@@ -4,6 +4,7 @@ import dev.babsang.megabox.entities.member.EmailAuthEntity;
 import dev.babsang.megabox.entities.member.KakaoUserEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.enums.CommonResult;
+import dev.babsang.megabox.enums.member.RegisterResult;
 import dev.babsang.megabox.enums.member.SendEmailAuthResult;
 import dev.babsang.megabox.enums.member.VerifyEmailAuthResult;
 import dev.babsang.megabox.enums.member.idResult;
@@ -125,7 +126,11 @@ public class MemberService {
     }
 
     @Transactional
-    public Enum<? extends IResult> register(UserEntity user) {
+    public Enum<? extends IResult> register(UserEntity user, UserEntity newUser) {
+        UserEntity userByContact = this.memberMapper.selectUserByContact(newUser.getContact());
+        if (userByContact != null && !user.getEmail().equals(userByContact.getEmail())) {
+            return RegisterResult.CONTACT;
+        }
         user.setPassword(CryptoUtils.hashSha512(user.getPassword()));
         if (this.memberMapper.insertUser(user) == 0) {
             return CommonResult.FAILURE;
@@ -149,6 +154,15 @@ public class MemberService {
 
         if (existingPasswordAuth != null) {
             System.out.println("로그인 성공");
+            user.setEmail(existingPasswordAuth.getEmail());
+            user.setContact(existingPasswordAuth.getContact());
+            user.setPassword(existingPasswordAuth.getPassword());
+            user.setName(existingPasswordAuth.getName());
+            user.setAddressPostal(existingPasswordAuth.getAddressPostal());
+            user.setAddressSecondary(existingPasswordAuth.getAddressSecondary());
+            user.setAddressPrimary(existingPasswordAuth.getAddressPrimary());
+            user.setBirthday(existingPasswordAuth.getBirthday());
+            user.setAdminFlag(existingPasswordAuth.getAdminFlag());
             return CommonResult.SUCCESS;
         }
         return CommonResult.FAILURE;
@@ -310,7 +324,7 @@ public class MemberService {
         return responseObject.getString("access_token");
     }
 
-    public KakaoUserEntity getKakaoUserInfo(String accessToken) throws IOException {
+    public UserEntity getKakaoUserInfo(String accessToken) throws IOException {
         URL url = new URL("https://kapi.kakao.com/v2/user/me");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("Authorization", String.format("Bearer %s", accessToken));
@@ -328,15 +342,25 @@ public class MemberService {
         System.out.println("응답 내용 : " + responseBuilder);
         JSONObject responseObject = new JSONObject(responseBuilder.toString());
         JSONObject propertyObject = responseObject.getJSONObject("properties");
-        String id = String.valueOf(responseObject.getLong("id"));
-        KakaoUserEntity user = this.memberMapper.selectKakaoUserById(id);
-        if (user == null) {
-            user = new KakaoUserEntity();
-            user.setId(id);
-            user.setNickname(propertyObject.getString("nickname"));
+        String email = String.valueOf(responseObject.getLong("id"));
 
-            this.memberMapper.insertKakaoUser(user);
+        UserEntity user = this.memberMapper.selectUserByEmail(email);
+        if (user == null) {
+            user = new UserEntity();
+            user.setEmail(email);
+            user.setId(email);
+            user.setPassword(""); //카카오 로그인은 비밀번호 못땡겨옴
+            user.setName("");
+            user.setBirthday("");
+            user.setContact(email);
+            user.setAddressPrimary("");
+            user.setAddressPostal("");
+            user.setAddressSecondary(""); //빈 문자열로 하면 웹에서 입력안해도 Insert 가능
+
+            this.memberMapper.insertUser(user);
         }
         return user;
     }
+
+
 }

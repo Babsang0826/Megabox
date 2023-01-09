@@ -220,10 +220,7 @@
         </div>
     </div>
 </header>
-<div class="--cover" id="cover" th:fragment="cover">
-    <img alt="" class="--icon" th:src="@{/resources/images/loading.png}">
-    <span class="--text" rel="text">무언가를 불러오고 있습니다. 잠시만 기다려 주세요.</span>
-</div>
+
 <footer class="--footer" th:fragment="footer">
     <div class="footer-top">
         <div class="inner-wrap">
@@ -265,7 +262,9 @@
             </div>
         </div>
     </div>
-
+    <div class="--cover" id="cover" th:fragment="cover">
+        <img alt="" class="--icon" th:src="@{/resources/images/loading.png}">
+        <span class="--text" rel="text">무언가를 불러오고 있습니다. 잠시만 기다려 주세요.</span>
+    </div>
 </footer>
-
 </html>

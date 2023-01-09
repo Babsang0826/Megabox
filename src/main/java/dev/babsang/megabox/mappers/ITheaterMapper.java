@@ -8,6 +8,7 @@ import dev.babsang.megabox.entities.theater.TheaterEntity;
 import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Mapper
@@ -20,8 +21,8 @@ public interface ITheaterMapper {
 
     BranchEntity[] selectBranches();
 
-    MovieScreenInfoVo[] selectScreenInfos();
+    MovieScreenInfoVo[] selectScreenInfos(@Param(value = "branchId") int branchId);
 
-    TheaterEntity selectBranchesIndex(@RequestParam(value = "index") int index);
+    TheaterEntity selectBranchesIndex(@Param(value = "index") int index);
 
 }

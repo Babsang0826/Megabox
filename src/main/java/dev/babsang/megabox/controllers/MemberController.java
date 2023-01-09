@@ -73,9 +73,9 @@ public class MemberController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postRegister(UserEntity user) {
+    public String postRegister(UserEntity user, UserEntity newUser) {
 
-        Enum<?> result = this.memberService.register(user);
+        Enum<?> result = this.memberService.register(user, newUser);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
 
@@ -228,7 +228,7 @@ public class MemberController {
                                  @RequestParam(value = "error_description", required = false) String errorDescription,
                                  HttpSession session) throws IOException {
         String accessToken = this.memberService.getKakaoAccessToken(code);
-        KakaoUserEntity user = this.memberService.getKakaoUserInfo(accessToken);
+        UserEntity user = this.memberService.getKakaoUserInfo(accessToken);
 
         session.setAttribute("user", user);
         return new ModelAndView("member/kakao");

@@ -6,12 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>본인 인증</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
     <script src="https://kit.fontawesome.com/613513fe2d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/member/stylesheets/register.css}">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script defer th:src="@{/member/scripts/register.js}"></script>
 </head>
 <body>
+<th:block th:replace="~{fragments/body :: cover}"></th:block>
 <form class="form" id="form">
     <div class="container">
         <div class="containerBox">
@@ -1067,8 +1069,8 @@
                     </div>
                 </div>
                 <ul class="caution">
-                    <li>14세 미만 어린이는 보호자 인증을 추가로 완료한 후 가입이 가능합니다.</li>
-                    <li>본인인증 시 제공되는 정보는 해당 인증기관에서 직접 수집하며, 인증 이외의 용도로 이용 또는 저장 되지 않습니다.</li>
+                    <li>- 14세 미만 어린이는 보호자 인증을 추가로 완료한 후 가입이 가능합니다.</li>
+                    <li>- 본인인증 시 제공되는 정보는 해당 인증기관에서 직접 수집하며, 인증 이외의 용도로 이용 또는 저장 되지 않습니다.</li>
                 </ul>
             </div>
             <section rel="emailAuthPopUp" class="modal-layer" id="emailAuthPopUp">
@@ -1144,7 +1146,7 @@
                             </th>
                             <td>
                                 <label>
-                                    <input id="birthday"  name="birthday" maxlength="8" type="text" placeholder="생년월일 앞8자리"
+                                    <input id="birthday"  name="birthday" maxlength="8" type="number" placeholder="생년월일 앞8자리"
                                            class="input-text">
                                 </label>
                                 <div id="birthday-error-text" class="alert" rel="warning-birthday"></div>
@@ -1158,7 +1160,7 @@
                             </th>
                             <td>
                                 <label>
-                                    <input maxlength="16" id="loginContact" name="contact" type="text"
+                                    <input maxlength="16" id="loginContact" name="contact" type="number"
                                            placeholder="연락처를 ' - ' 없이 입력해 주세요." class="input-text">
                                 </label>
                                 <div id="contact-error-text" class="alert" rel="warning-contact">
@@ -1285,13 +1287,13 @@
                         <p class="mt30">혜택 수신설정</p>
 
                         <div class="benefit-agree">
-                            <input type="checkbox" id="push" class="checkBox" name="receive">
+                            <input type="checkbox" id="push" class="checkBox" name="receive" onclick="checkSelect()">
                             <label for="push">알림</label>
 
-                            <input type="checkbox" id="sms" class="checkBox" name="receive">
+                            <input type="checkbox" id="sms" class="checkBox" name="receive" onclick="checkSelect()">
                             <label for="sms">SMS</label>
 
-                            <input type="checkbox" id="mail" class="checkBox" name="receive">
+                            <input type="checkbox" id="mail" class="checkBox" name="receive" onclick="checkSelect()">
                             <label for="mail">이메일</label>
                         </div>
 

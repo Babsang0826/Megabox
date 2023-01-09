@@ -220,14 +220,14 @@ public class BbsController {
     @RequestMapping(value = "notice",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getList(@RequestParam(value = "bid",required = false) String boradId,
+    public ModelAndView getList(@RequestParam(value = "bid",required = false) String boardId,
                                 @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                 @RequestParam(value = "criterion", required = false) String criterion,
                                 @RequestParam(value = "keyword", required = false) String keyword) {
         //defaultValue = "1"을 사용하면 1이 찍힌다
         page = Math.max(1, page);
         ModelAndView modelAndView = new ModelAndView("bbs/notice");
-        BoardsEntity board = this.bbsService.getBoard(boradId);
+        BoardsEntity board = this.bbsService.getBoard(boardId);
         modelAndView.addObject("board", board);
         if (board != null) {
             int totalCount = this.bbsService.getArticleCount(board, criterion, keyword);

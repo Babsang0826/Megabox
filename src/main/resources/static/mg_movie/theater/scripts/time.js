@@ -1,7 +1,8 @@
 const nextBtn = window.document.getElementById('nextBtn'); // 다음버튼
 const previousBtn = window.document.getElementById('previousBtn'); // 이전버튼
 const timeBox = window.document.querySelector('.time-box'); // 보여줘야 할 칸
-const reservationContainer = window.document.querySelector('.reservation-container');
+
+const ListBox = window.document.getElementById('theaterListBox');
 
 let date = new Date(); // 현재 날짜(로컬 기준) 가져오기
 let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // utc 표준시 도출
@@ -44,12 +45,12 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     } else if (thisWeek === '토') {
         timeBox.innerHTML = timeBox.innerHTML + '<div class="day current" style="color: blue">' + i + '<br>' + thisWeek + '</div>';
     } else if (thisWeek !== '토' && thisWeek !== '일' && i !== currentDay) {
-        timeBox.innerHTML = timeBox.innerHTML + '<div class="day current">' + i  + '<br>' + thisWeek + '</div>';
+        timeBox.innerHTML = timeBox.innerHTML + '<div class="day current">' + i + '<br>' + thisWeek + '</div>';
     } else {
-        timeBox.innerHTML = timeBox.innerHTML + '<div class="day current">' + i  + '<br>' + thisWeek + '</div>';
+        timeBox.innerHTML = timeBox.innerHTML + '<div class="day current">' + i + '<br>' + thisWeek + '</div>';
     }
 }
-
+const days = year + '-' + month + '-' + day;
 
 let nextMonthArr = [];
 let nextMonthArrCode = new Array();
@@ -115,3 +116,143 @@ function moveSlide(num) {
     timeBox.style.transition = slideSpeed + 'ms';
     currentIdx = num;
 }
+
+const movieDay = window.document.querySelectorAll('.day');
+for (let i = 0; i < movieDay.length; i++) {
+    movieDay[i].addEventListener('click', e => {
+        alert("갑좀")
+        e.preventDefault();
+    })
+}
+
+
+const url = new URL(window.location.href);
+const searchParams = url.searchParams;
+const xhr = new XMLHttpRequest();
+const branchId = searchParams.get('branchId');
+xhr.open('PATCH', `./time?branchId=${branchId}`);
+xhr.onreadystatechange = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            const domParser = new DOMParser();
+            const appendMovieInfo = (screens) => {
+                const theaterHtmlText = `
+                <div class="theater-list-box" id="theaterContainer" rel="theaterContainer">
+                    <div class="text-form" rel="textForm">
+                        <input type="hidden" ${screens[0]['screenInfoDate']}>
+                        <div class="theater-tit">
+                            <p class="movie-grade age-12"></p>
+                            <p><a href="#">${screens[0]['screenInfoMovieTitle']}</a></p>
+                            <p class="information">
+                                <span>${screens[0]['movieState']} /</span>
+                                <span style="color: #0f0f0f">상영시간${screens[0]['runningTime']}분</span></p>
+                        </div>
+                        
+                    </div>
+                </div>`;
+                const theaterDom = domParser.parseFromString(theaterHtmlText, 'text/html');
+                const textFormElement = theaterDom.querySelector('[rel="textForm"]');
+                let screenByAudObject = {};
+                for (let screen of screens) {
+                    let aud = screen['screenInfoAuditoriumText'];
+                    if (!screenByAudObject[aud]) {
+                        screenByAudObject[aud] = [];
+                    }
+                    screenByAudObject[aud].push(screen);
+                }
+                for (let key of Object.keys(screenByAudObject).sort()) {
+                    const audHtmlText = `
+                    <div class="theater-type-box" rel="aud">
+                        <div class="theater-type">
+                            <p class="theater-name">${key}</p>
+                            <p class="chair">64석</p>
+                        </div>
+                        <div class="theater-time">
+                            <div class="theater-type-area">${screenByAudObject[key][0]['screenInfoMovieState']}</div>
+                            <div class="theater-time-box" style="width:200px;">
+                                <table class="time-list-table">
+                                    <caption></caption>
+                                    <colgroup>
+                                        <col style="width:99px;">
+                                        <col style="width:99px;">
+                                        <col style="width:99px;">
+                                        <col style="width:99px;">
+                                        <col style="width:99px;">
+                                        <col style="width:99px;">
+                                        <col style="width:99px;">
+                                        <col style="width:99px;">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr rel="timeContainer">
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>`;
+                    const audDom = domParser.parseFromString(audHtmlText, 'text/html');
+                    const audElement = audDom.querySelector('[rel="aud"]');
+                    const timeContainerElement = audDom.querySelector('[rel="timeContainer"]');
+
+                    for (let movie of screenByAudObject[key]) {
+                        const timeHtml = `
+                        <table>
+                        <tbody>
+                        <tr>
+                        <td rel="timeCell">
+                            <div class="td">
+                                <div class="txt-center">
+                                    <a href="#">
+                                        <div class="ico-box">
+                                            <i class="iconset ico-off"></i>
+                                        </div>
+                                        <p class="time" rel="timeValue">${movie['screenInfoMovieStartTime']}</p>
+                                        <p class="chair">84석</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                        </tr>
+                        </tbody>`;
+                        const timeDom = domParser.parseFromString(timeHtml, 'text/html');
+                        const timeCellElement = timeDom.querySelector('[rel="timeCell"]');
+                        timeContainerElement.append(timeCellElement);
+                    }
+
+                    textFormElement.append(audElement);
+                }
+                //
+
+                //
+                // const timeContainer = theaterDom.querySelector('[rel="timeContainer"]');
+                // for (let screen of screens) {
+                //     const timeDom = domParser.parseFromString(timeHtml, 'text/html');
+                //     const timeElement = timeDom.querySelector('[rel="timeCell"]');
+                //     timeElement.querySelector('[rel="timeValue"]').innerText = screen['screenInfoMovieStartTime'];
+                //     timeContainer.append(timeElement);
+                // }
+
+                ListBox.append(theaterDom.getElementById('theaterContainer'));
+            }
+            const responseArray = JSON.parse(xhr.responseText);
+            let screenObject = {};
+            for (let screen of responseArray) {
+                let screenIdentifier = `${screen['screenInfoMovieIndex']}`;
+                if (!screenObject[screenIdentifier]) {
+                    screenObject[screenIdentifier] = [];
+                }
+                screenObject[screenIdentifier].push(screen);
+            }
+            for (let key of Object.keys(screenObject)) {
+                let screens = screenObject[key];
+                appendMovieInfo(screens);
+            }
+        } else {
+            alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+        }
+    }
+};
+xhr.send();
+
+
+

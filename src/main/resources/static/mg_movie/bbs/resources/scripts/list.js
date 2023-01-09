@@ -36,6 +36,7 @@ const gangwonCity = window.document.getElementById("gangwon-city");
 
 
 regionSeoul.addEventListener('click', () => {
+    alert("아직 준비되지 않은 서비스 입니다.");
     regionSeoul.style.backgroundColor = "#555";
     regionSeoul.style.color = "#fff";
     seoulCity.style.display = "block";
@@ -84,6 +85,7 @@ regionGyeongsang.addEventListener('click', () => {
 });
 
 regionGyeonggi.addEventListener('click', () => {
+    alert("아직 준비되지 않은 서비스 입니다.");
     regionGyeongsang.style.backgroundColor = "#fff";
     regionGyeongsang.style.color = "#555";
     gyeongsangCity.style.display = "none";
@@ -108,6 +110,7 @@ regionGyeonggi.addEventListener('click', () => {
 });
 
 regionIncheon.addEventListener('click', () => {
+    alert("아직 준비되지 않은 서비스 입니다.");
     regionGyeongsang.style.backgroundColor = "#fff";
     regionGyeongsang.style.color = "#555";
     gyeongsangCity.style.display = "none";
@@ -132,6 +135,7 @@ regionIncheon.addEventListener('click', () => {
 });
 
 regionDaejeon.addEventListener('click', () => {
+    alert("아직 준비되지 않은 서비스 입니다.");
     regionGyeongsang.style.backgroundColor = "#fff";
     regionGyeongsang.style.color = "#555";
     gyeongsangCity.style.display = "none";
@@ -156,6 +160,7 @@ regionDaejeon.addEventListener('click', () => {
 });
 
 regionJeonla.addEventListener('click', () => {
+    alert("아직 준비되지 않은 서비스 입니다.");
     regionGyeongsang.style.backgroundColor = "#fff";
     regionGyeongsang.style.color = "#555";
     gyeongsangCity.style.display = "none";
@@ -180,6 +185,7 @@ regionJeonla.addEventListener('click', () => {
 });
 
 regionGangwon.addEventListener('click', () => {
+    alert("아직 준비되지 않은 서비스 입니다.");
     regionGyeongsang.style.backgroundColor = "#fff";
     regionGyeongsang.style.color = "#555";
     gyeongsangCity.style.display = "none";

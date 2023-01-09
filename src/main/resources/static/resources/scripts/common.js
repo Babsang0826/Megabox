@@ -1,6 +1,18 @@
+const Cover = {
+    show: (text) => {
+        const cover = window.document.getElementById('cover');
+        cover.querySelector('[rel="text"]').innerText = text;
+        cover.classList.add('visible');
+    },
+    hide: () => {
+        window.document.getElementById('cover').classList.remove('visible');
+    }
+};
+
 const searchIcon = window.document.getElementById('searchIcon');
+
 const searchBar = window.document.getElementById('searchBar');
-//
+
 const reservButton = window.document.getElementById('reservation');
 const sortByOrderButton = window.document.getElementById('sortByOrder');
 
@@ -87,14 +99,5 @@ barIcon.addEventListener('click', () => {
 
 
 
-// const Cover = {
-//     show: (text) => {
-//         const cover = window.document.getElementById('cover');
-//         // cover.querySelector('[rel="text"]').innerText = text;
-//         cover.classList.add('visible');
-//     },
-//     hide: () => {
-//         window.document.getElementById('cover').classList.remove('visible');
-//     }
-// };
+
 
