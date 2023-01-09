@@ -85,8 +85,6 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
         return this;
     }
 
-
-
     public String getInfoMovieAgeLimit() {
         return infoMovieAgeLimit;
     }
