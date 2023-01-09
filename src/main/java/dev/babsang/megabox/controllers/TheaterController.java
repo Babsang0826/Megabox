@@ -61,7 +61,6 @@ public class TheaterController {
         BranchEntity[] branches = this.theaterService.getBranches();
         MovieScreenInfoVo[] infos = this.theaterService.getScreenInfos(branchId);
         TheaterEntity theater = this.theaterService.getBranchesIndex(branchId);
-
         modelAndView.addObject("theater", theater);
         modelAndView.addObject("branchId", branchId);
 

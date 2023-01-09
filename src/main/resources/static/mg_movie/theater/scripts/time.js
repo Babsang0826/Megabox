@@ -120,7 +120,8 @@ function moveSlide(num) {
 const movieDay = window.document.querySelectorAll('.day');
 for (let i = 0; i < movieDay.length; i++) {
     movieDay[i].addEventListener('click', e => {
-        alert("갑좀")
+        for (let movieDays of thisMonthArr) {
+        }
         e.preventDefault();
     })
 }
