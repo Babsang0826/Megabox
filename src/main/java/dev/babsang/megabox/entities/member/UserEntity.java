@@ -9,7 +9,8 @@ public class UserEntity {
     private String email;
     private String name;
 
-    private int birthday;
+
+    private String birthday;
     private String contact;
     private String id;
     private String password;
@@ -30,14 +31,15 @@ public class UserEntity {
         return this;
     }
 
-    public int getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public UserEntity setBirthday(int birthday) {
+    public UserEntity setBirthday(String birthday) {
         this.birthday = birthday;
         return this;
     }
+
 
     public String getContact() {
         return contact;

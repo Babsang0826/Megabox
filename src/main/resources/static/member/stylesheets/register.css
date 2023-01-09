@@ -16,6 +16,10 @@ html {
     height: 100vh;
 }
 
+input {
+    appearance: auto;
+}
+
 body {
     width: 100%;
     height: 100%;
@@ -527,11 +531,11 @@ input[type=button]:disabled {
 }
 
 .m115 {
-    margin-left: 15px !important;
+    margin-left: 15px;
 }
 
 .x-scroll {
-    overflow-x: scroll !important;
+    overflow-x: scroll;
 }
 
 .btn-member-bottom {
@@ -578,10 +582,10 @@ input[type=button]:disabled {
 }
 
 .button[disable] {
-    color: #777 !important;
-    cursor: default !important;
-    background-color: #e0e0e0 !important;
-    border-color: #e0e0e0 !important;
+    color: #777;
+    cursor: default;
+    background-color: #e0e0e0;
+    border-color: #e0e0e0;
 }
 
 button {
@@ -628,7 +632,7 @@ input.input-text.w260px + .tooltip {
 }
 
 .mt40 {
-    margin-top: 40px !important;
+    margin-top: 40px;
 }
 
 .marketing-agree .tit {
@@ -668,7 +672,7 @@ input.input-text.w260px + .tooltip {
 }
 
 .mt30 {
-    margin-top: 30px !important;
+    margin-top: 30px;
 }
 
 .marketing-agree .benefit-agree {
@@ -719,7 +723,11 @@ input.input-text.w260px + .tooltip {
 .step.step4 {
     display: none;
 }
-
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 .modal-layer .on {
     display: block;

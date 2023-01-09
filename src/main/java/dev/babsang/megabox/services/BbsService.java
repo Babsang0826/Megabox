@@ -7,12 +7,14 @@ import dev.babsang.megabox.entities.bbs.ImageEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.enums.bbs.ArticleDeleteResult;
+import dev.babsang.megabox.enums.bbs.IndexResult;
 import dev.babsang.megabox.enums.bbs.ModifyArticleResult;
 import dev.babsang.megabox.enums.bbs.WriteResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.mappers.IBbsMapper;
 import dev.babsang.megabox.models.PagingModel;
 import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
+import dev.babsang.megabox.vos.bbs.PrevNextVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +26,8 @@ public class BbsService {
 
     private final IBbsMapper bbsMapper;
 
-    @Autowired BbsService(IBbsMapper bbsMapper) {
+    @Autowired
+    BbsService(IBbsMapper bbsMapper) {
         this.bbsMapper = bbsMapper;
     }
 
@@ -50,7 +53,7 @@ public class BbsService {
         return this.bbsMapper.selectArticleByIndex(index);
     }
 
-//    public ArticleEntity[] getArticles() {
+    //    public ArticleEntity[] getArticles() {
 //        return this.bbsMapper.selectArticle();
 //    }
     public BbsIndexCountVo[] getArticleIndex() {
@@ -62,7 +65,7 @@ public class BbsService {
     }
 
 
-// 이미지 넣기
+    // 이미지 넣기
     public Enum<? extends IResult> addImage(ImageEntity image) {
         return this.bbsMapper.insertImage(image) > 0
                 ? CommonResult.SUCCESS
@@ -79,7 +82,7 @@ public class BbsService {
         ArticleEntity existingArticle = this.bbsMapper.selectArticleByIndex(article.getIndex());
 
         System.out.println(existingArticle.getIndex() + "게시글번호");
-        if(existingArticle == null) {
+        if (existingArticle == null) {
             return ArticleDeleteResult.NO_SUCH_ARTICLE;
         }
         if (user == null) {
@@ -137,9 +140,72 @@ public class BbsService {
                 : CommonResult.FAILURE;
     }
 
+    //    public PrevNextVo[] getOrder(int index) {
+//        return this.bbsMapper.selectArticleByIndexNext(index);
+//    }
+//}
+    public Enum<? extends IResult> getOrder(ArticleEntity article) {
+        PrevNextVo[] existingArticle = this.bbsMapper.selectArticleByIndexNext(article.getIndex());
 
+        if (existingArticle == null) {
+            return ModifyArticleResult.NO_SUCH_ARTICLE;
+        }
+        if (existingArticle.length == 1) {
+            return IndexResult.ONLY_ONE_ARTICLE;
+        }
+        if (existingArticle.length == 2) {
+            if (existingArticle[0].getIndex() > existingArticle[1].getIndex()) {
+                return IndexResult.FIRST_READ_ARTICLE;
+            } else {
+                return IndexResult.LAST_READ_ARTICLE;
+            }
+        }
+        return CommonResult.SUCCESS;
+    }
+
+    public String[] getPrevNextArticleTitle(ArticleEntity article) {
+        PrevNextVo[] existingArticle = this.bbsMapper.selectArticleByIndexNext(article.getIndex());
+
+        String[] existingArticleTitle = new String[2];
+
+        if (existingArticle == null) {
+            existingArticleTitle[0] = "게시글이 존재하지 않습니다.";
+            existingArticleTitle[1] = "게시글이 존재하지 않습니다.";
+            return existingArticleTitle;
+        }
+        if (existingArticle.length == 1) {
+            existingArticleTitle[0] = "게시글이 존재하지 않습니다.";
+            existingArticleTitle[1] = "게시글이 존재하지 않습니다.";
+            return existingArticleTitle;
+        }
+        if (existingArticle.length == 2) {
+            if (existingArticle[0].getIndex() < article.getIndex()) {
+                existingArticleTitle[0] = existingArticle[0].getTitle();
+                existingArticleTitle[1] = "다음글이 존재하지 않습니다.";
+            } else {
+                existingArticleTitle[0] = "이전글이 존재하지 않습니다.";
+                existingArticleTitle[1] = existingArticle[1].getTitle();
+            }
+            return existingArticleTitle;
+        }
+        if (existingArticle.length == 3) {
+            existingArticleTitle[0] = existingArticle[0].getTitle();
+            existingArticleTitle[1] = existingArticle[2].getTitle();
+            return existingArticleTitle;
+        }
+        return existingArticleTitle;
+    }
+    // 페이징
+    public ArticleEntity[] getArticles(BoardsEntity board, PagingModel paging, String criterion, String keyword) {
+        return this.bbsMapper.selectArticlesByBoardId(
+                board.getId(),
+                paging.countPerPage,
+                (paging.requestPage - 1) * paging.countPerPage, criterion, keyword);
+    }
+
+    public int getArticleCount(BoardsEntity board, String criterion, String keyword) {
+        return this.bbsMapper.selectArticleCountByBoardId(board.getId(), criterion, keyword);
+    }
 
 
 }
-
-

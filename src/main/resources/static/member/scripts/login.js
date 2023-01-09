@@ -22,7 +22,6 @@ form.onsubmit = (e) => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case'success':
-                        alert('로그인이 완료되었습니다..')
                         window.location.href = "http://localhost:8080"
                         break;
                     case'failure':

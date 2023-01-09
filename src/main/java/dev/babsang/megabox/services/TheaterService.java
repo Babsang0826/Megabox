@@ -38,8 +38,8 @@ public class TheaterService {
         return this.theaterMapper.selectBranches();
     }
 
-    public MovieScreenInfoVo[] getScreenInfos() {
-        return this.theaterMapper.selectScreenInfos();
+    public MovieScreenInfoVo[] getScreenInfos(int branchId) {
+        return this.theaterMapper.selectScreenInfos(branchId);
     }
 
     public TheaterEntity getBranchesIndex(int index) {

@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>theater-list</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
-    <link rel="stylesheet" th:href="@{/mg_movie/bbs/resources/stylesheets/theater-list.css}">
-    <script defer th:src="@{/mg_movie/bbs/resources/scripts/theater-list.js}"></script>
+    <link rel="stylesheet" th:href="@{/mg_movie/bbs/resources/stylesheets/list.css}">
+    <script defer th:src="@{/mg_movie/bbs/resources/scripts/list.js}"></script>
     <script type="text/javascript"
             src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=94a12e6ae62af8fbc88e09e7433d6c08"></script>
 </head>
@@ -20,10 +20,10 @@
             <div class="inner-wrap">
                 <div class="location">
                     <span><i class="fa-solid fa-house"></i></span>
-                    <a href="#" title="극장 페이지">
+                    <a href="#" title="극장 페이지"><i class="fa-solid fa-chevron-right"></i>
                         극장
                     </a>
-                    <a href="#" title="전체극장">
+                    <a href="#" title="전체극장"><i class="fa-solid fa-chevron-right"></i>
                         전체극장
                     </a>
                 </div>
@@ -91,19 +91,19 @@
                             <div class="theater-list" id="gyeongsang-city">
                                 <ul>
                                     <li>
-                                        <a href="http://localhost:8080/theater/page?branchId=1" class="gyeongsang">북대구(칠곡)</a>
+                                        <a th:href="@{/theater/page (branchId = 1)}" class="gyeongsang">북대구(칠곡)</a>
                                     </li>
                                     <li>
-                                        <a href="http://localhost:8080/theater/page?branchId=2" class="gyeongsang">경북도청</a>
+                                        <a th:href="@{/theater/page (branchId = 2)}" class="gyeongsang">경북도청</a>
                                     </li>
                                     <li>
-                                        <a href="http://localhost:8080/theater/page?branchId=3" class="gyeongsang">경산하양</a>
+                                        <a th:href="@{/theater/page (branchId = 3)}" class="gyeongsang">경산하양</a>
                                     </li>
                                     <li>
-                                        <a href="http://localhost:8080/theater/page?branchId=4" class="gyeongsang">경주</a>
+                                        <a th:href="@{/theater/page (branchId = 4)}" class="gyeongsang">경주</a>
                                     </li>
                                     <li>
-                                        <a href="http://localhost:8080/theater/page?branchId=5" class="gyeongsang">구미강동</a>
+                                        <a th:href="@{/theater/page (branchId = 5)}" class="gyeongsang">구미강동</a>
                                     </li>
                                 </ul>
                             </div>
@@ -243,7 +243,7 @@
                     </ul>
                 </div>
                 <div class="bottom">
-                    <a href="#" title="로그인하기" id="moveLogin" class="button">로그인하기</a>
+                    <a th:href="@{/member/login}" title="로그인하기" id="moveLogin" class="button">로그인하기</a>
                 </div>
             </div>
 
@@ -251,7 +251,7 @@
                 <h3 class="tit">극장 공지사항</h3>
             </div>
             <div class="more">
-            <a th:href="@{/bbs/notice}" title="극장 공지사항">
+            <a href="http://localhost:8080/bbs/notice?bid=notice" title="극장 공지사항">
                 더 보기
             </a>
             <i class="fa-solid fa-chevron-right"></i>

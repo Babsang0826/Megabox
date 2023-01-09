@@ -27,6 +27,7 @@ h2.tit {
 .table-wrap {
     position: relative;
     border-top: 1px solid #555;
+    margin-bottom: 50px;
 }
 
 .board-view .tit-area {
@@ -89,7 +90,6 @@ h2.tit {
     padding: 20px 0;
     border-top: 1px solid #eaeaea;
     font-size: 20px;
-    height: 250px;
 }
 
 .prev-next {

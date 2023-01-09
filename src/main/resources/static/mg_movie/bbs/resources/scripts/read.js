@@ -1,5 +1,14 @@
 const form = window.document.getElementById('form');
 
+const noArticle = form.querySelectorAll('.link');
+console.log(noArticle);
+
+for (let noSuchArticle of noArticle) {
+    if (noSuchArticle.innerText === '다음글이 존재하지 않습니다.' || noSuchArticle.innerText === '이전글이 존재하지 않습니다.') {
+        noSuchArticle.href = '#';
+    }
+}
+
 form.querySelector('[rel="actionDelete"]').addEventListener('click', () => {
     if (!confirm('정말로 게시글을 삭제 할건가요?')) {
         return;
@@ -14,7 +23,7 @@ form.querySelector('[rel="actionDelete"]').addEventListener('click', () => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case 'success':
-                        window.location.href = "./notice"
+                        window.location.href = "./notice?bid=notice"
                         break;
                     case 'no_such_article':
                         alert("삭제하려는 게시물이 더 이상 존재하지 않습니다.");
@@ -65,4 +74,7 @@ form.querySelector('[rel="actionModify"]').addEventListener('click', () => {
     };
     xhr.send(formData);
 });
+
+
+
 

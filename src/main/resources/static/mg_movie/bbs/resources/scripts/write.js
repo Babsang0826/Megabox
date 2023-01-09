@@ -38,7 +38,7 @@ form.onsubmit = e => {
         alert("극장을 선택 해주세요.");
         return false;
     }
-    alert('게시글을 작성하고 있습니다.\n잠시만 기다려 주세요.');
+    Cover.show('게시글을 작성하고 있습니다.\n잠시만 기다려 주세요.');
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('title', form['title'].value);

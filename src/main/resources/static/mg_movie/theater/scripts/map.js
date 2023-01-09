@@ -6,6 +6,7 @@ let options = {
     level: 2
 };
 
+
 let map = new kakao.maps.Map(container, options);
 
 let markerPosition  = new kakao.maps.LatLng(`${latitude.value}`, `${longitude.value}`);

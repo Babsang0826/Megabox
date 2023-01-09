@@ -59,10 +59,27 @@ function checkSelectAll() {
     }
 }
 
+function checkSelect() {
+    const chkBox = document.querySelectorAll('input[name="receive"]');
+
+    const chk = document.querySelectorAll('input[name="receive"]:checked');
+
+    const chkAll = document.getElementById('agree');
+
+    const chkNotAll = document.getElementById('notagree');
+
+    if (chkBox.length > 1) {
+        chkAll.checked = true;
+    } else {
+        chkAll.checked = false;
+    }
+}
+
 
 const checkAll = document.querySelector('.checkAll');
 const checkCancel = document.querySelector('.checkCancel');
 const checkBox = document.querySelectorAll('.checkBox');
+
 
 // 동의 체크 시 하위 체크박스 전체 선택
 checkAll.onclick = function () {
@@ -124,11 +141,13 @@ form.querySelector('.email-send').addEventListener('click', () => {
         form['email'].focus();
         return;
     }
+    Cover.show('인증번호를 전송하고 있습니다.\n잠시만 기다려주세요.');
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('email', form['email'].value);
     xhr.open('POST', './email');
     xhr.onreadystatechange = () => {
+        Cover.hide()
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const responseObject = JSON.parse(xhr.responseText);
@@ -168,6 +187,7 @@ form['emailVerify'].addEventListener('click', () => {
         form['emailAuthCode'].select();
         return;
     }
+    Cover.show('인증 번호를 확인하고 있습니다. \n\n잠시만 기다려 주세요.');
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('email', form['email'].value);
@@ -175,6 +195,7 @@ form['emailVerify'].addEventListener('click', () => {
     formData.append('salt', form['emailAuthSalt'].value);
     xhr.open('PATCH', 'email');
     xhr.onreadystatechange = () => {
+        Cover.hide();
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const responseObject = JSON.parse(xhr.responseText);
@@ -243,11 +264,6 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
         } else {
             form.querySelector('[rel="warning-contact"]').innerText = ''
         }
-        // if (form['loginId'].value === '') {
-        //     form.querySelector('[rel="warning-id"]').innerText = '아이디를 입력해 주세요'
-        //     form['loginId'].focus();
-        //     return;
-        // }
         if (!new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$').test(form['pwd'].value)) {
             form.querySelector('[rel="warning-password"]').innerText = '비밀번호는 8자이상, 숫자, 대문자, 소문자, 특수문자들 모두 포함해야합니다.'
             form['pwd'].focus();
@@ -276,8 +292,8 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
             form['loginId'].focus();
             return;
         }
-        alert("회원가입 진행중입니다.\n\n잠시만 기다려 주세요.")
-        const xhr = new XMLHttpRequest();
+    Cover.show('회원가입을 진행중입니다.\n\n잠시만 기다려 주세요.');
+    const xhr = new XMLHttpRequest();
         const formData = new FormData();
         formData.append('email', form['email'].value);
         formData.append('name', form['name'].value);
@@ -291,6 +307,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
         xhr.open('POST', './register');
         xhr.onreadystatechange = () => {
             if (xhr.readyState === XMLHttpRequest.DONE) {
+                Cover.hide();
                 if (xhr.status >= 200 && xhr.status < 300) {
                     const responseObject = JSON.parse(xhr.responseText);
                     switch (responseObject['result']) {
@@ -300,7 +317,11 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                             document.getElementById("step step4").style.display = "block";
                             document.getElementById("three").style.border = "none"
                             document.getElementById("four").style.borderBottom = "1px solid #503396";
-                            window.location.href = "http://localhost:8080/member/login"
+                            // window.location.href = "http://localhost:8080/member/login"
+                            break;
+                        case 'contact':
+                            // alert("이미 등록된 연락처 입니다.");
+                            form.querySelector('[rel="warning-contact"]').innerText = '연락처가 중복 되었습니다.';
 
                             break;
                         case 'failure':
