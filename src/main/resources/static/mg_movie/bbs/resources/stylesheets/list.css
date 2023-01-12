@@ -1,9 +1,11 @@
+@charset "UTF-8";
+
 a {
     color: #666;
     text-decoration: none;
 }
 
-.container {
+.no-padding {
     width: 100%;
     /*min-width: 1100px;*/
     /*min-height: 100%;*/
@@ -11,7 +13,7 @@ a {
     /*padding: 92px 0 300px 0;*/
 }
 
-.container > .page-util {
+.no-padding > .page-util {
     display: block;
     position: static;
     width: 100%;
@@ -20,43 +22,28 @@ a {
 }
 
 
-.container > .page-util > .inner-wrap {
+.no-padding > .page-util > .inner-wrap {
     width: 1100px;
     margin: 0 auto;
 }
 
-.container > .page-util > .inner-wrap > .location {
+.no-padding > .page-util > .inner-wrap > .location {
     float: left;
     height: 42px;
 }
 
-/*.container > .page-util > .inner-wrap > .location span {*/
-/*    overflow: hidden;*/
-/*    display: block;*/
-/*    float: left;*/
-/*    width: 13px;*/
-/*    height: 100%;*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    text-indent: -9999px;*/
-/*}*/
-
-.container > .page-util > .inner-wrap > .location a,
-.container > .page-util > .inner-wrap > .location span {
+.no-padding > .page-util > .inner-wrap > .location a,
+.no-padding > .page-util > .inner-wrap > .location span {
     display: block;
     position: relative;
     float: left;
     height: 43px;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 7px;
     padding: 0;
     line-height: 46px;
     color: #666;
 }
 
-.fa-solid {
-    font-size: 13px;
-    color: #5555;
-}
 
 #content.content {
     padding-top: 0;
@@ -448,9 +435,10 @@ h3.tit {
 }
 
 .more {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
+    float: right;
+    margin-top: 10px;
+    z-index: 9;
+    position: relative;
 }
 
 .table-wrap {

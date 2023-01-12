@@ -11,12 +11,19 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
     private String infoBranchText;  // 지점 text
     private String infoRegionText;  // 지역 text
 
-    private int runningTime;
+    private  int runningTime;
     private String movieState;
 
     private String infoMovieAgeLimit;  // movie 나이 제한
 
     private String infoMoviePoster;
+
+    private int movieIndex;
+
+
+
+
+    private int seatIndex;
 
     public String getInfoMovieTitle() {
         return infoMovieTitle;
@@ -65,7 +72,6 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
     public void setInfoRegionText(String infoRegionText) {
         this.infoRegionText = infoRegionText;
     }
-
     public int getRunningTime() {
         return runningTime;
     }
@@ -99,5 +105,23 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
     public void setInfoMoviePoster(String infoMoviePoster) {
         this.infoMoviePoster = infoMoviePoster;
     }
+
+    public int getMovieIndex() {
+        return movieIndex;
+    }
+
+    public void setMovieIndex(int movieIndex) {
+        this.movieIndex = movieIndex;
+    }
+
+    public int getSeatIndex() {
+        return seatIndex;
+    }
+
+    public MovieScreenInfoVo setSeatIndex(int seatIndex) {
+        this.seatIndex = seatIndex;
+        return this;
+    }
+
 
 }

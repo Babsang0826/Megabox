@@ -1,9 +1,3 @@
-
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
 body {
     overflow: auto;
     overflow-y: scroll;
@@ -14,36 +8,15 @@ body {
     font-weight: 400;
 }
 
-.container > .inner-wrap > .contents  {
+.no-padding > .inner-wrap > .contents {
     float: right;
     width: calc(100% - 260px);
     margin: 0;
     padding: 40px 0 0 0;
     /*padding-top: 82px;*/
-    display: none;
 }
 
-.container > .inner-wrap > .contents.on {
-    display: block;
-}
-
-.container > .inner-wrap > .contents > .wrap.auth {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 4rem;
-}
-
-.container > .inner-wrap > .contents > .wrap.auth > div {
-    width: 32rem;
-}
-
-.container > .inner-wrap > .contents > .wrap.auth > div > .user-id {
-    width: 32rem;
-}
-
-.container > .inner-wrap > .contents > .title {
+.no-padding > .inner-wrap > .contents > .title {
     padding: 0 0 26px 0;
     font-size: 1.8666em;
     font-weight: 400;
@@ -52,28 +25,28 @@ body {
     color: #222;
 }
 
-.contents > .wrap > div {
+.contents > div {
     margin-bottom: 10px;
 }
-.contents > .wrap > .user-id {
+.contents > .user-id {
     display: grid;
     grid-template-columns: 180px 1fr;
     position: relative;
     border-top: 1px solid #555;
 }
-.contents > .wrap > .user-id > .text {
+.contents > .user-id > .text {
     background: #f7f8f9;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: 7px 15px;
     position: relative;
-    height: auto;
+    height: 50px;
     text-align: left;
     border-bottom: 1px solid #d1d5dd;
     font-weight: bold;
 }
-.contents > .wrap > .user-id > .content {
+.contents > .user-id > .content {
     position: relative;
     height: 50px;
     padding: 7px 15px;
@@ -84,91 +57,10 @@ body {
     align-items: center;
     justify-content: space-between;
 }
-
-.contents > .wrap > .user-id > .content.auth {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    height: auto;
-}
-
-.contents > .wrap > .user-id > .content.auth > label {
-    display: flex;
-    align-items: center;
-}
-
-.contents > .wrap > .user-id > .content.auth > label > input {
-    width: 150px;
-    margin: 0;
-    border-right: 0;
-    padding-left: 5px;
-}
-
-.contents > .wrap > .user-id > .content.auth > label > .timer {
-    width: 50px;
-    height: 89%;
-    line-height: 34px;
-    padding: 0 10px 0 0;
-    text-align: center;
-    border: 1px solid #d8d9db;
-    border-left: 0;
-    color: red;
-}
-
-.contents > .wrap > .user-id > .content.auth > label > button {
-    color: #444;
-    height: 32px;
-    line-height: 30px;
-    /*font-size: .9333em;*/
-    font-weight: 400;
-    border-radius: 4px;
-    border: 1px solid #666;
-    vertical-align: middle;
-    background-color: #fff;
-    cursor: pointer;
-    margin-left: 12px;
-    padding: 0 12px;
-    /*color: #777;*/
-    /*background-color: #e0e0e0;*/
-    /*border: 0;*/
-}
-
-.contents > .wrap > .user-id > .content.auth > label > button:disabled {
-    color: #777;
-    background-color: #e0e0e0;
-    border: 0;
-}
-
-.contents > .wrap.auth > .user-id > .content > button {
-    background-color: #666;
-    border: 0;
-    color: #fff;
-    width: 72px;
-}
-
-.contents > .wrap.auth > .user-id > .content > button:disabled {
-    background-color: #e0e0e0;
-    color: #777;
-}
-
-.contents > .wrap.auth > .user-id > .content > button:hover {
-    background-color: #444;
-}
-
-.contents > .wrap > .user-id > .content.auth > span {
-    margin-top: 6px;
-    color: red;
-    display: none;
-}
-
-.contents > .wrap > .user-id > .content.auth > span.visible {
-    display: block;
-}
-
-.contents > .wrap > .user-id > .content > p {
+.contents > .user-id > .content > p {
 
 }
-.contents > .wrap > .user-id > .content > a {
+.contents > .user-id > .content > a {
     color: #503396;
     height: 32px;
     padding: 0 12px;
@@ -182,7 +74,7 @@ body {
     cursor: pointer;
 }
 
-.contents > .wrap > .user-id > .content > label > input {
+.contents > .user-id > .content > label > input {
     display: inline-block;
     width: 150px;
     height: 32px;
@@ -191,43 +83,20 @@ body {
     color: #444;
     border: 1px solid #d8d9db;
     vertical-align: middle;
-    padding-left: 5px;
 }
 
-.contents > .wrap > .user-id > .content > label > input:hover,
-.contents > .wrap > .user-id > .content > label > input:focus {
-    /*border-color: #666;*/
-    /*border: 1px solid #666;*/
+.contents > .user-id > .content > label > input:hover,
+.contents > .user-id > .content > label > input:focus {
+    border-color: #666;
 }
 
-.contents > .wrap > .btn-area {
+.contents > .btn-area {
     padding: 40px 0 30px 0;
     margin: 0;
     text-align: center;
 }
 
-.btn-area > button {
-    color: #503396;
-    border: 1px solid #503396;
-    width: 5rem;
-    height: 2.5rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    margin-right: 5px;
-}
-
-.btn-area > button:last-of-type {
-    background-color: #503396;
-    color: #fff;
-    margin-left: 5px;
-}
-
-.btn-area > button:last-of-type:disabled {
-    background-color: #e0e0e0;
-    border: none;
-}
-
-.contents > .wrap > .btn-area > div {
+.contents > .btn-area > div {
     display: inline-block;
     margin: 0 3px;
     text-align: center;
@@ -247,34 +116,28 @@ body {
     font-size: 15px;
 }
 
-.contents > .wrap > .btn-area > div > a {
+.contents > .btn-area > div > a {
     padding: 14px 32px;
 }
 
-.contents > .wrap > .btn-area > div:last-of-type {
+.contents > .btn-area > div:last-of-type {
     color: #fff;
     line-height: 46px;
     border: 0;
     background: #503396;
 }
 
-.contents > .wrap > .user-id > .content > label > span {
+.contents > .user-id > .content > label > span {
     font-size: 14px;
 }
 
-.contents > .wrap.auth > .user-id > .content > .hidden-label > input {
-    background-color: #f7f8f9;
-    color: #aaa;
-    width: 210px;
-}
-
-.contents > .wrap > ul > li {
+.contents > ul > li {
     padding-left: 10px;
     display: flex;
     align-items: center;
 }
 
-.contents > .wrap > ul > li:before {
+.contents > ul > li:before {
     content: '';
     display: block;
     background-color: #503396;
@@ -283,7 +146,7 @@ body {
     margin-right: 5px;
 }
 
-.contents > .wrap > .user-info > .title-area {
+.contents > .user-info > .title-area {
     margin: 40px 0 10px 0;
     display: flex;
     flex-direction: row;
@@ -291,7 +154,7 @@ body {
     justify-content: space-between;
 }
 
-.contents > .wrap > .user-info > .title-area > .title {
+.contents > .user-info > .title-area > .title {
     font-size: 1.6em;
     font-weight: 400;
     color: #503396;
@@ -300,12 +163,12 @@ body {
     line-height: 1.1;
 }
 
-.contents > .wrap > .user-info > .title-area > .necessary {
+.contents > .user-info > .title-area > .necessary {
     margin: 0;
     padding: 0;
 }
 
-.contents > .wrap > .user-info > .title-area > .necessary > p {
+.contents > .user-info > .title-area > .necessary > p {
     margin: 0;
     padding: 0;
 }
@@ -318,7 +181,7 @@ em {
     font-style: normal;
 }
 
-.contents > .wrap > .user-info > form > .info-grid {
+.contents > .user-info > form > .info-grid {
     display: grid;
     grid-template-columns: 180px 1fr;
     margin-bottom: 40px;

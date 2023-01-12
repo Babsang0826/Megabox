@@ -31,7 +31,7 @@ body > .main > .content {
     font-size: 25px;
 }
 
-.container {
+.no-padding {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;

@@ -63,7 +63,7 @@ form.onsubmit = e => {
                         window.location.href = 'http://localhost:8080/bbs/notice?bid=' + responseObject['bid'];
                         break;
                     default:
-                      alert('알 수 없는 이유로 게시글을 작성하지 못하였습니다. 잠시 후 다시 시도해 주새요.');
+                        alert('알 수 없는 이유로 게시글을 작성하지 못하였습니다. 잠시 후 다시 시도해 주새요.');
                 }
             } else {
                 alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');

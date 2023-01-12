@@ -1088,20 +1088,21 @@
                                         <span hidden>이메일</span>
                                         <input autofocus class="--object-input input" maxlength="50" name="email"
                                                placeholder=" 이메일 주소를 입력해 주세요." type="email">
-                                        <input class="--object-button email-send" name="emailSend" value="인증번호 전송"
+                                        <input class="--object-button email-send" name="emailSend" value="인증 전송"
                                                type="button">
                                     </label>
                                     <label class="label email">
                                         <span hidden>인증번호</span>
                                         <input autofocus class="--object-input input" disabled maxlength="6"
                                                name="emailAuthCode" placeholder=" 인증번호를 입력해 주세요." type="text">
+                                        <div class="timer" id="timer">5:00</div>
                                         <input name="emailAuthSalt" type="hidden">
-                                        <input class="--object-button" name="emailVerify" value="인증번호 확인"
+                                        <input class="--object-button" name="emailVerify" value="인증 확인"
                                                type="button">
                                     </label>
                                     <span class="warning" rel="emailWarning"></span>
                                     <div class="btn-member-bottom">
-                                        <input class="btnClauAgree" id="emailAuthComplete" value="회원가입하러 가기"
+                                        <input class="btnClauAgree" id="emailAuthComplete" value="다음"
                                                type="button" disabled name="emailAuthComplete" rel="emailAuthComplete">
                                     </div>
                                 </td>
@@ -1113,7 +1114,7 @@
             </section>
             <div class="step step3" id="step step3">
                 <p class="page-info-txt" rel="pageInfoTxt">
-                    <strong>이승현님 안녕하세요.</strong>
+                    <strong>고객님 안녕하세요</strong>
                     <span>회원정보를 입력해주세요.</span>
                 <div class="table-wrap">
                     <table class="board-form">
@@ -1195,7 +1196,7 @@
                             <td>
                                 <label>
                                     <input maxlength="16" id="loginPassword" name="pwd" type="password"
-                                           placeholder="영문,숫자,특수기호 중 2가지 이상 조합" class="input-text w260px">
+                                           placeholder="8자이상, 숫자, 대문자, 소문, 특수문자들 모두 포함" class="input-text w260px">
                                 </label>
                                 <div id="password-error-text" class="alert" rel="warning-password">
                                 </div>
@@ -1210,7 +1211,7 @@
                             <td>
                                 <label>
                                     <input maxlength="16" id="loginPasswordCheck" type="password" name="passwordCheck"
-                                           placeholder="영문,숫자,특수기호 중 2가지 이상 조합" class="input-text">
+                                           placeholder="8자이상, 숫자, 대문자, 소문, 특수문자들 모두 포함" class="input-text">
                                 </label>
                                 <div id="password-error-textCheck" class="alert" rel="warning-passowrdCheck">
                                 </div>
@@ -1317,7 +1318,7 @@
                     </p>
                 </div>
                 <div class="btn-member-bottom">
-                    <a href="#" title="신규회원 혜택 확인 이동" class="button purple large">신규 혜택 확인</a>
+                    <a th:href="@{/member/login}" class="button purple large">로그인</a>
                 </div>
             </div>
         </div>

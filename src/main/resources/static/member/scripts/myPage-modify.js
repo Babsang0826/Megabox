@@ -1,144 +1,12 @@
 const container = window.document.getElementById('container');
 
-const warningText = container.querySelector('[rel="emailWarning"]');
-const EmailWarning = {
-    show: (text) => {
-        const emailWarning = warningText;
-        emailWarning.innerText = text;
-        emailWarning.classList.add('visible')
-    },
-    hide: () => {
-        form.querySelector('[rel="emailWarning"]').classList.remove('visible');
-    }
-};
-
-//인증 요청 클릭시
-const authRequest = container.querySelector('.auth-request');
-const hiddenEmail = container.querySelector('[rel="hiddenEmail"]');
-const authInput = container.querySelector('.authInput');
-const emailAuthSalt = container.querySelector('.emailAuthSalt')
-
-authRequest.addEventListener('click', () => {
-    let time = 299;
-    let min = '';
-    let sec = '';
-
-    const xhr = new XMLHttpRequest();
-    const formData = new FormData();
-    formData.append('email', hiddenEmail.value);
-    xhr.open('POST', './email');
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                const responseObject = JSON.parse(xhr.responseText);
-                switch (responseObject['result']) {
-                    case 'success':
-                        let x = setInterval(function () {
-                            min = parseInt(time / 60);
-                            sec = time % 60;
-                            document.getElementById('timer').innerHTML = min + ':' + sec;
-                            time--;
-
-                            if (time < 0) {
-                                clearInterval(x);
-                                warningText.style.color = 'red';
-                                EmailWarning.show('시간이 만료되었습니다. 다시 시도해주세요');
-                            }
-                        }, 1000);
-                        warningText.style.color = '#444';
-                        EmailWarning.show('인증 번호를 전송하였습니다.\n전송된 인증 번호는 5분간만 유효합니다.');
-                        authRequest.setAttribute('disabled', 'disabled');
-                        authInput.focus();
-                        emailAuthSalt.value = responseObject['salt'];
-                        authCheck.removeAttribute('disabled');
-                        break;
-                    case 'failure':
-                        EmailWarning.show('인증에 실패하였습니다. 로그인이 만료되었을 수도 있습니다.');
-                        break;
-                    default:
-                        EmailWarning.show('알 수 없는 이유로 인증 번호를 전송하지 못 하였습니다. 잠시 후 다시 시도해 주세요.');
-                }
-            } else {
-                warningText.style.color = 'red';
-                EmailWarning.show('서버와 통신하지 못하였습니다.잠시후 다시 시도해 주세요.');
-                alert('통신 실패');
-            }
-        }
-    }
-    xhr.send(formData);
-});
-
-//인증 확인 클릭시
-const authCheck = container.querySelector('.auth-check');
-
-authCheck.addEventListener('click', () => {
-    if (authInput.value === '') {
-        warningText.style.color = 'red';
-        EmailWarning.show('인증번호를 입력해 주세요.');
-        authInput.focus();
-        return;
-    }
-    // if (!new RegExp('^(\\d{6})$').test(form['emailAuthCode'].value)) {
-    //     EmailWarning.show('올바른 인증 번호를 입력해 주세요.');
-    //     authInput.focus();
-    //     authInput.select();
-    //     return;
-    // }
-    const xhr = new XMLHttpRequest();
-    const formData = new FormData();
-    formData.append('email', hiddenEmail.value);
-    formData.append('code', authInput.value);
-    formData.append('salt', emailAuthSalt.value);
-    xhr.open('PATCH', 'email');
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                const responseObject = JSON.parse(xhr.responseText);
-                switch (responseObject['result']) {
-                    case 'expired':
-                        EmailWarning.show('인증 정보가 만료되었습니다. 다시 시도해 주세요.');
-                        alert('인증정보 만료');
-                        authRequest.removeAttribute('disabled');
-                        authInput.value = '';
-                        emailAuthSalt.value = '';
-                        authCheck.setAttribute('disabled', 'disabled');
-                        break;
-                    case 'success':
-                        warningText.style.color = '#444';
-                        EmailWarning.show('이메일이 정상적으로 인증되었습니다.');
-                        authInput.setAttribute('disabled', 'disabled');
-                        authCheck.setAttribute('disabled', 'disabled');
-                        completeAuth.removeAttribute('disabled');
-                        break;
-                    default:
-                        warningText.style.color = 'red';
-                        EmailWarning.show('인증번호가 올바르지 않습니다.');
-                        authInput.focus();
-                        authInput.select();
-                }
-            } else {
-                EmailWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
-                alert('서버 통신 실패')
-            }
-        }
-    }
-    xhr.send(formData);
-});
-
-const completeAuth = container.querySelector('[rel="completeAuth"]');
-const authContent = container.querySelector('#authContents');
-const modifyContent = container.querySelector('#modifyContent');
-completeAuth.addEventListener('click', () => {
-    authContent.classList.remove('on');
-    modifyContent.classList.add('on');
-});
-
-
 //휴대폰번호 변경 클릭 시
 const mobile = container.querySelector('[rel="mobile"]');
 const changeBtn = mobile.querySelector('[rel="changeBtn"]');
 const changeMobileDiv = mobile.querySelector('.change-mobile');
+// const mobileModifyBtn = mobile.querySelector('[rel="mobileModifyBtn"]');
 const submitBtn = container.querySelector('[rel="submitBtn"]');
+
 
 changeBtn.addEventListener('click', () => {
     changeMobileDiv.classList.toggle('on');
@@ -150,6 +18,11 @@ changeBtn.addEventListener('click', () => {
 });
 
 submitBtn.addEventListener('click', () => {
+    // if (mobile.querySelector('.new-mobile').value === '') {
+    //     mobile.querySelector('.new-mobile').focus();
+    //     alert('변경할 내용이 존재하지 않습니다.');
+    //     return false;
+    // }
     if (mobile.querySelector('.new-mobile').value === '') {
         mobile.querySelector('.new-mobile').value = mobile.querySelector('[rel="nowMobile"]').value
     }
@@ -213,7 +86,7 @@ container.querySelector('[rel="addressFindPanel"]').addEventListener('click', ()
     container.querySelector('[rel="addressFindPanel"]').classList.remove('visible');
 });
 
-container.querySelector('.delete-account').addEventListener('click', e => {
+container.querySelector('.delete-account')?.addEventListener('click', e => {
     e.preventDefault();
     if (!confirm('정말로 탈퇴하시겠습니까?')) {
         return;
@@ -242,8 +115,15 @@ container.querySelector('.delete-account').addEventListener('click', e => {
         }
     }
     xhr.send(formData);
-});
+})
 
+//등록 버튼 클릭 시
+// const submitBtn = container.querySelector('[rel="submitBtn"]');
+//
+// submitBtn.addEventListener('click', () => {
+//     alert('수정이 완료되었습니다.');
+//     return window.location.href = 'http://localhost:8080/movie/myPage';
+// });
 
 
 

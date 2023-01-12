@@ -80,23 +80,23 @@
         LIMIT 1
     </select>
 
-<!--    <select id="selectKakaoUserById"-->
-<!--            resultType="dev.babsang.megabox.entities.member.KakaoUserEntity">-->
-<!--        SELECT `id`            AS `id`,-->
-<!--               `nickname`      AS `nickname`,-->
-<!--               `registered_on` AS `registeredOn`-->
-<!--        FROM `mg_member`.`kakao_user`-->
-<!--        WHERE `id` = #{id}-->
-<!--        LIMIT 1-->
-<!--    </select>-->
+    <!--    <select id="selectKakaoUserById"-->
+    <!--            resultType="dev.babsang.megabox.entities.member.KakaoUserEntity">-->
+    <!--        SELECT `id`            AS `id`,-->
+    <!--               `nickname`      AS `nickname`,-->
+    <!--               `registered_on` AS `registeredOn`-->
+    <!--        FROM `mg_member`.`kakao_user`-->
+    <!--        WHERE `id` = #{id}-->
+    <!--        LIMIT 1-->
+    <!--    </select>-->
 
-<!--    <insert id="insertKakaoUser"-->
-<!--            parameterType="dev.babsang.megabox.entities.member.KakaoUserEntity">-->
-<!--        INSERT INTO `mg_member`.`kakao_user` (`id`, `nickname`, `registered_on`)-->
-<!--        VALUES (#{id},-->
-<!--                #{nickname},-->
-<!--                IFNULL(#{registeredOn}, DEFAULT(`registered_on`)))-->
-<!--    </insert>-->
+    <!--    <insert id="insertKakaoUser"-->
+    <!--            parameterType="dev.babsang.megabox.entities.member.KakaoUserEntity">-->
+    <!--        INSERT INTO `mg_member`.`kakao_user` (`id`, `nickname`, `registered_on`)-->
+    <!--        VALUES (#{id},-->
+    <!--                #{nickname},-->
+    <!--                IFNULL(#{registeredOn}, DEFAULT(`registered_on`)))-->
+    <!--    </insert>-->
 
 
     <insert id="insertUser"
@@ -122,6 +122,7 @@
                `admin_flag`        AS `adminFlag`
         FROM `mg_member`.users
         WHERE BINARY `id` = #{id}
+          AND `password` = #{password}
         LIMIT 1
     </select>
 
@@ -163,7 +164,6 @@
           AND BINARY `name` = #{name}
           AND BINARY `birthday` = #{birthday}
           AND BINARY `contact` = #{contact}
-          AND BINARY `email` = #{email}
         LIMIT 1
     </select>
 
@@ -196,7 +196,7 @@
         WHERE BINARY `email` = #{email}
         LIMIT 1
     </update>
-<!--연락처 중복-->
+    <!--연락처 중복-->
     <select id="selectUserByContact"
             resultType="dev.babsang.megabox.entities.member.UserEntity">
         SELECT `email`             AS `email`,

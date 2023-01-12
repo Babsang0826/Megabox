@@ -193,6 +193,7 @@ const drawListBox = () => {
         listBoxElement.append(ageLimitElement, movieTitleElement);
         listCollect.append(listBoxElement);
         listBoxElement.addEventListener('click', () => {
+
             listBoxElement.classList.toggle('on');
             if (listBoxElement.classList.contains('on')) {
                 value++;
@@ -951,3 +952,26 @@ function alertThree() {
 function alertFour() {
     swal("속보", '알수 없는 이유로 결제에 실패했습니다.');
 }
+
+const {screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenInfoMovieStartTime,
+    screenInfoMovieEndTime, screenInfoMovieTitle, screenInfoDate, screenInfoMovieState,
+    screenInfoBranchIndex, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
+    movieIndex} = JSON.parse(localStorage.getItem('time-cell-value'));
+localStorage.remove('time-cell-value');
+console.log(screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenInfoMovieStartTime,
+    screenInfoMovieEndTime, screenInfoMovieTitle, screenInfoDate, screenInfoMovieState,
+    screenInfoBranchIndex, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
+    movieIndex);
+
+
+
+
+
+
+
+
+
+
+
+
+

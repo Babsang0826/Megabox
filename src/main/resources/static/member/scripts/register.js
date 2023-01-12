@@ -70,6 +70,7 @@ function checkSelect() {
 
     if (chkBox.length > 1) {
         chkAll.checked = true;
+        document.getElementById('marketAgree').removeAttribute("disabled");
     } else {
         chkAll.checked = false;
     }
@@ -141,6 +142,10 @@ form.querySelector('.email-send').addEventListener('click', () => {
         form['email'].focus();
         return;
     }
+
+    let time = 299;
+    let min = '';
+    let sec = '';
     Cover.show('인증번호를 전송하고 있습니다.\n잠시만 기다려주세요.');
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
@@ -153,6 +158,17 @@ form.querySelector('.email-send').addEventListener('click', () => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case 'success':
+                        let x = setInterval(function () {
+                            min = parseInt(time / 60);
+                            sec = time % 60;
+                            document.getElementById('timer').innerHTML = min + ':' + sec;
+                            time--;
+
+                            if (time < 0) {
+                                EmailWarning.show('시간이 만료되었습니다. 다시 시도해주세요.');
+                                clearInterval(x);
+                            }
+                        }, 1000);
                         EmailWarning.show('인증 번호를 전송하였습니다. 전송된 인증 번호는 5분간만 유효합니다.');
                         form['email'].setAttribute('disabled', 'disabled');
                         form['emailSend'].setAttribute('disabled', 'disabled');
@@ -258,12 +274,13 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
 
         }
         if (form['contact'].value === '') {
-            form.querySelector('[rel="warning-contact"]').innerText = '연락처를 입력해 주세요'
+            form.querySelector('[rel="warning-contact"]').innerText = '연락처를 입력해 주세요.'
             form['contact'].focus();
             return;
         } else {
             form.querySelector('[rel="warning-contact"]').innerText = ''
         }
+
         if (!new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$').test(form['pwd'].value)) {
             form.querySelector('[rel="warning-password"]').innerText = '비밀번호는 8자이상, 숫자, 대문자, 소문자, 특수문자들 모두 포함해야합니다.'
             form['pwd'].focus();
@@ -322,7 +339,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                         case 'contact':
                             // alert("이미 등록된 연락처 입니다.");
                             form.querySelector('[rel="warning-contact"]').innerText = '연락처가 중복 되었습니다.';
-
+                            form['contact'].focus();
                             break;
                         case 'failure':
                             alert("이미 등록된 사용자 입니다.");

@@ -15,7 +15,9 @@ public interface IMemberMapper {
     UserEntity selectUserByEmail(@Param(value = "email") String email);
 
     UserEntity selectUserById(@Param(value = "id") String id);
+
     KakaoUserEntity selectKakaoUserById(@Param(value = "id") String id);
+
     int insertKakaoUser(KakaoUserEntity user);
 
     EmailAuthEntity selectEmailAuthByEmailCodeSalt(@Param(value = "email") String email,
@@ -27,8 +29,10 @@ public interface IMemberMapper {
 
     int insertUser(UserEntity user);
 
-    UserEntity selectUserByEmails(@Param(value = "id") String id,
-                                  @Param(value = "password") String password);
+//    UserEntity selectUserByEmails(@Param(value = "id") String id,
+//                                  @Param(value = "password") String password);
+
+    UserEntity selectUserByEmails(String id, String password);
 
     UserEntity selectUserByNameBirthdayContact(@Param(value = "name") String name,
                                                @Param(value = "birthday") String birthday,
@@ -37,10 +41,8 @@ public interface IMemberMapper {
     UserEntity selectUserByIdNameBirthdayContact(@Param(value = "id") String id,
                                                  @Param(value = "name") String name,
                                                  @Param(value = "birthday") String birthday,
-                                                 @Param(value = "contact") String contact,
-                                                 @Param(value = "email") String email);
-
-    EmailAuthEntity selectEmailAuthByIndex(@Param(value = "index")int index);
+                                                 @Param(value = "contact") String contact);
+    EmailAuthEntity selectEmailAuthByIndex(@Param(value = "index") int index);
 
 
     int updateUser(UserEntity user);

@@ -5,7 +5,6 @@ import dev.babsang.megabox.entities.bbs.ArticleEntity;
 import dev.babsang.megabox.entities.bbs.BoardsEntity;
 import dev.babsang.megabox.entities.bbs.ImageEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
-import dev.babsang.megabox.entities.movie.BookingEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.enums.bbs.ArticleDeleteResult;
 import dev.babsang.megabox.enums.bbs.IndexResult;

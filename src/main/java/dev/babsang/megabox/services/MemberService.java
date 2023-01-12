@@ -96,7 +96,7 @@ public class MemberService {
         MimeMessageHelper helper = new MimeMessageHelper(mail, "UTF-8");
         helper.setFrom("ljh525769@gmail.com");
         helper.setTo(user.getEmail());
-        helper.setSubject("[스터디] 회원가입 인증 번호");
+        helper.setSubject("[메가박스] 회원가입 인증 번호");
         helper.setText(text, true);
         this.mailSender.send(mail);
 
@@ -151,7 +151,6 @@ public class MemberService {
     public Enum<? extends IResult> login(UserEntity user) {
         UserEntity existingPasswordAuth = this.memberMapper.selectUserByEmails(
                 user.getId(), CryptoUtils.hashSha512(user.getPassword()));
-
         if (existingPasswordAuth != null) {
             System.out.println("로그인 성공");
             user.setEmail(existingPasswordAuth.getEmail());
@@ -165,8 +164,6 @@ public class MemberService {
             user.setAdminFlag(existingPasswordAuth.getAdminFlag());
             return CommonResult.SUCCESS;
         }
-
-
 
         return CommonResult.FAILURE;
     }
@@ -184,8 +181,7 @@ public class MemberService {
 
     public Enum<? extends IResult> recoverPassword(UserEntity user) {
         UserEntity existingNameAuth = this.memberMapper.selectUserByIdNameBirthdayContact(
-                user.getId(), user.getName(), user.getBirthday(), user.getContact(), user.getEmail());
-
+                user.getId(), user.getName(), user.getBirthday(), user.getContact());
         if (existingNameAuth == null) {
             return CommonResult.FAILURE;
         }
@@ -236,7 +232,7 @@ public class MemberService {
         MimeMessageHelper helper = new MimeMessageHelper(mail, "UTF-8");
         helper.setFrom("ljh525769@gmail.com");
         helper.setTo(emailAuth.getEmail());
-        helper.setSubject("[스터디] 비밀번호 재설정 인증 링크");
+        helper.setSubject("[메가박스] 비밀번호 재설정 인증 링크");
         helper.setText(text, true);
         this.mailSender.send(mail);
 
