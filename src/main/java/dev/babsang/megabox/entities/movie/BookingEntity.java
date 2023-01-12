@@ -7,6 +7,7 @@ public class BookingEntity {
     private int screenInfoIndex;
     private String userId;
     private int seatIndex;
+    private String seatSumCode;
     private int payment;
 
     public int getIndex() {
@@ -47,6 +48,14 @@ public class BookingEntity {
 
     public void setPayment(int payment) {
         this.payment = payment;
+    }
+
+    public String getSeatSumCode() {
+        return seatSumCode;
+    }
+
+    public void setSeatSumCode(String seatSumCode) {
+        this.seatSumCode = seatSumCode;
     }
 
     @Override

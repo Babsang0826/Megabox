@@ -234,9 +234,9 @@
                  LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
                  LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
                            ON `screenInfo`.`auditorium_index` = `auditorium`.`index`
-                 LEFT JOIN `mg_movie`.`branch` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
+                 LEFT JOIN `mg_movie`.`branches` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
                  LEFT JOIN `mg_movie`.`region` AS `region` ON `branch`.`region_index` = `region`.`index`
-            GROUP BY `movie`.`index`
+        GROUP BY `movie`.`index`
     </select>
 
     <select id="selectRegion"
@@ -251,7 +251,7 @@
         SELECT `index`        AS `index`,
                `text`         AS `text`,
                `region_index` AS `regionIndex`
-        FROM `mg_movie`.`branch`
+        FROM `mg_movie`.`branches`
     </select>
 
     <select id="selectScreenInfos"
@@ -274,39 +274,42 @@
                  LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
                  LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
                            ON `screenInfo`.`auditorium_index` = `auditorium`.`index`
-                 LEFT JOIN `mg_movie`.`branch` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
+                 LEFT JOIN `mg_movie`.`branches` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
                  LEFT JOIN `mg_movie`.`region` AS `region` ON `branch`.`region_index` = `region`.`index`
         ORDER BY `screenInfo`.`mv_start_time`
     </select>
+
 
     <select id="selectBooking" resultType="dev.babsang.megabox.entities.movie.BookingEntity">
         SELECT `index`             AS `index`,
                `screen_info_index` AS `screenInfoIndex`,
                `user_id`           AS `userId`,
                `seat_index`        AS `seatIndex`,
+               `seat_sum_code`     AS `seatSumCode`,
                `payment`           AS `payment`
         FROM `mg_movie`.`booking`
     </select>
 
     <select id="selectSeatVo" resultType="dev.babsang.megabox.vos.movie.SeatVo">
-        select `index`                    as `index`,
-               column_index               as columnIndex,
-               column_text                as columnText,
-               `row`                      as `row`,
-               auditorium_index           as auditoriumIndex,
-               concat(column_text, `row`) as seatCode
-        from mg_movie.seats
+        select `index`            AS `index`,
+               `column_index`     AS `columnIndex`,
+               `column_text`      AS `columnText`,
+               `row`              AS `row`,
+               `seat_code`        AS `seatCode`,
+               `auditorium_index` AS `auditoriumIndex`
+        from `mg_movie`.`seats`
     </select>
 
     <select id="selectSeatVoGroupByColumn" resultType="dev.babsang.megabox.vos.movie.SeatVo">
-        select `index`          as `index`,
-               column_index     as columnIndex,
-               column_text      as columnText,
-               `row`            as `row`,
-               auditorium_index as auditoriumIndex,
-               count(`index`)   as numberOfColumn
-        from mg_movie.seats
-        group by `column_index`
+        SELECT `index`            AS `index`,
+               `column_index`     AS `columnIndex`,
+               `column_text`      AS `columnText`,
+               `row`              AS `row`,
+               `auditorium_index` AS `auditoriumIndex`,
+               `seat_code`        AS `seatCode`,
+               count(`index`)     AS `numberOfColumn`
+        FROM mg_movie.seats
+        GROUP BY `column_index`
     </select>
 
     <select id="selectMoviesByKeyword" resultType="dev.babsang.megabox.vos.movie.MovieVo">
@@ -329,21 +332,21 @@
                movie.`teenager_price`   AS `teenagerPrice`,
                movie.`etc_price`        AS `etcPrice`,
                movie.`score_avg`        AS `scoreAvg`,
-               count(`booking`.`index`)   AS `totalAudience`
+               count(`booking`.`index`) AS `totalAudience`
         FROM `mg_movie`.`movies` AS `movie`
                  LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo` ON `movie`.`index` = `screenInfo`.`movie_index`
                  LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
         where replace(title, ' ', '') like concat('%', replace(#{keyword}, ' ', ''), '%')
         group by `movie`.`index`
-        order by `totalAudience` desc, release_date
+        order by `totalAudience` desc, `release_date`
     </select>
 
     <select id="selectUserByContact" resultType="dev.babsang.megabox.entities.member.UserEntity">
-        select email             as email,
-               `name`            as `name`,
-               birthday          as birthday,
-               contact           as contact,
-               id                as id
+        select email    as email,
+               `name`   as `name`,
+               birthday as birthday,
+               contact  as contact,
+               id       as id
         from mg_member.users
         where contact = #{contact}
     </select>
@@ -370,6 +373,15 @@
                                                `movie_index`)
         VALUES (#{userId}, #{score}, #{recommendPoint}, #{content},
                 IFNULL(#{writtenOn}, DEFAULT(`written_on`)), #{mid})
+    </insert>
+
+    <insert id="insertBooking"
+            useGeneratedKeys="true"
+            keyProperty="index"
+            keyColumn="index"
+            parameterType="dev.babsang.megabox.entities.movie.BookingEntity">
+        INSERT INTO `mg_movie`.`booking`(`screen_info_index`, `user_id`, `seat_index`, `seat_sum_code`, `payment`)
+        VALUES (#{screenInfoIndex}, #{userId}, #{seatIndex}, #{seatSumCode}, #{payment})
     </insert>
 
     <update id="updateUser" parameterType="dev.babsang.megabox.entities.member.UserEntity">

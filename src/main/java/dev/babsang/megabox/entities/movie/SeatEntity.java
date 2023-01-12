@@ -7,6 +7,8 @@ public class SeatEntity {
     private int columnIndex;
     private String columnText;
     private int row;
+
+    private String seatCode;
     private int auditoriumIndex;
 
     public int getColumnIndex() {
@@ -47,6 +49,14 @@ public class SeatEntity {
 
     public void setAuditoriumIndex(int auditoriumIndex) {
         this.auditoriumIndex = auditoriumIndex;
+    }
+
+    public String getSeatCode() {
+        return seatCode;
+    }
+
+    public void setSeatCode(String seatCode) {
+        this.seatCode = seatCode;
     }
 
     @Override

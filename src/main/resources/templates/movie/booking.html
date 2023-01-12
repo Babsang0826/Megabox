@@ -13,8 +13,8 @@
 </head>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
 <body>
-<main class="--main main">
-    <form class="reservation-container">
+<form class="--main main" method="post" id="form">
+    <div class="reservation-container">
         <div class="reservation-box">
             <div class="title">
                 <span>빠른예매</span>
@@ -124,7 +124,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </div>
     <div class="body-wrap off">
         <div class="container" id="container">
             <div class="inner-wrap">
@@ -158,7 +158,8 @@
                                         <div class="cnt">
                                             <button class="down" type="button" rel="downBtn">-</button>
                                             <div class="number">
-                                                <button class="now" type="button" rel="cnt" id="teenagerCount">0</button>
+                                                <button class="now" type="button" rel="cnt" id="teenagerCount">0
+                                                </button>
                                             </div>
                                             <button class="up" type="button" rel="upBtn">+</button>
                                         </div>
@@ -180,17 +181,7 @@
                                             <img src="https://megabox.co.kr/static/pc/images/reserve/img-theater-screen.png"
                                                  alt="">
                                             <div class="seats">
-                                                <div class="seat-column">
-                                                    <!--/*@thymesVar id="seatVos" type="dev.babsang.megabox.vos.movie.SeatVo[]"*/-->
-                                                    <button class="column" rel="column" th:each="seatVo : ${seatVos}"
-                                                            th:text="${seatVo.getColumnText()}">A
-                                                    </button>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <button class="row" rel="row" th:each="seat : ${seats}"
-                                                            th:text="${seat.getRow()}" th:value="${seat.getSeatCode()}">1
-                                                    </button>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -199,30 +190,12 @@
                         </div>
                         <div class="seat-result">
                             <div class="wrap">
-<!--                                <div class="title-area">-->
-<!--                                    <span class="age-limit grade age12"></span>-->
-<!--                                    <p class="title">아바타: 물의 길</p>-->
-<!--                                    <p class="movie-type">2D(자막)</p>-->
-<!--                                </div>-->
-<!--                                <div class="info-area">-->
-<!--                                    <p class="branch">북대구(칠곡)</p>-->
-<!--                                    <p class="auditorium">1관</p>-->
-<!--                                    <p class="date">-->
-<!--                                        <span>2022.12.28</span>-->
-<!--                                        <em>(목)</em>-->
-<!--                                    </p>-->
-<!--                                    <p class="time">12:50 ~ 15:00</p>-->
-<!--                                    <p class="poster">-->
-<!--                                        <img src="https://megabox.co.kr/SharedImg/2022/12/16/9vUySe7DNMro6tdYRPEbjzF2ebr48MwE_150.jpg"-->
-<!--                                             alt="">-->
-<!--                                    </p>-->
-<!--                                </div>-->
                                 <div class="seat-area">
                                     <div class="describe">
                                         <h2 class="title">선택 좌석</h2>
                                         <ul class="list">
                                             <li>
-                                                <div class="seat choice"></div>
+                                                <div class="seat"></div>
                                                 <p>선택</p>
                                             </li>
                                             <li>
@@ -247,13 +220,10 @@
                                 <div class="pay-area" rel="payArea">
                                     <p class="cnt">
                                     <span class="type">
-<!--                                        <em class="p-cnt"></em>-->
                                     </span>
                                         <span class="type">
-<!--                                        <em class="p-cnt"></em>-->
                                         </span>
                                         <span class="type">
-<!--                                        <em class="p-cnt"></em>-->
                                     </span>
                                     </p>
                                     <div class="pay">
@@ -266,7 +236,7 @@
                                 </div>
                                 <div class="btn-area" rel="seatBtn">
                                     <a href="#">이전</a>
-                                    <a class="next">다음</a>
+                                    <a class="next" rel="seatNextButton">다음</a>
                                 </div>
                             </div>
                         </div>
@@ -337,9 +307,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--                                        <div class="point-txt">기프티콘, 기프티쇼, 아이넘버, 도넛북, 스마트콘, 스마일콘, G마켓 예매권은 [모바일-->
-                                            <!--                                            관람권]에서 사용하실 수 있습니다.-->
-                                            <!--                                        </div>-->
                                         </li>
                                         <li>
                                             <a class="discount-title">
@@ -432,41 +399,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="seat-result">
-                            <div class="wrap">
-                                <div class="title-area">
-                                    <span class="age-limit grade age12"></span>
-                                    <p class="title">아바타: 물의 길</p>
-                                    <p class="movie-type">2D(자막)</p>
-                                    <p class="branch">북대구(칠곡)</p>
-                                    <p class="date">
-                                        <span>2022.12.28</span>
-                                        <em>(목)</em>
-                                        <span class="time">
-                                        <i class="fa-regular fa-clock"></i>
-                                        12:50 ~ 15:00
-                                    </span>
-                                    </p>
-                                </div>
+                        <div class="seat-result" rel="seatPayResult">
+                            <div class="wrap" rel="seatPayWrap">
                                 <div class="price-cal">
                                     <div class="box">
                                         <div class="data">
                                         <span class="title" rel="dataTitle">
-<!--                                            성인<em>2</em>-->
                                         </span>
-                                            <span class="price">24000</span>
+                                            <span class="adultPrice">24000</span>
                                         </div>
                                         <div class="data">
                                         <span class="title" rel="dataTitle">
-<!--                                            청소년<em>2</em>-->
                                         </span>
-                                            <span class="price">18000</span>
+                                            <span class="teenagerPrice">18000</span>
                                         </div>
                                         <div class="data">
                                         <span class="title" rel="dataTitle">
-<!--                                            우대<em>2</em>-->
                                         </span>
-                                            <span class="price">10000</span>
+                                            <span class="etcPrice">10000</span>
                                         </div>
                                         <div class="all">
                                             <span class="title">금액</span>
@@ -494,7 +444,7 @@
                                     <div class="pay">
                                         <p>최종결제금액</p>
                                         <div class="money">
-                                            <p class="price" rel="finalPrice">0</p>
+                                            <p class="price" rel="finalPrice"></p>
                                             <p>원</p>
                                         </div>
                                     </div>
@@ -505,7 +455,7 @@
                                 </div>
                                 <div class="btn-area">
                                     <a href="#" class="prev">이전</a>
-                                    <a href="#" class="next">다음</a>
+                                    <input class="next" rel="completePaymentBtn" type="submit" value="결제">
                                 </div>
                             </div>
                         </div>
@@ -514,8 +464,7 @@
             </div>
         </div>
     </div>
-</main>
+</form>
 </body>
 <th:block th:replace="~{fragments/body :: footer}"></th:block>
 </html>
-<!--/*@thymesVar id="movies" type="dev.babsang.megabox.entities.movie.MovieEntity[]"*/-->

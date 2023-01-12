@@ -1,3 +1,4 @@
+const form = window.document.getElementById('form');
 const nextBtn = window.document.getElementById('nextBtn'); // 날짜 다음버튼
 const previousBtn = window.document.getElementById('previousBtn'); // 이전버튼
 const timeBox = window.document.querySelector('.time-box'); // 보여줘야 할 칸
@@ -14,6 +15,8 @@ const listCollect = window.document.querySelector('.list-collect'); // 상영영
 let allScreenInfos = []; // xhr에서 받는 response값
 let branches = []; // xhr에서 받는 response값 및 drawBranch사용
 let movieTitles = []; // xhr에서 받는 영화제목값
+let screenInfoSeats = []; // xhr에서 받는 seat값
+let screenInfoSeatColumns = [];
 let count = 0; // count 세기
 let value = 0;
 
@@ -41,6 +44,7 @@ let thisMonthLastWeek = endDay.getDay(); // 현재달 마지막 요일(인덱스
 let thisMonthArr = [];
 let thisMonthArrCode = [];
 let thisMonthDate;
+let thisWeek;
 for (let i = currentDay; i <= thisMonthLast; i++) {
     if (i < 10) {
         thisMonthDate = year + '-' + month + '-' + '0' + i;
@@ -51,7 +55,7 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     thisMonthArr.push(thisMonthArrCode);
     let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
     let week = new Date(date.setDate(i)).getDay();
-    let thisWeek = WEEKDAY[week];
+    thisWeek = WEEKDAY[week];
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'current');
     dayElement.dataset.value = thisMonthDate;
@@ -106,6 +110,7 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
 let nextMonthArr = [];
 let nextMonthArrCode = [];
 let nextMonthDate;
+let nextWeek;
 for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     if (month === '12') {
         year = (date.getFullYear() + 1);
@@ -125,18 +130,18 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     nextMonthArr.push(nextMonthArrCode);
     let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
     let week = new Date(date.setDate(thisMonthLastWeek + i)).getDay();
-    let thisWeek = WEEKDAY[week - 3];
+    nextWeek = WEEKDAY[week - 3];
     if (week < 3) {
-        thisWeek = WEEKDAY[week + 4];
+        nextWeek = WEEKDAY[week + 4];
     }
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'next');
     dayElement.dataset.value = nextMonthDate;
-    dayElement.innerText = i + '•' + thisWeek;
+    dayElement.innerText = i + '•' + nextWeek;
     timeBox.append(dayElement);
-    if (thisWeek === '토') {
+    if (nextWeek === '토') {
         dayElement.style.color = 'blue';
-    } else if (thisWeek === '일') {
+    } else if (nextWeek === '일') {
         dayElement.style.color = 'red';
     }
     if (dayElement.getAttribute('selected')) {
@@ -251,6 +256,7 @@ const drawBranches = () => {
     });
 };
 
+const seatNextButton = window.document.querySelector('[rel="seatNextButton"]');
 
 // Branch에 따른 sub함수
 const drawSubs = () => {
@@ -276,6 +282,8 @@ const drawSubs = () => {
                     movieTimeCoverElement.dataset.time = allScreenInfo['screenInfoMovieTime'];
                     movieTimeCoverElement.dataset.mvStartTime = allScreenInfo['screenInfoMovieStartTime'];
                     movieTimeCoverElement.dataset.mvEndTime = allScreenInfo['screenInfoMovieEndTime'];
+                    movieTimeCoverElement.dataset.audIndex = allScreenInfo['screenInfoAuditoriumIndex'];
+                    movieTimeCoverElement.dataset.screenInfoIndex = allScreenInfo['screenInfoIndex'];
                     const movieTimeInfoBoxElement = window.document.createElement('div');
                     movieTimeInfoBoxElement.classList.add('movie-time-info-box');
 
@@ -318,8 +326,10 @@ const drawSubs = () => {
                     seatBoxElement.classList.add('seat-box');
                     const remainSeatElement = window.document.createElement('span');
                     remainSeatElement.classList.add('remain-seat');
+                    // remainSeatElement.innerText = allScreenInfo['']
                     const allSeatElement = window.document.createElement('span');
                     allSeatElement.classList.add('all-seat');
+                    // allSeatElement.innerText = allScreenInfo['screenInfoSeatAll'];
                     seatBoxElement.append(remainSeatElement, allSeatElement);
                     moviePlaceElement.append(movieBranchElement, movieAuditoriumElement, seatBoxElement);
                     movieTimeInfoBoxElement.append(movieTimeElement, movieTitleStateElement, moviePlaceElement);
@@ -343,6 +353,8 @@ const drawSubs = () => {
                     });
                     movieTimeCoverElement.addEventListener('click', () => {
                         movieTimeCoverElement.setAttribute('selected', 'selected');
+                        drawSeatResult();
+                        drawSeat();
                     });
                 });
         }
@@ -359,6 +371,8 @@ const drawSubs = () => {
                     movieTimeCoverElement.dataset.time = allScreenInfo['screenInfoMovieTime'];
                     movieTimeCoverElement.dataset.mvStartTime = allScreenInfo['screenInfoMovieStartTime'];
                     movieTimeCoverElement.dataset.mvEndTime = allScreenInfo['screenInfoMovieEndTime'];
+                    movieTimeCoverElement.dataset.audIndex = allScreenInfo['screenInfoAuditoriumIndex'];
+                    movieTimeCoverElement.dataset.screenInfoIndex = allScreenInfo['screenInfoIndex'];
                     const movieTimeInfoBoxElement = window.document.createElement('div');
                     movieTimeInfoBoxElement.classList.add('movie-time-info-box');
 
@@ -427,66 +441,300 @@ const drawSubs = () => {
                     movieTimeCoverElement.addEventListener('click', () => {
                         movieTimeCoverElement.setAttribute('selected', 'selected');
                         drawSeatResult();
+                        drawSeat();
                     });
                 });
         }
     }
 }
+
 const seatResultContainer = window.document.querySelector('.seat-result');
 const drawSeatResult = () => {
     const citySelected = Array.from(quickCity.querySelectorAll('.city[selected]'));
     const selectedCityIndexes = citySelected.map(x => parseInt(x.dataset.value));
     const listTitle = Array.from(window.document.querySelectorAll('.list-box[selected]'));
+    const deleteListBox = window.document.querySelectorAll('.list-box.on');
+    const deleteCity = window.document.querySelectorAll('.city.on');
     const selectListTitle = listTitle.map(x => x.innerText);
     const daySelected = Array.from(timeBox.querySelectorAll('.day[selected]'));
     const selectedDayValue = daySelected.map(x => x.dataset.value);
     const movieTimeSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
     const selectedMvStartTime = movieTimeSelected.map(x => x.dataset.mvStartTime);
-    console.log(selectedMvStartTime)
     const selectedMvEndTime = movieTimeSelected.map(x => x.dataset.mvEndTime);
-    console.log(selectedMvEndTime)
-    allScreenInfos
-        .filter(allScreenInfo => selectListTitle.indexOf(allScreenInfo['screenInfoMovieTitle']) > -1 && selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
-        .forEach(allScreenInfo => {
-            const wrapContainer = window.document.querySelector('.wrap');
-            const titleAreaElement = window.document.createElement('div');
-            titleAreaElement.classList.add('title-area');
-            const ageLimitElement = window.document.createElement('span');
-            ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
-            const titleElement = window.document.createElement('p');
-            titleElement.classList.add('title');
-            titleElement.innerText = allScreenInfo['screenInfoMovieTitle'];
-            const movieTypeElement = window.document.createElement('p');
-            movieTypeElement.classList.add('movie-type');
-            movieTypeElement.innerText = allScreenInfo['screenInfoMovieState'];
-            titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement);
-            const infoAreaElement = window.document.createElement('div');
-            infoAreaElement.classList.add('info-area');
-            const branchElement = window.document.createElement('p');
-            branchElement.classList.add('branch');
-            branchElement.innerText = allScreenInfo['screenInfoBranchText'];
-            const auditoriumElement = window.document.createElement('p');
-            auditoriumElement.classList.add('auditorium');
-            auditoriumElement.innerText = allScreenInfo['screenInfoAuditoriumText'];
-            const dateElement = window.document.createElement('p');
-            dateElement.classList.add('date');
-            const dateDetailSpanElement = window.document.createElement('span');
-            dateDetailSpanElement.innerText = allScreenInfo['screenInfoDate'];
-            const dateDetailEmElement = window.document.createElement('em');
-            dateElement.append(dateDetailSpanElement, dateDetailEmElement);
-            const timeElement = window.document.createElement('p');
-            timeElement.classList.add('time');
-            timeElement.innerText = allScreenInfo['screenInfoMovieStartTime'] + '~' + allScreenInfo['screenInfoMovieEndTime'];
-            const posterElement = window.document.createElement('p');
-            posterElement.classList.add('poster');
-            const imageElement = window.document.createElement('img');
-            imageElement.setAttribute('src', allScreenInfo['screenInfoMoviePoster']);
-            posterElement.append(imageElement);
-            infoAreaElement.append(branchElement, auditoriumElement, dateElement, timeElement, posterElement);
-            wrapContainer.prepend(titleAreaElement, infoAreaElement);
-            seatResultContainer.append(wrapContainer);
-        });
+    const wrapContainer = window.document.querySelector('.wrap');
+    const titleAreaElement = window.document.createElement('div');
+    titleAreaElement.classList.add('title-area');
+    if (deleteListBox.length > 0 && deleteCity.length > 0) {
+        allScreenInfos
+            .filter(allScreenInfo => selectListTitle.indexOf(allScreenInfo['screenInfoMovieTitle']) > -1 && selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
+            .forEach(allScreenInfo => {
+                const ageLimitElement = window.document.createElement('span');
+                ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
+                const titleElement = window.document.createElement('p');
+                titleElement.classList.add('title');
+                titleElement.innerText = allScreenInfo['screenInfoMovieTitle'];
+                const movieTypeElement = window.document.createElement('p');
+                movieTypeElement.classList.add('movie-type');
+                movieTypeElement.innerText = allScreenInfo['screenInfoMovieState'];
+                titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement);
+                const infoAreaElement = window.document.createElement('div');
+                infoAreaElement.classList.add('info-area');
+                const branchElement = window.document.createElement('p');
+                branchElement.classList.add('branch');
+                branchElement.innerText = allScreenInfo['screenInfoBranchText'];
+                const auditoriumElement = window.document.createElement('p');
+                auditoriumElement.classList.add('auditorium');
+                auditoriumElement.innerText = allScreenInfo['screenInfoAuditoriumText'];
+                const dateElement = window.document.createElement('p');
+                dateElement.classList.add('date');
+                const dateDetailSpanElement = window.document.createElement('span');
+                dateDetailSpanElement.innerText = allScreenInfo['screenInfoDate'];
+                const dateDetailEmElement = window.document.createElement('em');
+                dateElement.append(dateDetailSpanElement, dateDetailEmElement);
+                const timeElement = window.document.createElement('p');
+                timeElement.classList.add('time');
+                timeElement.innerText = allScreenInfo['screenInfoMovieStartTime'] + '~' + allScreenInfo['screenInfoMovieEndTime'];
+                const posterElement = window.document.createElement('p');
+                posterElement.classList.add('poster');
+                const imageElement = window.document.createElement('img');
+                imageElement.setAttribute('src', allScreenInfo['screenInfoMoviePoster']);
+                posterElement.append(imageElement);
+                infoAreaElement.append(branchElement, auditoriumElement, dateElement, timeElement, posterElement);
+                wrapContainer.prepend(titleAreaElement, infoAreaElement);
+                seatResultContainer.append(wrapContainer);
+            });
+    }
+    if (deleteListBox.length < 1 && deleteCity.length > 0) {
+        allScreenInfos
+            .filter(allScreenInfo => selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
+            .forEach(allScreenInfo => {
+                const ageLimitElement = window.document.createElement('span');
+                ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
+                const titleElement = window.document.createElement('p');
+                titleElement.classList.add('title');
+                titleElement.innerText = allScreenInfo['screenInfoMovieTitle'];
+                const movieTypeElement = window.document.createElement('p');
+                movieTypeElement.classList.add('movie-type');
+                movieTypeElement.innerText = allScreenInfo['screenInfoMovieState'];
+                titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement);
+                const infoAreaElement = window.document.createElement('div');
+                infoAreaElement.classList.add('info-area');
+                const branchElement = window.document.createElement('p');
+                branchElement.classList.add('branch');
+                branchElement.innerText = allScreenInfo['screenInfoBranchText'];
+                const auditoriumElement = window.document.createElement('p');
+                auditoriumElement.classList.add('auditorium');
+                auditoriumElement.innerText = allScreenInfo['screenInfoAuditoriumText'];
+                const dateElement = window.document.createElement('p');
+                dateElement.classList.add('date');
+                const dateDetailSpanElement = window.document.createElement('span');
+                dateDetailSpanElement.innerText = allScreenInfo['screenInfoDate'];
+                const dateDetailEmElement = window.document.createElement('em');
+                dateElement.append(dateDetailSpanElement, dateDetailEmElement);
+                const timeElement = window.document.createElement('p');
+                timeElement.classList.add('time');
+                timeElement.innerText = allScreenInfo['screenInfoMovieStartTime'] + '~' + allScreenInfo['screenInfoMovieEndTime'];
+                const posterElement = window.document.createElement('p');
+                posterElement.classList.add('poster');
+                const imageElement = window.document.createElement('img');
+                imageElement.setAttribute('src', allScreenInfo['screenInfoMoviePoster']);
+                posterElement.append(imageElement);
+                infoAreaElement.append(branchElement, auditoriumElement, dateElement, timeElement, posterElement);
+                wrapContainer.prepend(titleAreaElement, infoAreaElement);
+                seatResultContainer.append(wrapContainer);
+            });
+    }
 }
+
+
+const seatPayWrap = window.document.querySelector('[rel="seatPayWrap"]');
+const drawPaySeatResult = () => {
+    const citySelected = Array.from(quickCity.querySelectorAll('.city[selected]'));
+    const selectedCityIndexes = citySelected.map(x => parseInt(x.dataset.value));
+    const listTitle = Array.from(window.document.querySelectorAll('.list-box[selected]'));
+    const deleteListBox = window.document.querySelectorAll('.list-box.on');
+    const deleteCity = window.document.querySelectorAll('.city.on');
+    const selectListTitle = listTitle.map(x => x.innerText);
+    const daySelected = Array.from(timeBox.querySelectorAll('.day[selected]'));
+    const selectedDayValue = daySelected.map(x => x.dataset.value);
+    const movieTimeSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
+    const selectedMvStartTime = movieTimeSelected.map(x => x.dataset.mvStartTime);
+    const selectedMvEndTime = movieTimeSelected.map(x => x.dataset.mvEndTime);
+    if (deleteListBox.length > 0 && deleteCity.length > 0) {
+        allScreenInfos
+            .filter(allScreenInfo => selectListTitle.indexOf(allScreenInfo['screenInfoMovieTitle']) > -1 && selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
+            .forEach(allScreenInfo => {
+                const titleAreaElement = window.document.createElement('div');
+                titleAreaElement.classList.add('title-area');
+                const ageLimitElement = window.document.createElement('span');
+                ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
+                const titleElement = window.document.createElement('p');
+                titleElement.classList.add('title');
+                titleElement.innerText = allScreenInfo['screenInfoMovieTitle']
+                const movieTypeElement = window.document.createElement('p');
+                movieTypeElement.classList.add('movie-type');
+                movieTypeElement.innerText = allScreenInfo['screenInfoMovieState'];
+                const branchElement = window.document.createElement('p');
+                branchElement.classList.add('branch');
+                branchElement.innerText = allScreenInfo['screenInfoBranchText']
+                const dateElement = window.document.createElement('p');
+                dateElement.classList.add('date');
+                const dateSpanElement = window.document.createElement('span');
+                dateSpanElement.innerText = allScreenInfo['screenInfoDate'];
+                const dateEmElement = window.document.createElement('em');
+                const timeElement = window.document.createElement('span');
+                timeElement.classList.add('time');
+                timeElement.innerText = allScreenInfo['screenInfoMovieStartTime'] + '~' + allScreenInfo['screenInfoMovieEndTime'];
+                const clockIconElement = window.document.createElement('i');
+                clockIconElement.classList.add('fa-regular', 'fa-clock');
+                clockIconElement.append(timeElement);
+                dateElement.append(dateSpanElement, dateEmElement, clockIconElement);
+                titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement, branchElement, dateElement);
+                seatPayWrap.prepend(titleAreaElement);
+            });
+    }
+    if (deleteListBox.length < 1 && deleteCity.length > 0) {
+        allScreenInfos
+            .filter(allScreenInfo => selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
+            .forEach(allScreenInfo => {
+                const titleAreaElement = window.document.createElement('div');
+                titleAreaElement.classList.add('title-area');
+                const ageLimitElement = window.document.createElement('span');
+                ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
+                const titleElement = window.document.createElement('p');
+                titleElement.classList.add('title');
+                titleElement.innerText = allScreenInfo['screenInfoMovieTitle']
+                const movieTypeElement = window.document.createElement('p');
+                movieTypeElement.classList.add('movie-type');
+                movieTypeElement.innerText = allScreenInfo['screenInfoMovieState'];
+                const branchElement = window.document.createElement('p');
+                branchElement.classList.add('branch');
+                branchElement.innerText = allScreenInfo['screenInfoBranchText']
+                const dateElement = window.document.createElement('p');
+                dateElement.classList.add('date');
+                const dateSpanElement = window.document.createElement('span');
+                dateSpanElement.innerText = allScreenInfo['screenInfoDate'];
+                const dateEmElement = window.document.createElement('em');
+                const timeElement = window.document.createElement('span');
+                timeElement.classList.add('time');
+                timeElement.innerText = allScreenInfo['screenInfoMovieStartTime'] + '~' + allScreenInfo['screenInfoMovieEndTime'];
+                const clockIconElement = window.document.createElement('i');
+                clockIconElement.classList.add('fa-regular', 'fa-clock');
+                clockIconElement.append(timeElement);
+                dateElement.append(dateSpanElement, dateEmElement, clockIconElement);
+                titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement, branchElement, dateElement);
+                seatPayWrap.prepend(titleAreaElement);
+            });
+    }
+}
+//좌석 클릭 시
+const seatArea = container.querySelector('[rel="seatArea"]');
+let selectedSeats = container.querySelectorAll('[rel="selectedSeat"]');
+const seatsContainer = window.document.querySelector('.seats');
+const drawSeat = () => {
+    const audIndexSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
+    const selectedAudIndex = audIndexSelected.map(x => parseInt(x.dataset.audIndex));
+    const seatColumnElement = window.document.createElement('div');
+    seatColumnElement.classList.add('seat-column');
+    screenInfoSeatColumns
+        .forEach(seatColumn => {
+            const columnElement = window.document.createElement('button');
+            columnElement.classList.add('column');
+            columnElement.setAttribute('rel', 'column');
+            columnElement.setAttribute('type', 'button');
+            columnElement.innerText = seatColumn['seatColumnText'];
+            seatColumnElement.append(columnElement);
+        });
+    const seatRowElement = window.document.createElement('div');
+    seatRowElement.classList.add('seat-row');
+    screenInfoSeats
+        .filter(seat => selectedAudIndex.indexOf(seat['seatAuditoriumIndex']) > -1)
+        .forEach(seat => {
+            const rowElement = window.document.createElement('button');
+            rowElement.classList.add('row');
+            rowElement.setAttribute('rel', 'row');
+            rowElement.setAttribute('value', seat['seatCode']);
+            rowElement.setAttribute('type', 'button');
+            rowElement.innerText = seat['seatRow'];
+            rowElement.dataset.audIndex = seat['seatAuditoriumIndex'];
+            rowElement.dataset.seatIndex = seat['seatIndex'];
+            rowElement.dataset.seatCode = seat['seatCode'];
+            seatRowElement.append(rowElement);
+            seatsContainer.append(seatColumnElement, seatRowElement);
+        });
+    const seats = seatArea.querySelectorAll('[rel="row"]');
+    for (let i = 0; i < seats.length; i++) {
+        const seat = seats[i];
+        seat.addEventListener('click', () => {
+            if (totalCnt === '0') {
+                alert('인원을 먼저 선택해주세요.');
+                return;
+            }
+            let chosenSeatCnt = seatArea.querySelectorAll('.row.on').length
+            chosenSeatTotalCnt = chosenSeatCnt + 1
+            if (chosenSeatCnt + 1 > totalCnt && !seat.classList.contains('on')) {
+                alert('좌석 선택이 완료되었습니다.');
+                return;
+            }
+            if (seat.classList.contains('on')) {
+                seat.classList.remove('on');
+                const selections = Array.from(selectedSeats);
+                const selection = selections.filter(x => x.textContent === seat.value)[0];
+                selection.classList.remove('choice');
+                selection.innerText = '-';
+            } else {
+                seat.classList.add('on');
+                const selections = Array.from(selectedSeats);
+
+                for (let selection of selections) {
+                    if (!selection.classList.contains('choice')) {
+                        selection.classList.add('choice');
+                        selection.innerText = `${seat.value}`;
+                        break;
+                    }
+                }
+            }
+
+            sortSelections();
+        });
+    }
+}
+
+
+//좌석 정렬 함수
+const sortSelections = () => {
+    const selections = Array.from(selectedSeats);
+    let lastOrder = 0;
+    for (let selection of selections) {
+        if (!selection.classList.contains('choice')) {
+            selection.style.order = '999';
+        } else {
+            const row = selection.textContent.slice(0, 1).codePointAt(0);
+            const col = parseInt(selection.textContent.slice(1, 2));
+            const order = (row * 10) + col;
+            selection.style.order = order;
+        }
+    }
+}
+
+let chosenSeatTotalCnt = 0;
+
+//좌석 선택에서 다음 클릭 시
+const seatNext = container.querySelector('.next');
+seatNext.addEventListener('click', () => {
+    let selectedSeat = container.querySelectorAll('.seat.choice').length;
+    if (totalCnt > selectedSeat) {
+        alert('인원 수에 맞게 좌석을 선택해주세요.');
+        return;
+    }
+    if (chosenSeatTotalCnt === 0) {
+        alert('인원 및 좌석 선택을 먼저 해주세요.');
+        return;
+    }
+    seatSelectPayment.classList.add('on');
+    seatSelect.classList.remove('on');
+    drawPaySeatResult();
+});
 
 
 // 최초 예매사이트 접속시 한번 SELECT
@@ -499,6 +747,8 @@ xhr.onreadystatechange = () => {
             allScreenInfos = responseJson['allScreenInfo'];
             branches = responseJson['branch'];
             movieTitles = responseJson['movieTitle'];
+            screenInfoSeats = responseJson['seat'];
+            screenInfoSeatColumns = responseJson['seatColumn'];
             drawListBox();
             drawBranches();
         } else {
@@ -520,6 +770,52 @@ region.addEventListener('click', e => {
         drawSubs()
     }
 });
+// const completePaymentBtn = container.querySelector('[rel="completePaymentBtn"]');
+//  completePaymentBtn.addEventListener('click', () => {
+form.onsubmit = e => {
+    e.preventDefault();
+    const selectBooking = Array.from(window.document.querySelectorAll('.row.on'));
+    const movieTimeSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
+    for (let i = 0; i < selectBooking.length; i++) {
+        const seatCodes = selectBooking.map(x => x.value); // A7
+        const seatIndexs = selectBooking.map(x => x.dataset.seatIndex);
+        const seatScreenInfoIndexs = movieTimeSelected.find(x => x.dataset.screenInfoIndex);
+        let seatIndex = seatIndexs[i];
+        let seatCode = seatCodes[i];
+        let screenInfoIndex = seatScreenInfoIndexs.dataset.screenInfoIndex;
+        console.log('seatIndex : ' + seatIndex);
+        console.log('seatCode : ' + seatCode);
+        console.log('sid : ' + screenInfoIndex);
+
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
+        formData.append('screenInfoIndex', screenInfoIndex);
+        formData.append('seatIndex', seatIndex);
+        formData.append('seatSumCode', seatCode);
+        xhr.open('POST', './booking');
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    const responseObject = JSON.parse(xhr.responseText);
+                    switch (responseObject['result']) {
+                        case 'success':
+                            window.location.href = '/';
+                            break;
+                        default:
+                            alertThree();
+                            break;
+                    }
+                } else {
+                    alertFour();
+                }
+
+            }
+
+        };
+        xhr.send(formData);
+    }
+}
+// })
 
 
 const timeWrap = window.document.querySelector('.time-wrap');
@@ -645,4 +941,10 @@ function alertOne() {
     swal("알림", "극장은 최대 3개까지 선택이 가능합니다.");
 }
 
+function alertThree() {
+    swal("속보", '결제실패');
+}
 
+function alertFour() {
+    swal("속보", '알수 없는 이유로 결제에 실패했습니다.');
+}

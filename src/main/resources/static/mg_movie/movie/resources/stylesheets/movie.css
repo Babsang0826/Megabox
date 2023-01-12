@@ -473,7 +473,6 @@ main > .container > .page-util > .inner-wrap > .location > a:first-of-type:hover
     justify-content: flex-start;
     width: 100%;
     margin-top: 0.9rem;
-    padding: 0 0 0 1.875rem;
     line-height: 1.5rem;
 }
 
@@ -492,9 +491,9 @@ main > .container > .page-util > .inner-wrap > .location > a:first-of-type:hover
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
-    padding: 0.125rem 0 0 0.0625rem;
     font-size: 1.25rem;
     font-weight: inherit;
+    margin-left: 0.5rem;
 }
 
 /*.contents > .inner-wrap > .movie-list > ol > .movie > .movie-info > .grade {*/

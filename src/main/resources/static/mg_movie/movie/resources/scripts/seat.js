@@ -14,11 +14,9 @@ const data = container.querySelectorAll('.data');
 const price = payArea.querySelector('.price');
 const totalPrice = container.querySelector('.total-price');
 const finalPrice = container.querySelector('[rel="finalPrice"]');
-
-
-const adultPrice = 12000;
-const teenagerPrice = 9000;
-const etcPrice = 5000;
+const adultPrice = container.querySelector('.adultPrice');
+const teenagerPrice = container.querySelector('.teenagerPrice');
+const etcPrice = container.querySelector('.etcPrice');
 
 
 let person = Array.from(texts);
@@ -37,7 +35,6 @@ for (let i = 0; i < cell.length; i++) {
     plusBtn.addEventListener('click', () => {
         number = parseInt(number) + 1;
         totalCnt = parseInt(totalCnt) + 1;
-
         if (totalCnt === 9) {
             alert('최대 8명까지 가능합니다');
             totalCnt = 8;
@@ -56,7 +53,9 @@ for (let i = 0; i < cell.length; i++) {
         }
 
         if (korean.test(dataTitle[i].innerText) === true) {
-            data[i].style.display = 'block';
+            data[i].style.display = 'flex';
+            data[i].style.alignItems = 'center';
+            data[i].style.justifyContent = 'space-between';
         }
 
         let adultTotalPrice = `${parseInt(adultCount.innerText) * 12000}`
@@ -67,21 +66,28 @@ for (let i = 0; i < cell.length; i++) {
         price.innerText = sumPrice;
         totalPrice.innerText = sumPrice;
         finalPrice.innerText = sumPrice;
+        adultPrice.innerText = adultTotalPrice;
+        teenagerPrice.innerText = teenagerTotalPrice;
+        etcPrice.innerText = etcTotalPrice;
     });
 
     totalCnt = number;
 
     minusBtn.addEventListener('click', () => {
+
         number = parseInt(number) - 1;
         if (number < 0) {
             number = 0;
         }
         totalCnt -= 1;
         let chosenSeatCnt = seatArea.querySelectorAll('.row.on').length;
+        console.log(totalCnt)
 
         //인원의 총 합이 선택된 좌석 수 보다 적을 시
         if (totalCnt < chosenSeatCnt) {
             if (!confirm('좌석을 초기화하시겠습니까?')) {
+                totalCnt += 1;
+                number += 1;
                 return;
             }
             return window.location.reload();
@@ -106,7 +112,9 @@ for (let i = 0; i < cell.length; i++) {
         price.innerText = sumPrice;
         totalPrice.innerText = sumPrice;
         finalPrice.innerText = sumPrice;
-
+        adultPrice.innerText = adultTotalPrice;
+        teenagerPrice.innerText = teenagerTotalPrice;
+        etcPrice.innerText = etcTotalPrice;
     });
 }
 
@@ -122,93 +130,8 @@ for (let i = 0; i < resetBtn.length; i++) {
     })
 }
 
-//좌석 클릭 시
-const seatArea = container.querySelector('[rel="seatArea"]');
-const seats = seatArea.querySelectorAll('[rel="row"]');
-let selectedSeats = container.querySelectorAll('[rel="selectedSeat"]');
 
-//좌석 정렬 함수
-const sortSelections = () => {
-    const selections = Array.from(selectedSeats);
-    let lastOrder = 0;
-    for (let selection of selections) {
-        if (!selection.classList.contains('choice')) {
-            selection.style.order = '999';
-        } else {
-            const row = selection.textContent.slice(0,1).codePointAt(0);
-            const col = parseInt(selection.textContent.slice(1,2));
-            const order = (row * 10) + col;
-            selection.style.order = order;
-        }
-    }
-}
 
-let chosenSeatTotalCnt = 0;
-
-for (let i = 0; i < seats.length; i++) {
-    const seat = seats[i];
-    seat.addEventListener('click', () => {
-        if (totalCnt === '0') {
-            alert('인원을 먼저 선택해주세요.');
-            return;
-        }
-        let chosenSeatCnt = seatArea.querySelectorAll('.row.on').length
-        chosenSeatTotalCnt = chosenSeatCnt + 1
-
-        if (chosenSeatCnt + 1 > totalCnt && !seat.classList.contains('on')) {
-            alert('좌석 선택이 완료되었습니다.');
-            return;
-        }
-
-        if (seat.classList.contains('on')) {
-            seat.classList.remove('on');
-            const selections = Array.from(selectedSeats);
-            const selection = selections.filter(x => x.textContent === seat.value)[0];
-            selection.classList.remove('choice');
-            selection.innerText = '-';
-        } else {
-        seat.classList.add('on');
-        const selections = Array.from(selectedSeats);
-            for (let selection of selections) {
-                if (!selection.classList.contains('choice')) {
-                    selection.classList.add('choice');
-                    selection.innerText = `${seat.value}`;
-                    break;
-                }
-            }
-        }
-        sortSelections();
-    });
-}
-
-//좌석 선택에서 다음 클릭 시
-const seatNext = container.querySelector('.next');
-seatNext.addEventListener('click', () => {
-    let selectedSeat = container.querySelectorAll('.seat.choice').length;
-    if (totalCnt > selectedSeat - 1) {
-        alert('인원 수에 맞게 좌석을 선택해주세요.');
-        return;
-    }
-    if (chosenSeatTotalCnt === 0) {
-        alert('인원 및 좌석 선택을 먼저 해주세요.');
-        return;
-    }
-    seatSelectPayment.classList.add('on');
-    seatSelect.classList.remove('on');
-});
-
-const moviePrice = [12000, 9000, 5000];
-const eachPrice = container.querySelector('.price');
-// const totalPrice = container.querySelector('.total-price');
-//
-// for (let i = 0; i < eachPrice.length; i++) {
-//     eachPrice[i].innerText = moviePrice[i] * counts[i];
-//     // totalPrice.innerText = eachPrice[i];
-//     let sum = 0;
-//     sum += eachPrice[i];
-//     console.log('sum : ' + sum)
-//     totalPrice.innerText = sum;
-// }
 
 
 //payment 버튼 이벤트
@@ -253,8 +176,5 @@ for (let i = 0; i < paymentChecks.length; i++) {
         }
     });
 }
-
-
-
 
 

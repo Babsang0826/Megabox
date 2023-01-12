@@ -42,6 +42,7 @@ public interface IMovieMapper {
     BookingEntity[] selectBooking();
     SeatVo[] selectSeatVo();
     SeatVo[] selectSeatVoGroupByColumn();
+
     MovieScreenInfoVo[] selectScreenInfos();
 //    MovieScreenInfoVo[] selectScreenInfoByOptionalList();
     MovieVo[] selectMoviesByKeyword(@Param(value = "keyword") String keyword);
@@ -50,7 +51,7 @@ public interface IMovieMapper {
 
     BookingEntity selectMovieVosById(@Param(value = "id") String Id);
 
-
+    int insertBooking(BookingEntity booking);
     int insertComment(MovieCommentEntity comment);
 
     int updateUser(UserEntity user);

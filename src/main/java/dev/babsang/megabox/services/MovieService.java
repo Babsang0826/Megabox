@@ -81,7 +81,9 @@ public class MovieService {
         return this.movieMapper.selectMovieVoByListBox();
     }
 
-    public BookingEntity getMovieVosById(String id) { return this.movieMapper.selectMovieVosById(id); }
+    public BookingEntity getMovieVosById(String id) {
+        return this.movieMapper.selectMovieVosById(id);
+    }
 
     public BookingEntity[] getBookings() {
         return this.movieMapper.selectBooking();
@@ -124,8 +126,14 @@ public class MovieService {
         signedUser.setAddressPostal(newUser.getAddressPostal());
         signedUser.setAddressPrimary(newUser.getAddressPrimary());
         signedUser.setAddressSecondary(newUser.getAddressSecondary());
-
         return this.movieMapper.updateUser(signedUser) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    @Transactional
+    public Enum<? extends IResult> booking(BookingEntity booking) {
+        return this.movieMapper.insertBooking(booking) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }

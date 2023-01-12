@@ -1,5 +1,7 @@
 package dev.babsang.megabox.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
@@ -11,11 +13,13 @@ import dev.babsang.megabox.vos.movie.SeatVo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 
 @Controller(value = "dev.babsang.megabox.controllers.MovieController")
@@ -116,7 +120,7 @@ public class MovieController {
         }
         modelAndView.addObject("mid", mid);
         int rank = 0;
-        System.out.println("rank : " + rank);
+//        System.out.println("rank : " + rank);
 
         for (int i = 0; i < movies.length; i++) {
             if (movie.equals(movies[i])) {
@@ -140,7 +144,6 @@ public class MovieController {
             responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
         } else {
             comment.setUserId(user.getId());
-//            comment.setUserId("choi4349");
             comment.setMid(mid);
             Enum<?> result = this.movieService.writeComment(comment);
             responseObject.put("result", result.name().toLowerCase());
@@ -185,7 +188,7 @@ public class MovieController {
     }
 
     @RequestMapping(value = "booking", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getFastReservation() {
+    public ModelAndView getBooking() {
         ModelAndView modelAndView = new ModelAndView("movie/booking");
         MovieEntity[] movies = this.movieService.getMovies();
         RegionEntity region = this.movieService.getRegion();
@@ -202,6 +205,16 @@ public class MovieController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "booking", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postBooking(@SessionAttribute(value = "user", required = false) UserEntity user, BookingEntity booking) {
+        booking.setUserId(user.getId());
+        Enum<?> result = this.movieService.booking(booking);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
     @RequestMapping(value = "booking", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchBooking() {
@@ -211,21 +224,40 @@ public class MovieController {
             branchJson.put("index", branch.getIndex());
             branchJson.put("text", branch.getText());
             branchJson.put("regionIndex", branch.getRegionIndex());
-
             branchesJson.put(branchJson);
         }
         // 상영지점 JSONArray
 
         JSONArray moviesJson = new JSONArray();
-        for(MovieVo movie : this.movieService.getMovieVoByList()) {
+        for (MovieVo movie : this.movieService.getMovieVoByList()) {
             JSONObject movieJson = new JSONObject();
             movieJson.put("movieIndex", movie.getIndex());
             movieJson.put("movieTitle", movie.getTitle());
             movieJson.put("movieBranchIndex", movie.getMovieBranchIndex());
-            movieJson.put("movieReleaseDate",new SimpleDateFormat("yyyy-MM-dd").format(movie.getReleaseDate()));
+            movieJson.put("movieReleaseDate", new SimpleDateFormat("yyyy-MM-dd").format(movie.getReleaseDate()));
             movieJson.put("movieAgeLimit", movie.getAgeLimit());
-            System.out.println(movie.getMovieScreenDate());
             moviesJson.put(movieJson);
+        }
+
+        JSONArray seatsJson = new JSONArray();
+        for (SeatVo seat : this.movieService.getSeatVos()) {
+            JSONObject seatJson = new JSONObject();
+            seatJson.put("seatIndex", seat.getIndex());
+            seatJson.put("seatColumnIndex", seat.getColumnIndex());
+            seatJson.put("seatColumnText", seat.getColumnText());
+            seatJson.put("seatRow", seat.getRow());
+            seatJson.put("seatAuditoriumIndex", seat.getAuditoriumIndex());
+            seatJson.put("seatCode", seat.getSeatCode());
+            seatsJson.put(seatJson);
+        }
+
+        JSONArray seatColumnsJson = new JSONArray();
+        for (SeatVo seatColumn : this.movieService.getSeatVosGroupByColumn()) {
+            JSONObject seatColumnJson = new JSONObject();
+            seatColumnJson.put("seatColumnNumberOfColumn", seatColumn.getNumberOfColumn());
+            seatColumnJson.put("seatColumnAudIndex", seatColumn.getAuditoriumIndex());
+            seatColumnJson.put("seatColumnText", seatColumn.getColumnText());
+            seatColumnsJson.put(seatColumnJson);
         }
 
         JSONArray screenInfosAllJson = new JSONArray();
@@ -253,6 +285,8 @@ public class MovieController {
         responseJson.put("allScreenInfo", screenInfosAllJson);
         responseJson.put("branch", branchesJson);
         responseJson.put("movieTitle", moviesJson);
+        responseJson.put("seat", seatsJson);
+        responseJson.put("seatColumn", seatColumnsJson);
         return responseJson.toString();
     }
 
@@ -279,7 +313,6 @@ public class MovieController {
         Enum<?> result = this.movieService.myPageAuth(signedUser);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
-
         return responseObject.toString();
     }
 
