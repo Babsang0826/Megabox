@@ -10,6 +10,14 @@
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="page-util" id="pageUtil">
+    <div class="inner-wrap">
+        <div class="location">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{./myPage}">나의 메가박스</a>
+        </div>
+    </div>
+</div>
 <div class="container" id="container">
     <div class="inner-wrap">
         <input type="hidden" th:value="${session.user.getId}" rel="id">
@@ -101,9 +109,14 @@
                                 <p class="title">최근 방문 극장</p>
                             </div>
                             <div class="list">
-                                <li>북대구(칠곡)</li>
-                                <li>경산하양</li>
-                                <li>동대구(신세계)</li>
+                                <li th:each="bookingKey, index : ${bookingMap.keySet().toArray()}"
+                                    th:if="${index.index} < 3"
+                                    th:with="bookingList = ${bookingMap.get(bookingKey)}"
+                                    th:text="${bookingList.get(0).getBranchText()}">
+                                </li>
+<!--                                <li>북대구(칠곡)</li>-->
+<!--                                <li>경산하양</li>-->
+<!--                                <li>동대구(신세계)</li>-->
                             </div>
                         </div>
                         <div class="coupon">
@@ -130,13 +143,75 @@
                 <div class="myBook">
                     <div class="book-title">
                         <h2 class="title">나의 예매내역</h2>
-                        <a href="#" class="more">더보기</a>
+                        <a href="#" class="more">더보기
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
                     </div>
                     <div class="book-history">
                         <ul>
-                            <li class="no-result">
+                            <li class="no-result" th:if="${bookingHistories.length == 0}">
                                 <div>예매 내역이 없습니다.</div>
                             </li>
+                            <li th:each="bookingKey : ${bookingMap.keySet().toArray()}"
+                                th:with="bookingList = ${bookingMap.get(bookingKey)}">
+                                <p class="img">
+                                    <img alt="" th:src="${bookingList.get(0).getMoviePoster()}">
+                                </p>
+                                <div class="cont">
+                                    <p class="ticket">
+                                        예매 번호 :
+                                        <em th:text="${bookingList.get(0).getIndex()}">1234-123-12345</em>
+                                    </p>
+                                    <div>
+                                        <p th:text="${bookingList.get(0).getTitle()}">아바타: 물의 길/2D(자막)</p>
+                                        <p class="theater"
+                                           th:text="${bookingList.get(0).getBranchText()} + ' / ' + ${bookingList.get(0).getAuditoriumText()}">
+                                            북대구(칠곡)/6관</p>
+                                    </div>
+                                    <p rel="seatContainer">
+                                        <span hidden rel="seat"
+                                              th:each="bookingVo : ${bookingList}"
+                                              th:data-payment="${bookingVo.getPayment()}"
+                                              th:data-seat="${bookingVo.getColumnText() + bookingVo.getRow()}">
+                                        </span>
+                                    </p>
+                                    <!--                                    <p>성인1-->
+                                    <!--                                        <span>좌석 :-->
+                                    <!--                                            <em th:text="${bookingHistory.getColumnText} + ${bookingHistory.getRow()}">E5</em>-->
+                                    <!--                                        </span>-->
+                                    <!--                                    </p>-->
+                                    <p class="date"
+                                       th:text="${#dates.format(bookingList.get(0).getScreenDate(), 'yyyy.MM.dd')} + ' (' + ${bookingList.get(0).getDayOfWeek()} + ') ' + ${#dates.format(bookingList.get(0).getMvStartTime(), 'HH:mm')}">
+                                        2023.01.10 (화) 20:30</p>
+                                </div>
+                                <div class="cancel">
+                                    <button class="book-cancel">예매취소</button>
+                                </div>
+                            </li>
+                            <!--                            <li th:each="bookingHistory : ${bookingHistories}">-->
+                            <!--                                <p class="img">-->
+                            <!--                                    <img alt="" th:src="${bookingHistory.getMoviePoster()}">-->
+                            <!--                                </p>-->
+                            <!--                                <div class="cont">-->
+                            <!--                                    <p class="ticket">-->
+                            <!--                                        예매 번호 :-->
+                            <!--                                        <em th:text="${bookingHistory.getIndex}">1234-123-12345</em>-->
+                            <!--                                    </p>-->
+                            <!--                                    <p th:text="${bookingHistory.getTitle}">아바타: 물의 길/2D(자막)</p>-->
+                            <!--                                    <p class="theater"-->
+                            <!--                                       th:text="${bookingHistory.getBranchText()} + ' / ' + ${bookingHistory.getAuditoriumText()}">-->
+                            <!--                                        북대구(칠곡)/6관</p>-->
+                            <!--                                    <p>성인1-->
+                            <!--                                        <span>좌석 :-->
+                            <!--                                        <em th:text="${bookingHistory.getColumnText} + ${bookingHistory.getRow()}">E5</em>-->
+                            <!--                                    </span>-->
+                            <!--                                    </p>-->
+                            <!--                                    <p class="date" th:text="${#dates.format(bookingHistory.getScreenDate(), 'yyyy.MM.dd')} + ' (' + ${bookingHistory.getDayOfWeek()} + ') ' + ${#dates.format(bookingHistory.getMvStartTime(), 'HH:mm')}">2023.01.10 (화) 20:30</p>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="cancel">-->
+                            <!--                                    <button class="book-cancel">예매취소</button>-->
+                            <!--                                </div>-->
+                            <!--                            </li>-->
                         </ul>
                     </div>
                 </div>

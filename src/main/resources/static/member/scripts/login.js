@@ -23,7 +23,10 @@ form.onsubmit = (e) => {
                 switch (responseObject['result']) {
                     case'success':
                         alert('로그인이 완료되었습니다..')
-                        window.location.href = "http://localhost:8080"
+                        // window.location.href = "http://localhost:8080"
+                        window.history.length < 2
+                            ? window.location.href = 'http://localhost:8080'
+                            : window.history.back();
                         break;
                     case'failure':
                         alert('로그인에 실패하였습니다.')

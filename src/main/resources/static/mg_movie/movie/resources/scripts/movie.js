@@ -34,6 +34,15 @@ const commingMovieContainer = contents.querySelector('#commingMovieContainer');
 let movies = movieContainer.querySelectorAll('.movie');
 const commingMovies = commingMovieContainer.querySelectorAll('.movie');
 
+toggle.addEventListener('input', () => {
+    let count = 0;
+    movieContainer.querySelectorAll(':scope > .movie').forEach(movie => {
+        movie.style.display = toggle.checked && movie.dataset.opened === 'false' ? 'none' : 'list-item';
+        count += movie.style.display !== 'none' ? 1 : 0;
+    });
+    document.querySelector('.searchCnt').innerText = count;
+});
+
 // for (let i = 0; i < movies.length; i++) {
     for (let j = 0; j < commingMovies.length; j++) {
         console.log(commingMovies[j]);
@@ -43,7 +52,17 @@ const commingMovies = commingMovieContainer.querySelectorAll('.movie');
 //
 // }
 
+const expForm = document.getElementById('expForm');
+expForm.addEventListener('submit', e => {
+    e.preventDefault();
 
+    commingMovies.forEach(movie => {
+        const title = movie.querySelector('[rel="title"]').innerText;
+        const keyword = expForm['keyword'].value;
+        console.log(title + ' ~ ' + keyword)
+        movie.style.display = keyword === '' || title.indexOf(keyword) > -1 ? 'list-item' : 'none';
+    });
+});
 
 
 

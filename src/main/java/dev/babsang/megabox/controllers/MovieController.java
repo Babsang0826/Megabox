@@ -5,6 +5,7 @@ import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.services.MovieService;
+import dev.babsang.megabox.vos.movie.BookingVo;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
 import dev.babsang.megabox.vos.movie.SeatVo;
@@ -16,7 +17,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.awt.print.Book;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller(value = "dev.babsang.megabox.controllers.MovieController")
 @RequestMapping(value = "movie")
@@ -37,6 +46,9 @@ public class MovieController {
 
         //전체 영화
 //        MovieVo[] movies = this.movieService.getMovieVos();
+        if (keyword == null) {
+            keyword = "";
+        }
         MovieVo[] movies = this.movieService.getMovieVosKeyword(keyword);
         BookingEntity[] booking = this.movieService.getBookings();
         for (MovieVo movie : movies) {
@@ -247,88 +259,6 @@ public class MovieController {
         modelAndView.addObject("seatVos", seatVos);
 
         return modelAndView;
-    }
-
-    @RequestMapping(value = "myPage",
-            method = RequestMethod.GET,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getMyPage(@SessionAttribute(value = "user", required = false) UserEntity user) {
-        ModelAndView modelAndView = new ModelAndView("member/myPage");
-        BookingEntity booking = this.movieService.getMovieVosById(user.getId());
-        if (booking == null) {
-            modelAndView.addObject("point", 0);
-        } else {
-            modelAndView.addObject("point", booking.getPayment() / 200);
-        }
-
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "myPage",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String postMyPage(@SessionAttribute(value = "user", required = false) UserEntity signedUser) {
-        Enum<?> result = this.movieService.myPageAuth(signedUser);
-        JSONObject responseObject = new JSONObject();
-        responseObject.put("result", result.name().toLowerCase());
-
-        return responseObject.toString();
-    }
-
-    @RequestMapping(value = "modify",
-            method = RequestMethod.GET,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getModify() {
-        ModelAndView modelAndView = new ModelAndView("member/myPage-modify");
-
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "modify",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String postModify(@SessionAttribute(value = "user", required = false) UserEntity signedUser,
-                             UserEntity newUser) {
-        JSONObject responseObject = new JSONObject();
-        Enum<? extends IResult> result = this.movieService.updateUser(signedUser, newUser);
-        responseObject.put("result", result.name().toLowerCase());
-
-        return responseObject.toString();
-    }
-
-    @RequestMapping(value = "modify",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String deleteMyPage(@SessionAttribute(value = "user", required = false) UserEntity signedUser) {
-        Enum<?> result = this.movieService.deleteUser(signedUser);
-        JSONObject responseObject = new JSONObject();
-        responseObject.put("result", result.name().toLowerCase());
-
-        return responseObject.toString();
-    }
-
-    @RequestMapping(value = "recoverPassword",
-            method = RequestMethod.GET,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getChangePw() {
-        ModelAndView modelAndView = new ModelAndView("member/recoverPassword");
-
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "recoverPassword",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String postRecoverPassword(@SessionAttribute(value = "user") UserEntity signedUser, UserEntity newUser) {
-        Enum<?> result = this.movieService.updatePassword(signedUser, newUser);
-        JSONObject responseObject = new JSONObject();
-        responseObject.put("result", result.name().toLowerCase());
-
-        return responseObject.toString();
     }
 
     @RequestMapping(value = "bookingComplete",

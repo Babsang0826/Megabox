@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.babsang.megabox.mappers.IMyPageMapper">
+    <select id="selectUserByContact" resultType="dev.babsang.megabox.entities.member.UserEntity">
+        select email             as email,
+               `name`            as `name`,
+               birthday          as birthday,
+               contact           as contact,
+               id                as id
+        from mg_member.users
+        where contact = #{contact}
+    </select>
+
+    <select id="selectBookingById" resultType="dev.babsang.megabox.vos.movie.BookingVo">
+        select booking.`index`             as `index`,
+               booking.screen_info_index   as screenInfoIndex,
+               booking.user_id             as userId,
+               booking.seat_index          as seatIndex,
+               booking.payment             as payment,
+               screenInfo.`index`          as screenInfoIndex,
+               screenInfo.movie_index      as movieIndex,
+               screenInfo.screen_date      as screenDate,
+               screenInfo.mv_start_time    as mvStartTime,
+               screenInfo.auditorium_index as auditoriumIndex,
+               seat.column_text            as columnText,
+               seat.row                    as `row`,
+               movie.title                 as title,
+               movie.screen_type           as screenType,
+               movie.movie_poster          as moviePoster,
+               auditorium.text             as auditoriumText,
+               auditorium.branch_index     as branchIndex,
+               branch.text                 as branchText
+        from mg_movie.booking as booking
+                 left join mg_movie.screen_info as screenInfo on screenInfo.index = booking.screen_info_index
+                 left join mg_movie.seats as seat on seat.index = booking.seat_index
+                 left join mg_movie.movies as movie on movie.index = screenInfo.movie_index
+                 left join mg_movie.auditoriums as auditorium on auditorium.`index` = screenInfo.auditorium_index
+                 left join mg_movie.branch as branch on branch.`index` = auditorium.branch_index
+        where user_id = #{userId}
+    </select>
+
+    <select id="selectMovieVosById" resultType="dev.babsang.megabox.entities.movie.BookingEntity">
+        SELECT `index`           as `index`,
+               screen_info_index as screenInfoIndex,
+               user_id           as userId,
+               seat_index        as seatIndex,
+               sum(payment)      as payment
+        from mg_movie.booking
+        where user_id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="dev.babsang.megabox.entities.member.UserEntity">
+        update mg_member.users
+        set email    = #{email},
+            `name`   = #{name},
+            birthday = #{birthday},
+            contact  = #{contact},
+            id       = #{id},
+            `password` = #{password}
+        where email = #{email}
+        limit 1
+    </update>
+
+    <delete id="deleteUser">
+        delete
+        from mg_member.users
+        where email = #{email}
+        limit 1
+    </delete>
+</mapper>

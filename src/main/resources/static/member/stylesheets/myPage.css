@@ -12,7 +12,7 @@ body {
 .container {
     width: 100%;
     min-width: 1100px;
-    min-height: 100%;
+    min-height: auto;
     margin: -92px 0 -200px 0;
     padding: 92px 0 300px 0;
 }
@@ -316,6 +316,10 @@ em {
     color: #444;
 }
 
+.myBook > .book-title > .more > i {
+    color: #aaa;
+}
+
 .myBook > .book-title > .more:hover {
     color: #555;
     text-decoration: underline;
@@ -331,10 +335,19 @@ em {
 
 .myBook > .book-history > ul > li {
     position: relative;
+    min-height: 100px;
+    margin: 0;
+    padding: 30px 100px 30px 100px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.myBook > .book-history > ul > li.no-result {
+    position: relative;
     min-height: 140px;
     margin: 0;
     padding: 20px 100px 20px 100px;
     border-bottom: 1px solid #eaeaea;
+    /*display: none;*/
 }
 
 .myBook > .book-history > ul > li.no-result > div {
@@ -346,3 +359,89 @@ em {
     /*border: 1px solid #ddd;*/
 }
 
+.myBook > .book-history > ul > li > .img {
+    position: absolute;
+    left: 0;
+    top: 23px;
+    width: 90px;
+    height: 100px;
+    font-size: 0;
+    line-height: 0;
+}
+
+.myBook > .book-history > ul > li > .img > img {
+    width: 100%;
+    min-height: 100px;
+    height: auto;
+}
+
+.myBook > .book-history > ul > li > .cont {
+    line-height: 1.1;
+}
+
+.myBook > .book-history > ul > li > .cont > .ticket {
+    padding: 0 0 10px 0;
+}
+
+.myBook > .book-history > ul > li > .cont > div {
+    display: flex;
+    align-items: center;
+    height: 16.5px;
+}
+
+.myBook > .book-history > ul > li > .cont > div > p:last-of-type {
+    margin: 0;
+    display: flex;
+}
+
+.myBook > .book-history > ul > li > .cont > div > p:last-of-type:before {
+    content: '';
+    display: block;
+    width: 0.0625rem;
+    height: 1rem;
+    margin: 0 7px 0 7px;
+    background-color: #bbb;
+}
+
+.myBook > .book-history > ul > li > .cont > p {
+    margin: 0;
+    padding-top: 7px;
+}
+
+.myBook > .book-history > ul > li > .cont > p > em {
+    display: inline-block;
+    color: #01738b;
+    letter-spacing: 0;
+}
+
+.myBook > .book-history > ul > li > .cont > p > span {
+    display: inline-block;
+    position: relative;
+    margin: 0 0 0 6px;
+    padding: 0 0 0 8px;
+}
+
+.cancel {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 80px;
+    height: 44px;
+    margin: -22px 0 0 0;
+    text-align: right;
+}
+
+.cancel > .book-cancel {
+    color: #444;
+    line-height: 32px;
+    border: 1px solid #c1c1c1;
+    border-radius: 4px;
+    background-color: #fff;
+    height: 32px;
+    font-size: 14px;;
+}
+
+/**/
+span[rel="seat"] {
+    display: none !important;
+}

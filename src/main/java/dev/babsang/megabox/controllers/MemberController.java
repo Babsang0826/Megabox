@@ -38,7 +38,7 @@ public class MemberController {
     }
 
     @RequestMapping(value = "email",
-            method = RequestMethod.POST,
+            method = RequestMethod.PATCH,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postEmail(UserEntity user, EmailAuthEntity emailAuth) throws NoSuchAlgorithmException, MessagingException {
@@ -52,20 +52,20 @@ public class MemberController {
         return responseObject.toString();
     }
 
-    @RequestMapping(value = "email",
-            method = RequestMethod.PATCH,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String patchEmail(EmailAuthEntity emailAuth) {
-
-        Enum<?> result = this.memberService.verifyEmailAuth(emailAuth);
-        JSONObject responseObject = new JSONObject();
-        responseObject.put("result", result.name().toLowerCase());
-        if (result == CommonResult.SUCCESS) {
-            responseObject.put("email", emailAuth.getEmail());
-        }
-        return responseObject.toString();
-    }
+//    @RequestMapping(value = "email",
+//            method = RequestMethod.PATCH,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseBody
+//    public String patchEmail(EmailAuthEntity emailAuth) {
+//
+//        Enum<?> result = this.memberService.verifyEmailAuth(emailAuth);
+//        JSONObject responseObject = new JSONObject();
+//        responseObject.put("result", result.name().toLowerCase());
+//        if (result == CommonResult.SUCCESS) {
+//            responseObject.put("email", emailAuth.getEmail());
+//        }
+//        return responseObject.toString();
+//    }
 
 
     @RequestMapping(value = "register",

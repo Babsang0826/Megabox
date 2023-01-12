@@ -15,12 +15,9 @@ const data = container.querySelectorAll('.data');
 const price = payArea.querySelector('.price');
 const totalPrice = container.querySelector('.total-price');
 const finalPrice = container.querySelector('[rel="finalPrice"]');
-
-
-const adultPrice = 12000;
-const teenagerPrice = 9000;
-const etcPrice = 5000;
-
+const adultPrice = container.querySelector('.adultPrice');
+const teenagerPrice = container.querySelector('.teenagerPrice');
+const etcPrice = container.querySelector('.etcPrice');
 
 let person = Array.from(texts);
 let totalCnt;
@@ -58,7 +55,9 @@ for (let i = 0; i < cell.length; i++) {
         }
 
         if (korean.test(dataTitle[i].innerText) === true) {
-            data[i].style.display = 'block';
+            data[i].style.display = 'flex';
+            data[i].style.alignItems = 'center';
+            data[i].style.justifyContent = 'space-between';
         }
 
         let adultTotalPrice = `${parseInt(adultCount.innerText) * 12000}`
@@ -69,6 +68,9 @@ for (let i = 0; i < cell.length; i++) {
         price.innerText = sumPrice;
         totalPrice.innerText = sumPrice;
         finalPrice.innerText = sumPrice;
+        adultPrice.innerText = adultTotalPrice;
+        teenagerPrice.innerText = teenagerTotalPrice;
+        etcPrice.innerText = etcTotalPrice;
 
 
         console.log('찐 totalPrice : ' + totalPrice)
@@ -112,6 +114,9 @@ for (let i = 0; i < cell.length; i++) {
         price.innerText = sumPrice;
         totalPrice.innerText = sumPrice;
         finalPrice.innerText = sumPrice;
+        adultPrice.innerText = adultTotalPrice;
+        teenagerPrice.innerText = teenagerTotalPrice;
+        etcPrice.innerText = etcTotalPrice;
 
     });
 }
@@ -202,20 +207,6 @@ seatNext.addEventListener('click', () => {
     seatSelectPayment.classList.add('on');
     seatSelect.classList.remove('on');
 });
-
-const moviePrice = [12000, 9000, 5000];
-const eachPrice = container.querySelector('.price');
-// const totalPrice = container.querySelector('.total-price');
-//
-// for (let i = 0; i < eachPrice.length; i++) {
-//     eachPrice[i].innerText = moviePrice[i] * counts[i];
-//     // totalPrice.innerText = eachPrice[i];
-//     let sum = 0;
-//     sum += eachPrice[i];
-//     console.log('sum : ' + sum)
-//     totalPrice.innerText = sum;
-// }
-
 
 //payment 버튼 이벤트
 const seatSelect = container.querySelector('[rel="seatSelect"]');

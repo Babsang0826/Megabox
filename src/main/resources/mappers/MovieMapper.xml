@@ -34,30 +34,6 @@
 
     </select>
 
-    <select id="selectMovieByIndex" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
-        SELECT `index`            AS `index`,
-               `title`            AS `title`,
-               `title_en`         AS `titleEn`,
-               `release_date`     AS `releaseDate`,
-               `end_date`         AS `endDate`,
-               `summary`          AS `summary`,
-               `age_limit`        AS `ageLimit`,
-               `movie_state`      AS `movieState`,
-               `genre`            AS `genre`,
-               `director`         AS `director`,
-               `actor`            AS `actor`,
-               `running_time`     AS `runnungTime`,
-               `screen_type`      AS `screenType`,
-               `movie_poster`     AS `moviePoster`,
-               `background_image` AS `backgroundImage`,
-               `adult_price`      AS `adultPrice`,
-               `teenager_price`   AS `teenagerPrice`,
-               `etc_price`        AS `etcPrice`,
-               `score_avg`        AS `scoreAvg`
-        FROM `mg_movie`.`movies`
-        WHERE `index` = #{mid}
-    </select>
-
     <select id="selectMovies" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
         SELECT `index`            AS `index`,
                `title`            AS `title`,
@@ -244,35 +220,6 @@
                  LEFT JOIN `mg_movie`.`region` AS `region` ON `branch`.`region_index` = `region`.`index`
     </select>
 
-<!--        <select id="selectScreenInfoByOptionalList"-->
-<!--                resultType="dev.babsang.megabox.vos.movie.MovieScreenInfoVo">-->
-<!--            SELECT `screenInfo`.`index`            AS `index`,-->
-<!--                   `screenInfo`.`movie_index`      AS `movieIndex`,-->
-<!--                   `screenInfo`.`auditorium_index` AS `auditoriumIndex`,-->
-<!--                   `screenInfo`.`screen_date`      AS `screenDate`,-->
-<!--                   `screenInfo`.`mv_start_time`    AS `mvStartTime`,-->
-<!--                   `screenInfo`.`mv_end_time`      AS `mvEndTime`,-->
-<!--                   `movie`.`title`                 AS `infoMovieTitle`,-->
-<!--                   `movie`.`screen_type`           AS `infoMovieState`,-->
-<!--                   `auditorium`.`text`             AS `infoAudText`,-->
-<!--                   `branch`.`text`                 AS `infoBranchText`,-->
-<!--                   `region`.`text`                 AS `infoRegionText`-->
-<!--            FROM `mg_movie`.`screen_info` AS `screenInfo`-->
-<!--                     LEFT JOIN `mg_movie`.`movies` AS `movie`-->
-<!--                         ON `screenInfo`.`movie_index` = `movie`.`index`-->
-<!--                     LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`-->
-<!--                         ON `screenInfo`.`auditorium_index` = `auditorium`.`index`-->
-<!--                     LEFT JOIN `mg_movie`.`branch` AS `branch`-->
-<!--                         ON `auditorium`.`branch_index` = `branch`.`index`-->
-<!--                    LEFT JOIN `mg_movie`.`region` AS `region`-->
-<!--                         ON `branch`.`region_index` = `region`.`index`-->
-<!--                     WHERE `auditorium`.`text` = #{infoAudText}-->
-<!--                         AND `screenInfo`.`screen_date` = #{screenDate}-->
-<!--                     <if test="title != null">-->
-<!--                         AND `movie`.`title` = #{infoMovieTitle}-->
-<!--                     </if>-->
-<!--        </select>-->
-
     <select id="selectBooking" resultType="dev.babsang.megabox.entities.movie.BookingEntity">
         SELECT `index`             AS `index`,
                `screen_info_index` AS `screenInfoIndex`,
@@ -332,29 +279,6 @@
         order by `totalAudience` desc, release_date
     </select>
 
-    <select id="selectUserByContact" resultType="dev.babsang.megabox.entities.member.UserEntity">
-        select email             as email,
-               `name`            as `name`,
-               birthday          as birthday,
-               contact           as contact,
-               id                as id
-        from mg_member.users
-        where contact = #{contact}
-    </select>
-
-    <select id="selectUserByEmail" resultType="dev.babsang.megabox.entities.member.UserEntity">
-        select `name`            as `name`,
-               birthday          as birthday,
-               contact           as contact,
-               id                as id,
-               password          as password,
-               address_postal    as addressPostal,
-               address_primary   as addressPrimary,
-               address_secondary as addressSecondary
-        from mg_member.users
-        where email = #{email}
-    </select>
-
     <insert id="insertComment"
             useGeneratedKeys="true"
             keyProperty="index"
@@ -365,31 +289,4 @@
         VALUES (#{userId}, #{score}, #{recommendPoint}, #{content},
                 IFNULL(#{writtenOn}, DEFAULT(`written_on`)), #{mid})
     </insert>
-
-    <update id="updateUser" parameterType="dev.babsang.megabox.entities.member.UserEntity">
-        update mg_member.users
-        set email    = #{email},
-            `name`   = #{name},
-            birthday = #{birthday},
-            contact  = #{contact},
-            id       = #{id},
-            password = #{password}
-        where email = #{email}
-        limit 1
-    </update>
-
-    <update id="updatePassword" parameterType="dev.babsang.megabox.entities.member.UserEntity">
-        update mg_member.users
-        set password = #{password}
-        where email = #{email}
-        limit 1
-    </update>
-
-    <delete id="deleteUser">
-        delete
-        from mg_member.users
-        where email = #{email}
-        limit 1
-    </delete>
-
 </mapper>
