@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>theater-list</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/mg_movie/theater/stylesheets/time.css}">
+    <script defer th:src="@{/mg_movie/theater/scripts/time.js}"></script>
+    <script type="text/javascript"
+            src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=94a12e6ae62af8fbc88e09e7433d6c08"></script>
+</head>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="page-util" id="pageUtil">
+    <div class="inner-wrap">
+        <div class="location">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/theater/list}">극장</a>
+            <a th:href="@{/theater/list}">전체극장</a>
+            <a th:href="@{/theater/time (branchId = ${branchId})}">상영시간표</a>
+        </div>
+    </div>
+</div>
+<body>
+<form id="form" class="form">
+    <div id="contents" class="no-padding">
+<!--         theater-detail-page -->
+        <div class="theater-detail-page">
+            <div class="bg-img"></div>
+            <div class="bg-pattern"></div>
+            <div class="bg-mask"></div>
+            <!-- theater-all -->
+            <div class="theater-all">
+                <!-- theater-area-list -->
+                <div class="theater-area-list">
+                    <ul class="area-depth1">
+                        <li class="on">
+                            <a th:href="@{/theater/page (branchId = ${1})}" class="depth1">북대구(칠곡)</a>
+                        </li>
+                        <li class="">
+                            <a th:href="@{/theater/page (branchId = ${2})}" class="depth1">경북도청</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/theater/page (branchId = ${3})}" class="depth1">경산하양</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/theater/page (branchId = ${4})}" class="depth1">경주</a>
+                        </li>
+                        <li class="">
+                            <a th:href="@{/theater/page (branchId = ${5})}" class="depth1" id="a">구미강동</a>
+                        </li>
+                    </ul>
+                </div>
+                <p class="name" th:utext="${theater.getText()}"></p>
+            </div>
+        </div>
+        <div class="inner-wrap pt40">
+
+            <div class="tab-list fixed mb40 tab-layer">
+                <ul>
+                    <li class="on"><a th:href="@{/theater/page (branchId = ${branchId})}" title="극장정보 탭으로 이동">극장정보</a>
+                    </li>
+                    <li><a style="color: #503396;" th:href="@{/theater/time (branchId = ${branchId})}"
+                           title="상영시간표 탭으로 이동">상영시간표</a></li>
+                </ul>
+            </div>
+            <div class="reservation-box">
+                <div class="title">
+                    <span>상영시간표</span>
+                </div>
+                <div class="data-container">
+                    <div class="time-schedule">
+                        <button id="previousBtn" type="button">
+                            <i class="icon fa-solid fa-chevron-left"></i>
+                        </button>
+                        <div class="time-list">
+                            <div class="time-box">
+
+                            </div>
+                        </div>
+                        <button id="nextBtn" type="button">
+                            <i class="icon fa-solid fa-chevron-right"></i>
+                        </button>
+                        <button type="button">
+                            <i class="fa-solid fa-calendar"></i>
+                        </button>
+                    </div>
+
+                    <div class="theater-list-box" id="theaterListBox">
+<!--                        <div class="text-form">-->
+<!--                            <div class="theater-tit">-->
+<!--                                <p class="movie-grade age-12"></p>-->
+<!--                                <p><a href="#"></a></p>-->
+<!--                                <p class="information">-->
+<!--                                    <span>상영중</span>-->
+<!--                                    <span>상영시간</span></p>-->
+<!--                            </div>-->
+<!--                            <div class="theater-type-box">-->
+<!--                                <div class="theater-type">-->
+<!--                                    <p class="theater-name">몇관이냐</p>-->
+<!--                                    <p class="chair">63석</p>-->
+<!--                                </div>-->
+<!--                                <div class="theater-time">-->
+<!--                                    <div class="theater-type-area">2D냐</div>-->
+<!--                                    <div class="theater-time-box">-->
+<!--                                        <table class="time-list-table">-->
+<!--                                            <caption></caption>-->
+<!--                                            <colgroup>-->
+<!--                                                <col style="width:99px;">-->
+<!--                                                <col style="width:99px;">-->
+<!--                                                <col style="width:99px;">-->
+<!--                                                <col style="width:99px;">-->
+<!--                                                <col style="width:99px;">-->
+<!--                                                <col style="width:99px;">-->
+<!--                                                <col style="width:99px;">-->
+<!--                                                <col style="width:99px;">-->
+<!--                                            </colgroup>-->
+<!--                                            <tbody>-->
+<!--                                            <tr>-->
+<!--                                                <td>-->
+<!--                                                    <div class="td">-->
+<!--                                                        <div class="txt-center">-->
+<!--                                                            <a href="#">-->
+<!--                                                                <div class="ico-box">-->
+<!--                                                                    <i class="iconset ico-off"></i>-->
+<!--                                                                </div>-->
+<!--                                                                <p class="time">17:00</p>-->
+<!--                                                                <p class="chair">84석</p>-->
+<!--                                                            </a>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <div class="td">-->
+<!--                                                        <div class="txt-center">-->
+<!--                                                            <a href="#">-->
+<!--                                                                <div class="ico-box">-->
+<!--                                                                    <i class="iconset ico-off"></i>-->
+<!--                                                                </div>-->
+<!--                                                                <p class="time">17:00</p>-->
+<!--                                                                <p class="chair">84석</p>-->
+<!--                                                            </a>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+<!--                                            </tr>-->
+<!--                                            </tbody>-->
+<!--                                        </table>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                    <div class="box-border">
+                        <li>
+                            - 지연입장에 의한 관람불편을 최소화하고자 본 영화는 약 10분 후 시작됩니다.
+                        </li>
+                        <li>
+                            - 쾌적한 관람 환경을 위해 상영시간 이전에 입장 부탁드립니다.
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</html>
