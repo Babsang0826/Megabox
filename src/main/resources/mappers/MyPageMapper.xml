@@ -37,7 +37,7 @@
                  left join mg_movie.seats as seat on seat.index = booking.seat_index
                  left join mg_movie.movies as movie on movie.index = screenInfo.movie_index
                  left join mg_movie.auditoriums as auditorium on auditorium.`index` = screenInfo.auditorium_index
-                 left join mg_movie.branch as branch on branch.`index` = auditorium.branch_index
+                 left join mg_movie.branches as branch on branch.`index` = auditorium.branch_index
         where user_id = #{userId}
     </select>
 

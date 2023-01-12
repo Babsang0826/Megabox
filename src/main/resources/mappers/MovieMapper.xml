@@ -34,30 +34,6 @@
 
     </select>
 
-    <select id="selectMovieByIndex" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
-        SELECT `index`            AS `index`,
-               `title`            AS `title`,
-               `title_en`         AS `titleEn`,
-               `release_date`     AS `releaseDate`,
-               `end_date`         AS `endDate`,
-               `summary`          AS `summary`,
-               `age_limit`        AS `ageLimit`,
-               `movie_state`      AS `movieState`,
-               `genre`            AS `genre`,
-               `director`         AS `director`,
-               `actor`            AS `actor`,
-               `running_time`     AS `runnungTime`,
-               `screen_type`      AS `screenType`,
-               `movie_poster`     AS `moviePoster`,
-               `background_image` AS `backgroundImage`,
-               `adult_price`      AS `adultPrice`,
-               `teenager_price`   AS `teenagerPrice`,
-               `etc_price`        AS `etcPrice`,
-               `score_avg`        AS `scoreAvg`
-        FROM `mg_movie`.`movies`
-        WHERE `index` = #{mid}
-    </select>
-
     <select id="selectMovies" resultType="dev.babsang.megabox.entities.movie.MovieEntity">
         SELECT `index`            AS `index`,
                `title`            AS `title`,
@@ -341,15 +317,6 @@
         order by `totalAudience` desc, `release_date`
     </select>
 
-    <select id="selectUserByContact" resultType="dev.babsang.megabox.entities.member.UserEntity">
-        select email    as email,
-               `name`   as `name`,
-               birthday as birthday,
-               contact  as contact,
-               id       as id
-        from mg_member.users
-        where contact = #{contact}
-    </select>
 
     <select id="selectUserByEmail" resultType="dev.babsang.megabox.entities.member.UserEntity">
         select `name`            as `name`,
@@ -383,31 +350,5 @@
         INSERT INTO `mg_movie`.`booking`(`screen_info_index`, `user_id`, `seat_index`, `seat_sum_code`, `payment`)
         VALUES (#{screenInfoIndex}, #{userId}, #{seatIndex}, #{seatSumCode}, #{payment})
     </insert>
-
-    <update id="updateUser" parameterType="dev.babsang.megabox.entities.member.UserEntity">
-        update mg_member.users
-        set email    = #{email},
-            `name`   = #{name},
-            birthday = #{birthday},
-            contact  = #{contact},
-            id       = #{id},
-            password = #{password}
-        where email = #{email}
-        limit 1
-    </update>
-
-    <update id="updatePassword" parameterType="dev.babsang.megabox.entities.member.UserEntity">
-        update mg_member.users
-        set password = #{password}
-        where email = #{email}
-        limit 1
-    </update>
-
-    <delete id="deleteUser">
-        delete
-        from mg_member.users
-        where email = #{email}
-        limit 1
-    </delete>
 
 </mapper>

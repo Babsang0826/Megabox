@@ -1193,7 +1193,9 @@ footer > .footer-bottom > .inner-wrap > .footer-sns > a > i {
     -webkit-user-drag: none;
 }
 
-/*페이지 상단 메뉴*/
+
+
+/*=======================페이지 상단 메뉴 ================================*/
 .page-util {
     /*display: none;*/
     background-color: #f8f8fa;
@@ -1275,8 +1277,4 @@ footer > .footer-bottom > .inner-wrap > .footer-sns > a > i {
     width: 0.3125rem;
     height: 2.625rem;
     background: url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-location-arr.png) no-repeat left center;
-}
-
-
-
 }

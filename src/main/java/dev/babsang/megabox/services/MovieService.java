@@ -107,51 +107,11 @@ public class MovieService {
     }
 
     @Transactional
-    public Enum<? extends IResult> updateUser(UserEntity signedUser, UserEntity newUser) {
-        if (signedUser == null) {
-            return RecoverMyPageResult.NO_USER;
-        }
-        UserEntity userByContact = this.movieMapper.selectUserByContact(newUser.getContact());
-        if (userByContact != null && !signedUser.getEmail().equals(userByContact.getEmail())) {
-            return RecoverMyPageResult.DUPLICATE;
-        }
-
-        signedUser.setContact(newUser.getContact());
-        signedUser.setBirthday(newUser.getBirthday());
-        signedUser.setName(newUser.getName());
-        signedUser.setEmail(newUser.getEmail());
-        signedUser.setAddressPostal(newUser.getAddressPostal());
-        signedUser.setAddressPrimary(newUser.getAddressPrimary());
-        signedUser.setAddressSecondary(newUser.getAddressSecondary());
-        return this.movieMapper.updateUser(signedUser) > 0
-                ? CommonResult.SUCCESS
-                : CommonResult.FAILURE;
-    }
-
-    @Transactional
     public Enum<? extends IResult> booking(BookingEntity booking) {
         return this.movieMapper.insertBooking(booking) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }
 
-    public Enum<? extends IResult> updatePassword(UserEntity signedUser, UserEntity newUser) {
-        if (signedUser == null) {
-            return RecoverMyPageResult.NO_USER;
-        }
-
-        signedUser.setPassword(CryptoUtils.hashSha512(newUser.getPassword()));
-
-        return this.movieMapper.updateUser(signedUser) > 0
-                ? CommonResult.SUCCESS
-                : CommonResult.FAILURE;
-    }
-
-    public Enum<? extends IResult> deleteUser(UserEntity user) {
-
-        return this.movieMapper.deleteUser(user) > 0
-                ? CommonResult.SUCCESS
-                : CommonResult.FAILURE;
-    }
 }
 
