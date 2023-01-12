@@ -17,9 +17,9 @@
     <select id="selectEmailAuthByEmailCodeSalt"
             resultType="dev.babsang.megabox.entities.member.EmailAuthEntity">
         SELECT `index`        As `index`,
-               `email`        AS `email`,x
-                                 `code`         AS `code`,
-                `salt`         AS `salt`,
+               `email`        AS `email`,
+               `code`         AS `code`,
+               `salt`         AS `salt`,
                `created_on`   AS `createdOn`,
                `expires_on`   AS `expiresOn`,
                `expired_flag` AS `isExpired`

@@ -75,13 +75,16 @@
                `movie`.running_time            AS `runningTime`,
                `movie`.movie_state             AS `movieState`,
                `movie`.`age_limit`             AS `infoMovieAgeLimit`,
-               `movie`.`index`                 AS `movieIndex`
+               `movie`.`index`                 AS `movieIndex`,
+               COUNT(`seat`.auditorium_index)  AS `seatIndex`
         FROM `mg_movie`.`screen_info` AS `screenInfo`
                  LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
                  LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
                            ON `screenInfo`.`auditorium_index` = `auditorium`.`index`
                  LEFT JOIN `mg_movie`.`branches` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
+                 LEFT JOIN `mg_movie`.`seats` AS `seat` ON `auditorium`.`index` = `seat`.auditorium_index
         WHERE `branch_index` = #{branchId}
+        group by screenInfo.`index`
     </select>
 
     <!--    <select id="selectBranchesIndex"-->

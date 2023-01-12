@@ -25,10 +25,10 @@ let currentDay = today.getDate(); // 현재 날짜
 let endDay = new Date(currentYear, currentMonth + 1, 0);
 let thisMonthLast = endDay.getDate(); // 현재달 마지막 날짜
 let thisMonthLastWeek = endDay.getDay(); // 현재달 마지막 요일(인덱스)
-let nextStartDay = new Date(currentYear, dateTwo.getMonth()+1 ,1);
+let nextStartDay = new Date(currentYear, dateTwo.getMonth() + 1, 1);
 let nextMonthStartWeek = nextStartDay.getDay();
 const movieInfo = {
-    movie : screen
+    movie: screen
 }
 
 let thisMonthArr = [];
@@ -138,6 +138,8 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'next');
     dayElement.dataset.value = nextMonthDate;
+    let timeElement = document.createElement('div');
+    timeElement.classList.add('day', 'current');
     dayElement.innerHTML = `${i}<br>${nextWeek}`;
     timeBox.append(dayElement);
     if (nextWeek === '토') {
@@ -154,7 +156,6 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
             day[0].setAttribute('selected', 'selected');
             day[0].style.backgroundColor = 'rgb(235, 235, 235)';
             day[0].classList.add('on');
-            drawSubs();
         });
         day[j].addEventListener('click', () => {
             if (day[j].classList[0] === 'on') {
@@ -168,7 +169,6 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
                 day[j].classList.add('on');
                 day[j].setAttribute('selected', 'selected');
             }
-            drawSubs();
         });
     }
 }
@@ -199,7 +199,7 @@ xhr.onreadystatechange = () => {
                         <input class="date-value" type="hidden" value="${screens[0]['screenInfoDate']}">
                         <div class="theater-tit">
                             <p class="movie-grade ${screens[0]['infoMovieAgeLimit']}"></p>
-                            <p>${screens[0]['screenInfoMovieTitle']}</p>
+                            <p><a href="/movie/movie-detail?mid=${screens[0]['movieIndex']}">${screens[0]['screenInfoMovieTitle']}</a></p>
                             <p class="information">
                                 <span>${screens[0]['movieState']} /</span>
                                 <span style="color: #0f0f0f">상영시간${screens[0]['runningTime']}분</span></p>
@@ -223,7 +223,7 @@ xhr.onreadystatechange = () => {
                     <div class="theater-type-box" rel="aud" id="type-box">
                         <div class="theater-type">
                             <p class="theater-name">${key}</p>
-                            <p class="chair">64석</p>
+                            <p class="chair">${screenByAudObject[key][0]['seatIndex']}석</p>
                         </div>
                         <div class="theater-time">
                             <div class="theater-type-area">${screenByAudObject[key][0]['screenInfoMovieState']}</div>
@@ -260,12 +260,12 @@ xhr.onreadystatechange = () => {
                         <td rel="timeCell">
                             <div class="td">
                                 <div class="txt-center">
-                                    <a href="#" id="abc">
+                                    <a href="#" rel="bookingPage">
                                         <div class="ico-box">
                                             <i class="iconset ico-off"></i>
                                         </div>
                                         <p class="time" rel="timeValue">${movie['screenInfoMovieStartTime']}</p>
-                                        <p class="chair">84석</p>
+                                        <p class="chair">${movie['seatIndex']}석</p>
                                         <div class="play-time">
                                          <p>${movie['screenInfoMovieStartTime']}~${movie['screenInfoMovieEndTime']}</p>
                                     </a>
@@ -276,33 +276,40 @@ xhr.onreadystatechange = () => {
                         </tbody>`;
                         const timeDom = domParser.parseFromString(timeHtml, 'text/html');
                         const timeCellElement = timeDom.querySelector('[rel="timeCell"]');
+                        // booking 으로 값 넘기는 부분
+                        timeCellElement.addEventListener('click', () => {
+                            timeCellElement.dataset.value = '2';
+                            console.log(timeCellElement.dataset.value);
+                            const timeCellValue = {
+                                screenInfoIndex: `${movie['screenInfoIndex']}`,
+                                screenInfoMovieIndex: `${movie['screenInfoMovieIndex']}`,
+                                screenInfoAuditoriumIndex: `${movie['screenInfoAuditoriumIndex']}`,
+                                screenInfoMovieStartTime: `${movie['screenInfoMovieStartTime']}`,
+                                screenInfoMovieEndTime: `${movie['screenInfoMovieEndTime']}`,
+                                screenInfoMovieTitle: `${movie['screenInfoMovieTitle']}`,
+                                screenInfoDate: `${movie['screenInfoDate']}`,
+                                screenInfoMovieState: `${movie['screenInfoMovieState']}`,
+                                screenInfoBranchIndex: `${movie['screenInfoBranchIndex']}`,
+                                screenInfoAuditoriumText: `${movie['screenInfoAuditoriumText']}`,
+                                runningTime: `${movie['runningTime']}`,
+                                movieState: `${movie['movieState']}`,
+                                infoMovieAgeLimit: `${movie['infoMovieAgeLimit']}`,
+                                movieIndex: `${movie['movieIndex']}`
+                            };
+                            localStorage.setItem("time-cell-value", JSON.stringify(timeCellValue));
+                            alert('보냄요');
+                        })
+
                         timeContainerElement.append(timeCellElement);
                     }
 
                     textFormElement.append(audElement);
-                    // const movieDay = window.document.querySelectorAll('.day');
-                    // const hiddenValue = Array.from(window.document.querySelectorAll('.date-value'));
-                    // const dateValue = hiddenValue.map(x => x.value)
-                    // for (let i = 0; i < movieDay.length; i++) {
-                    //     movieDay[i].addEventListener('click', e => {
-                    //         for (let movieDays of thisMonthArr) {
-                    //             if (dateValue.indexOf(movieDays) > -1) {
-                    //                 // document.getElementById("type-box").style.display = "none";
-                    //                 // document.getElementById("theaterContainer").style.display = "none";
-                    //             }
-                    //
-                    //         }
-                    //
-                    //
-                    //         e.preventDefault();
-                    //     })
-                    // }
-                    // console.log(dateValue)
-                    // console.log(dateValue.indexOf(movieDay) > -1)
+
                 }
 
                 ListBox.append(theaterDom.getElementById('theaterContainer'));
             }
+
 
             const responseArray = JSON.parse(xhr.responseText);
             let screenObject = {};
@@ -352,3 +359,12 @@ function moveSlide(num) {
     timeBox.style.transition = slideSpeed + 'ms';
     currentIdx = num;
 }
+
+
+
+
+
+
+
+
+

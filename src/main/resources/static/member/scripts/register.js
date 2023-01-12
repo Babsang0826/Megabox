@@ -339,7 +339,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                         case 'contact':
                             // alert("이미 등록된 연락처 입니다.");
                             form.querySelector('[rel="warning-contact"]').innerText = '연락처가 중복 되었습니다.';
-
+                            form['contact'].focus();
                             break;
                         case 'failure':
                             alert("이미 등록된 사용자 입니다.");

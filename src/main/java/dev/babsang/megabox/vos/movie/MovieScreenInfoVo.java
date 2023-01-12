@@ -20,6 +20,11 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
 
     private int movieIndex;
 
+
+
+
+    private int seatIndex;
+
     public String getInfoMovieTitle() {
         return infoMovieTitle;
     }
@@ -108,4 +113,15 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
     public void setMovieIndex(int movieIndex) {
         this.movieIndex = movieIndex;
     }
+
+    public int getSeatIndex() {
+        return seatIndex;
+    }
+
+    public MovieScreenInfoVo setSeatIndex(int seatIndex) {
+        this.seatIndex = seatIndex;
+        return this;
+    }
+
+
 }
