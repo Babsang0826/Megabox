@@ -1218,12 +1218,14 @@ footer > .footer-bottom > .inner-wrap > .footer-sns > a > i {
 .page-util > .inner-wrap {
     width: 68.75rem;
     margin: 0 auto;
+    justify-content: flex-start;
 }
 
 .page-util > .inner-wrap > .location {
     float: left;
     height: 2.625rem;
     margin-left: 0.5rem;
+    width: 100%;
 }
 
 .inner-wrap > .location > a:first-of-type {

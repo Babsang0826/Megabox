@@ -14,6 +14,15 @@
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="page-util" id="pageUtil">
+    <div class="inner-wrap">
+        <div class="location">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{./movie}">고객센터</a>
+            <a th:href="@{./movie}">공지사항</a>
+        </div>
+    </div>
+</div>
 <form id="form" class="form">
     <div class="container">
         <div class="inner-wrap">
@@ -158,7 +167,7 @@
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
                     <div class="writeButton">
-                        <a href="http://localhost:8080/bbs/write?bid=notice" id="writeBtn" class="button">글쓰기
+                        <a th:href="@{/bbs/write (bid = ${'notice'})}" id="writeBtn" class="button">글쓰기
                         </a>
                     </div>
                 </div>

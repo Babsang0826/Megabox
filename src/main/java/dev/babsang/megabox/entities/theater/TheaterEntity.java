@@ -20,6 +20,7 @@ public class TheaterEntity {
     private String parkingFee;
     private String transport;
 
+
     public int getIndex() {
         return index;
     }
@@ -146,6 +147,7 @@ public class TheaterEntity {
         this.transport = transport;
         return this;
     }
+
 
     @Override
     public boolean equals(Object o) {

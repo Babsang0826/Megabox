@@ -37,7 +37,7 @@ form.querySelector('[rel="actionDelete"]').addEventListener('click', () => {
             } else {
                 alert('서버와 통신하지 못하였습니다. 잠시후 다시 시도해 주세요.');
             }
-            }
+        }
     };
     xhr.send(formData);
 });

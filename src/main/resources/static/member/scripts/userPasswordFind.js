@@ -45,27 +45,27 @@ form['findPassword'].addEventListener('click', () => {
     } else {
         form.querySelector('[rel="warning-contact"]').innerText = ''
     }
-    if (form['email'].value === '') {
-        form.querySelector('[rel="warning-email"]').innerText = '이메일을 입력해 주세요.'
-        form['email'].focus();
-        return;
-    } else {
-        form.querySelector('[rel="warning-email"]').innerText = ''
-    }
-    if (!new RegExp('^(?=.{7,50})([\\da-zA-Z_.]{4,})@([\\da-z\\-]{2,}\\.)?([\\da-z\\-]{2,})\\.([a-z]{2,10})(\\.[a-z]{2})?$').test(form['email'].value)) {
-        form.querySelector('[rel="warning-email"]').innerText = '올바른 이메일을 입력해 주세요.'
-        form['email'].focus();
-        return;
-    } else {
-        form.querySelector('[rel="warning-email"]').innerText = ''
-    }
+    // if (form['email'].value === '') {
+    //     form.querySelector('[rel="warning-email"]').innerText = '이메일을 입력해 주세요.'
+    //     form['email'].focus();
+    //     return;
+    // } else {
+    //     form.querySelector('[rel="warning-email"]').innerText = ''
+    // }
+    // if (!new RegExp('^(?=.{7,50})([\\da-zA-Z_.]{4,})@([\\da-z\\-]{2,}\\.)?([\\da-z\\-]{2,})\\.([a-z]{2,10})(\\.[a-z]{2})?$').test(form['email'].value)) {
+    //     form.querySelector('[rel="warning-email"]').innerText = '올바른 이메일을 입력해 주세요.'
+    //     form['email'].focus();
+    //     return;
+    // } else {
+    //     form.querySelector('[rel="warning-email"]').innerText = ''
+    // }
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('id', form['loginId'].value);
     formData.append('name', form['name'].value);
     formData.append('birthday', form['birthday'].value);
     formData.append('contact', form['contact'].value);
-    formData.append('email', form['email'].value);
+    // formData.append('email', form['email'].value);
     xhr.open('POST', './userPasswordFind');
     xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {

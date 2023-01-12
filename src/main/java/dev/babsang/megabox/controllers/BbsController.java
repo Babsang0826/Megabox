@@ -241,5 +241,4 @@ public class BbsController {
         return modelAndView;
     }
 
-
 }

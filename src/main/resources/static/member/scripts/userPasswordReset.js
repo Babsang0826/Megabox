@@ -36,6 +36,7 @@ form['emailSend'].addEventListener('click', () => {
         form['email'].focus();
         return;
     }
+    Cover.show('인증 요청 중 입니다. \n\n 잠시만 기다려 주세요.')
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('email', form['email'].value);
@@ -43,6 +44,7 @@ form['emailSend'].addEventListener('click', () => {
     xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status >= 200 && xhr.status < 300) {
+                Cover.hide()
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case'success':

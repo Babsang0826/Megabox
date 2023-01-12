@@ -298,7 +298,7 @@ label {
     height: 130px;
     padding: 20px;
     border: 1px solid #d8d9db;
-    font-size: 14px !important;
+    font-size: 14px;
 }
 
 col {
@@ -389,6 +389,7 @@ label > .input-text {
     vertical-align: middle;
 }
 
+
 .table-wrap > .board-form tr td .button {
     white-space: nowrap;
     margin-left: 0.6rem;
@@ -431,6 +432,7 @@ label > .input-text {
     padding: 0;
     font-size: 20px;
     border: 0;
+    /*border-radius: 6px;*/
 }
 
 .btnClauAgree:hover {
@@ -458,9 +460,9 @@ input[type=button]:disabled {
     /*height: 46px;*/
     background-color: #e0e0e0;
     color: #ebebeb;
-    padding: 0;
     /*font-size: 20px;*/
     border: none;
+    padding: 0 6px;
 }
 
 .idOverlapping {
@@ -719,6 +721,11 @@ input.input-text.w260px + .tooltip {
 /*}*/
 
 .step.step2,
+.step.step4 {
+    height: 555px;
+}
+
+.step.step2,
 .step.step3,
 .step.step4 {
     display: none;
@@ -824,11 +831,17 @@ input[type="number"]::-webkit-inner-spin-button {
 
 
 .input {
-    width: 380px;
+    width: 395px;
     height: 46px;
     margin-bottom: 10px;
     border: 1px solid #c1c1c1;
     font-size: 15px;
+}
+
+
+.--object-input:last-of-type {
+    width: 346px;
+    border-right: none;
 }
 
 .--object-button {
@@ -840,10 +853,9 @@ input[type="number"]::-webkit-inner-spin-button {
     color: #ebebeb;
     cursor: pointer;
     height: 50px;
-    /*padding-top: 0.6rem;*/
-    /*padding-bottom: 0.7rem;*/
     margin-bottom: 10px;
     font-size: 15px;
+    padding: 0 5px;
 }
 
 .--object-button:hover {
@@ -861,11 +873,23 @@ input[type="number"]::-webkit-inner-spin-button {
     padding-bottom: 5px;
 }
 
+.label.email:last-of-type {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+
+}
+
+.label.email:last-of-type > .--object-input {
+    border-right: none;
+}
+
 body > .form > .container > .containerBox > .modal-layer > .wrap > .certified-container > table > tbody > tr > td > .warning {
     color: rgb(231, 76, 60);
     display: none;
     font-size: 90%;
     margin-top: 0.5rem;
+    font-weight: 600;
 }
 
 body > .form > .container > .containerBox > .modal-layer > .wrap > .certified-container > table > tbody > tr > td > .warning {
@@ -888,6 +912,20 @@ body > .main > .content > .form > .warning.visible {
     display: flex;
 }
 
+.timer {
+    height: 46px;
+    border: 1px solid #c1c1c1;
+    margin-right: 18px;
+    border-left: none;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    color: red;
+}
 
+.fa-xmark {
+    font-size: 23px;
+    padding-right: 4px;
+}
 
 

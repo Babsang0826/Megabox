@@ -39,7 +39,7 @@ public class MemberController {
     }
 
     @RequestMapping(value = "email",
-            method = RequestMethod.PATCH,
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postEmail(UserEntity user, EmailAuthEntity emailAuth) throws NoSuchAlgorithmException, MessagingException {
@@ -53,20 +53,20 @@ public class MemberController {
         return responseObject.toString();
     }
 
-//    @RequestMapping(value = "email",
-//            method = RequestMethod.PATCH,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public String patchEmail(EmailAuthEntity emailAuth) {
-//
-//        Enum<?> result = this.memberService.verifyEmailAuth(emailAuth);
-//        JSONObject responseObject = new JSONObject();
-//        responseObject.put("result", result.name().toLowerCase());
-//        if (result == CommonResult.SUCCESS) {
-//            responseObject.put("email", emailAuth.getEmail());
-//        }
-//        return responseObject.toString();
-//    }
+    @RequestMapping(value = "email",
+            method = RequestMethod.PATCH,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchEmail(EmailAuthEntity emailAuth) {
+
+        Enum<?> result = this.memberService.verifyEmailAuth(emailAuth);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        if (result == CommonResult.SUCCESS) {
+            responseObject.put("email", emailAuth.getEmail());
+        }
+        return responseObject.toString();
+    }
 
 
     @RequestMapping(value = "register",
@@ -112,11 +112,6 @@ public class MemberController {
         Enum<?> result = this.memberService.login(user);
         if (result == CommonResult.SUCCESS) {
             session.setAttribute("user", user);
-            System.out.println(user.getId());
-            System.out.println(user.getPassword());
-            System.out.println(user.getContact());
-            System.out.println(user.getBirthday());
-            System.out.println(user.getName());
             System.out.println("아이디/비밀번호 맞음");
         } else {
             System.out.println("비밀번/비밀번호 틀림");
@@ -161,7 +156,7 @@ public class MemberController {
             responseObject.put("password", user.getPassword());
             responseObject.put("name", user.getName());
             responseObject.put("id", user.getId());
-            responseObject.put("email", user.getEmail());
+            responseObject.put("contact", user.getContact());
         }
         return responseObject.toString();
     }
