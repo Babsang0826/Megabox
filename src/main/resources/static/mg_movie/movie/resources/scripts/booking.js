@@ -104,6 +104,12 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
                     day[0].classList.remove('on');
                 }
             }
+            let dayNext = window.document.querySelectorAll('.day.next');
+            // dayNext.forEach(x => {
+            //     if(x.classList.contains('on')) {
+            //         x.
+            //     }
+            // })
             drawSubs();
         });
     }
@@ -156,6 +162,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
             drawSubs();
         });
         day[j].addEventListener('click', () => {
+            const selectedDayCurrentOn = window.document.querySelectorAll('.day.current.on');
             if (day[j].classList[0] === 'on') {
                 day[j].classList.remove('on');
                 day[j].removeAttribute('selected');
@@ -704,7 +711,6 @@ const drawSeat = () => {
 //좌석 정렬 함수
 const sortSelections = () => {
     const selections = Array.from(selectedSeats);
-    let lastOrder = 0;
     for (let selection of selections) {
         if (!selection.classList.contains('choice')) {
             selection.style.order = '999';
@@ -770,8 +776,7 @@ region.addEventListener('click', e => {
         drawSubs()
     }
 });
-// const completePaymentBtn = container.querySelector('[rel="completePaymentBtn"]');
-//  completePaymentBtn.addEventListener('click', () => {
+
 form.onsubmit = e => {
     e.preventDefault();
     const selectBooking = Array.from(window.document.querySelectorAll('.row.on'));
@@ -808,9 +813,7 @@ form.onsubmit = e => {
                 } else {
                     alertFour();
                 }
-
             }
-
         };
         xhr.send(formData);
     }
