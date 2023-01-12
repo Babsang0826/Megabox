@@ -1191,5 +1191,92 @@ footer > .footer-bottom > .inner-wrap > .footer-sns > a > i {
     pointer-events: none;
     user-select: none;
     -webkit-user-drag: none;
+}
+
+/*페이지 상단 메뉴*/
+.page-util {
+    /*display: none;*/
+    background-color: #f8f8fa;
+}
+
+.page-util.fixed {
+    position: fixed;
+    left: 0;
+    right: inherit;
+    top: 0;
+    z-index: 51;
+    background-color: #444;
+
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+}
+
+.page-util > .inner-wrap {
+    width: 68.75rem;
+    margin: 0 auto;
+}
+
+.page-util > .inner-wrap > .location {
+    float: left;
+    height: 2.625rem;
+    margin-left: 0.5rem;
+}
+
+.inner-wrap > .location > a:first-of-type {
+    overflow: hidden;
+    display: block;
+    float: left;
+    width: 0.8125rem;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-indent: -9999px;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-location-home.png) no-repeat center;
+}
+
+.page-util > .inner-wrap > .location > a:first-of-type:hover {
+    filter: brightness(85%);
+}
+
+.page-util > .inner-wrap > .location > a {
+    position: relative;
+    float: left;
+    height: 2.625rem;
+    margin: 0 0 0 1.5625rem;
+    padding: 0;
+    line-height: 2.875rem;
+    color: #666;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.page-util.fixed > .inner-wrap > .location > a {
+    color: rgb(255,255,255);
+
+}
+
+.page-util > .inner-wrap > .location > a:first-of-type {
+    margin-left: 0;
+}
+
+.page-util > .inner-wrap > .location > a:hover {
+    text-decoration: underline;
+}
+
+.page-util > .inner-wrap > .location > a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -0.875rem;
+    top: 0;
+    width: 0.3125rem;
+    height: 2.625rem;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-location-arr.png) no-repeat left center;
+}
+
+
 
 }

@@ -19,8 +19,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.awt.print.Book;
+import java.text.DateFormat;
+import java.text.ParseException;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller(value = "dev.babsang.megabox.controllers.MovieController")
 @RequestMapping(value = "movie")
@@ -41,6 +49,9 @@ public class MovieController {
 
         //전체 영화
 //        MovieVo[] movies = this.movieService.getMovieVos();
+        if (keyword == null) {
+            keyword = "";
+        }
         MovieVo[] movies = this.movieService.getMovieVosKeyword(keyword);
         BookingEntity[] booking = this.movieService.getBookings();
         for (MovieVo movie : movies) {
@@ -120,7 +131,7 @@ public class MovieController {
         }
         modelAndView.addObject("mid", mid);
         int rank = 0;
-//        System.out.println("rank : " + rank);
+        System.out.println("rank : " + rank);
 
         for (int i = 0; i < movies.length; i++) {
             if (movie.equals(movies[i])) {
@@ -144,6 +155,7 @@ public class MovieController {
             responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
         } else {
             comment.setUserId(user.getId());
+//            comment.setUserId("choi4349");
             comment.setMid(mid);
             Enum<?> result = this.movieService.writeComment(comment);
             responseObject.put("result", result.name().toLowerCase());

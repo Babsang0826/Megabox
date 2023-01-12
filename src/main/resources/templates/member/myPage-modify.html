@@ -12,6 +12,15 @@
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="page-util" id="pageUtil">
+    <div class="inner-wrap">
+        <div class="location">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{./myPage}">나의 메가박스</a>
+            <a th:href="@{./modify}">개인정보수정</a>
+        </div>
+    </div>
+</div>
 <div class="container" id="container">
     <div class="inner-wrap">
         <div class="side-menu">
@@ -55,103 +64,138 @@
                 </ul>
             </nav>
         </div>
-        <div class="contents">
+        <div class="contents on" id="authContents">
+            <h2 class="title">회원정보</h2>
+            <div class="wrap auth">
+                <div>회원님의 개인정보 보호를 위해 등록된 이메일로 인증을 하셔야 합니다.</div>
+                <div class="user-id">
+                    <div class="text">이메일</div>
+                    <div class="content">
+                        <input type="hidden" th:value="${session.user.getEmail()}" rel="hiddenEmail">
+                        <label class="hidden-label">
+                            <input th:value="${session.user.getEmail().replaceAll('(?<=.{4}).(?=.*@)', '*')}" disabled>
+                        </label>
+                        <button type="button" class="auth-request">인증요청</button>
+                    </div>
+                    <div class="text">인증번호</div>
+                    <div class="content auth">
+                        <label>
+                            <input type="text" class="authInput" maxlength="6">
+                            <input class="emailAuthSalt" type="hidden">
+                            <div class="timer" id="timer">5:00</div>
+                            <button disabled class="auth-check">인증확인</button>
+                        </label>
+                        <span rel="emailWarning">인증번호가 일치하지 않습니다.</span>
+                    </div>
+                </div>
+                <div class="btn-area">
+                    <button>취소</button>
+                    <button disabled rel="completeAuth">확인</button>
+                </div>
+            </div>
+        </div>
+        <div class="contents" id="modifyContent">
             <h2 class="title">개인정보수정</h2>
-            <div>회원님의 정보를 정확히 입력해주세요.</div>
-            <div class="user-id">
-                <div class="text">아이디</div>
-                <div class="content">
-                    <p th:text="${session.user.getId()}" th:value="${session.user.getId()}" rel="id"></p>
-                    <a href="#" class="delete-account">회원탈퇴</a>
-                </div>
-            </div>
-            <div class="user-info">
-                <div class="title-area">
-                    <h3 class="title">기본정보</h3>
-                    <div class="necessary">
-                        <p>
-                            <em class="star">*</em>
-                            필수
-                        </p>
+            <div class="wrap">
+                <div>회원님의 정보를 정확히 입력해주세요.</div>
+                <div class="user-id">
+                    <div class="text">아이디</div>
+                    <div class="content">
+                        <p th:text="${session.user.getId()}" th:value="${session.user.getId()}" rel="id"></p>
+                        <a href="#" class="delete-account">회원탈퇴</a>
                     </div>
                 </div>
-                <form>
-                    <div class="info-grid">
-                        <div class="text">
-                            <p>이름
+                <div class="user-info">
+                    <div class="title-area">
+                        <h3 class="title">기본정보</h3>
+                        <div class="necessary">
+                            <p>
                                 <em class="star">*</em>
+                                필수
                             </p>
-                        </div>
-                        <div class="info name">
-<!--                            <p th:text="${session.user.getName()}" th:value="${session.user.getName()}" rel="name">sss</p>-->
-                            <input th:value="${session.user.getName()}" rel="name" disabled>
-                        </div>
-                        <div class="text">
-                            <p>생년월일
-                                <em class="star">*</em>
-                            </p>
-                        </div>
-                        <div class="info birthday">
-                            <input th:value="${session.user.getBirthday()}" rel="birthday" disabled>
-                        </div>
-                        <div class="text">
-                            <p>휴대폰
-                                <em class="star">*</em>
-                            </p>
-                        </div>
-                        <div class="info mobile" rel="mobile">
-                            <div class="mobile-wrap">
-                                <input th:value="${session.user.getContact()}" disabled rel="nowMobile">
-                                <div rel="changeBtn">휴대폰번호 변경</div>
-                            </div>
-                            <div class="change-mobile">
-                                <label for="mobile">변경할 휴대폰</label>
-                                <input type="number" class="new-mobile" id="mobile" maxlength="11" placeholder="'-' 없이 입력해주세요." name="mobile">
-<!--                                <button type="button" rel="mobileModifyBtn" name="newMobile">번호 변경</button>-->
-                            </div>
-                        </div>
-                        <div class="text">
-                            <p>이메일
-                                <em class="star">*</em>
-                            </p>
-                        </div>
-                        <div class="info email">
-                            <input th:value="${session.user.getEmail()}" rel="email" disabled>
-                        </div>
-                        <div class="text">
-                            <p>비밀번호
-                                <em class="star">*</em>
-                            </p>
-                        </div>
-                        <div class="info password">
-                            <button>
-                                <a th:href="@{./recoverPassword}">비밀번호 변경</a>
-                            </button>
-                        </div>
-                        <div class="text">
-                            <p>주소
-                                <em class="star">*</em>
-                            </p>
-                        </div>
-                        <div class="info address">
-                            <label>
-                                <input disabled th:value="${session.user.getAddressPostal}" class="addressPostal" rel="addressPostal">
-                                <div rel="addressFind">주소 찾기</div>
-                            </label>
-                            <label>
-                                <input disabled th:value="${session.user.getAddressPrimary}" rel="addressPrimary">
-                                <input type="text" placeholder="상세 주소를 입력해주세요." rel="addressSecondary" th:value="${session.user.getAddressSecondary}">
-                            </label>
-                            <div class="panel address" rel="addressFindPanel">
-                                <div class="dialog" rel="addressFindPanelDialog"></div>
-                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="btn-area">
-                <div><a th:href="@{./myPage}">취소</a></div>
-                <div rel="submitBtn">등록</div>
+                    <form>
+                        <div class="info-grid">
+                            <div class="text">
+                                <p>이름
+                                    <em class="star">*</em>
+                                </p>
+                            </div>
+                            <div class="info name">
+                                <!--                            <p th:text="${session.user.getName()}" th:value="${session.user.getName()}" rel="name">sss</p>-->
+                                <input th:value="${session.user.getName()}" rel="name" disabled>
+                            </div>
+                            <div class="text">
+                                <p>생년월일
+                                    <em class="star">*</em>
+                                </p>
+                            </div>
+                            <div class="info birthday">
+                                <input th:value="${session.user.getBirthday()}" rel="birthday" disabled>
+                            </div>
+                            <div class="text">
+                                <p>휴대폰
+                                    <em class="star">*</em>
+                                </p>
+                            </div>
+                            <div class="info mobile" rel="mobile">
+                                <div class="mobile-wrap">
+                                    <input th:value="${session.user.getContact()}" disabled rel="nowMobile">
+                                    <div rel="changeBtn">휴대폰번호 변경</div>
+                                </div>
+                                <div class="change-mobile">
+                                    <label for="mobile">변경할 휴대폰</label>
+                                    <input type="number" class="new-mobile" id="mobile" maxlength="11"
+                                           placeholder="'-' 없이 입력해주세요." name="mobile">
+                                    <!--                                <button type="button" rel="mobileModifyBtn" name="newMobile">번호 변경</button>-->
+                                </div>
+                            </div>
+                            <div class="text">
+                                <p>이메일
+                                    <em class="star">*</em>
+                                </p>
+                            </div>
+                            <div class="info email">
+                                <input th:value="${session.user.getEmail()}" rel="email" disabled>
+                            </div>
+                            <div class="text">
+                                <p>비밀번호
+                                    <em class="star">*</em>
+                                </p>
+                            </div>
+                            <div class="info password">
+                                <button>
+                                    <a th:href="@{./recoverPassword}">비밀번호 변경</a>
+                                </button>
+                            </div>
+                            <div class="text">
+                                <p>주소
+                                    <em class="star">*</em>
+                                </p>
+                            </div>
+                            <div class="info address">
+                                <label>
+                                    <input disabled th:value="${session.user.getAddressPostal}" class="addressPostal"
+                                           rel="addressPostal">
+                                    <div rel="addressFind">주소 찾기</div>
+                                </label>
+                                <label>
+                                    <input disabled th:value="${session.user.getAddressPrimary}" rel="addressPrimary">
+                                    <input type="text" placeholder="상세 주소를 입력해주세요." rel="addressSecondary"
+                                           th:value="${session.user.getAddressSecondary}">
+                                </label>
+                                <div class="panel address" rel="addressFindPanel">
+                                    <div class="dialog" rel="addressFindPanelDialog"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="btn-area">
+                    <div><a th:href="@{./myPage}">취소</a></div>
+                    <div rel="submitBtn">등록</div>
+                </div>
             </div>
         </div>
     </div>

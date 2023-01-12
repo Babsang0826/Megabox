@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="contents" id="contents">
-    <div class="inner-wrap on" rel="boxInnerWrap">
+    <div class="inner-wrap" th:classappend="${#request.getParameter('yetOnly') == null ? 'on' : ''}" rel="boxInnerWrap">
         <h2 class="tit">전체영화</h2>
         <div class="tab-list" id="BoxTabList">
             <ul class="topMenu">
@@ -56,8 +56,8 @@
             </div>
         </div>
         <div class="movie-list">
-            <ol class="list first" id="movieContainer">
-                <li class="movie" th:each="movie : ${movies}">
+            <ol class="list first" id="movieContainer" th:with="currentDate = ${new java.util.Date()}">
+                <li class="movie" th:each="movie : ${movies}" th:data-opened="${movie.getReleaseDate().compareTo(currentDate) < 0}">
                     <div class="poster">
                         <img th:src="${movie.getMoviePoster()}" alt="" class="movie-poster">
                         <div class="movie-detail">
@@ -95,7 +95,7 @@
             </ol>
         </div>
     </div>
-    <div class="inner-wrap" rel="commingInnerWrap">
+    <div class="inner-wrap" th:classappend="${#request.getParameter('yetOnly') != null && #request.getParameter('yetOnly').equals('true') ? 'on' : ''}" rel="commingInnerWrap">
         <h2 class="tit">상영예정작</h2>
         <div class="tab-list" id="commingTabList">
             <ul class="topMenu">
@@ -123,10 +123,11 @@
                 </p>
             </div>
             <div class="movie-search">
-                <form method="get">
+                <form method="get" id="expForm">
                     <label>
                         <input type="text" name="keyword" placeholder="영화명 검색" class="input-text"
                                th:value="${#request.getParameter('keyword')}">
+                        <input type="hidden" name="yetOnly" value="true">
                         <button type="submit" class="btn-search-input"></button>
                     </label>
                 </form>
@@ -154,7 +155,7 @@
                     <div class="movie-info">
                         <p class="grade age12" th:class="${movie.getAgeLimit()}"></p>
                         <a th:href="@{./movie-detail (mid=${movie.getIndex()})}">
-                            <p class="title" th:text="${movie.getTitle()}">아바타: 물의 길</p>
+                            <p class="title" rel="title" th:text="${movie.getTitle()}">아바타: 물의 길</p>
                         </a>
                     </div>
                     <div class="rate-date">
