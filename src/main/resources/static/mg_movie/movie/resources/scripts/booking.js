@@ -28,8 +28,8 @@ let today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
 // 위의 동적인 달력에 의한 임의 날짜 고르는 로직
 let dateTwo = new Date();
 let year = dateTwo.getFullYear();
-let month = ('0' + (1 + dateTwo.getMonth())).slice(-2);
-
+let month = ('0' + (dateTwo.getMonth()) + 1).slice(-2);
+console.log('month 기준달 :' + month)
 
 let currentYear = date.getFullYear(); // 현재 년도
 let currentMonth = date.getMonth(); // 현재 달
@@ -38,7 +38,10 @@ let currentDay = today.getDate(); // 현재 날짜
 // 이번 달의 마지막날 날짜와 요일 구하기
 let endDay = new Date(currentYear, currentMonth + 1, 0);
 let thisMonthLast = endDay.getDate(); // 현재달 마지막 날짜
-let thisMonthLastWeek = endDay.getDay(); // 현재달 마지막 요일(인덱스)
+// let thisMonthLastWeek = endDay.getDay(); // 현재달 마지막 요일(인덱스)
+let nextStartDay = new Date(currentYear, dateTwo.getMonth()+1 ,1);
+let nextMonthStartWeek = nextStartDay.getDay();
+
 
 // 이번달
 let thisMonthArr = [];
@@ -114,25 +117,22 @@ let nextWeek;
 for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     if (month === '12') {
         year = (date.getFullYear() + 1);
-        month = (dateTwo.getMonth() + 1) - 11;
-        if (month < 10) {
-            month = '0' + month;
-        }
-        if (i < 10) {
-            nextMonthDate = year + '-' + month + '-' + '0' + i;
-        }
+        month = (month - 11);
     } else if (i < 10) {
-        nextMonthDate = year + '-' + month + '-' + '0' + i;
+        let nextMonth = (dateTwo.getMonth()) + 2;
+        nextMonthDate = year + '-0' + nextMonth + '-0' + i;
     } else {
-        nextMonthDate = year + '-' + month + '-' + i;
+        let nextMonth = (dateTwo.getMonth()) + 2;
+        nextMonthDate = year + '-' + nextMonth + '-' + i;
     }
     nextMonthArrCode = nextMonthDate;
     nextMonthArr.push(nextMonthArrCode);
     let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
-    let week = new Date(date.setDate(thisMonthLastWeek + i)).getDay();
-    nextWeek = WEEKDAY[week - 3];
+    let week = new Date(date.setDate(nextMonthStartWeek + i)).getDay();
+    nextWeek = WEEKDAY[week];
     if (week < 3) {
         nextWeek = WEEKDAY[week + 4];
+        console.log('nextWeek :' + nextWeek)
     }
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'next');
@@ -147,7 +147,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     if (dayElement.getAttribute('selected')) {
         dayElement.style.backgroundColor = 'rgb(235, 235, 235)'
     }
-    let day = window.document.querySelectorAll('.day');
+    let day = window.document.querySelectorAll('.day.next');
     for (let j = 0; j < day.length; j++) {
         day[0].addEventListener('click', () => {
             day[0].setAttribute('selected', 'selected');
@@ -799,7 +799,7 @@ form.onsubmit = e => {
                     const responseObject = JSON.parse(xhr.responseText);
                     switch (responseObject['result']) {
                         case 'success':
-                            window.location.href = '/';
+                            window.location.href = '/movie/bookingComplete';
                             break;
                         default:
                             alertThree();
