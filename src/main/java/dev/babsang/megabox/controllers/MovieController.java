@@ -1,28 +1,22 @@
 package dev.babsang.megabox.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
-import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.services.MovieService;
+import dev.babsang.megabox.services.MyPageService;
+import dev.babsang.megabox.vos.movie.BookingVo;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.MovieVo;
 import dev.babsang.megabox.vos.movie.SeatVo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.print.Book;
-import java.text.DateFormat;
-import java.text.ParseException;
-import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -34,10 +28,12 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "movie")
 public class MovieController {
     private final MovieService movieService;
+    private final MyPageService myPageService;
 
     @Autowired
-    public MovieController(MovieService movieService) {
+    public MovieController(MovieService movieService, MyPageService myPageService) {
         this.movieService = movieService;
+        this.myPageService = myPageService;
     }
 
     //movie
@@ -305,8 +301,60 @@ public class MovieController {
     @RequestMapping(value = "bookingComplete",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getBookingComplete() {
+    public ModelAndView getBookingComplete(@SessionAttribute(value = "user") UserEntity user) {
         ModelAndView modelAndView = new ModelAndView("movie/bookingComplete");
+
+        BookingVo[] bookingHistories = this.myPageService.getBookingHistory(user.getId());
+
+        for (BookingVo bookingVo : bookingHistories) {
+            //요일 추출
+            SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+            SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+
+            String year = yearFormat.format(bookingVo.getScreenDate());
+            String month = monthFormat.format(bookingVo.getScreenDate());
+            String day = dayFormat.format(bookingVo.getScreenDate());
+
+            LocalDate date = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+            DayOfWeek dayOfWeek = date.getDayOfWeek();
+
+            bookingVo.setDayOfWeek(dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREAN));
+        }
+
+        //예매 내역 그룹 짓기
+        Map<Integer, List<BookingVo>> bookingMap = new LinkedHashMap<>();
+        for (BookingVo bookingHistory : bookingHistories) {
+            if (!bookingMap.containsKey(bookingHistory.getScreenInfoIndex())) {
+                bookingMap.put(bookingHistory.getScreenInfoIndex(), new ArrayList<>());
+            }
+            bookingMap.get(bookingHistory.getScreenInfoIndex()).add(bookingHistory);
+        }
+
+        //좌석 해시코드 순으로 정렬
+        for (Integer key : bookingMap.keySet()) {
+            List<BookingVo> bookings = bookingMap.get(key);
+            bookings = bookings.stream().sorted((o1, o2) -> {
+                String o1C = o1.getColumnText() + o1.getRow();
+                String o2C = o2.getColumnText() + o2.getRow();
+                return Integer.compare(o1C.hashCode(), o2C.hashCode());
+            }).collect(Collectors.toList());
+            bookingMap.replace(key, bookings);
+        }
+
+        //예매 최신순으로 HashMap keySet 정렬
+        Object[] arr = bookingMap.keySet().toArray();
+        List<Object> list = Arrays.asList(arr);
+        Collections.reverse(list);
+        Object[] reverseArr = list.toArray(arr);
+        System.out.println("arr : " + Arrays.toString(arr));
+        System.out.println("reverseArr : " + Arrays.toString(reverseArr));
+
+        modelAndView.addObject("sortedBookingMapKeySet", reverseArr);
+
+        modelAndView.addObject("bookingHistories", bookingHistories);
+        modelAndView.addObject("bookingMap", bookingMap);
+
         return modelAndView;
     }
 }

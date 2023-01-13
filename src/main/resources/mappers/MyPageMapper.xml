@@ -69,4 +69,11 @@
         where email = #{email}
         limit 1
     </delete>
+
+    <delete id="deleteBooking">
+        delete
+        from mg_movie.booking
+        where `screen_info_index` = #{screenInfoIndex}
+          and `user_id` = #{userId}
+    </delete>
 </mapper>

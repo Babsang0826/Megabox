@@ -92,6 +92,11 @@ body > .header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+body > .header.white {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 body > .--header > .nav {
     width: 68.75rem;
     display: flex;
@@ -424,6 +429,15 @@ body > .--header > .nav > .category-container > li > a {
     padding: 0 1.5rem;
     line-height: 2.5rem;
     color: rgb(255, 255, 255);
+    z-index: 6;
+}
+
+
+body > .--header.white > .nav > .category-container > li > a {
+    display: block;
+    padding: 0 1.5rem;
+    line-height: 2.5rem;
+    color: #111;
     z-index: 6;
 }
 

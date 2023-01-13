@@ -112,7 +112,6 @@ public class MemberController {
         Enum<?> result = this.memberService.login(user);
         if (result == CommonResult.SUCCESS) {
             session.setAttribute("user", user);
-            System.out.println("아이디/비밀번호 맞음");
         } else {
             System.out.println("비밀번/비밀번호 틀림");
         }

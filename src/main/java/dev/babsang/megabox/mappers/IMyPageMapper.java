@@ -17,4 +17,6 @@ public interface IMyPageMapper {
     int updateUser(UserEntity user);
 
     int deleteUser(UserEntity user);
+
+    int deleteBooking(int screenInfoIndex, String userId);
 }

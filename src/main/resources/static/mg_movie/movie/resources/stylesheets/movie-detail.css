@@ -357,18 +357,13 @@ main > .container > .contents > .movie-detail > .detail-content > .poster > .wra
     line-height: 0;
 }
 
-main > .container > .contents > .movie-detail > .detail-content > .poster > .wrap > .grade {
+main > .container > .contents > .movie-detail > .detail-content > .poster > .wrap > p {
     overflow: hidden;
     position: absolute!important;
     left: 0.625rem;
     top: 0.625rem;
     z-index: 4;
 }
-
-main > .container > .contents > .movie-detail > .detail-content > .poster > .wrap > .age12 {
-    /*position: absolute;*/
-}
-
 
 main > .container > .contents > .movie-detail > .detail-content > .poster > .wrap > img {
     display: block;
