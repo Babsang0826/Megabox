@@ -56,7 +56,7 @@ commentScoreLi.addEventListener('click', () => {
 });
 //무비포스트
 moviePostLi.addEventListener('click', () => {
-    alert('서비스 준비중 입니다.');
+    swal('알림', '서비스 준비중 입니다.');
     mainInfoLi.classList.add('on');
     commentScoreLi.classList.remove('on');
     // moviePostLi.classList.add('on');
@@ -177,7 +177,7 @@ writeForm.onsubmit = e => {
     e.preventDefault();
 
     if (writeForm['content'].value === '') {
-        alert('한줄평을 입력해 주세요.');
+        swal('알림', '한줄평을 입력해 주세요.');
         writeForm['content'].focus();
         return false;
     }
@@ -195,17 +195,18 @@ writeForm.onsubmit = e => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case 'success':
-                        alert('한줄평 작성 완료');
+                        swal('알림', '한줄평 작성 완료');
                         loadComments();
                         break;
                     case 'failure' :
-                        alert('로그인 후 이용가능합니다.');
-                        break;시
+                        swal('알림', '로그인 후 이용가능합니다.');
+                        break;
                     default:
-                        alert('알 수 없는 이유로 한줄평을 작성하지 못하였습니다.\n\n잠시 후 다시 시도해 주세요.')
+                        swal('알림', '알 수 없는 이유로 한줄평을 작성하지 못하였습니다.\n\n잠시 후 다시 시도해 주세요.');
+
                 }
             } else {
-                alert('서버와 통신하지 못하였습니다.\n\n잠시 후 다시 시도해 주세요.')
+                swal('알림', '서버와 통신하지 못하였습니다.\n\n잠시 후 다시 시도해 주세요.');
             }
         }
     };

@@ -5,6 +5,8 @@
     <title>메가박스 :: 예매완료</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
     <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/bookingComplete.css}">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script defer th:src="@{/mg_movie/movie/resources/scripts/bookingComplete.js}"></script>
 </head>
 <body>
@@ -68,7 +70,7 @@
                                     </li>
                                     <li>
                                         <span>전화번호</span>
-                                        <p>010-6811-0753</p>
+                                        <p th:text="${contact}">010-6811-0753</p>
                                     </li>
                                     <li>
                                         <span>결제정보</span>

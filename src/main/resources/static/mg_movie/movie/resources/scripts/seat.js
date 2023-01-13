@@ -37,7 +37,7 @@ for (let i = 0; i < cell.length; i++) {
         totalCnt = parseInt(totalCnt) + 1;
 
         if (totalCnt === 9) {
-            alert('최대 8명까지 가능합니다');
+            swal('알림', '최대 8명까지 가능합니다.');
             totalCnt = 8;
             number = number - 1;
             return;

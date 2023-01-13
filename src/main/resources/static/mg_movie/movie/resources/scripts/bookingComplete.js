@@ -40,3 +40,4 @@ seatContainers.forEach(seatContainer => {
 const { name, id, pw } = JSON.parse(localStorage.getItem("user-info"));
 localStorage.remove("user-info");
 console.log(id, name, pw); // 아이디 이름 비밀번호
+
