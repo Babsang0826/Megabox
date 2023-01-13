@@ -80,7 +80,6 @@ for (let i = 0; i < cell.length; i++) {
     totalCnt = number;
 
     minusBtn.addEventListener('click', () => {
-//
         number = parseInt(number) - 1;
         if (number < 0) {
             number = 0;

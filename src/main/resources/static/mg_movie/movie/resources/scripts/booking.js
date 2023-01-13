@@ -162,7 +162,6 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
             drawSubs();
         });
         day[j].addEventListener('click', () => {
-            const selectedDayCurrentOn = window.document.querySelectorAll('.day.current.on');
             if (day[j].classList[0] === 'on') {
                 day[j].classList.remove('on');
                 day[j].removeAttribute('selected');
@@ -204,7 +203,7 @@ const drawListBox = () => {
                 listBoxElement.removeAttribute('selected');
             }
             if (value > 3) {
-                alertTwo();
+                swal("알림", "영화는 최대 3개까지 선택이 가능합니다.");
                 listBoxElement.classList.remove('on');
                 listBoxElement.removeAttribute('selected');
                 value = 3;
@@ -242,7 +241,7 @@ const drawBranches = () => {
                 branchElement.removeAttribute('selected');
             }
             if (count > 3) {
-                alertOne('극장은 최대 3개까지 선택이 가능합니다.');
+                swal("알림", "극장은 최대 3개까지 선택이 가능합니다.");
                 branchElement.classList.remove('on');
                 branchElement.removeAttribute('selected');
                 count = 3;
@@ -263,8 +262,6 @@ const drawBranches = () => {
         quickCity.append(branchElement);
     });
 };
-
-const seatNextButton = window.document.querySelector('[rel="seatNextButton"]');
 
 // Branch에 따른 sub함수
 const drawSubs = () => {
@@ -337,7 +334,7 @@ const drawSubs = () => {
                     // remainSeatElement.innerText = allScreenInfo['']
                     const allSeatElement = window.document.createElement('span');
                     allSeatElement.classList.add('all-seat');
-                    // allSeatElement.innerText = allScreenInfo['screenInfoSeatAll'];
+                    allSeatElement.innerText = allScreenInfo['screenInfoSeatCountAll'];
                     seatBoxElement.append(remainSeatElement, allSeatElement);
                     moviePlaceElement.append(movieBranchElement, movieAuditoriumElement, seatBoxElement);
                     movieTimeInfoBoxElement.append(movieTimeElement, movieTitleStateElement, moviePlaceElement);
@@ -819,11 +816,11 @@ form.onsubmit = e => {
                             window.location.href = '/movie/bookingComplete';
                             break;
                         default:
-                            alertThree();
+                            swal('알림','결제가 실패하였습니다. 잠시 후 다시 시도해 주세요.');
                             break;
                     }
                 } else {
-                    alertFour();
+                    swal("알림", "알 수 없는 이유로 결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
                 }
             }
         };
@@ -946,22 +943,6 @@ function moveSlide(num) {
     timeBox.style.left = -num * (slideWidth + slideMargin) + 'rem';
     timeBox.style.transition = slideSpeed + 'ms';
     currentIdx = num;
-}
-
-function alertTwo() {
-    swal("알림", "영화는 최대 3개까지 선택이 가능합니다.");
-}
-
-function alertOne() {
-    swal("알림", "극장은 최대 3개까지 선택이 가능합니다.");
-}
-
-function alertThree() {
-    swal("속보", '결제실패');
-}
-
-function alertFour() {
-    swal("속보", '알수 없는 이유로 결제에 실패했습니다.');
 }
 
 

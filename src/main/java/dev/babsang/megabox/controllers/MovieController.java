@@ -285,6 +285,7 @@ public class MovieController {
             screenInfoAllJson.put("screenInfoAuditoriumText", screenInfo.getInfoAudText());
             screenInfoAllJson.put("screenInfoMovieAgeLimit", screenInfo.getInfoMovieAgeLimit());
             screenInfoAllJson.put("screenInfoMoviePoster", screenInfo.getInfoMoviePoster());
+            screenInfoAllJson.put("screenInfoSeatCountAll", screenInfo.getSeatIndex());
             screenInfosAllJson.put(screenInfoAllJson);
         }
         // 상영정보  JSONArray

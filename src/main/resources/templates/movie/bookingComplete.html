@@ -23,9 +23,6 @@
                             <p>
                                 티켓 예매번호
                                 <span th:text="${bookingList.get(0).getIndex()}">1234-123-12345</span>
-                            <p class="ticket-number">
-                                <span class="reserv-number">티켓 예매번호</span>
-                                <span class="booking-num">1234-123-12345</span>
                             </p>
                             <img th:src="${bookingList.get(0).getMoviePoster()}" src="https://img.megabox.co.kr/SharedImg/2022/12/16/9vUySe7DNMro6tdYRPEbjzF2ebr48MwE_316.jpg"
                                  alt="">
@@ -69,14 +66,6 @@
                                               th:data-seat="${bookingVo.getColumnText() + bookingVo.getRow()}">
                                         </span>
                                     </li>
-<!--                                    <li>-->
-<!--                                        <span>관람인원</span>-->
-<!--                                        <p>성인 1명</p>-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        <span>좌석번호</span>-->
-<!--                                        <p>A1</p>-->
-<!--                                    </li>-->
                                     <li>
                                         <span>전화번호</span>
                                         <p>010-6811-0753</p>
