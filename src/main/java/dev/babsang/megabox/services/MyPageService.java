@@ -96,6 +96,12 @@ public class MyPageService {
                 : CommonResult.FAILURE;
     }
 
+    public Enum<? extends IResult> deleteBooking(int screenInfoIndex, String userId) {
+        return this.myPageMapper.deleteBooking(screenInfoIndex, userId) < 0
+                ? CommonResult.FAILURE
+                : CommonResult.SUCCESS;
+    }
+
     public BookingVo[] getBookingHistory(String id) { return this.myPageMapper.selectBookingById(id);}
 
     @Transactional

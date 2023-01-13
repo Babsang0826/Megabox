@@ -4,7 +4,8 @@ body > .--main > .reservation-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 40px;
 }
 
 body > .--main > .reservation-container.off {
@@ -18,11 +19,12 @@ body > .--main > .reservation-container > .reservation-box {
 
 body > .--main > .reservation-container > .reservation-box > .title {
     width: 100%;
-    height: 4rem;
+    /*height: 4rem;*/
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    padding-bottom: 26px;
 }
 
 body > .--main > .reservation-container > .reservation-box > .title > span {
@@ -213,7 +215,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect > .list-box > span {
     margin-left: 0.3rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: black;
 }
 
@@ -338,6 +340,11 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     justify-content: flex-start;
 }
 
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-region > li {
+    font-size: 0.9rem;
+    padding-left: 5px;
+}
+
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-region > .region.on {
     background-color: rgb(235, 235, 235);
 }
@@ -369,14 +376,16 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     display: flex;
     cursor: pointer;
     background-color: rgb(255, 255, 255);
-    width: 9.7rem;
-    padding: unset;
+    width: 9.4rem;
+    /*padding: unset;*/
     text-align: center;
     height: 2rem;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding-left: 5px;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-theater-box > .quick-theater > .quick-theater-list > .list > .quick-city.on > .city.on {
@@ -609,8 +618,9 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-time > .time-box > span:nth-of-type(2) {
-    margin-top: 0.3rem;
+    /*margin-top: 0.3rem;*/
     font-size: 0.8rem;
+    color: #888
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-title-state {
@@ -623,8 +633,12 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     margin-left: 1.5rem;
 }
 
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-title-state > span:nth-of-type(1) {
+    font-weight: 500;
+}
+
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .movie-time-cover.on > .movie-time-info-box > .movie-title-state > span:nth-of-type(2) {
-    margin-top: 0.35rem;
+    /*margin-top: 0.35rem;*/
     font-size: 0.8rem;
 }
 

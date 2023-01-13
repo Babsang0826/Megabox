@@ -7,14 +7,12 @@ import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.services.MyPageService;
 import dev.babsang.megabox.vos.movie.BookingVo;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
@@ -24,6 +22,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller(value = "dev.babsang.megabox.controllers.MyPageController")
 @RequestMapping(value = "myPage")
@@ -43,8 +42,7 @@ public class MyPageController {
 
         if (user == null) {
             modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
-        }
-        else {
+        } else {
             modelAndView = new ModelAndView("member/myPage");
 
 
@@ -74,13 +72,40 @@ public class MyPageController {
             }
 
             //예매 내역 그룹 짓기
-            Map<Integer, List<BookingVo>> bookingMap = new HashMap<>();
+            Map<Integer, List<BookingVo>> bookingMap = new LinkedHashMap<>();
             for (BookingVo bookingHistory : bookingHistories) {
                 if (!bookingMap.containsKey(bookingHistory.getScreenInfoIndex())) {
                     bookingMap.put(bookingHistory.getScreenInfoIndex(), new ArrayList<>());
                 }
                 bookingMap.get(bookingHistory.getScreenInfoIndex()).add(bookingHistory);
             }
+
+            //좌석 해시코드 순으로 정렬
+            for (Integer key : bookingMap.keySet()) {
+                List<BookingVo> bookings = bookingMap.get(key);
+                bookings = bookings.stream().sorted((o1, o2) -> {
+                    String o1C = o1.getColumnText() + o1.getRow();
+                    String o2C = o2.getColumnText() + o2.getRow();
+                    return Integer.compare(o1C.hashCode(), o2C.hashCode());
+                }).collect(Collectors.toList());
+                bookingMap.replace(key, bookings);
+            }
+
+            //예매 최신순으로 HashMap keySet 정렬
+            Object[] arr = bookingMap.keySet().toArray();
+            List<Object> list = Arrays.asList(arr);
+            Collections.reverse(list);
+            Object[] reverseArr = list.toArray(arr);
+
+            for (int i = 0; i < reverseArr.length; i++) {
+                Object o = reverseArr[i];
+                for (BookingVo bookingVo : bookingMap.get(o)) {
+                    System.out.println(i + "번째의 bookingIndex : " + bookingVo.getIndex());
+                }
+                System.out.println("------");
+            }
+
+            modelAndView.addObject("sortedBookingMapKeySet", reverseArr);
 
             modelAndView.addObject("bookingHistories", bookingHistories);
             modelAndView.addObject("bookingMap", bookingMap);
@@ -97,6 +122,21 @@ public class MyPageController {
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
 
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "myPage",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteMyPage(@SessionAttribute(value = "user", required = false) UserEntity user,
+                               @RequestParam(value = "screenInfoIndex") int screenInfoIndex) {
+        String userId = user.getId();
+        Enum<?> result = this.myPageService.deleteBooking(screenInfoIndex, userId);
+
+        JSONObject responseObject = new JSONObject();
+
+        responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
 
@@ -131,7 +171,7 @@ public class MyPageController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String deleteMyPage(@SessionAttribute(value = "user", required = false) UserEntity signedUser) {
+    public String deleteModify(@SessionAttribute(value = "user", required = false) UserEntity signedUser) {
         Enum<?> result = this.myPageService.deleteUser(signedUser);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());

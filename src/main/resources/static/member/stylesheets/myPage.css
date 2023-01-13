@@ -392,13 +392,14 @@ em {
 .myBook > .book-history > ul > li > .cont > div > p:last-of-type {
     margin: 0;
     display: flex;
+    align-items: center;
 }
 
 .myBook > .book-history > ul > li > .cont > div > p:last-of-type:before {
     content: '';
     display: block;
     width: 0.0625rem;
-    height: 1rem;
+    height: 0.8rem;
     margin: 0 7px 0 7px;
     background-color: #bbb;
 }
@@ -439,6 +440,10 @@ em {
     background-color: #fff;
     height: 32px;
     font-size: 14px;;
+}
+
+.cancel > .book-cancel:hover {
+    background-color: #f3f4f6;
 }
 
 /**/

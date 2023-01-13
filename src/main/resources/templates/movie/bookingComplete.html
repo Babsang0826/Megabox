@@ -9,19 +9,22 @@
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
-<div class="container">
+<div class="container" id="container">
     <div class="contents">
         <div class="inner-wrap">
             <div class="bookingComplete">
                 <h2>예매완료</h2>
                 <div class="booking-finish">
-                    <div class="book-info">
+                    <div class="book-info"
+                         th:each="bookingKey, index : ${sortedBookingMapKeySet}"
+                         th:if="${index.index} < 1"
+                         th:with="bookingList = ${bookingMap.get(bookingKey)}">
                         <div class="post-area">
                             <p>
                                 티켓 예매번호
-                                <span>1234-123-12345</span>
+                                <span th:text="${bookingList.get(0).getIndex()}">1234-123-12345</span>
                             </p>
-                            <img src="https://img.megabox.co.kr/SharedImg/2022/12/16/9vUySe7DNMro6tdYRPEbjzF2ebr48MwE_316.jpg"
+                            <img th:src="${bookingList.get(0).getMoviePoster()}" src="https://img.megabox.co.kr/SharedImg/2022/12/16/9vUySe7DNMro6tdYRPEbjzF2ebr48MwE_316.jpg"
                                  alt="">
                         </div>
                         <div class="info-area">
@@ -40,32 +43,45 @@
                                 <ul>
                                     <li>
                                         <span>예매영화</span>
-                                        아바타: 물의 길 / 2D(자막)
+                                        <p th:text="${bookingList.get(0).getTitle() + ' / ' + bookingList.get(0).getScreenType()}">아바타: 물의 길 / 2D(자막)</p>
                                     </li>
                                     <li>
-                                        <span>관람극징/상영관</span>
-                                        북대구(칠곡) / 4관
+                                        <span>관람극장/상영관</span>
+                                        <p th:text="${bookingList.get(0).getBranchText() + ' / ' + bookingList.get(0).getAuditoriumText()}">북대구(칠곡) / 4관</p>
                                     </li>
                                     <li>
                                         <span>관람일시</span>
-                                        2023.01.08 (일) 20:00
+                                        <p th:text="${#dates.format(bookingList.get(0).getScreenDate(), 'yyyy.MM.dd')} + ' (' + ${bookingList.get(0).getDayOfWeek()} + ') ' + ${#dates.format(bookingList.get(0).getMvStartTime(), 'HH:mm')}">2023.01.08 (일) 20:00</p>
                                     </li>
-                                    <li>
-                                        <span>관람인원</span>
-                                        성인 1명
+                                    <li rel="personContainer">
+                                        <span hidden rel="seat"
+                                              th:each="bookingVo : ${bookingList}"
+                                              th:data-payment="${bookingVo.getPayment()}">
+                                        </span>
                                     </li>
-                                    <li>
-                                        <span>좌석번호</span>
-                                        A1
+                                    <li rel="seatContainer">
+                                        <span hidden rel="seat"
+                                              th:each="bookingVo : ${bookingList}"
+                                              th:data-payment="${bookingVo.getPayment()}"
+                                              th:data-seat="${bookingVo.getColumnText() + bookingVo.getRow()}">
+                                        </span>
                                     </li>
+<!--                                    <li>-->
+<!--                                        <span>관람인원</span>-->
+<!--                                        <p>성인 1명</p>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <span>좌석번호</span>-->
+<!--                                        <p>A1</p>-->
+<!--                                    </li>-->
                                     <li>
                                         <span>전화번호</span>
-                                        010-6811-0753
+                                        <p>010-6811-0753</p>
                                     </li>
                                     <li>
                                         <span>결제정보</span>
                                         <strong>12,000</strong>
-                                        원
+                                        <p>원</p>
                                     </li>
                                 </ul>
                             </div>

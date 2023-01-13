@@ -46,7 +46,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">영화/스토어 관람권</a>
+                        <a href="#" rel="aa">영화/스토어 관람권</a>
                     </li>
                     <li>
                         <a href="#">메가박스/제휴쿠폰</a>
@@ -109,7 +109,7 @@
                                 <p class="title">최근 방문 극장</p>
                             </div>
                             <div class="list">
-                                <li th:each="bookingKey, index : ${bookingMap.keySet().toArray()}"
+                                <li th:each="bookingKey, index : ${sortedBookingMapKeySet}"
                                     th:if="${index.index} < 3"
                                     th:with="bookingList = ${bookingMap.get(bookingKey)}"
                                     th:text="${bookingList.get(0).getBranchText()}">
@@ -152,8 +152,12 @@
                             <li class="no-result" th:if="${bookingHistories.length == 0}">
                                 <div>예매 내역이 없습니다.</div>
                             </li>
-                            <li th:each="bookingKey : ${bookingMap.keySet().toArray()}"
+<!--                            <li th:each="bookingKey : ${bookingMap.keySet().stream().sorted(T(java.util.Comparator).reverseOrder()).toArray()}"-->
+<!--                                th:with="bookingList = ${bookingMap.get(bookingKey)}">-->
+                            <li th:each="bookingKey : ${sortedBookingMapKeySet}"
                                 th:with="bookingList = ${bookingMap.get(bookingKey)}">
+                                <input type="hidden" th:value="${session.user.getId()}" rel="hiddenUserId">
+                                <input type="hidden" th:value="${bookingList.get(0).getScreenInfoIndex()}" rel="hiddenSid">
                                 <p class="img">
                                     <img alt="" th:src="${bookingList.get(0).getMoviePoster()}">
                                 </p>
@@ -175,11 +179,6 @@
                                               th:data-seat="${bookingVo.getColumnText() + bookingVo.getRow()}">
                                         </span>
                                     </p>
-                                    <!--                                    <p>성인1-->
-                                    <!--                                        <span>좌석 :-->
-                                    <!--                                            <em th:text="${bookingHistory.getColumnText} + ${bookingHistory.getRow()}">E5</em>-->
-                                    <!--                                        </span>-->
-                                    <!--                                    </p>-->
                                     <p class="date"
                                        th:text="${#dates.format(bookingList.get(0).getScreenDate(), 'yyyy.MM.dd')} + ' (' + ${bookingList.get(0).getDayOfWeek()} + ') ' + ${#dates.format(bookingList.get(0).getMvStartTime(), 'HH:mm')}">
                                         2023.01.10 (화) 20:30</p>

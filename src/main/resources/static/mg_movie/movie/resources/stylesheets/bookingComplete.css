@@ -13,6 +13,11 @@ body {
     font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
 }
 
+p {
+    margin: 0;
+    padding: 0;
+}
+
 body > .container {
     width: 100%;
     min-width: 1100px;
@@ -134,6 +139,8 @@ body > .container > .contents > .inner-wrap > .bookingComplete > h2 {
     position: relative;
     padding-left: 130px;
     color: #fff;
+    display: flex;
+    align-items: center;
 }
 .booking-finish > .book-info > .info-area > .info-middle > ul > li > span {
     position: absolute;
@@ -145,6 +152,10 @@ body > .container > .contents > .inner-wrap > .bookingComplete > h2 {
 .booking-finish > .book-info > .info-area > .info-middle > ul > li > strong {
     font-size: 1.2em;
     color: #59bec9;
+}
+
+.booking-finish > .book-info > .info-area > .info-middle > ul > li > p {
+    margin-left: 3px;
 }
 
 .booking-finish > .book-info > .info-area > .info-bottom {

@@ -109,6 +109,7 @@ authCheck.addEventListener('click', () => {
                         authInput.setAttribute('disabled', 'disabled');
                         authCheck.setAttribute('disabled', 'disabled');
                         completeAuth.removeAttribute('disabled');
+                        document.getElementById('timer').style.color = '#fff';
                         break;
                     default:
                         warningText.style.color = 'red';

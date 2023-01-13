@@ -605,9 +605,10 @@ body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > 
     border-radius: 0 0 0 10px;
 }
 
-body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-result > .wrap > .btn-area > a.next {
+body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-result > .wrap > .btn-area > .next {
     background-color: #329eb1;
     border-radius: 0 0 10px 0;
+    width: 50%;
 }
 
 /*결제창*/
