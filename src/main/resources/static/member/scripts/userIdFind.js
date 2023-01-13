@@ -49,13 +49,13 @@ form['findId'].addEventListener('click', () => {
                     case 'success':
                         let id = responseObject['id'];
                         let name = responseObject['name'];
-                        alert("성공입니다.\n" +name + "님의 ID는 " + id + "입니다." );
+                        swal("알림", "성공입니다.\n" +name + "님의 ID는 " + id + "입니다." );
                         form['name'].setAttribute('disabled', 'disabled');
                         form['birthday'].setAttribute('disabled', 'disabled');
                         form['contact'].setAttribute('disabled', 'disabled');
                         break;
                     default:
-                        alert("입력하신 정보와 일치하는 회원이 없습니다.")
+                        swal("알림", "입력하신 정보와 일치하는 회원이 없습니다.")
                         form.querySelector('[rel="messageRow"]').classList.remove('visible');
                         form['goLogin'].classList.remove('visible');
                 }

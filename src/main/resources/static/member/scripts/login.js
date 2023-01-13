@@ -2,12 +2,12 @@ form.onsubmit = (e) => {
     e.preventDefault();
 
     if (form['loginId'].value === '') {
-        alert("아이디를 입력해주세요.")
+        swal("알림", "아이디를 입력해주세요.")
         form['loginId'].focus();
         return;
     }
     if (form['pwd'].value === '') {
-        alert("비밀번호를 입력해주세요.")
+        swal("알림", "비밀번호를 입력해주세요.")
         form['pwd'].focus();
         return;
     }
@@ -25,10 +25,10 @@ form.onsubmit = (e) => {
                         window.location.href = "http://localhost:8080"
                         break;
                     case'failure':
-                        alert('로그인에 실패하였습니다.')
+                        swal("알림", '로그인에 실패하였습니다.')
                         break;
                     default:
-                        alert("잠시만 기다려 주세요.")
+                        swal("알림","잠시만 기다려 주세요.")
                 }
             }
         }
