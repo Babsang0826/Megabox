@@ -1,5 +1,7 @@
 const seatContainers = document.querySelectorAll('[rel="seatContainer"]');
 const personContainer = document.querySelector('[rel="personContainer"]');
+const priceContainer = document.querySelector('[rel="priceContainer"]');
+const pointContainer = document.querySelector('[rel="pointContainer"]');
 
 
 seatContainers.forEach(seatContainer => {
@@ -37,7 +39,28 @@ seatContainers.forEach(seatContainer => {
     });
 });
 
-const { name, id, pw } = JSON.parse(localStorage.getItem("user-info"));
-localStorage.remove("user-info");
-console.log(id, name, pw); // 아이디 이름 비밀번호
+const { totalPriceSend } = JSON.parse(localStorage.getItem("total-price"));
+// localStorage.removeItem("total-price");
+console.log(totalPriceSend);
+
+const span = document.createElement('span');
+const strong = document.createElement('strong');
+const p = document.createElement('p');
+span.innerText = '결제금액';
+strong.innerText = totalPriceSend;
+p.innerText = '원'
+
+priceContainer.append(span, strong, p);
+
+const span1 = document.createElement('span');
+const em = document.createElement('em');
+const span2 = document.createElement('span');
+span1.innerText = '고객님의 적립 예정 포인트는';
+em.innerText = `${totalPriceSend * 0.005}P`;
+em.classList.add('point');
+span2.innerText = '입니다.';
+pointContainer.append(span1, em, span2);
+
+
+
 

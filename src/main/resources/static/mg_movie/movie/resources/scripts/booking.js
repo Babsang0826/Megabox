@@ -29,7 +29,6 @@ let today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
 let dateTwo = new Date();
 let year = dateTwo.getFullYear();
 let month = ('0' + (dateTwo.getMonth()) + 1).slice(-2);
-console.log('month 기준달 :' + month)
 
 let currentYear = date.getFullYear(); // 현재 년도
 let currentMonth = date.getMonth(); // 현재 달
@@ -828,6 +827,10 @@ form.onsubmit = e => {
         };
         xhr.send(formData);
     }
+    const totalPriceSend = {
+        totalPriceSend: (parseInt(adultPrice.innerText) + parseInt(teenagerPrice.innerText) + parseInt(etcPrice.innerText))
+    }
+    localStorage.setItem("total-price", JSON.stringify(totalPriceSend));
 }
 // })
 
