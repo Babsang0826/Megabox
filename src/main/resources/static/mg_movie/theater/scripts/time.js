@@ -269,7 +269,7 @@ xhr.onreadystatechange = () => {
                         const timeCellElement = timeDom.querySelector('[rel="timeCell"]');
                         // booking 으로 값 넘기는 부분
                         timeCellElement.addEventListener('click', () => {
-                            // location.href = "/movie/booking"
+                            location.href = "/movie/booking"
                             timeContainer.classList.add('off');
                             paymentContainer.classList.remove('off');
                             seatContainer.classList.add('on');
