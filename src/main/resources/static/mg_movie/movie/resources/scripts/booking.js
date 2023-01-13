@@ -926,7 +926,7 @@ let currentIdx = 0;
 let slideWidth = 2;
 let slideMargin = 2.35;
 let slideSpeed = 500;
-
+//
 nextBtn.addEventListener('click', function () {
     moveSlide(currentIdx + 1);
     if (currentIdx > 7) {
