@@ -676,13 +676,13 @@ const drawSeat = () => {
         const seat = seats[i];
         seat.addEventListener('click', () => {
             if (totalCnt === '0') {
-                alert('인원을 먼저 선택해주세요.');
+                swal('알림', '인원을 먼저 선택해주세요.');
                 return;
             }
             let chosenSeatCnt = seatArea.querySelectorAll('.row.on').length
             chosenSeatTotalCnt = chosenSeatCnt + 1
             if (chosenSeatCnt + 1 > totalCnt && !seat.classList.contains('on')) {
-                alert('좌석 선택이 완료되었습니다.');
+                swal('알림', '좌석선택이 완료되었습니다.');
                 return;
             }
             if (seat.classList.contains('on')) {
@@ -732,11 +732,11 @@ const seatNext = container.querySelector('.next');
 seatNext.addEventListener('click', () => {
     let selectedSeat = container.querySelectorAll('.seat.choice').length;
     if (totalCnt > selectedSeat) {
-        alert('인원 수에 맞게 좌석을 선택해주세요.');
+        swal('알림', '인원 수에 맞게 좌석을 선택해주세요.');
         return;
     }
     if (chosenSeatTotalCnt === 0) {
-        alert('인원 및 좌석 선택을 먼저 해주세요.');
+        swal('알림', '인원 및 좌석 선택을 먼저 해주세요.');
         return;
     }
     seatSelectPayment.classList.add('on');
@@ -760,7 +760,7 @@ xhr.onreadystatechange = () => {
             drawListBox();
             drawBranches();
         } else {
-            alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+            swal('알림', '서버와 통신하지 못하였습니다. 잠시 후 다시 시도해주세요.');
         }
     }
 };

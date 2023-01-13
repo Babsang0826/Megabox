@@ -355,6 +355,14 @@ public class MovieController {
         modelAndView.addObject("bookingHistories", bookingHistories);
         modelAndView.addObject("bookingMap", bookingMap);
 
+        //전화번호 양식 맞추기
+        StringBuffer sb = new StringBuffer();
+        sb.append(user.getContact());
+        sb.insert(3, "-");
+        sb.insert(8, "-");
+
+        modelAndView.addObject("contact", sb);
+
         return modelAndView;
     }
 }
