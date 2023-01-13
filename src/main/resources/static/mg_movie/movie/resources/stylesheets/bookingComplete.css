@@ -77,6 +77,12 @@ body > .container > .contents > .inner-wrap > .bookingComplete > h2 {
     font-weight: 700;
 }
 
+.booking-finish > .book-info > .post-area > p > span:nth-of-type(1) {
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
 .booking-finish > .book-info > .post-area > img {
     width: 150px!important;
     height: 216px!important;

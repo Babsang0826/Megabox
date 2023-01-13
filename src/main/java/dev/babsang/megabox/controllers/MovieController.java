@@ -307,7 +307,6 @@ public class MovieController {
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getBookingComplete() {
         ModelAndView modelAndView = new ModelAndView("movie/bookingComplete");
-
         return modelAndView;
     }
 }

@@ -59,17 +59,22 @@ for (let i = 0; i < cell.length; i++) {
             data[i].style.justifyContent = 'space-between';
         }
 
-        let adultTotalPrice = `${parseInt(adultCount.innerText) * 12000}`
-        let teenagerTotalPrice = `${parseInt(teenagerCount.innerText) * 9000}`
-        let etcTotalPrice = `${parseInt(etcCount.innerText) * 5000}`
-        let sumPrice = parseInt(adultTotalPrice) + parseInt(teenagerTotalPrice) + parseInt(etcTotalPrice)
-
+        let adultTotalPrice = `${parseInt(adultCount.innerText) * 12000}`;
+        let adultTotalCount = `${parseInt(adultCount.innerText)}`;
+        let teenagerTotalPrice = `${parseInt(teenagerCount.innerText) * 9000}`;
+        let teenagerTotalCount = `${parseInt(teenagerCount.innerText)}`;
+        let etcTotalPrice = `${parseInt(etcCount.innerText) * 5000}`;
+        let etcTotalCount = `${parseInt(etcCount.innerText)}`;
+        let sumPrice = parseInt(adultTotalPrice) + parseInt(teenagerTotalPrice) + parseInt(etcTotalPrice);
         price.innerText = sumPrice;
         totalPrice.innerText = sumPrice;
         finalPrice.innerText = sumPrice;
         adultPrice.innerText = adultTotalPrice;
+        adultPrice.dataset.value = adultTotalCount;
         teenagerPrice.innerText = teenagerTotalPrice;
+        teenagerPrice.dataset.value = teenagerTotalCount;
         etcPrice.innerText = etcTotalPrice;
+        etcPrice.dataset.value = etcTotalCount;
     });
 
     totalCnt = number;
@@ -131,6 +136,14 @@ for (let i = 0; i < resetBtn.length; i++) {
     })
 }
 
+const homeReloadPrev = container.querySelector('.home-reload-button');
+// const reloadSeatResultTitle = window.document.querySelector('.title-area')
+// const reloadSeatResultInfo = window.document.querySelector('.info-area');
+homeReloadPrev.addEventListener('click', e => {
+    timeContainer.classList.remove('off');
+    paymentContainer.classList.add('off');
+
+})
 
 //payment 버튼 이벤트
 const seatSelect = container.querySelector('[rel="seatSelect"]');
@@ -140,6 +153,7 @@ const seatPrev = container.querySelector('.prev');
 seatPrev.addEventListener('click', () => {
     seatSelectPayment.classList.remove('on');
     seatSelect.classList.add('on');
+    drawCompleteBookingInfo();
 });
 
 

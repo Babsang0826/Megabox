@@ -39,7 +39,7 @@ let currentDay = today.getDate(); // 현재 날짜
 let endDay = new Date(currentYear, currentMonth + 1, 0);
 let thisMonthLast = endDay.getDate(); // 현재달 마지막 날짜
 // let thisMonthLastWeek = endDay.getDay(); // 현재달 마지막 요일(인덱스)
-let nextStartDay = new Date(currentYear, dateTwo.getMonth()+1 ,1);
+let nextStartDay = new Date(currentYear, dateTwo.getMonth() + 1, 1);
 let nextMonthStartWeek = nextStartDay.getDay();
 
 
@@ -472,6 +472,7 @@ const drawSeatResult = () => {
     const wrapContainer = window.document.querySelector('.wrap');
     const titleAreaElement = window.document.createElement('div');
     titleAreaElement.classList.add('title-area');
+
     if (deleteListBox.length > 0 && deleteCity.length > 0) {
         allScreenInfos
             .filter(allScreenInfo => selectListTitle.indexOf(allScreenInfo['screenInfoMovieTitle']) > -1 && selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
@@ -774,7 +775,7 @@ region.addEventListener('click', e => {
     if (!region.classList.contains('on')) {
         selectMovieTime.innerHTML = '';
         city.forEach(x => x.classList.remove('on'));
-        drawSubs()
+        drawSubs();
     }
 });
 
@@ -782,22 +783,32 @@ form.onsubmit = e => {
     e.preventDefault();
     const selectBooking = Array.from(window.document.querySelectorAll('.row.on'));
     const movieTimeSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
+    let adultTotalCount = `${parseInt(adultCount.innerText)}`;
+    let teenagerTotalCount = `${parseInt(teenagerCount.innerText)}`;
+    let etcTotalCount = `${parseInt(etcCount.innerText)}`;
+    let priceArray = [adultPrice, teenagerPrice, etcPrice];
+    let priceCountArray = [adultTotalCount, teenagerTotalCount, etcTotalCount];
     for (let i = 0; i < selectBooking.length; i++) {
         const seatCodes = selectBooking.map(x => x.value); // A7
         const seatIndexs = selectBooking.map(x => x.dataset.seatIndex);
         const seatScreenInfoIndexs = movieTimeSelected.find(x => x.dataset.screenInfoIndex);
+        const seatPrices = priceArray.map(x => parseInt(x.innerText));
+        let lastCountArray = [];
+        for (let j = 0; j < priceCountArray.length; j++) {
+            for (let z = 0; z < priceCountArray[j]; z++) {
+                lastCountArray.push(seatPrices[j] / (priceCountArray[j]));
+            }
+        }
         let seatIndex = seatIndexs[i];
         let seatCode = seatCodes[i];
+        let seatPrice = lastCountArray[i];
         let screenInfoIndex = seatScreenInfoIndexs.dataset.screenInfoIndex;
-        console.log('seatIndex : ' + seatIndex);
-        console.log('seatCode : ' + seatCode);
-        console.log('sid : ' + screenInfoIndex);
-
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
         formData.append('screenInfoIndex', screenInfoIndex);
         formData.append('seatIndex', seatIndex);
         formData.append('seatSumCode', seatCode);
+        formData.append('payment', seatPrice);
         xhr.open('POST', './booking');
         xhr.onreadystatechange = () => {
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -952,17 +963,6 @@ function alertThree() {
 function alertFour() {
     swal("속보", '알수 없는 이유로 결제에 실패했습니다.');
 }
-
-const {screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenInfoMovieStartTime,
-    screenInfoMovieEndTime, screenInfoMovieTitle, screenInfoDate, screenInfoMovieState,
-    screenInfoBranchIndex, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
-    movieIndex} = JSON.parse(localStorage.getItem('time-cell-value'));
-localStorage.remove('time-cell-value');
-console.log(screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenInfoMovieStartTime,
-    screenInfoMovieEndTime, screenInfoMovieTitle, screenInfoDate, screenInfoMovieState,
-    screenInfoBranchIndex, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
-    movieIndex);
-
 
 
 
