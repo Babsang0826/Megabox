@@ -11,6 +11,15 @@
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="page-util" id="pageUtil">
+    <div class="inner-wrap">
+        <div class="location">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{./booking}">예매</a>
+            <a>예매완료</a>
+        </div>
+    </div>
+</div>
 <div class="container" id="container">
     <div class="contents">
         <div class="inner-wrap">
@@ -34,11 +43,11 @@
                                 <p class="title">
                                     <strong>예매가 완료되었습니다!</strong>
                                 </p>
-                                <span>
-                                    <i></i>
-                                    <span>고객님의 적립예정 포인트는</span>
-                                    <em class="point">700P</em>
-                                    <span>입니다.</span>
+                                <span rel="pointContainer">
+<!--                                    <i></i>-->
+<!--                                    <span>고객님의 적립예정 포인트는</span>-->
+<!--                                    <em class="point">700P</em>-->
+<!--                                    <span>입니다.</span>-->
                                 </span>
                             </div>
                             <div class="info-middle">
@@ -72,11 +81,7 @@
                                         <span>전화번호</span>
                                         <p th:text="${contact}">010-6811-0753</p>
                                     </li>
-                                    <li>
-                                        <span>결제정보</span>
-                                        <strong>12,000</strong>
-                                        <p>원</p>
-                                    </li>
+                                    <li rel="priceContainer"></li>
                                 </ul>
                             </div>
                             <div class="info-bottom">

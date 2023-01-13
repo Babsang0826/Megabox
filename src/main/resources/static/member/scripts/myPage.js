@@ -13,7 +13,7 @@ xhr.onreadystatechange = () => {
                 case 'success':
                     break;
                 case 'no_user':
-                    alert('로그인이 필요한 서비스입니다.');
+                    swal('알림', '로그인이 필요한 서비스입니다.');
                     window.location.href = './login';
                     break;
                 case 'failure':
@@ -83,11 +83,13 @@ for (let bookingCancel of bookingCancels) {
                         const responseObject = JSON.parse(xhr.responseText);
                         switch (responseObject['result']) {
                             case 'success':
-                                alert('예매 취소 완료');
-                                window.location.reload();
+                                swal('알림', '예매 취소 완료');
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 3000);
                                 break;
                             case 'failure':
-                                alert('예매 취소 실패');
+                                swal('알림', '예매 취소 실패');
                                 break;
                         }
                     }
