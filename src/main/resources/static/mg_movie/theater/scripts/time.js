@@ -270,12 +270,8 @@ xhr.onreadystatechange = () => {
                         // booking 으로 값 넘기는 부분
                         timeCellElement.classList.add('time')
                         timeCellElement.addEventListener('click', () => {
-                            // location.href = "/movie/booking"
-                            timeContainer.classList.add('off');
-                            paymentContainer.classList.remove('off');
-                            seatContainer.classList.add('on');
-                            // timeCellElement.dataset.value = '2';
-                            // console.log(timeCellElement.dataset.value);
+                            location.href = "/movie/booking"
+                            timeCellElement.setAttribute('selected', 'selected');
                             const timeCellValue = {
                                 screenInfoIndex: `${movie['screenInfoIndex']}`,
                                 screenInfoMovieIndex: `${movie['screenInfoMovieIndex']}`,
@@ -295,8 +291,8 @@ xhr.onreadystatechange = () => {
                             };
                             localStorage.setItem("time-cell-value", JSON.stringify(timeCellValue));
                             alert('보냄요');
-                        })
 
+                        })
                         timeContainerElement.append(timeCellElement);
                     }
 

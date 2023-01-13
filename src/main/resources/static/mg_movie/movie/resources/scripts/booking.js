@@ -329,12 +329,13 @@ const drawSubs = () => {
                     movieAuditoriumElement.innerText = allScreenInfo['screenInfoAuditoriumText'];
                     const seatBoxElement = window.document.createElement('div');
                     seatBoxElement.classList.add('seat-box');
+                    let remainSeat = allScreenInfo['screenInfoSeatCountAll'] - allScreenInfo['screenInfoSeatRemain'];
                     const remainSeatElement = window.document.createElement('span');
                     remainSeatElement.classList.add('remain-seat');
-                    // remainSeatElement.innerText = allScreenInfo['']
+                    remainSeatElement.innerText = remainSeat;
                     const allSeatElement = window.document.createElement('span');
                     allSeatElement.classList.add('all-seat');
-                    allSeatElement.innerText = allScreenInfo['screenInfoSeatCountAll'];
+                    allSeatElement.innerText = '/' + allScreenInfo['screenInfoSeatCountAll'];
                     seatBoxElement.append(remainSeatElement, allSeatElement);
                     moviePlaceElement.append(movieBranchElement, movieAuditoriumElement, seatBoxElement);
                     movieTimeInfoBoxElement.append(movieTimeElement, movieTitleStateElement, moviePlaceElement);
@@ -422,6 +423,7 @@ const drawSubs = () => {
                     remainSeatElement.classList.add('remain-seat');
                     const allSeatElement = window.document.createElement('span');
                     allSeatElement.classList.add('all-seat');
+                    allSeatElement.innerText = '/' + allScreenInfo['screenInfoSeatCountAll'];
                     seatBoxElement.append(remainSeatElement, allSeatElement);
                     moviePlaceElement.append(movieBranchElement, movieAuditoriumElement, seatBoxElement);
                     movieTimeInfoBoxElement.append(movieTimeElement, movieTitleStateElement, moviePlaceElement);
@@ -452,6 +454,7 @@ const drawSubs = () => {
         }
     }
 }
+
 
 const seatResultContainer = window.document.querySelector('.seat-result');
 const drawSeatResult = () => {
@@ -551,7 +554,6 @@ const drawSeatResult = () => {
             });
     }
 }
-
 
 const seatPayWrap = window.document.querySelector('[rel="seatPayWrap"]');
 const drawPaySeatResult = () => {
@@ -816,7 +818,7 @@ form.onsubmit = e => {
                             window.location.href = '/movie/bookingComplete';
                             break;
                         default:
-                            swal('알림','결제가 실패하였습니다. 잠시 후 다시 시도해 주세요.');
+                            swal('알림', '결제가 실패하였습니다. 잠시 후 다시 시도해 주세요.');
                             break;
                     }
                 } else {
@@ -943,6 +945,21 @@ function moveSlide(num) {
     timeBox.style.left = -num * (slideWidth + slideMargin) + 'rem';
     timeBox.style.transition = slideSpeed + 'ms';
     currentIdx = num;
+}
+
+
+const {
+    screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenInfoMovieStartTime,
+    screenInfoMovieEndTime, screenInfoMovieTitle, screenInfoDate, screenInfoMovieState,
+    screenInfoBranchIndex, screenInfoBranchText, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
+    movieIndex
+} = JSON.parse(localStorage.getItem('time-cell-value'));
+localStorage.removeItem('time-cell-value')
+
+if (screenInfoIndex != null) {
+    timeContainer.classList.add('off');
+    paymentContainer.classList.remove('off');
+    seatContainer.classList.add('on');
 }
 
 

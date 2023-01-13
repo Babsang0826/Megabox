@@ -152,7 +152,6 @@ const seatPrev = container.querySelector('.prev');
 seatPrev.addEventListener('click', () => {
     seatSelectPayment.classList.remove('on');
     seatSelect.classList.add('on');
-    drawCompleteBookingInfo();
 });
 
 
