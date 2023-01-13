@@ -163,7 +163,7 @@ a {
 
 .contents > .theater-main > .inner-wrap {
     position: relative;
-    margin-left: 320px;
+    margin-left: 400px;
 }
 
 #content > .theater-main > .inner-wrap > .left {
@@ -492,6 +492,10 @@ h3.tit {
     border: 1px solid #eaeaea;
     border-width: 0 0 1px 0;
     text-align: center;
+}
+
+.board-list > tbody > tr > th {
+    text-align: inherit;
 }
 
 #seoul-city,

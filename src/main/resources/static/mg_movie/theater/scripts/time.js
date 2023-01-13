@@ -57,9 +57,9 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     } else if (thisWeek !== '토' && thisWeek !== '일' && i !== currentDay) {
     }
     let day = window.document.querySelectorAll('.day');
-    if (i === currentDay) {
-        timeElement.setAttribute('selected', 'selected');
-    }
+    // if (i === currentDay) {
+    //     timeElement.setAttribute('selected', 'selected');
+    // }
     if (thisWeek === '토') {
         timeElement.style.color = 'blue';
     } else if (thisWeek === '일') {
@@ -173,15 +173,6 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     }
 }
 
-// const movieDay = window.document.querySelectorAll('.day');
-// for (let j = 0; j < day.length; j++) {
-//     movieDay[0].addEventListener('click', () => {
-//         movieDay[0].style.backgroundColor = 'rgb(235, 235, 235)';
-//         for (let movieDays of thisMonthArr) {
-//             console.log(movieDays);
-//         }
-//     })
-// }
 
 const url = new URL(window.location.href);
 const searchParams = url.searchParams;
@@ -202,7 +193,7 @@ xhr.onreadystatechange = () => {
                             <p><a href="/movie/movie-detail?mid=${screens[0]['movieIndex']}">${screens[0]['screenInfoMovieTitle']}</a></p>
                             <p class="information">
                                 <span>${screens[0]['movieState']} /</span>
-                                <span style="color: #0f0f0f">상영시간${screens[0]['runningTime']}분</span></p>
+                                <span style="color: #0f0f0f">상영시간 ${screens[0]['runningTime']}분</span></p>
                         </div>
                         
                     </div>
@@ -279,8 +270,12 @@ xhr.onreadystatechange = () => {
                         // booking 으로 값 넘기는 부분
                         timeCellElement.classList.add('time')
                         timeCellElement.addEventListener('click', () => {
-                            timeCellElement.dataset.value = '2';
-                            console.log(timeCellElement.dataset.value);
+                            // location.href = "/movie/booking"
+                            timeContainer.classList.add('off');
+                            paymentContainer.classList.remove('off');
+                            seatContainer.classList.add('on');
+                            // timeCellElement.dataset.value = '2';
+                            // console.log(timeCellElement.dataset.value);
                             const timeCellValue = {
                                 screenInfoIndex: `${movie['screenInfoIndex']}`,
                                 screenInfoMovieIndex: `${movie['screenInfoMovieIndex']}`,
@@ -291,6 +286,7 @@ xhr.onreadystatechange = () => {
                                 screenInfoDate: `${movie['screenInfoDate']}`,
                                 screenInfoMovieState: `${movie['screenInfoMovieState']}`,
                                 screenInfoBranchIndex: `${movie['screenInfoBranchIndex']}`,
+                                screenInfoBranchText: `${movie['screenInfoBranchText']}`,
                                 screenInfoAuditoriumText: `${movie['screenInfoAuditoriumText']}`,
                                 runningTime: `${movie['runningTime']}`,
                                 movieState: `${movie['movieState']}`,

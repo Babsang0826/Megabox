@@ -241,13 +241,11 @@ table caption {
 .board > tbody > tr > th {
     height: 30px;
     padding: 8px;
-    border: 1px solid #eaeaea;
-    border-width: 0 0 1px 0;
     text-align: center;
 }
 
 .board > tbody > tr > th {
-    text-align: center;
+    text-align: inherit;
     font-weight: 400;
 }
 
@@ -257,8 +255,8 @@ table caption {
     margin: 0;
     padding: 0;
     vertical-align: middle;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 a:link {
@@ -346,8 +344,8 @@ a:link {
 }
 
 tr {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 500;
 }
 
 .board > tbody > tr > th a {

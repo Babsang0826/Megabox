@@ -409,5 +409,3 @@ form.querySelector('[rel="emailAuthComplete"]').addEventListener('click', () => 
 
 
 
-
-

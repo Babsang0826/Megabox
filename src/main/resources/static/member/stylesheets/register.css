@@ -387,6 +387,11 @@ label > .input-text {
     color: #444;
     border: 1px solid #d8d9db;
     vertical-align: middle;
+    font-size: 13px;
+}
+
+label > .input-text.a {
+    margin-bottom: 4px;
 }
 
 
@@ -730,6 +735,7 @@ input.input-text.w260px + .tooltip {
 .step.step4 {
     display: none;
 }
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
