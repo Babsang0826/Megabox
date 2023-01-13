@@ -184,13 +184,13 @@ label {
 
 .btnLogin {
     display: block;
-    width: 100%;
+    width: 102%;
     height: 60px;
     padding: 0 30px;
     border: 0;
     font-weight: 400;
     background-color: #503396;
-    color: #c1c1c1;
+    color: #f2f4f5;
     cursor: pointer;
     font-size: 20px;
 }

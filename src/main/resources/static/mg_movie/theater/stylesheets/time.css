@@ -354,11 +354,12 @@ body, html {
 }
 
 .theater-list-box > .text-form > .theater-tit > p > a {
-    color: #666;
+    color: #222222;
 }
 
 .theater-list-box > .text-form > .theater-tit > p > a:hover {
     text-decoration: underline;
+    color: #666;
 }
 
 
@@ -408,6 +409,7 @@ body, html {
     position: absolute;
     top: 20px;
     left: 0;
+    margin-left: 10px;
 }
 
 .theater-list-box > .text-form > .theater-type-box > .theater-type > .theater-name {
@@ -470,7 +472,7 @@ body, html {
     display: table;
 }
 
-.theater-list-box > .text-form > .theater-type-box > .theater-time > .theater-time-box > .time-list-table tbody tr td:hover {
+.theater-list-box > .text-form > .theater-type-box > .theater-time > .theater-time-box > .time-list-table tbody tr td .td:hover {
     background-color: #503396;
 }
 

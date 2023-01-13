@@ -2,7 +2,7 @@ const form = window.document.getElementById('form');
 const nextBtn = window.document.getElementById('nextBtn'); // 날짜 다음버튼
 const previousBtn = window.document.getElementById('previousBtn'); // 이전버튼
 const timeBox = window.document.querySelector('.time-box'); // 보여줘야 할 칸
-const timeContainer = window.document.querySelector('.reservation-container');
+const timeContainer = window.document.querySelector('.reservation-container');//**
 const paymentContainer = window.document.querySelector('.body-wrap');
 const seatContainer = window.document.querySelector('.seat-select');
 
@@ -952,12 +952,13 @@ function alertFour() {
 
 const {screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenInfoMovieStartTime,
     screenInfoMovieEndTime, screenInfoMovieTitle, screenInfoDate, screenInfoMovieState,
-    screenInfoBranchIndex, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
+    screenInfoBranchIndex, screenInfoBranchText,  screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
     movieIndex} = JSON.parse(localStorage.getItem('time-cell-value'));
-localStorage.remove('time-cell-value');
+localStorage.remove('time-cell-value')
+
 console.log(screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenInfoMovieStartTime,
     screenInfoMovieEndTime, screenInfoMovieTitle, screenInfoDate, screenInfoMovieState,
-    screenInfoBranchIndex, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
+    screenInfoBranchIndex, screenInfoBranchText, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
     movieIndex);
 
 

@@ -151,7 +151,7 @@
                        th:if="${paging.requestPage > 1}">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <a class="page" id="pageNumber" th:style="${page == paging.requestPage ? 'background-color: #01738b;' : ''}"
+                    <a class="page" id="pageNumber" th:style="${page == paging.requestPage ? 'background-color: #01738b; color: white;' : ''}"
                        th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}"
                        th:class="${'page ' + (page == paging.requestPage ? 'selected' : '')}"
                        th:text="${page}"

@@ -203,7 +203,7 @@
             AND REPLACE(`branch`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
         </if>
         group by article.`index`
-        ORDER BY article.`index` DESC
+        ORDER BY article.`index` asc
         LIMIT #{limit} OFFSET #{offset}
     </select>
 </mapper>
