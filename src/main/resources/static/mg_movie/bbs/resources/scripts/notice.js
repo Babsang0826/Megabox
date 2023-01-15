@@ -1,7 +1,11 @@
-const form = window.document.getElementById('form');
+window.onscroll = function () {
+    scrollFunction()
+}
 
-const pageNumber = window.document.getElementById('pageNumber');
-
-// pageNumber.addEventListener('click', e => {
-//     e.preventDefault();
-// })
+function scrollFunction() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        document.getElementById('pageUtil').classList.add('fixed');
+    } else {
+        document.getElementById('pageUtil').classList.remove('fixed');
+    }
+}

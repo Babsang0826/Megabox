@@ -86,7 +86,7 @@ regionGyeongsang.addEventListener('click', () => {
 });
 
 regionGyeonggi.addEventListener('click', () => {
-    alert("아직 준비되지 않은 서비스 입니다.");
+    swal("알림", "아직 준비되지 않은 서비스 입니다.");
     form['regionSeoul'].focus();
     // regionGyeongsang.style.backgroundColor = "#fff";
     // regionGyeongsang.style.color = "#555";
@@ -112,7 +112,7 @@ regionGyeonggi.addEventListener('click', () => {
 });
 
 regionIncheon.addEventListener('click', () => {
-    alert("아직 준비되지 않은 서비스 입니다.");
+    swal("알림", "아직 준비되지 않은 서비스 입니다.");
     form['regionSeoul'].focus();
     // regionGyeongsang.style.backgroundColor = "#fff";
     // regionGyeongsang.style.color = "#555";
@@ -138,7 +138,7 @@ regionIncheon.addEventListener('click', () => {
 });
 
 regionDaejeon.addEventListener('click', () => {
-    alert("아직 준비되지 않은 서비스 입니다.");
+    swal("알림", "아직 준비되지 않은 서비스 입니다.");
     form['regionSeoul'].focus();
     // regionGyeongsang.style.backgroundColor = "#fff";
     // regionGyeongsang.style.color = "#555";
@@ -164,7 +164,7 @@ regionDaejeon.addEventListener('click', () => {
 });
 
 regionJeonla.addEventListener('click', () => {
-    alert("아직 준비되지 않은 서비스 입니다.");
+    swal("알림", "아직 준비되지 않은 서비스 입니다.");
     form['regionSeoul'].focus();
     // regionGyeongsang.style.backgroundColor = "#fff";
     // regionGyeongsang.style.color = "#555";
@@ -190,8 +190,7 @@ regionJeonla.addEventListener('click', () => {
 });
 
 regionGangwon.addEventListener('click', () => {
-    alert("아직 준비되지 않은 서비스 입니다.");
-   c
+    swal("알림", "아직 준비되지 않은 서비스 입니다.");
 
     // regionGyeongsang.style.backgroundColor = "#fff";
     // regionGyeongsang.style.color = "#555";
@@ -215,3 +214,14 @@ regionGangwon.addEventListener('click', () => {
     // regionGangwon.style.color = "#fff";
     // gangwonCity.style.display = "block";
 });
+window.onscroll = function () {
+    scrollFunction()
+}
+
+function scrollFunction() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        document.getElementById('pageUtil').classList.add('fixed');
+    } else {
+        document.getElementById('pageUtil').classList.remove('fixed');
+    }
+}

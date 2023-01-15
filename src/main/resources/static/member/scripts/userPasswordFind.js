@@ -74,7 +74,7 @@ form['findPassword'].addEventListener('click', () => {
                 console.log(responseObject);
                 switch (responseObject['result']) {
                     case 'success':
-                        alert("본인인증에 성공하였습니다. 비밀번호 재설정 페이지로 이동합니다.");
+                        swal("알림", "본인인증에 성공하였습니다. 비밀번호 재설정 페이지로 이동합니다.");
                         window.location.href = "http://localhost:8080/member/userPasswordReset"
                         // let password = responseObject['password'];
                         // let name = responseObject['name'];
@@ -85,10 +85,10 @@ form['findPassword'].addEventListener('click', () => {
                         form['contact'].setAttribute('disabled', 'disabled');
                         break;
                     default:
-                        alert("입력하신 정보와 일치하는 회원이 없습니다.")
+                        swal("알림", "입력하신 정보와 일치하는 회원이 없습니다.")
                 }
             } else {
-                alert("서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.")
+                swal("알림", "서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.")
             }
         }
     };

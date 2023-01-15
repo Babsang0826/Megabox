@@ -1,5 +1,17 @@
 const form = window.document.getElementById('form');
 
+window.onscroll = function () {
+    scrollFunction()
+}
+
+function scrollFunction() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        document.getElementById('pageUtil').classList.add('fixed');
+    } else {
+        document.getElementById('pageUtil').classList.remove('fixed');
+    }
+}
+
 const noArticle = form.querySelectorAll('.link');
 console.log(noArticle);
 
@@ -26,16 +38,16 @@ form.querySelector('[rel="actionDelete"]').addEventListener('click', () => {
                         window.location.href = "./notice?bid=notice"
                         break;
                     case 'no_such_article':
-                        alert("삭제하려는 게시물이 더 이상 존재하지 않습니다.");
+                        swal("알림", "삭제하려는 게시물이 더 이상 존재하지 않습니다.");
                         break;
                     case 'not_allowed':
-                        alert('삭제할 권한이 없어요.');
+                        swal("알림", "삭제할 권한이 없어요.");
                         break;
                     default:
-                        alert("알 수 없는 이유로 삭제하지 못하였습니다. 다시 시도해주세요.");
+                        swal("알림", "알 수 없는 이유로 삭제하지 못하였습니다. 다시 시도해주세요.");
                 }
             } else {
-                alert('서버와 통신하지 못하였습니다. 잠시후 다시 시도해 주세요.');
+                swal("알림", "서버와 통신하지 못하였습니다. 잠시후 다시 시도해 주세요.");
             }
         }
     };
@@ -59,21 +71,22 @@ form.querySelector('[rel="actionModify"]').addEventListener('click', () => {
                         window.location.href = "./notice"
                         break;
                     case 'no_such_article':
-                        alert("삭제하려는 게시물이 더 이상 존재하지 않습니다.");
+                        swal("알림", "삭제하려는 게시물이 더 이상 존재하지 않습니다.");
                         break;
                     case 'not_allowed':
-                        alert('삭제할 권한이 없어요.');
+                        swal("알림", '삭제할 권한이 없어요.');
                         break;
                     default:
-                        alert("알 수 없는 이유로 삭제하지 못하였습니다. 다시 시도해주세요.");
+                        swal("알림", "알 수 없는 이유로 삭제하지 못하였습니다. 다시 시도해주세요.");
                 }
             } else {
-                alert('서버와 통신하지 못하였습니다. 잠시후 다시 시도해 주세요.');
+                swal("알림", '서버와 통신하지 못하였습니다. 잠시후 다시 시도해 주세요.');
             }
         }
     };
     xhr.send(formData);
 });
+
 
 
 

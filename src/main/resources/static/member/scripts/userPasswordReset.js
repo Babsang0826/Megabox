@@ -48,7 +48,7 @@ form['emailSend'].addEventListener('click', () => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case'success':
-                        alert("입력하신 이메일로 인증을 진행할 수 잇는 링크를 전송하였습니다." +
+                        swal("알림", "입력하신 이메일로 인증을 진행할 수 잇는 링크를 전송하였습니다." +
                             " 해당 링크 확인 후 해당 페이지로 돌아와 주세요.");
                         emailAuthIndex = responseObject['index'];
                         form['email'].setAttribute('disabled', 'disabled');
@@ -58,12 +58,12 @@ form['emailSend'].addEventListener('click', () => {
                         form['passwordSend'].removeAttribute('disabled');
                         break;
                     default:
-                        alert("해당 이메일을 사용하는 계정을 찾을 수 없습니다.")
+                        swal("알림", "해당 이메일을 사용하는 계정을 찾을 수 없습니다.")
                         form['email'].focus();
                         form['email'].select();
                 }
             } else {
-                alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.')
+                swal("알림", '서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.')
             }
         }
     };
@@ -104,14 +104,14 @@ form['passwordSend'].addEventListener('click', () => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case'success':
-                        alert('비밀번호를 성공적으로 재설정하였습니다.\n\n확인을 누르면 로그인 페이지로 이동합니다.')
+                        swal("알림", "비밀번호를 성공적으로 재설정하였습니다.\n\n확인을 누르면 로그인 페이지로 이동합니다.")
                         window.location.href = 'login';
                         break;
                     default:
-                      alert('비밀번호를 재설정하지 못하였습니다. 세션이 만료되었을 수도 있습니다. 잠시 후 다시 시도해주세요.')
+                        swal("알림", "비밀번호를 재설정하지 못하였습니다. 세션이 만료되었을 수도 있습니다. 잠시 후 다시 시도해주세요.")
                 }
             } else {
-                alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.')
+                swal("알림", "서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.")
             }
         }
     };

@@ -305,7 +305,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
             form.querySelector('[rel="warning-address"]').innerText = ''
         }
         if (!form['overlappingButton'].disabled) {
-            alert("아이디 중복검사를 해주세요.");
+            swal("알림", "아이디 중복검사를 해주세요.");
             form['loginId'].focus();
             return;
         }
@@ -329,7 +329,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                     const responseObject = JSON.parse(xhr.responseText);
                     switch (responseObject['result']) {
                         case 'success':
-                            alert("회원가입이 완료되었습니다.");
+                            swal("알림", "회원가입이 완료되었습니다.");
                             document.getElementById("step step3").style.display = "none";
                             document.getElementById("step step4").style.display = "block";
                             document.getElementById("three").style.border = "none"
@@ -342,13 +342,13 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                             form['contact'].focus();
                             break;
                         case 'failure':
-                            alert("이미 등록된 사용자 입니다.");
+                            swal("알림", "이미 등록된 사용자 입니다.");
                             break;
                         default:
-                            alert("알 수 없는 이유로 회원가입을 하지 못하였습니다. 잠시 후 다시 시도해주세요.");
+                            swal("알림", "알 수 없는 이유로 회원가입을 하지 못하였습니다. 잠시 후 다시 시도해주세요.");
                     }
                 } else {
-                    alert("로그인 실패입니다.");
+                    swal("알림", "로그인 실패입니다.");
                 }
             }
         }
@@ -370,7 +370,7 @@ form.querySelector('[rel="overlappingButton"]').addEventListener('click', () => 
                 switch (responseObject['result']) {
                     case 'success':
                         if (form['loginId'].value !== '') {
-                            alert("사용 가능한 아이디입니다.");
+                            swal("알림", "사용 가능한 아이디입니다.");
                             form['overlappingButton'].setAttribute('disabled', 'disabled');
                         }
                         break;
