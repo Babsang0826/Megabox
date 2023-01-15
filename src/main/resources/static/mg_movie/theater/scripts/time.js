@@ -287,7 +287,9 @@ xhr.onreadystatechange = () => {
                                 runningTime: `${movie['runningTime']}`,
                                 movieState: `${movie['movieState']}`,
                                 infoMovieAgeLimit: `${movie['infoMovieAgeLimit']}`,
-                                movieIndex: `${movie['movieIndex']}`
+                                movieIndex: `${movie['movieIndex']}`,
+                                moviePoster: `${movie['moviePoster']}`,
+                                seatAudiIndex: `${movie['seatIndex']}`
                             };
                             localStorage.setItem("time-cell-value", JSON.stringify(timeCellValue));
                             alert('보냄요');

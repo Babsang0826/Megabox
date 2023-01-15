@@ -40,14 +40,14 @@ seatContainers.forEach(seatContainer => {
 });
 
 const { totalPriceSend } = JSON.parse(localStorage.getItem("total-price"));
-// localStorage.removeItem("total-price");
+localStorage.removeItem("total-price");
 console.log(totalPriceSend);
 
 const span = document.createElement('span');
 const strong = document.createElement('strong');
 const p = document.createElement('p');
 span.innerText = '결제금액';
-strong.innerText = totalPriceSend;
+strong.innerText = totalPriceSend.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');;
 p.innerText = '원'
 
 priceContainer.append(span, strong, p);

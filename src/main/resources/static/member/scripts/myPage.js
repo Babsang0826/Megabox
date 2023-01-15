@@ -86,7 +86,7 @@ for (let bookingCancel of bookingCancels) {
                                 swal('알림', '예매 취소 완료');
                                 setTimeout(function () {
                                     window.location.reload();
-                                }, 3000);
+                                }, 1000);
                                 break;
                             case 'failure':
                                 swal('알림', '예매 취소 실패');

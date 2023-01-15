@@ -24,6 +24,16 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
 
     private int seatRemain;
 
+    private String moviePoster;
+
+    public String getMoviePoster() {
+        return moviePoster;
+    }
+
+    public void setMoviePoster(String moviePoster) {
+        this.moviePoster = moviePoster;
+    }
+
     public String getInfoMovieTitle() {
         return infoMovieTitle;
     }
