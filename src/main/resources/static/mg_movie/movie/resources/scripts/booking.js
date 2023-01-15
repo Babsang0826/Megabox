@@ -702,7 +702,6 @@ const drawSeat = () => {
                     }
                 }
             }
-
             sortSelections();
         });
     }
