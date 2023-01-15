@@ -87,8 +87,13 @@ body > .--footer {
     justify-content: center;
 }
 
+/*body > .header {*/
+/*    background-color: rgba(0, 0, 0, 100%);*/
+/*    border-bottom: 1px solid rgba(255, 255, 255, 0.2);*/
+/*}*/
+
 body > .header {
-    background-color: rgba(0, 0, 0, 100%);
+    background-color: rgba(255,255,255, 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -96,6 +101,7 @@ body > .header.white {
     background-color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 
 body > .--header > .nav {
     width: 68.75rem;
@@ -138,10 +144,16 @@ body > .--header > .nav > .category-container > .logo-box {
     margin: 0 0 0 -4.375rem;
 }
 
+/*body > .--header > .nav > .category-container > .logo-box > .logo {*/
+/*    display: block;*/
+/*    height: 3rem;*/
+/*    background: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white_new2.png) center center no-repeat;*/
+/*}*/
+
 body > .--header > .nav > .category-container > .logo-box > .logo {
     display: block;
     height: 3rem;
-    background: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white_new2.png) center center no-repeat;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo_new2.png) center center no-repeat
 }
 
 body > .--footer {
@@ -424,12 +436,22 @@ body > .--header > .nav > .category-container > .menu:hover {
     border-bottom: 0.0625rem solid rgb(255, 255, 255);
 }
 
+/*body > .--header > .nav > .category-container > li > a {*/
+/*    display: block;*/
+/*    padding: 0 1.5rem;*/
+/*    line-height: 2.5rem;*/
+/*    color: rgb(255, 255, 255);*/
+/*    z-index: 6;*/
+/*}*/
+
 body > .--header > .nav > .category-container > li > a {
     display: block;
     padding: 0 1.5rem;
     line-height: 2.5rem;
-    color: rgb(255, 255, 255);
+    color: #444;
     z-index: 6;
+    font-size: 1.1rem;
+    font-weight: 400;
 }
 
 
@@ -493,6 +515,18 @@ body > .--header > .nav > .category-container > li > a > .fa-user {
     font-size: 1.3rem;
 }
 
+/*body > .--header > .nav > .category-container > li:hover .movie-sub-menu,*/
+/*body > .--header > .nav > .category-container > li:hover .reservation-sub-menu,*/
+/*body > .--header > .nav > .category-container > li:hover .theater-sub-menu,*/
+/*body > .--header > .nav > .category-container > li:hover .center-sub-menu {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    align-items: center;*/
+/*    width: 100%;*/
+/*    height: 3rem;*/
+/*    background-color: rgba(0, 0, 0, 30%);*/
+/*}*/
+
 body > .--header > .nav > .category-container > li:hover .movie-sub-menu,
 body > .--header > .nav > .category-container > li:hover .reservation-sub-menu,
 body > .--header > .nav > .category-container > li:hover .theater-sub-menu,
@@ -502,7 +536,7 @@ body > .--header > .nav > .category-container > li:hover .center-sub-menu {
     align-items: center;
     width: 100%;
     height: 3rem;
-    background-color: rgba(0, 0, 0, 30%);
+    background-color: #339eb2;
 }
 
 body > .--header > .nav > .category-container .movie-sub-menu,
@@ -527,20 +561,27 @@ body > .--header > .nav > .category-container .center-sub-menu a {
     color: #fff;
 }
 
+body > .--header > .nav > .category-container .movie-sub-menu a:hover,
+body > .--header > .nav > .category-container .reservation-sub-menu a:hover,
+body > .--header > .nav > .category-container .theater-sub-menu a:hover,
+body > .--header > .nav > .category-container .center-sub-menu a:hover {
+    text-decoration: underline;
+}
+
 body > .--header > .nav > .category-container .movie-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 22.5rem;
+    margin-inline-start: 17.5rem;
 }
 
 body > .--header > .nav > .category-container .reservation-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 27.5rem;
+    margin-inline-start: 22.5rem;
 }
 
 body > .--header > .nav > .category-container .theater-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 32.5rem;
+    margin-inline-start: 27.5rem;
 }
 
 body > .--header > .nav > .category-container .center-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 60.5rem;
+    margin-inline-start: 54.5rem;
 }
 
 body > .--header > .search-bar {

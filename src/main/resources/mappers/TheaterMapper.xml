@@ -76,7 +76,8 @@
                `movie`.movie_state             AS `movieState`,
                `movie`.`age_limit`             AS `infoMovieAgeLimit`,
                `movie`.`index`                 AS `movieIndex`,
-               COUNT(`seat`.auditorium_index)  AS `seatIndex`
+               COUNT(`seat`.auditorium_index)  AS `seatIndex`,
+               `movie`.`movie_poster`          AS `moviePoster`
         FROM `mg_movie`.`screen_info` AS `screenInfo`
                  LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
                  LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`

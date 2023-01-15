@@ -1,5 +1,29 @@
 @charset "UTF-8";
 
+body > .header {
+    background-color: rgba(0,0,0,100%);
+}
+
+body > .--header > .nav > .category-container > .logo-box > .logo {
+    background: url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white_new2.png) center center no-repeat;
+}
+
+body > .--header > .nav > .category-container > li > a {
+    color: rgb(255, 255, 255);
+}
+
+
+body > .--header > .nav > .detail-header > a {
+    color: #888;
+}
+
+body > .--header > .nav > .category-container > li:hover .movie-sub-menu,
+body > .--header > .nav > .category-container > li:hover .reservation-sub-menu,
+body > .--header > .nav > .category-container > li:hover .theater-sub-menu,
+body > .--header > .nav > .category-container > li:hover .center-sub-menu {
+    background-color: rgba(0, 0, 0, 30%);
+}
+
 body > .--main {
     width: 100%;
     background-color: rgba(0, 0, 0, 90%);

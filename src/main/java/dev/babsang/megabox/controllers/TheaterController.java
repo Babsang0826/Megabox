@@ -93,6 +93,7 @@ public class TheaterController {
             screenInfoAllJson.put("infoMovieAgeLimit", screenInfo.getInfoMovieAgeLimit());
             screenInfoAllJson.put("movieIndex", screenInfo.getMovieIndex());
             screenInfoAllJson.put("seatIndex", screenInfo.getSeatIndex());
+            screenInfoAllJson.put("moviePoster", screenInfo.getMoviePoster());
             screenInfosAllJson.put(screenInfoAllJson);
         }
         return screenInfosAllJson.toString();

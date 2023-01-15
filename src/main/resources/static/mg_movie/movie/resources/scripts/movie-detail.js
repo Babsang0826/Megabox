@@ -15,7 +15,7 @@ function scrollFunction() {
         document.getElementById('tabList').classList.remove('fixed')
         document.getElementById('contentData').classList.remove('fixed');
     }
-};
+}
 
 // 더보기 클릭 시
 const contents = window.document.getElementById('contents');

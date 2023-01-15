@@ -46,7 +46,8 @@ authRequest.addEventListener('click', () => {
                             }
                         }, 1000);
                         warningText.style.color = '#444';
-                        EmailWarning.show('인증 번호를 전송하였습니다.\n전송된 인증 번호는 5분간만 유효합니다.');
+                        // EmailWarning.show('인증 번호를 전송하였습니다.\n전송된 인증 번호는 5분간만 유효합니다.');
+                        swal('알림', '인증 번호를 전송하였습니다.\n전송된 인증 번호는 5분간만 유효합니다.');
                         authRequest.setAttribute('disabled', 'disabled');
                         authInput.focus();
                         emailAuthSalt.value = responseObject['salt'];
@@ -59,7 +60,7 @@ authRequest.addEventListener('click', () => {
                         EmailWarning.show('알 수 없는 이유로 인증 번호를 전송하지 못 하였습니다. 잠시 후 다시 시도해 주세요.');
                 }
             } else {
-                warningText.style.color = 'red';
+                // warningText.style.color = 'red';
                 EmailWarning.show('서버와 통신하지 못하였습니다.잠시후 다시 시도해 주세요.');
                 alert('통신 실패');
             }
@@ -78,12 +79,7 @@ authCheck.addEventListener('click', () => {
         authInput.focus();
         return;
     }
-    // if (!new RegExp('^(\\d{6})$').test(form['emailAuthCode'].value)) {
-    //     EmailWarning.show('올바른 인증 번호를 입력해 주세요.');
-    //     authInput.focus();
-    //     authInput.select();
-    //     return;
-    // }
+
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('email', hiddenEmail.value);
@@ -97,7 +93,6 @@ authCheck.addEventListener('click', () => {
                 switch (responseObject['result']) {
                     case 'expired':
                         EmailWarning.show('인증 정보가 만료되었습니다. 다시 시도해 주세요.');
-                        alert('인증정보 만료');
                         authRequest.removeAttribute('disabled');
                         authInput.value = '';
                         emailAuthSalt.value = '';

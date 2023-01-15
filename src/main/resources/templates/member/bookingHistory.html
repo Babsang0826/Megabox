@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메가박스 :: 예매내역</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/member/stylesheets/myPage.css}">
+    <link rel="stylesheet" th:href="@{/member/stylesheets/myPage-modify.css}">
+    <link rel="stylesheet" th:href="@{/member/stylesheets/bookingHistory.css}">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/282afddd53.js" crossorigin="anonymous"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script defer th:src="@{/member/scripts/bookingHistory.js}"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="page-util" id="pageUtil">
+    <div class="inner-wrap">
+        <div class="location">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{./myPage}">나의 메가박스</a>
+            <a th:href="@{./myPage}">예매 내역</a>
+        </div>
+    </div>
+</div>
+<div class="container" id="container">
+    <div class="inner-wrap">
+        <div class="side-menu">
+            <nav>
+                <p class="title">
+                    <a th:href="@{./myPage}">나의 메가박스</a>
+                </p>
+                <ul>
+                    <li>
+                        <a href="#">예매/구매내역</a>
+                        <ul class="member-info">
+                            <li>
+                                <a th:href="@{./bookingHistory}">예매내역</a>
+                                <a href="#">구매내역</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">회원정보</a>
+                        <ul class="member-info">
+                            <li>
+                                <a th:href="@{./modify}">개인정보 수정</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">영화/스토어 관람권</a>
+                    </li>
+                    <li>
+                        <a href="#">메가박스/제휴쿠폰</a>
+                    </li>
+                    <li>
+                        <a href="#">멤버십 포인트</a>
+                    </li>
+                    <li>
+                        <a href="#">자주쓰는 카드 관리</a>
+                    </li>
+                    <li>
+                        <a href="#">나의 문의내역</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="contents on">
+            <h2 class="title">예매 내역</h2>
+            <div class="bookedList">
+                <div class="bookCnt">
+                    <p>
+                        총
+                        <em th:text="${sortedBookingMapKeySet.length}"></em>
+                        건
+                    </p>
+                </div>
+                <div class="history">
+                    <ul>
+                        <li th:each="bookingKey : ${sortedBookingMapKeySet}"
+                            th:with="bookingList = ${bookingMap.get(bookingKey)}">
+                            <div class="content">
+                                <img th:src="${bookingList.get(0).getMoviePoster()}" alt="">
+                                <div class="grid" rel="seatContainer">
+                                    <div class="item column">
+                                        <p>예매번호</p>
+                                    </div>
+                                    <div class="item bookIndex">
+                                        <p class="num" th:text="${bookingList.get(0).getIndex()}">123</p>
+                                    </div>
+                                    <div class="item column">
+                                        <p>영화명</p>
+                                    </div>
+                                    <div class="item title">
+                                        <p th:text="${bookingList.get(0).getTitle()}">슬램덩크</p>
+                                    </div>
+                                    <div class="item column">
+                                        <p>극장/상영관</p>
+                                    </div>
+                                    <div class="item  branchAudi">
+                                        <p th:text="${bookingList.get(0).getBranchText()} + ' / ' + ${bookingList.get(0).getAuditoriumText()}">
+                                            북대구(칠곡) / 2관</p>
+                                    </div>
+                                    <div class="item column">
+                                        <p>관람일시</p>
+                                    </div>
+                                    <div class="item screenDate">
+                                        <p th:text="${#dates.format(bookingList.get(0).getScreenDate(), 'yyyy.MM.dd')} + ' (' + ${bookingList.get(0).getDayOfWeek()} + ') ' + ${#dates.format(bookingList.get(0).getMvStartTime(), 'HH:mm')}">
+                                            2023.01.14 (목) 18:00</p>
+                                    </div>
+                                    <span hidden rel="seat"
+                                          th:each="bookingVo : ${bookingList}"
+                                          th:data-payment="${bookingVo.getPayment()}"
+                                          th:data-seat="${bookingVo.getColumnText() + bookingVo.getRow()}">
+                                    </span>
+                                    <input type="hidden" th:value="${bookingList.get(0).getScreenInfoIndex()}" rel="hiddenSid">
+                                </div>
+                                <div class="btn-area">
+                                    <a href="#">교환권 출력</a>
+                                    <a href="#" class="book-cancel">예매취소</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

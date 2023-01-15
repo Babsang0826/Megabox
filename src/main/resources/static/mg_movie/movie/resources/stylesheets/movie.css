@@ -166,6 +166,7 @@ html > body {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 7rem;
 }
 
 .contents > .inner-wrap.on > .tab-list.fixed > .topMenu > li:first-of-type {
@@ -217,7 +218,7 @@ html > body {
     font-weight: 550;
     margin: 0;
     padding: 1rem;
-    /*width: 100%;*/
+    width: 100%;
     border: 0.0625rem solid #ebebeb;
     border-bottom: 0.0625rem solid #503396;
 }
