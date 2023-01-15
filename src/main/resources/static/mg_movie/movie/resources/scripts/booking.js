@@ -633,7 +633,7 @@ const drawPaySeatResult = () => {
             });
     }
 }
-//좌석 클릭 시
+//좌석 클릭 시 //
 const seatArea = container.querySelector('[rel="seatArea"]');
 let selectedSeats = container.querySelectorAll('[rel="selectedSeat"]');
 const seatsContainer = window.document.querySelector('.seats');
