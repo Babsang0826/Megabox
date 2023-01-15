@@ -552,6 +552,7 @@ const drawSeatResult = () => {
                 seatResultContainer.append(wrapContainer);
             });
     }
+
 }
 
 const seatPayWrap = window.document.querySelector('[rel="seatPayWrap"]');
@@ -951,13 +952,7 @@ function moveSlide(num) {
 }
 
 
-const {
-    screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenInfoMovieStartTime,
-    screenInfoMovieEndTime, screenInfoMovieTitle, screenInfoDate, screenInfoMovieState,
-    screenInfoBranchIndex, screenInfoBranchText, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
-    movieIndex
-} = JSON.parse(localStorage.getItem('time-cell-value'));
-localStorage.removeItem('time-cell-value')
+
 
 if (screenInfoIndex != null) {
     timeContainer.classList.add('off');

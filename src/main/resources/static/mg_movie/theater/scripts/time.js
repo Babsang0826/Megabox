@@ -291,6 +291,7 @@ xhr.onreadystatechange = () => {
                             };
                             localStorage.setItem("time-cell-value", JSON.stringify(timeCellValue));
                             alert('보냄요');
+                            drawSeatResult();
 
                         })
                         timeContainerElement.append(timeCellElement);
