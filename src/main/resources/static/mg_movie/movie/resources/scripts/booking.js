@@ -951,6 +951,7 @@ const {screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenI
     movieIndex} = JSON.parse(localStorage.getItem('time-cell-value'));
 localStorage.remove('time-cell-value')
 
+
 console.log(screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenInfoMovieStartTime,
     screenInfoMovieEndTime, screenInfoMovieTitle, screenInfoDate, screenInfoMovieState,
     screenInfoBranchIndex, screenInfoBranchText, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,

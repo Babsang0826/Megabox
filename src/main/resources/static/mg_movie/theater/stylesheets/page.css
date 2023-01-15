@@ -161,6 +161,59 @@ body, html {
     width: 100%;
     background-color: rgba(255,255,255);
 }
+
+.tab-list.fixed {
+    position: fixed;
+    left: 0;
+    right: inherit;
+    top: 2.625rem;
+    z-index: 50;
+    width: 100%;
+    background-color: rgba(255,255,255,.9);
+    box-shadow: 0 0 1.25rem 0 rgb(0 0 0 / 12%);
+    cursor: pointer;
+    border: 0;
+}
+.tab-list.fixed>ul>li.on {
+    width: 100px;
+    border: 0;
+}
+
+.tab-list.fixed>ul>li:first-child:nth-last-child(2)~li {
+    /*width: 32.333%;*/
+    /*border-bottom: 1px solid #503396;*/
+    border: 0;
+    width: 100px;
+}
+.tab-list.fixed>ul>li:first-child:nth-last-child(2) {
+    width: auto;
+}
+.tab-list.fixed.on>ul>li a {
+    height: 100%;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-list.fixed>ul {
+    width: 1100px;
+    margin: 0 auto;
+}
+tab-list.fixed>ul>li {
+    width: auto !important;
+    margin: 0 0 0 40px;
+    border: 0;
+}
+
+tab-list.fixed>ul>li:first-child {
+    margin-left: 0;
+}
+.tab-list.fixed>ul>li.on>a{
+    background-color: transparent;
+    border-bottom: 3px solid #503396;
+}
+
+
+
+
 .mb40 {
     margin-bottom: 40px;
 }
@@ -182,8 +235,6 @@ body, html {
     float: left;
     height: 42px;
     margin: 0;
-    border: 1px solid #ebebeb;
-    border-width: 1px 0 1px 1px;
 }
 
 .tab-list>ul>li.on>a {

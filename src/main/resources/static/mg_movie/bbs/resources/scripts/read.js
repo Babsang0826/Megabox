@@ -1,5 +1,17 @@
 const form = window.document.getElementById('form');
 
+window.onscroll = function () {
+    scrollFunction()
+}
+
+function scrollFunction() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        document.getElementById('pageUtil').classList.add('fixed');
+    } else {
+        document.getElementById('pageUtil').classList.remove('fixed');
+    }
+}
+
 const noArticle = form.querySelectorAll('.link');
 console.log(noArticle);
 
@@ -74,6 +86,7 @@ form.querySelector('[rel="actionModify"]').addEventListener('click', () => {
     };
     xhr.send(formData);
 });
+
 
 
 

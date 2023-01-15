@@ -268,12 +268,11 @@ xhr.onreadystatechange = () => {
                         const timeDom = domParser.parseFromString(timeHtml, 'text/html');
                         const timeCellElement = timeDom.querySelector('[rel="timeCell"]');
                         // booking 으로 값 넘기는 부분
-                        timeCellElement.classList.add('time')
                         timeCellElement.addEventListener('click', () => {
                             location.href = "/movie/booking"
-                            // timeContainer.classList.add('off');
-                            // paymentContainer.classList.remove('off');
-                            // seatContainer.classList.add('on');
+                            timeContainer.classList.add('off');
+                            paymentContainer.classList.remove('off');
+                            seatContainer.classList.add('on');
                             // timeCellElement.dataset.value = '2';
                             // console.log(timeCellElement.dataset.value);
                             const timeCellValue = {
@@ -322,7 +321,7 @@ xhr.onreadystatechange = () => {
                 appendMovieInfo(screens);
             }
         } else {
-            swal("알림", '서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+            alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
         }
     }
 };
