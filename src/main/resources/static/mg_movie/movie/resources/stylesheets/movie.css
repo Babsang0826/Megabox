@@ -357,6 +357,23 @@ html > body {
 
 /*영화 리스트*/
 
+.contents > .inner-wrap > .movie-list {
+    width: 1100px;
+}
+
+.contents > .inner-wrap > .movie-list > .no-result {
+    height: 26rem;
+    display: none;
+}
+
+.contents > .inner-wrap > .movie-list > .no-result > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 1.5rem;
+}
+
 .contents > .inner-wrap > .movie-list > ol {
     list-style: none;
     padding: 0;

@@ -64,6 +64,12 @@ expForm.addEventListener('submit', e => {
     });
 });
 
+const searchCnt = window.document.querySelector('.searchCnt');
+const noResult = window.document.querySelector('.no-result');
+if (searchCnt.innerText === '0') {
+    noResult.style.display = 'block';
+}
+
 
 
 

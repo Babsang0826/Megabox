@@ -68,6 +68,7 @@ searchIcon.addEventListener('click', () => {
 });
 
 reservButton.addEventListener('click', () => {
+    posters[0].style.display = 'block'
     movieRankSecond.classList.remove('on');
     movieRankFirst.classList.add('on');
     sboUnderline.classList.remove('on');
@@ -75,6 +76,7 @@ reservButton.addEventListener('click', () => {
 });
 
 sortByOrderButton.addEventListener('click', () => {
+    posters[5].style.display = 'block'
     movieRankFirst.classList.remove('on');
     movieRankSecond.classList.add('on');
     resUnderline.classList.remove('on');
@@ -96,6 +98,25 @@ barIcon.addEventListener('click', () => {
     xMarkBar.classList.toggle('on');
     bar.classList.toggle('on');
 })
+
+const searchMovieInput = window.document.querySelector('[rel="searchMovieInput"]');
+const searchMovieBtn = window.document.querySelector('[rel="searchMovieBtn"]');
+
+searchMovieBtn.addEventListener('click', () => {
+    window.location.href = `http://localhost:8080/movie/movie?keyword=` + `${searchMovieInput.value}`
+})
+
+const titles = window.document.querySelectorAll('[rel="title"]');
+const posters = window.document.querySelectorAll('[rel="poster"]');
+
+for (let i = 0; i < titles.length; i++) {
+    titles[i].addEventListener('mouseover', () => {
+        for (let poster of posters) {
+            poster.style.display = 'none'
+        }
+        posters[i].style.display = 'block';
+    })
+}
 
 
 

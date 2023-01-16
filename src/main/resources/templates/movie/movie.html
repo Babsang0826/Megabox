@@ -46,8 +46,6 @@
                 </p>
             </div>
             <div class="movie-search">
-<!--                <input type="text" name="movie-search" placeholder="영화명 검색" class="input-text">-->
-<!--                <button type="button" class="btn-search-input"></button>-->
                 <form method="get">
                     <label>
                         <input type="text" name="keyword" placeholder="영화명 검색" class="input-text"
@@ -58,6 +56,9 @@
             </div>
         </div>
         <div class="movie-list">
+            <li class="no-result">
+                <div>현재 상영중인 영화가 없습니다.</div>
+            </li>
             <ol class="list first" id="movieContainer" th:with="currentDate = ${new java.util.Date()}">
                 <li class="movie" th:each="movie : ${movies}" th:data-opened="${movie.getReleaseDate().compareTo(currentDate) < 0}">
                     <div class="poster">
