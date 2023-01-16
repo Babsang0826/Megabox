@@ -115,39 +115,19 @@
         WHERE `auditorium_index` = #{auditoriumIndex}
     </select>
 
-<!--    <select id="selectSeatByAuditoriumIndexGroupByColumIndex" resultType="dev.babsang.megabox.vos.movie.SeatVo">-->
-<!--        select `index`          as `index`,-->
-<!--               column_index     as columnIndex,-->
-<!--               column_text      as columnText,-->
-<!--               `row`            as `row`,-->
-<!--               seat_code        as seatCode,-->
-<!--               auditorium_index as auditoriumIndex,-->
-<!--               count(`index`)   as numberOfColumn-->
-<!--        from mg_movie.seats-->
-<!--        where auditorium_index = #{auditoriumIndex}-->
-<!--        group by column_index-->
-<!--    </select>-->
-
-    <select id="selectSeatByAuditoriumIndex" resultType="dev.babsang.megabox.vos.movie.SeatVo">
+    <select id="selectSeatByAuditoriumIndexGroupByColumIndex" resultType="dev.babsang.megabox.vos.movie.SeatVo">
         select `index`          as `index`,
                column_index     as columnIndex,
                column_text      as columnText,
                `row`            as `row`,
                seat_code        as seatCode,
-               auditorium_index as auditoriumIndex
+               auditorium_index as auditoriumIndex,
+               count(`index`)   as numberOfColumn
         from mg_movie.seats
         where auditorium_index = #{auditoriumIndex}
+        group by column_index
     </select>
 
-    <!--    <select id="selectBranchesIndex"-->
-    <!--            resultType="dev.babsang.megabox.entities.movie.BranchEntity">-->
-    <!--        SELECT `index`        AS `index`,-->
-    <!--               `text`         AS `text`,-->
-    <!--               `region_index` AS `regionIndex`-->
-    <!--        FROM `mg_movie`.`branch`-->
-    <!--        WHERE BINARY `index` = #{index}-->
-    <!--        LIMIT 1-->
-    <!--    </select>-->
     <select id="selectBranchesIndex"
             resultType="dev.babsang.megabox.entities.theater.TheaterEntity">
         SELECT `index`                AS `index`,
