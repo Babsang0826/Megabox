@@ -15,7 +15,7 @@
                `content`     as `content`,
                `written_on`  as `writtenOn`,
                `modified_on` as `modifiedOn`
-        from mg_bbs.article
+        from mg_bbs.article AS `article`
         ORDER BY `index` desc
         limit 5
     </select>

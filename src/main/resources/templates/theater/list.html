@@ -252,7 +252,9 @@
                     </ul>
                 </div>
                 <div class="bottom">
-                    <a th:href="@{/member/login}" title="로그인하기" id="moveLogin" class="button">로그인하기</a>
+                    <a th:href="@{/member/login}" title="로그인하기" id="moveLogin" class="button" th:if="${session.user == null}">로그인하기</a>
+                    <a th:href="@{/myPage/myPage}"  class="button" th:if="${session.user != null}">마이페이지</a>
+
                 </div>
             </div>
 

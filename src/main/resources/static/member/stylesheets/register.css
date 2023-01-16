@@ -59,6 +59,7 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
 }
 
 .containers {
@@ -366,7 +367,7 @@ tr {
 
 .board-form tbody td {
     position: relative;
-    height: 50px;
+    height: auto;
     padding: 7px 15px;
     text-align: left;
     border-bottom: 1px solid #d1d5dd;
@@ -483,6 +484,11 @@ input[type=button]:disabled {
     /*margin-right: 1rem;*/
 }
 
+.idOverlapping.a {
+    position: absolute;
+    right: 1rem;
+}
+
 .idOverlapping:hover {
     background-color: rgba(80, 51, 150, 0.88);
     color: #e0e0e0;
@@ -503,6 +509,7 @@ input[type=button]:disabled {
     border-radius: 4px;
     font-size: .9333em;
     cursor: pointer;
+    margin-left: 2px;
 }
 
 .findAddressButton:hover {
@@ -626,6 +633,7 @@ input.input-text.w260px + .tooltip {
 
 .duplication-check {
     display: flex;
+    flex-direction: column;
 }
 
 

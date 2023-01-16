@@ -223,7 +223,8 @@ public class BbsController {
     public ModelAndView getList(@RequestParam(value = "bid",required = false) String boardId,
                                 @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                 @RequestParam(value = "criterion", required = false) String criterion,
-                                @RequestParam(value = "keyword", required = false) String keyword) {
+                                @RequestParam(value = "keyword", required = false) String keyword,
+                                @SessionAttribute(value = "user", required = false) UserEntity user) {
         //defaultValue = "1"을 사용하면 1이 찍힌다
         page = Math.max(1, page);
         ModelAndView modelAndView = new ModelAndView("bbs/notice");

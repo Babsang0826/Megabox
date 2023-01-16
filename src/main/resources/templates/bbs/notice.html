@@ -29,11 +29,11 @@
             <div class="side-menu">
             <nav>
                 <p class="title">
-                    <a href="#">나의 메가박스</a>
+                    <a th:href="@{/myPage/myPage}">나의 메가박스</a>
                 </p>
                 <ul>
                     <li>
-                        <a href="#">예매/구매내역</a>
+                        <a th:href="@{./bookingHistory}">예매/구매내역</a>
                         <ul class="member-info">
                             <li>
                                 <a href="#">예매내역</a>
@@ -45,7 +45,7 @@
                         <a href="#">회원정보</a>
                         <ul class="member-info">
                             <li>
-                                <a href="#">개인정보 수정</a>
+                                <a th:href="@{./modify}">개인정보 수정</a>
                             </li>
                         </ul>
                     </li>
@@ -167,7 +167,7 @@
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
                     <div class="writeButton">
-                        <a th:href="@{/bbs/write (bid = ${'notice'})}" id="writeBtn" class="button">글쓰기
+                        <a th:href="@{/bbs/write (bid = ${'notice'})}" id="writeBtn" class="button" th:if="${session.user != null}" th:value="${session.user.getAdminFlag() == true}">글쓰기
                         </a>
                     </div>
                 </div>

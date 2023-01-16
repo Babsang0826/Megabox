@@ -69,9 +69,9 @@
                 <th>제목</th>
                 <td>
                     <label class="label">
-                        <span hidden>제목</span>
+                        <span hidden >제목</span>
                         <input class="--object-input input" maxlength="100" name="title"
-                               placeholder="제목을 입력해 주세요." type="text">
+                               placeholder="제목을 입력해 주세요." type="text" th:value="${article.getTitle()}">
                     </label>
                 </td>
             </tr>
@@ -81,7 +81,7 @@
                     <label class="label">
                         <span hidden>내용</span>
                         <textarea class="--object-input input" maxlength="100000" name="content"
-                                  placeholder="내용을 입력해 주세요." type="text"></textarea>
+                                  placeholder="내용을 입력해 주세요." type="text" th:text="${article.getContent()}"></textarea>
                     </label>
                 </td>
             </tr>
