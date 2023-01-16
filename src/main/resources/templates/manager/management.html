@@ -8,7 +8,7 @@
     <title>theater-list</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
     <link rel="stylesheet" th:href="@{/mg_movie/bbs/resources/stylesheets/notice.css}">
-    <script defer th:src="@{/mg_movie/bbs/resources/scripts/notice.js}"></script>
+    <script defer th:src="@{/manager/scripts/management.js}"></script>
     <script type="text/javascript"
             src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=94a12e6ae62af8fbc88e09e7433d6c08"></script>
 </head>
@@ -17,76 +17,33 @@
 <div class="page-util" id="pageUtil">
     <div class="inner-wrap">
         <div class="location">
-            <a th:href="@{/}">Home</a>
-<!--            <a th:href="@{./movie}">고객센터</a>-->
-            <a th:href="@{/bbs/notice (bid = notice)}">공지사항</a>
+            <a th:href="@{/static}">Home</a>
+            <a th:href="@{/theater/list}">극장</a>
+            <a th:href="@{/theater/list}">전체극장</a>
         </div>
     </div>
 </div>
 <form id="form" class="form">
     <div class="container">
         <div class="inner-wrap">
-            <div class="side-menu">
-            <nav>
-                <p class="title">
-                    <a th:href="@{/myPage/myPage}">나의 메가박스</a>
-                </p>
-                <ul>
-                    <li>
-                        <a th:href="@{./bookingHistory}">예매/구매내역</a>
-                        <ul class="member-info">
-                            <li>
-                                <a href="#">예매내역</a>
-                                <a href="#">구매내역</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">회원정보</a>
-                        <ul class="member-info">
-                            <li>
-                                <a th:href="@{./modify}">개인정보 수정</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">영화/스토어 관람권</a>
-                    </li>
-                    <li>
-                        <a href="#">메가박스/제휴쿠폰</a>
-                    </li>
-                    <li>
-                        <a href="#">멤버십 포인트</a>
-                    </li>
-                    <li>
-                        <a href="#">자주쓰는 카드 관리</a>
-                    </li>
-                    <li>
-                        <a href="#">나의 문의내역</a>
-                    </li>
-                </ul>
-            </nav>
-            </div>
-
             <div class="content">
-                <h2 class="tit">공지사항</h2>
+                <h2 class="tit">회원관리</h2>
                 <div class="board-list">
                     <p class="result-count">
                         <strong>
                             전체
-                            <em th:text="${articleCount}"></em>
+                            <em th:text="${userCount}"></em>
                         </strong>
                     </p>
                     <div class="empty-box"></div>
-
-                    <form class="search-form" id="searchForm" method="get">
+                    <form id="searchForm" class="search-form" method="get">
                         <div class="selectBox" id="theaterSelect">
                             <label class="label">
                                 <span hidden>검색 기준</span>
                                 <select id="theater" class="select" name="criterion" th:with="criterion = ${#request.getParameter('criterion')}">
-                                    <option value="all" th:selected="${criterion == null || criterion.equals('all')}">제목 + 내용</option>
-                                    <option value="title" th:selected="${criterion != null && criterion.equals('title')}">제목</option>
-                                    <option value="branch" th:selected="${criterion != null && criterion.equals('branch')}">극장</option>
+                                    <option value="all"  th:selected="${criterion == null || criterion.equals('all')}">id + name</option>
+                                    <option value="id" th:selected="${criterion != null && criterion.equals('id')}">name</option>
+                                    <option value="name" th:selected="${criterion != null && criterion.equals('name')}">id</option>
                                 </select>
                             </label>
                             <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>
@@ -94,10 +51,10 @@
                         <label class="label">
                             <span hidden>검색어</span>
                             <div class="board-search">
-                                <input type="text" id="searchTxt" placeholder="검색어를 입력해 주세요." class="input-text" name="keyword"
+                                <input type="text" id="searchTxt" placeholder="검색어를 입력해 주세요" class="input-text"
+                                       name="keyword"
                                        maxlength="15" th:value="${#request.getParameter('keyword')}">
                                 <button type="submit" id="searchBtn" class="btn-search-input" value="검색"></button>
-                                <input name="bid" type="hidden" th:value="${board.getId()}">
                             </div>
                         </label>
                     </form>
@@ -108,33 +65,34 @@
 
                         </caption>
                         <colgroup>
-                            <col style="width: 72px;">
-                            <col style="width: 133px;">
-                            <col style="width: 95px;">
-                            <col>
-                            <col style="width: 116px;">
+                            <col style="width: 70px;">
+                            <col style="width: 120px;">
+                            <col style="width: 150px;">
+                            <col style="width: 200px;">
+                            <col style="width: 300px;">
+                            <col style="width: 300px;">
                         </colgroup>
                         <thead>
                         <tr>
-                            <th scope="col">번호</th>
-                            <th scope="col">극장</th>
-                            <th scope="col">구분</th>
-                            <th scope="col">제목</th>
-                            <th scope="col">등록일</th>
+                            <th class="check" scope="col"><input class="chkAll" name="chkBox" type="checkbox"></th>
+                            <th scope="col">아이디</th>
+                            <th scope="col">연락처</th>
+                            <th scope="col">이름</th>
+                            <th scope="col">이메일</th>
+                            <th scope="col">가입일</th>
                         </tr>
-                        </thead>
                         <tbody>
-                        <tr th:each="articles : ${articles}">
-                            <td th:text="${articles.getIndex()}"></td>
-
-                            <td th:text="${articles.getBranch()}"></td>
-
-                            <td th:text="${articles.getSort()}"></td>
-                            <th>
-                                <a th:text="${articles.getTitle()}" th:href="@{/bbs/read (aid=${articles.getIndex})}">
-                                </a>
-                            </th>
-                            <td th:text="${#dates.format(articles.getWrittenOn(), 'yyyy-MM-dd')}"></td>
+                        <tr th:each="user : ${users}" class="line" rel="line">
+                            <td class="check">
+                                <label for="checkBox">
+                                    <input class="chkBox" name="color" th:value="${user.getEmail()}" type="checkbox" rel="checkbox" id="checkBox">
+                                </label>
+                            </td>
+                            <td th:text="${user.getId()}">ljh5968</td>
+                            <td th:text="${user.getContact()}">01064056966</td>
+                            <td th:text="${user.getName()}">이승현</td>
+                            <td th:text="${user.getEmail()}">ljh5968@naver.com</td>
+                            <td th:text="${#dates.format(user.getRegisteredOn(), 'yyyy-MM-dd')}">12</td>
                         </tr>
                         </tbody>
                     </table>
@@ -167,8 +125,8 @@
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
                     <div class="writeButton">
-                        <a th:href="@{/bbs/write (bid = ${'notice'})}" id="writeBtn" class="button" th:if="${session.user != null && session.user.getAdminFlag()}">글쓰기
-                        </a>
+                        <button type="button" id="writeBtn" class="button" rel="cancel">삭제
+                        </button>
                     </div>
                 </div>
             </div>

@@ -464,3 +464,18 @@ tr {
     height: 2px;
     background-color: #aaa;
 }
+
+.check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check > label > input {
+    border: 1px solid;
+    appearance: auto;
+}
+
+.chkAll {
+    appearance: auto;
+}
