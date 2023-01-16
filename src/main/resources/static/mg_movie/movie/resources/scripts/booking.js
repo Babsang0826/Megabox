@@ -17,6 +17,8 @@ let branches = []; // xhr에서 받는 response값 및 drawBranch사용
 let movieTitles = []; // xhr에서 받는 영화제목값
 let screenInfoSeats = []; // xhr에서 받는 seat값
 let screenInfoSeatColumns = [];
+let completeSeatBooking = [];
+let allSeat = [];
 let count = 0; // count 세기
 let value = 0;
 
@@ -137,7 +139,6 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     nextWeek = WEEKDAY[week];
     if (week < 3) {
         nextWeek = WEEKDAY[week + 4];
-        console.log('nextWeek :' + nextWeek)
     }
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'next');
@@ -328,14 +329,18 @@ const drawSubs = () => {
                     movieAuditoriumElement.innerText = allScreenInfo['screenInfoAuditoriumText'];
                     const seatBoxElement = window.document.createElement('div');
                     seatBoxElement.classList.add('seat-box');
-                    let remainSeat = allScreenInfo['screenInfoSeatCountAll'] - allScreenInfo['screenInfoSeatRemain'];
+                    let remainSeat = parseInt(allScreenInfo['screenInfoSeatCountAll']) - parseInt(allScreenInfo['screenInfoSeatRemain']);
                     const remainSeatElement = window.document.createElement('span');
                     remainSeatElement.classList.add('remain-seat');
                     remainSeatElement.innerText = remainSeat;
-                    const allSeatElement = window.document.createElement('span');
-                    allSeatElement.classList.add('all-seat');
-                    allSeatElement.innerText = '/' + allScreenInfo['screenInfoSeatCountAll'];
-                    seatBoxElement.append(remainSeatElement, allSeatElement);
+                    allSeat.forEach(allSeat => {
+                        if(allSeat['seatAudIndex'] === allScreenInfo['screenInfoAuditoriumIndex']) {
+                            const allSeatElement = window.document.createElement('span');
+                            allSeatElement.classList.add('all-seat');
+                            allSeatElement.innerText = '/' + allSeat['seatCountAll'];
+                            seatBoxElement.append(remainSeatElement, allSeatElement);
+                        }
+                    });
                     moviePlaceElement.append(movieBranchElement, movieAuditoriumElement, seatBoxElement);
                     movieTimeInfoBoxElement.append(movieTimeElement, movieTitleStateElement, moviePlaceElement);
                     movieTimeCoverElement.append(movieTimeInfoBoxElement);
@@ -418,12 +423,18 @@ const drawSubs = () => {
                     movieAuditoriumElement.innerText = allScreenInfo['screenInfoAuditoriumText'];
                     const seatBoxElement = window.document.createElement('div');
                     seatBoxElement.classList.add('seat-box');
+                    let remainSeat = parseInt(allScreenInfo['screenInfoSeatCountAll']) - parseInt(allScreenInfo['screenInfoSeatRemain']);
                     const remainSeatElement = window.document.createElement('span');
                     remainSeatElement.classList.add('remain-seat');
-                    const allSeatElement = window.document.createElement('span');
-                    allSeatElement.classList.add('all-seat');
-                    allSeatElement.innerText = '/' + allScreenInfo['screenInfoSeatCountAll'];
-                    seatBoxElement.append(remainSeatElement, allSeatElement);
+                    remainSeatElement.innerText = remainSeat;
+                    allSeat.forEach(allSeat => {
+                        if(allSeat['seatAudIndex'] === allScreenInfo['screenInfoAuditoriumIndex']) {
+                            const allSeatElement = window.document.createElement('span');
+                            allSeatElement.classList.add('all-seat');
+                            allSeatElement.innerText = '/' + allSeat['seatCountAll'];
+                            seatBoxElement.append(remainSeatElement, allSeatElement);
+                        }
+                    });
                     moviePlaceElement.append(movieBranchElement, movieAuditoriumElement, seatBoxElement);
                     movieTimeInfoBoxElement.append(movieTimeElement, movieTitleStateElement, moviePlaceElement);
                     movieTimeCoverElement.append(movieTimeInfoBoxElement);
@@ -667,6 +678,13 @@ const drawSeat = () => {
             rowElement.dataset.seatCode = seat['seatCode'];
             seatRowElement.append(rowElement);
             seatsContainer.append(seatColumnElement, seatRowElement);
+            completeSeatBooking.forEach(complete => {
+                if(parseInt(complete['bookingSeatComplete']) === parseInt(rowElement.dataset.seatIndex)) {
+                    rowElement.setAttribute('disabled','disabled');
+                    rowElement.classList.add('finish');
+                    rowElement.innerText = '';
+                }
+            });
         });
     const seats = seatArea.querySelectorAll('[rel="row"]');
     for (let i = 0; i < seats.length; i++) {
@@ -754,6 +772,8 @@ xhr.onreadystatechange = () => {
             movieTitles = responseJson['movieTitle'];
             screenInfoSeats = responseJson['seat'];
             screenInfoSeatColumns = responseJson['seatColumn'];
+            completeSeatBooking = responseJson['seatComplete'];
+            allSeat = responseJson['seatAll'];
             drawListBox();
             drawBranches();
         } else {
@@ -950,21 +970,6 @@ function moveSlide(num) {
 }
 
 
-// const {
-//     screenInfoIndex, screenInfoMovieIndex, screenInfoAuditoriumIndex, screenInfoMovieStartTime,
-//     screenInfoMovieEndTime, screenInfoMovieTitle, screenInfoDate, screenInfoMovieState,
-//     screenInfoBranchIndex, screenInfoBranchText, screenInfoAuditoriumText, runningTime, movieState, infoMovieAgeLimit,
-//     movieIndex
-// } = JSON.parse(localStorage.getItem('time-cell-value'));
-// localStorage.removeItem('time-cell-value')
-//
-// if (screenInfoIndex != null) {
-//     timeContainer.classList.add('off');
-//     paymentContainer.classList.remove('off');
-//     seatContainer.classList.add('on');
-// }
-//
-
 const {
     screenInfoIndex,
     screenInfoMovieIndex,
@@ -984,7 +989,19 @@ const {
     moviePoster,
     seatAudiIndex
 } = JSON.parse(localStorage.getItem('time-cell-value'));
-localStorage.removeItem('time-cell-value')
+localStorage.removeItem('time-cell-value');
+
+const {
+    seatVoIndex,
+    seatVoColumnIndex,
+    seatVoColumnText,
+    seatVoRow,
+    seatVoSeatCode,
+    seatVoAuditoriumIndex,
+    seatArr
+} = JSON.parse(localStorage.getItem('seat-vo'));
+localStorage.removeItem('seat-vo');
+
 
 if (screenInfoIndex != null) {
     timeContainer.classList.add('off');
@@ -992,6 +1009,7 @@ if (screenInfoIndex != null) {
     seatContainer.classList.add('on');
 }
 
+// 결제 정보 창
 if (screenInfoMovieTitle != null && screenInfoIndex != null) {
     const wrapContainer = window.document.querySelector('.wrap');
     const titleAreaElement = window.document.createElement('div');
@@ -1033,7 +1051,9 @@ if (screenInfoMovieTitle != null && screenInfoIndex != null) {
     seatResultContainer.append(wrapContainer);
 }
 
+
 const selectedAudIndex = seatAudiIndex
+console.log(selectedAudIndex)
 const seatColumnElement = window.document.createElement('div');
 seatColumnElement.classList.add('seat-column');
 screenInfoSeatColumns

@@ -172,7 +172,8 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
         });
     }
 }
-
+let screenInfo = [];
+let seatByTheater = [];
 
 const url = new URL(window.location.href);
 const searchParams = url.searchParams;
@@ -291,7 +292,24 @@ xhr.onreadystatechange = () => {
                                 moviePoster: `${movie['moviePoster']}`,
                                 seatAudiIndex: `${movie['seatIndex']}`
                             };
+                            const seatVo = {
+                                seatVoIndex: `${movie['seatVoIndex']}`,
+                                seatVoColumnIndex: `${movie['seatVoColumnIndex']}`,
+                                seatVoColumnText: `${movie['seatVoColumnText']}`,
+                                seatVoRow: `${movie['seatVoRow']}`,
+                                seatVoSeatCode: `${movie['seatVoSeatCode']}`,
+                                seatVoAuditoriumIndex: `${movie['seatVoAuditoriumIndex']}`,
+                                // seatVoNumberOfColumn: `${movie['seatVoNumberOfColumn']}`,
+                                screenInfoAuditoriumIndex2: `${movie['screenInfoAuditoriumIndex']}`
+                            }
                             localStorage.setItem("time-cell-value", JSON.stringify(timeCellValue));
+                            localStorage.setItem("seat-vo", JSON.stringify(seatVo));
+                            // var z = JSON.parse(localStorage.getItem("seat-vo"));
+                            // for( var i=0; i< z.length; i++ ) {
+                            //     for( var j=0; j < z[i].length; j++ ) {
+                            //         console.log( "z[" + i + "][" + j + "] = " + z[i][j] );
+                            //     }
+                            // }
                             alert('보냄요');
                             drawSeatResult();
 

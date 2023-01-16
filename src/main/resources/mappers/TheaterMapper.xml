@@ -78,6 +78,7 @@
                `movie`.`index`                 AS `movieIndex`,
                COUNT(`seat`.auditorium_index)  AS `seatIndex`,
                `movie`.`movie_poster`          AS `moviePoster`
+
         FROM `mg_movie`.`screen_info` AS `screenInfo`
                  LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
                  LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
@@ -85,7 +86,32 @@
                  LEFT JOIN `mg_movie`.`branches` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
                  LEFT JOIN `mg_movie`.`seats` AS `seat` ON `auditorium`.`index` = `seat`.auditorium_index
         WHERE `branch_index` = #{branchId}
-        group by screenInfo.`index`
+        group by `screenInfo`.`index`
+    </select>
+    <select id="selectSeatByAuditoriumIndexGroupByColumnIndex"
+            resultType="dev.babsang.megabox.vos.movie.SeatVo">
+        SELECT `index`            AS `index`,
+               `column_index`     AS `columnIndex`,
+               `column_text`      AS `columnText`,
+               `row`              AS `row`,
+               `seat_code`        AS `seatCode`,
+               `auditorium_index` AS `auditoriumIndex`,
+               COUNT(`index`)     AS `numberOfColumn`
+        FROM `mg_movie`.`seats`
+        WHERE `auditorium_index` = #{auditoriumIndex}
+        GROUP BY `column_index`
+    </select>
+
+    <select id="selectSeatByAuditoriumIndex"
+            resultType="dev.babsang.megabox.vos.movie.SeatVo">
+        SELECT `index`            AS `index`,
+               `column_index`     AS `columnIndex`,
+               `column_text`      AS `columnText`,
+               `row`              AS `row`,
+               `seat_code`        AS `seatCode`,
+               `auditorium_index` AS `auditoriumIndex`
+        FROM `mg_movie`.`seats`
+        WHERE `auditorium_index` = #{auditoriumIndex}
     </select>
 
     <!--    <select id="selectBranchesIndex"-->

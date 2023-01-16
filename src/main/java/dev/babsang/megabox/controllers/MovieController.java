@@ -259,6 +259,14 @@ public class MovieController {
             seatsJson.put(seatJson);
         }
 
+        JSONArray seatsAllJson = new JSONArray();
+        for (SeatVo seatAll : this.movieService.getSeatByAll()) {
+            JSONObject seatCountObject = new JSONObject();
+            seatCountObject.put("seatAudIndex", seatAll.getAuditoriumIndex());
+            seatCountObject.put("seatCountAll", seatAll.getCountSeatAll());
+            seatsAllJson.put(seatCountObject);
+        }
+
         JSONArray seatColumnsJson = new JSONArray();
         for (SeatVo seatColumn : this.movieService.getSeatVosGroupByColumn()) {
             JSONObject seatColumnJson = new JSONObject();
@@ -289,7 +297,14 @@ public class MovieController {
             screenInfoAllJson.put("screenInfoSeatRemain", screenInfo.getSeatRemain());
             screenInfosAllJson.put(screenInfoAllJson);
         }
-        // 상영정보  JSONArray
+
+        JSONArray bookingCompleteSeats = new JSONArray();
+        for (BookingEntity bookingSeat : this.movieService.getBookings()) {
+            JSONObject bookingCompleteSeat = new JSONObject();
+            bookingCompleteSeat.put("bookingSeatComplete", bookingSeat.getSeatIndex());
+            bookingCompleteSeats.put(bookingCompleteSeat);
+        }
+
 
         JSONObject responseJson = new JSONObject();
         responseJson.put("allScreenInfo", screenInfosAllJson);
@@ -297,6 +312,8 @@ public class MovieController {
         responseJson.put("movieTitle", moviesJson);
         responseJson.put("seat", seatsJson);
         responseJson.put("seatColumn", seatColumnsJson);
+        responseJson.put("seatComplete", bookingCompleteSeats);
+        responseJson.put("seatAll", seatsAllJson);
         return responseJson.toString();
     }
 

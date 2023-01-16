@@ -86,6 +86,9 @@ public class MovieService {
         return this.movieMapper.selectBooking();
     }
 
+    public SeatVo[] getSeatByAll() {
+        return this.movieMapper.selectSeatByAll();
+    }
     public SeatVo[] getSeatVos() {
         return this.movieMapper.selectSeatVo();
     }

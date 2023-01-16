@@ -282,6 +282,18 @@
         from `mg_movie`.`seats`
     </select>
 
+    <select id="selectSeatByAll" resultType="dev.babsang.megabox.vos.movie.SeatVo">
+        SELECT `index`            AS `index`,
+               `column_index`     AS `columnIndex`,
+               `column_text`      AS `columnText`,
+               `row`              AS `row`,
+               `seat_code`        AS `seatCode`,
+               `auditorium_index` AS `auditoriumIndex`,
+               COUNT(`index`)     AS `countSeatAll`
+        FROM `mg_movie`.`seats`
+        GROUP BY `auditorium_index`
+    </select>
+
     <select id="selectSeatVoGroupByColumn" resultType="dev.babsang.megabox.vos.movie.SeatVo">
         SELECT `index`            AS `index`,
                `column_index`     AS `columnIndex`,

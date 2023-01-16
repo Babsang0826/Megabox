@@ -34,6 +34,8 @@ public interface IMovieMapper {
 
     BookingEntity[] selectBooking();
     SeatVo[] selectSeatVo();
+
+    SeatVo[] selectSeatByAll();
     SeatVo[] selectSeatVoGroupByColumn();
 
     MovieScreenInfoVo[] selectScreenInfos();

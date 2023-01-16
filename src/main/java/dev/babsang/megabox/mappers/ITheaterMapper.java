@@ -7,6 +7,7 @@ import dev.babsang.megabox.entities.movie.RegionEntity;
 import dev.babsang.megabox.entities.theater.TheaterEntity;
 import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
+import dev.babsang.megabox.vos.movie.SeatVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ITheaterMapper {
 
     BbsIndexCountVo[] selectArticleNew();
+
     MovieEntity[] selectMovies();
 
     RegionEntity selectRegion();
@@ -24,5 +26,9 @@ public interface ITheaterMapper {
     MovieScreenInfoVo[] selectScreenInfos(@Param(value = "branchId") int branchId);
 
     TheaterEntity selectBranchesIndex(@Param(value = "index") int index);
+
+    SeatVo[] selectSeatByAuditoriumIndex(@Param(value = "auditoriumIndex") int auditoriumIndex);
+
+    SeatVo[] selectSeatByAuditoriumIndexGroupByColumnIndex(@Param(value = "auditoriumIndex") int auditoriumIndex);
 
 }

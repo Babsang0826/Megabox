@@ -8,6 +8,7 @@ import dev.babsang.megabox.mappers.IBbsMapper;
 import dev.babsang.megabox.mappers.ITheaterMapper;
 import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
+import dev.babsang.megabox.vos.movie.SeatVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,16 @@ public class TheaterService {
         return this.theaterMapper.selectBranches();
     }
 
+    public SeatVo[] getSeatsAudIndex(int auditoriumIndex) {
+        return this.theaterMapper.selectSeatByAuditoriumIndex(auditoriumIndex);
+    }
+
+    public SeatVo[] getSeatsAudIndexByColumn(int auditoriumIndex) {
+        return this.theaterMapper.selectSeatByAuditoriumIndexGroupByColumnIndex(auditoriumIndex);
+    }
+
+
+
     public MovieScreenInfoVo[] getScreenInfos(int branchId) {
         return this.theaterMapper.selectScreenInfos(branchId);
     }
@@ -48,5 +59,6 @@ public class TheaterService {
     public TheaterEntity getBranchesMap(int index) {
         return this.theaterMapper.selectBranchesIndex(index);
     }
+
 
 }
