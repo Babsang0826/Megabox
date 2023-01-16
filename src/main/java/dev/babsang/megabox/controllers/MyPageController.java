@@ -326,4 +326,17 @@ public class MyPageController {
         return responseObject.toString();
     }
 
+    @RequestMapping(value = "adminPage",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getAdminPage(@SessionAttribute(value = "user", required = false) UserEntity user) {
+        ModelAndView modelAndView;
+        if (user == null) {
+            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+        } else {
+            modelAndView = new ModelAndView("member/adminPage");
+        }
+
+        return modelAndView;
+    }
 }

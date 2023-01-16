@@ -77,6 +77,7 @@
                `movie`.`age_limit`             AS `infoMovieAgeLimit`,
                `movie`.`index`                 AS `movieIndex`,
                COUNT(`seat`.auditorium_index)  AS `seatIndex`,
+               `seat`.`auditorium_index`       as auditoriumIndex,
                `movie`.`movie_poster`          AS `moviePoster`
 
         FROM `mg_movie`.`screen_info` AS `screenInfo`
@@ -112,6 +113,30 @@
                `auditorium_index` AS `auditoriumIndex`
         FROM `mg_movie`.`seats`
         WHERE `auditorium_index` = #{auditoriumIndex}
+    </select>
+
+<!--    <select id="selectSeatByAuditoriumIndexGroupByColumIndex" resultType="dev.babsang.megabox.vos.movie.SeatVo">-->
+<!--        select `index`          as `index`,-->
+<!--               column_index     as columnIndex,-->
+<!--               column_text      as columnText,-->
+<!--               `row`            as `row`,-->
+<!--               seat_code        as seatCode,-->
+<!--               auditorium_index as auditoriumIndex,-->
+<!--               count(`index`)   as numberOfColumn-->
+<!--        from mg_movie.seats-->
+<!--        where auditorium_index = #{auditoriumIndex}-->
+<!--        group by column_index-->
+<!--    </select>-->
+
+    <select id="selectSeatByAuditoriumIndex" resultType="dev.babsang.megabox.vos.movie.SeatVo">
+        select `index`          as `index`,
+               column_index     as columnIndex,
+               column_text      as columnText,
+               `row`            as `row`,
+               seat_code        as seatCode,
+               auditorium_index as auditoriumIndex
+        from mg_movie.seats
+        where auditorium_index = #{auditoriumIndex}
     </select>
 
     <!--    <select id="selectBranchesIndex"-->

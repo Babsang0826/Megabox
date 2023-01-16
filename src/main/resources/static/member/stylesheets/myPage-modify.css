@@ -363,7 +363,7 @@ em {
 }
 
 .info-grid > .info > .mobile-wrap > input{
-    width: 6rem;
+    width: 6.5rem;
 }
 
 .info-grid > .info > .mobile-wrap > div,
@@ -385,7 +385,6 @@ em {
 
 button {
     height: 32px;
-    border: 1px solid #d1d5dd;
     border-radius: 0.25rem;
     background-color: #fff;
 }

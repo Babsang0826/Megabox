@@ -970,47 +970,57 @@ function moveSlide(num) {
 }
 
 
-const {
-    screenInfoIndex,
-    screenInfoMovieIndex,
-    screenInfoAuditoriumIndex,
-    screenInfoMovieStartTime,
-    screenInfoMovieEndTime,
-    screenInfoMovieTitle,
-    screenInfoDate,
-    screenInfoMovieState,
-    screenInfoBranchIndex,
-    screenInfoBranchText,
-    screenInfoAuditoriumText,
-    runningTime,
-    movieState,
-    infoMovieAgeLimit,
-    movieIndex,
-    moviePoster,
-    seatAudiIndex
-} = JSON.parse(localStorage.getItem('time-cell-value'));
-localStorage.removeItem('time-cell-value');
+// // const {
+// //     screenInfoIndex,
+// //     screenInfoMovieIndex,
+// //     screenInfoAuditoriumIndex,
+// //     screenInfoMovieStartTime,
+// //     screenInfoMovieEndTime,
+// //     screenInfoMovieTitle,
+// //     screenInfoDate,
+// //     screenInfoMovieState,
+// //     screenInfoBranchIndex,
+// //     screenInfoBranchText,
+// //     screenInfoAuditoriumText,
+// //     runningTime,
+// //     movieState,
+// //     infoMovieAgeLimit,
+// //     movieIndex,
+// //     moviePoster,
+// //     seatAudiIndex,
+// //     seatVoIndex,
+// //     seatVoColumnIndex,
+// //     seatVoColumnText,
+// //     seatVoRow,
+// //     seatVoSeatCode,
+// //     seatVoAuditoriumIndex,
+// //     seatArr
+// //
+// // } = JSON.parse(localStorage.getItem('time-cell-value'));
+// const timeCellValue = JSON.parse(localStorage.getItem('time-cell-value'));
+// localStorage.removeItem('time-cell-value')
+//
+// // const {
+// //     seatVoIndex,
+// //     seatVoColumnIndex,
+// //     seatVoColumnText,
+// //     seatVoRow,
+// //     seatVoSeatCode,
+// //     seatVoAuditoriumIndex,
+// //     seatArr
+// // } = JSON.parse(localStorage.getItem('seat-vo'));
+// const seatVo = JSON.parse(localStorage.getItem('seat-vo'));
+// localStorage.removeItem('seat-vo');
 
-const {
-    seatVoIndex,
-    seatVoColumnIndex,
-    seatVoColumnText,
-    seatVoRow,
-    seatVoSeatCode,
-    seatVoAuditoriumIndex,
-    seatArr
-} = JSON.parse(localStorage.getItem('seat-vo'));
-localStorage.removeItem('seat-vo');
+const movie = JSON.parse(localStorage.getItem('movie'));
 
-
-if (screenInfoIndex != null) {
+if (movie.screenInfoIndex != null) {
     timeContainer.classList.add('off');
     paymentContainer.classList.remove('off');
     seatContainer.classList.add('on');
 }
 
-// 결제 정보 창
-if (screenInfoMovieTitle != null && screenInfoIndex != null) {
+if (movie.screenInfoMovieTitle != null && movie.screenInfoIndex != null) {
     const wrapContainer = window.document.querySelector('.wrap');
     const titleAreaElement = window.document.createElement('div');
     titleAreaElement.classList.add('title-area');
@@ -1019,41 +1029,40 @@ if (screenInfoMovieTitle != null && screenInfoIndex != null) {
     ageLimitElement.classList.add('age12');
     const titleElement = window.document.createElement('p');
     titleElement.classList.add('title');
-    titleElement.innerText = screenInfoMovieTitle
+    titleElement.innerText = movie.screenInfoMovieTitle
     const movieTypeElement = window.document.createElement('p');
     movieTypeElement.classList.add('movie-type');
-    movieTypeElement.innerText = screenInfoMovieState
+    movieTypeElement.innerText = movie.screenInfoMovieState
     titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement);
     const infoAreaElement = window.document.createElement('div');
     infoAreaElement.classList.add('info-area');
     const branchElement = window.document.createElement('p');
     branchElement.classList.add('branch');
-    branchElement.innerText = screenInfoBranchText
+    branchElement.innerText = movie.screenInfoBranchText
     const auditoriumElement = window.document.createElement('p');
     auditoriumElement.classList.add('auditorium');
-    auditoriumElement.innerText = screenInfoAuditoriumText
+    auditoriumElement.innerText = movie.screenInfoAuditoriumText
     const dateElement = window.document.createElement('p');
     dateElement.classList.add('date');
     const dateDetailSpanElement = window.document.createElement('span');
-    dateDetailSpanElement.innerText = screenInfoDate
+    dateDetailSpanElement.innerText = movie.screenInfoDate
     const dateDetailEmElement = window.document.createElement('em');
     dateElement.append(dateDetailSpanElement, dateDetailEmElement);
     const timeElement = window.document.createElement('p');
     timeElement.classList.add('time');
-    timeElement.innerText = screenInfoMovieStartTime + '~' + screenInfoMovieEndTime
+    timeElement.innerText = movie.screenInfoMovieStartTime + '~' + movie.screenInfoMovieEndTime
     const posterElement = window.document.createElement('p');
     posterElement.classList.add('poster');
     const imageElement = window.document.createElement('img');
-    imageElement.setAttribute('src', moviePoster);
+    imageElement.setAttribute('src', movie.moviePoster);
     posterElement.append(imageElement);
     infoAreaElement.append(branchElement, auditoriumElement, dateElement, timeElement, posterElement);
     wrapContainer.prepend(titleAreaElement, infoAreaElement);
     seatResultContainer.append(wrapContainer);
 }
 
-
-const selectedAudIndex = seatAudiIndex
-console.log(selectedAudIndex)
+// movie.seatVos 좌석 다 가지고 있음
+// const audIndexSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
 const seatColumnElement = window.document.createElement('div');
 seatColumnElement.classList.add('seat-column');
 screenInfoSeatColumns
@@ -1067,21 +1076,21 @@ screenInfoSeatColumns
     });
 const seatRowElement = window.document.createElement('div');
 seatRowElement.classList.add('seat-row');
-screenInfoSeats
-    .filter(seat => selectedAudIndex.indexOf(seat['seatAuditoriumIndex']) > -1)
+movie.seatVos
     .forEach(seat => {
         const rowElement = window.document.createElement('button');
         rowElement.classList.add('row');
         rowElement.setAttribute('rel', 'row');
-        rowElement.setAttribute('value', seat['seatCode']);
+        rowElement.setAttribute('value', seat['seatVoSeatCode']);
         rowElement.setAttribute('type', 'button');
-        rowElement.innerText = seat['seatRow'];
-        rowElement.dataset.audIndex = seat['seatAuditoriumIndex'];
-        rowElement.dataset.seatIndex = seat['seatIndex'];
-        rowElement.dataset.seatCode = seat['seatCode'];
+        rowElement.innerText = seat['seatVoRow'];
+        rowElement.dataset.audIndex = seat['seatVoAuditoriumIndex'];
+        rowElement.dataset.seatIndex = seat['seatVoIndex'];
+        rowElement.dataset.seatCode = seat['seatVoSeatCode'];
         seatRowElement.append(rowElement);
         seatsContainer.append(seatColumnElement, seatRowElement);
     });
+movie.seatVos.forEach(x => console.log(x));
 const seats = seatArea.querySelectorAll('[rel="row"]');
 for (let i = 0; i < seats.length; i++) {
     const seat = seats[i];
@@ -1114,6 +1123,7 @@ for (let i = 0; i < seats.length; i++) {
                 }
             }
         }
+
         sortSelections();
     });
 }

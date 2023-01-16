@@ -39,16 +39,6 @@ public class TheaterService {
         return this.theaterMapper.selectBranches();
     }
 
-    public SeatVo[] getSeatsAudIndex(int auditoriumIndex) {
-        return this.theaterMapper.selectSeatByAuditoriumIndex(auditoriumIndex);
-    }
-
-    public SeatVo[] getSeatsAudIndexByColumn(int auditoriumIndex) {
-        return this.theaterMapper.selectSeatByAuditoriumIndexGroupByColumnIndex(auditoriumIndex);
-    }
-
-
-
     public MovieScreenInfoVo[] getScreenInfos(int branchId) {
         return this.theaterMapper.selectScreenInfos(branchId);
     }
@@ -60,5 +50,12 @@ public class TheaterService {
         return this.theaterMapper.selectBranchesIndex(index);
     }
 
+    public SeatVo[] getSeat(int auditoriumIndex) {
+        return this.theaterMapper.selectSeatByAuditoriumIndex(auditoriumIndex);
+    }
+
+    public SeatVo[] getSeatGroupByColumnIndex(int auditoriumIndex) {
+        return this.theaterMapper.selectSeatByAuditoriumIndexGroupByColumnIndex(auditoriumIndex);
+    }
 
 }

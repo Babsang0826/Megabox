@@ -172,9 +172,9 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
         });
     }
 }
-let screenInfo = [];
-let seatByTheater = [];
 
+
+let payload = [];
 const url = new URL(window.location.href);
 const searchParams = url.searchParams;
 const xhr = new XMLHttpRequest();
@@ -271,45 +271,59 @@ xhr.onreadystatechange = () => {
                         // booking 으로 값 넘기는 부분
                         timeCellElement.classList.add('time')
                         timeCellElement.addEventListener('click', () => {
-                            location.href = "/movie/booking"
+                            localStorage.setItem('movie', JSON.stringify(movie));
+                            location.href = `/movie/booking`;
                             timeCellElement.setAttribute('selected', 'selected');
-                            const timeCellValue = {
-                                screenInfoIndex: `${movie['screenInfoIndex']}`,
-                                screenInfoMovieIndex: `${movie['screenInfoMovieIndex']}`,
-                                screenInfoAuditoriumIndex: `${movie['screenInfoAuditoriumIndex']}`,
-                                screenInfoMovieStartTime: `${movie['screenInfoMovieStartTime']}`,
-                                screenInfoMovieEndTime: `${movie['screenInfoMovieEndTime']}`,
-                                screenInfoMovieTitle: `${movie['screenInfoMovieTitle']}`,
-                                screenInfoDate: `${movie['screenInfoDate']}`,
-                                screenInfoMovieState: `${movie['screenInfoMovieState']}`,
-                                screenInfoBranchIndex: `${movie['screenInfoBranchIndex']}`,
-                                screenInfoBranchText: `${movie['screenInfoBranchText']}`,
-                                screenInfoAuditoriumText: `${movie['screenInfoAuditoriumText']}`,
-                                runningTime: `${movie['runningTime']}`,
-                                movieState: `${movie['movieState']}`,
-                                infoMovieAgeLimit: `${movie['infoMovieAgeLimit']}`,
-                                movieIndex: `${movie['movieIndex']}`,
-                                moviePoster: `${movie['moviePoster']}`,
-                                seatAudiIndex: `${movie['seatIndex']}`
-                            };
-                            const seatVo = {
-                                seatVoIndex: `${movie['seatVoIndex']}`,
-                                seatVoColumnIndex: `${movie['seatVoColumnIndex']}`,
-                                seatVoColumnText: `${movie['seatVoColumnText']}`,
-                                seatVoRow: `${movie['seatVoRow']}`,
-                                seatVoSeatCode: `${movie['seatVoSeatCode']}`,
-                                seatVoAuditoriumIndex: `${movie['seatVoAuditoriumIndex']}`,
-                                // seatVoNumberOfColumn: `${movie['seatVoNumberOfColumn']}`,
-                                screenInfoAuditoriumIndex2: `${movie['screenInfoAuditoriumIndex']}`
-                            }
-                            localStorage.setItem("time-cell-value", JSON.stringify(timeCellValue));
-                            localStorage.setItem("seat-vo", JSON.stringify(seatVo));
-                            // var z = JSON.parse(localStorage.getItem("seat-vo"));
-                            // for( var i=0; i< z.length; i++ ) {
-                            //     for( var j=0; j < z[i].length; j++ ) {
-                            //         console.log( "z[" + i + "][" + j + "] = " + z[i][j] );
-                            //     }
+                            // const timeCellValue = {
+                            //     screenInfoIndex: `${movie['screenInfoIndex']}`,
+                            //     screenInfoMovieIndex: `${movie['screenInfoMovieIndex']}`,
+                            //     screenInfoAuditoriumIndex: `${movie['screenInfoAuditoriumIndex']}`,
+                            //     screenInfoMovieStartTime: `${movie['screenInfoMovieStartTime']}`,
+                            //     screenInfoMovieEndTime: `${movie['screenInfoMovieEndTime']}`,
+                            //     screenInfoMovieTitle: `${movie['screenInfoMovieTitle']}`,
+                            //     screenInfoDate: `${movie['screenInfoDate']}`,
+                            //     screenInfoMovieState: `${movie['screenInfoMovieState']}`,
+                            //     screenInfoBranchIndex: `${movie['screenInfoBranchIndex']}`,
+                            //     screenInfoBranchText: `${movie['screenInfoBranchText']}`,
+                            //     screenInfoAuditoriumText: `${movie['screenInfoAuditoriumText']}`,
+                            //     runningTime: `${movie['runningTime']}`,
+                            //     movieState: `${movie['movieState']}`,
+                            //     infoMovieAgeLimit: `${movie['infoMovieAgeLimit']}`,
+                            //     movieIndex: `${movie['movieIndex']}`,
+                            //     moviePoster: `${movie['moviePoster']}`,
+                            //     seatAudiIndex: `${movie['seatIndex']}`,
+                            //     seatVoIndex: `${movie['seatVoIndex']}`,
+                            //     seatVoColumnIndex: `${movie['seatVoColumnIndex']}`,
+                            //     seatVoColumnText: `${movie['seatVoColumnText']}`,
+                            //     seatVoRow: `${movie['seatVoRow']}`,
+                            //     seatVoSeatCode: `${movie['seatVoSeatCode']}`,
+                            //     seatVoAuditoriumIndex: `${movie['seatVoAuditoriumIndex']}`,
+                            //     // seatVoNumberOfColumn: `${movie['seatVoNumberOfColumn']}`,
+                            //     screenInfoAuditoriumIndex2: `${movie['screenInfoAuditoriumIndex']}`,
+                            //     seatArr: `${movie}`
+                            // };
+                            //
+                            //
+                            // const seatVo = {
+                            //     seatVoIndex: `${movie['seatVoIndex']}`,
+                            //     seatVoColumnIndex: `${movie['seatVoColumnIndex']}`,
+                            //     seatVoColumnText: `${movie['seatVoColumnText']}`,
+                            //     seatVoRow: `${movie['seatVoRow']}`,
+                            //     seatVoSeatCode: `${movie['seatVoSeatCode']}`,
+                            //     seatVoAuditoriumIndex: `${movie['seatVoAuditoriumIndex']}`,
+                            //     // seatVoNumberOfColumn: `${movie['seatVoNumberOfColumn']}`,
+                            //     screenInfoAuditoriumIndex2: `${movie['screenInfoAuditoriumIndex']}`,
+                            //     seatArr: `${movie}`
                             // }
+                            // localStorage.setItem("time-cell-value", JSON.stringify(timeCellValue));
+                            // localStorage.setItem("seat-vo", JSON.stringify(seatVo));
+                            var z = JSON.parse(localStorage.getItem("seat-vo"));
+                            for( var i=0; i< z.length; i++ ) {
+                                for( var j=0; j < z[i].length; j++ ) {
+                                    console.log( "z[" + i + "][" + j + "] = " + z[i][j] );
+                                }
+                            }
+                            // localStorage.setItem("seat-vo", JSON.stringify(seatVo));
                             alert('보냄요');
                             drawSeatResult();
 
@@ -327,6 +341,7 @@ xhr.onreadystatechange = () => {
 
             const responseArray = JSON.parse(xhr.responseText);
             let screenObject = {};
+            payload = responseArray;
             for (let screen of responseArray) {
                 let screenIdentifier = `${screen['screenInfoMovieIndex']}`;
                 if (!screenObject[screenIdentifier]) {

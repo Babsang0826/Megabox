@@ -28,7 +28,6 @@ public interface ITheaterMapper {
     TheaterEntity selectBranchesIndex(@Param(value = "index") int index);
 
     SeatVo[] selectSeatByAuditoriumIndex(@Param(value = "auditoriumIndex") int auditoriumIndex);
-
     SeatVo[] selectSeatByAuditoriumIndexGroupByColumnIndex(@Param(value = "auditoriumIndex") int auditoriumIndex);
 
 }
