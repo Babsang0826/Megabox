@@ -110,7 +110,6 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     timeBox.append(timeElement);
 }
 
-
 let nextMonthArr = [];
 let nextMonthArrCode = [];
 let nextMonthDate;
@@ -171,6 +170,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
             }
         });
     }
+
 }
 
 
@@ -292,7 +292,6 @@ xhr.onreadystatechange = () => {
                                 seatAudiIndex: `${movie['seatIndex']}`
                             };
                             localStorage.setItem("time-cell-value", JSON.stringify(timeCellValue));
-                            alert('보냄요');
                             drawSeatResult();
 
                         })
@@ -355,6 +354,25 @@ function moveSlide(num) {
     timeBox.style.transition = slideSpeed + 'ms';
     currentIdx = num;
 }
+
+window.onscroll = function () {
+    scrollFunction()
+}
+
+function scrollFunction() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        document.getElementById('pageUtil').classList.add('fixed');
+        // document.getElementById('movieDetail').classList.add('fixed');
+        document.getElementById('tabList').classList.add('fixed');
+        // document.getElementById('contentData').classList.add('fixed');
+    } else {
+        document.getElementById('pageUtil').classList.remove('fixed');
+        // document.getElementById('movieDetail').classList.remove('fixed')
+        document.getElementById('tabList').classList.remove('fixed')
+        // document.getElementById('contentData').classList.remove('fixed');
+    }
+}
+
 
 
 

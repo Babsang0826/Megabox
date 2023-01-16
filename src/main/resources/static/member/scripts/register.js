@@ -280,6 +280,19 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
         } else {
             form.querySelector('[rel="warning-contact"]').innerText = ''
         }
+        if (form['loginId'].value === '') {
+            form.querySelector('[rel="warning-id"]').innerText = '아이디를 입력해 주세요.'
+            form['loginId'].focus();
+            return;
+        }
+        if (!new RegExp('^[a-zA-Z][0-9a-zA-Z]{4,7}$').test(form['loginId'].value)) {
+            form.querySelector('[rel="warning-id"]').innerText = '아이디를 다시 입력해주세요.'
+            form['loginId'].focus();
+            return;
+        }
+        else {
+            form.querySelector('[rel="warning-id"]').innerText = ''
+        }
 
         if (!new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$').test(form['pwd'].value)) {
             form.querySelector('[rel="warning-password"]').innerText = '비밀번호는 8자이상, 숫자, 대문자, 소문자, 특수문자들 모두 포함해야합니다.'
@@ -309,8 +322,8 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
             form['loginId'].focus();
             return;
         }
-    Cover.show('회원가입을 진행중입니다.\n\n잠시만 기다려 주세요.');
-    const xhr = new XMLHttpRequest();
+        Cover.show('회원가입을 진행중입니다.\n\n잠시만 기다려 주세요.');
+        const xhr = new XMLHttpRequest();
         const formData = new FormData();
         formData.append('email', form['email'].value);
         formData.append('name', form['name'].value);
@@ -369,13 +382,18 @@ form.querySelector('[rel="overlappingButton"]').addEventListener('click', () => 
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case 'success':
+                        if (!new RegExp('^[a-zA-Z][0-9a-zA-Z]{4,7}$').test(form['loginId'].value)) {
+                            swal("알림", "아이디를 다시 입력해주세요.");
+                            form['loginId'].focus();
+                            return;
+                        }
                         if (form['loginId'].value !== '') {
                             swal("알림", "사용 가능한 아이디입니다.");
                             form['overlappingButton'].setAttribute('disabled', 'disabled');
                         }
                         break;
                     case 'id_duplicated':
-                        alert("중복된 아이디 입니다.")
+                        swal("알림", "중복된 아이디 입니다.")
                         form['loginId'].focus();
                         form['loginId'].select();
                         break;
@@ -405,6 +423,12 @@ form.querySelector('[rel="emailAuthComplete"]').addEventListener('click', () => 
     document.getElementById("two").style.border = "none"
     document.getElementById("three").style.borderBottom = "1px solid #503396";
 });
+
+function maxLengthCheck(object){
+    if (object.value.length > object.maxLength){
+        object.value = object.value.slice(0, object.maxLength);
+    }
+}
 
 
 

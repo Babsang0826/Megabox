@@ -74,7 +74,6 @@ form['findPassword'].addEventListener('click', () => {
                 console.log(responseObject);
                 switch (responseObject['result']) {
                     case 'success':
-                        swal("알림", "본인인증에 성공하였습니다. 비밀번호 재설정 페이지로 이동합니다.");
                         window.location.href = "http://localhost:8080/member/userPasswordReset"
                         // let password = responseObject['password'];
                         // let name = responseObject['name'];

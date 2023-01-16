@@ -3,7 +3,7 @@ window.onscroll = function () {
 }
 
 function scrollFunction() {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
         document.getElementById('pageUtil').classList.add('fixed');
     } else {
         document.getElementById('pageUtil').classList.remove('fixed');

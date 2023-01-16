@@ -1161,8 +1161,8 @@
                             </th>
                             <td>
                                 <label>
-                                    <input maxlength="16" id="loginContact" name="contact" type="number"
-                                           placeholder="연락처를 ' - ' 없이 입력해 주세요." class="input-text">
+                                    <input maxlength="11" id="loginContact" name="contact" type="number"
+                                           placeholder="연락처를 ' - ' 없이 입력해 주세요." class="input-text" oninput="maxLengthCheck(this)">
                                 </label>
                                 <div id="contact-error-text" class="alert" rel="warning-contact">
                                 </div>
@@ -1177,14 +1177,14 @@
                             <td class="tdClass">
                                 <div class="duplication-check">
                                     <label>
-                                        <input maxlength="12" id="loginId" type="text" placeholder="영문,숫자 조합(8~12자)"
+                                        <input maxlength="12" id="loginId" type="text" placeholder="영문,숫자 조합(5~8자)"
                                                class="input-text" name="loginId">
                                     </label>
-                                    <button type="button" class="idOverlapping" name="overlappingButton"
+                                    <button type="button" class="idOverlapping a" name="overlappingButton"
                                             rel="overlappingButton">중복확인
                                     </button>
+                                    <div id="id-error-text" class="alert" rel="warning-id"></div>
                                 </div>
-                                <div id="id-error-text" class="alert" rel="warning-id"></div>
                             </td>
                         </tr>
                         <tr>

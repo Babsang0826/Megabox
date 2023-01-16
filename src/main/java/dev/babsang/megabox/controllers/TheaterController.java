@@ -1,6 +1,7 @@
 package dev.babsang.megabox.controllers;
 
 
+import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.BranchEntity;
 import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.entities.movie.RegionEntity;

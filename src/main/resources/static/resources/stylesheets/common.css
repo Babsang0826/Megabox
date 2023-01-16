@@ -1254,6 +1254,8 @@ footer > .footer-bottom > .inner-wrap > .footer-sns > a > i {
 .page-util {
     /*display: none;*/
     background-color: #f8f8fa;
+    border-top: 1px solid #351f66;
+
 }
 
 .page-util.fixed {
