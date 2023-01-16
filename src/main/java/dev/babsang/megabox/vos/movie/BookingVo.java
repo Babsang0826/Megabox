@@ -8,6 +8,8 @@ public class BookingVo extends BookingEntity {
     private int movieIndex;
     private Date screenDate;
     private Date mvStartTime;
+
+    private Date mvEndTime;
     private int auditoriumIndex;
     private String columnText;
     private int screenInfoIndex;
@@ -141,5 +143,13 @@ public class BookingVo extends BookingEntity {
 
     public void setBranchText(String branchText) {
         this.branchText = branchText;
+    }
+
+    public Date getMvEndTime() {
+        return mvEndTime;
+    }
+
+    public void setMvEndTime(Date mvEndTime) {
+        this.mvEndTime = mvEndTime;
     }
 }

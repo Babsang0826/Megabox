@@ -99,6 +99,7 @@ public class TheaterController {
             screenInfoAllJson.put("auditoriumIndex", screenInfo.getAuditoriumIndex());
 
             SeatVo[] seatVos = this.theaterService.getSeat(screenInfo.getAuditoriumIndex());
+            SeatVo[] seatVoColumns = this.theaterService.getSeatGroupByColumnIndex(screenInfo.getAuditoriumIndex());
 
             JSONArray seatVoArr = new JSONArray();
             for (SeatVo seatVo : seatVos) {
@@ -110,11 +111,17 @@ public class TheaterController {
                 seatVoObject.put("seatVoSeatCode", seatVo.getSeatCode());
                 seatVoObject.put("seatVoAuditoriumIndex", seatVo.getAuditoriumIndex());
                 seatVoArr.put(seatVoObject);
-//                System.out.println(seatVoObject);
+            }
+
+            JSONArray seatVoColumnArr = new JSONArray();
+            for(SeatVo seat : seatVoColumns) {
+                JSONObject seatVoColumnObject = new JSONObject();
+                seatVoColumnObject.put("seatVoNumOfColumn", seat.getColumnText());
+                seatVoColumnArr.put(seatVoColumnObject);
             }
             screenInfoAllJson.put("seatVos", seatVoArr);
+            screenInfoAllJson.put("seatColumnVo", seatVoColumnArr);
             screenInfosAllJson.put(screenInfoAllJson);
-            System.out.println(screenInfosAllJson);
         }
         return screenInfosAllJson.toString();
     }

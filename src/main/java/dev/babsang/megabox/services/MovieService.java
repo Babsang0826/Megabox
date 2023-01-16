@@ -82,7 +82,7 @@ public class MovieService {
         return this.movieMapper.selectMovieVosById(id);
     }
 
-    public BookingEntity[] getBookings() {
+    public BookingVo[] getBookings() {
         return this.movieMapper.selectBooking();
     }
 

@@ -32,7 +32,7 @@ public interface IMovieMapper {
 
     MovieVo[] selectMovieVoByListBox();
 
-    BookingEntity[] selectBooking();
+    BookingVo[] selectBooking();
     SeatVo[] selectSeatVo();
 
     SeatVo[] selectSeatByAll();

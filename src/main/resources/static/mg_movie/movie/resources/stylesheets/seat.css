@@ -448,7 +448,7 @@ body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > 
     margin-right: 0.3rem;
 }
 
-body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-result > .wrap > .seat-area > .describe > .list > li > .choice {
+body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-result > .wrap > .seat-area > .describe > .list > li > .possible {
     margin-right: 0.3rem;
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-choice-s.png) !important;
 }

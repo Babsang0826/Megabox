@@ -299,9 +299,13 @@ public class MovieController {
         }
 
         JSONArray bookingCompleteSeats = new JSONArray();
-        for (BookingEntity bookingSeat : this.movieService.getBookings()) {
+        for (BookingVo bookingSeat : this.movieService.getBookings()) {
             JSONObject bookingCompleteSeat = new JSONObject();
             bookingCompleteSeat.put("bookingSeatComplete", bookingSeat.getSeatIndex());
+            bookingCompleteSeat.put("bookingSeatScreenInfoIndex", bookingSeat.getScreenInfoIndex());
+            bookingCompleteSeat.put("bookingSeatMvStartTime", new SimpleDateFormat("HH:mm").format(bookingSeat.getMvStartTime()));
+            bookingCompleteSeat.put("bookingSeatMvEndTime", new SimpleDateFormat("HH:mm").format(bookingSeat.getMvEndTime()));
+            bookingCompleteSeat.put("bookingSeatScreenInfoIndex", bookingSeat.getScreenInfoIndex());
             bookingCompleteSeats.put(bookingCompleteSeat);
         }
 

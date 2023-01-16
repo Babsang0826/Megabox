@@ -329,12 +329,21 @@ const drawSubs = () => {
                     movieAuditoriumElement.innerText = allScreenInfo['screenInfoAuditoriumText'];
                     const seatBoxElement = window.document.createElement('div');
                     seatBoxElement.classList.add('seat-box');
-                    let remainSeat = parseInt(allScreenInfo['screenInfoSeatCountAll']) - parseInt(allScreenInfo['screenInfoSeatRemain']);
+
                     const remainSeatElement = window.document.createElement('span');
                     remainSeatElement.classList.add('remain-seat');
-                    remainSeatElement.innerText = remainSeat;
                     allSeat.forEach(allSeat => {
-                        if(allSeat['seatAudIndex'] === allScreenInfo['screenInfoAuditoriumIndex']) {
+                        remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll']);
+                        completeSeatBooking.forEach(complete => {
+                            // remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll'])
+                            if (complete['bookingSeatScreenInfoIndex'] === allScreenInfo['screenInfoIndex'] ) {
+                                remainSeatElement.innerText =  parseInt(allScreenInfo['screenInfoSeatCountAll']) - parseInt(allScreenInfo['screenInfoSeatRemain']);
+                            }
+
+                            // remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll']);
+
+                        })
+                        if (allSeat['seatAudIndex'] === allScreenInfo['screenInfoAuditoriumIndex']) {
                             const allSeatElement = window.document.createElement('span');
                             allSeatElement.classList.add('all-seat');
                             allSeatElement.innerText = '/' + allSeat['seatCountAll'];
@@ -423,12 +432,17 @@ const drawSubs = () => {
                     movieAuditoriumElement.innerText = allScreenInfo['screenInfoAuditoriumText'];
                     const seatBoxElement = window.document.createElement('div');
                     seatBoxElement.classList.add('seat-box');
-                    let remainSeat = parseInt(allScreenInfo['screenInfoSeatCountAll']) - parseInt(allScreenInfo['screenInfoSeatRemain']);
                     const remainSeatElement = window.document.createElement('span');
                     remainSeatElement.classList.add('remain-seat');
-                    remainSeatElement.innerText = remainSeat;
                     allSeat.forEach(allSeat => {
-                        if(allSeat['seatAudIndex'] === allScreenInfo['screenInfoAuditoriumIndex']) {
+                        completeSeatBooking.forEach(complete => {
+                            if (complete['bookingSeatScreenInfoIndex'] === allScreenInfo['screenInfoIndex'] ) {
+                                remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll']) - parseInt(allScreenInfo['screenInfoSeatRemain']);
+                            }else {
+                                remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll'])
+                            }
+                        })
+                        if (allSeat['seatAudIndex'] === allScreenInfo['screenInfoAuditoriumIndex']) {
                             const allSeatElement = window.document.createElement('span');
                             allSeatElement.classList.add('all-seat');
                             allSeatElement.innerText = '/' + allSeat['seatCountAll'];
@@ -651,6 +665,8 @@ const seatsContainer = window.document.querySelector('.seats');
 const drawSeat = () => {
     const audIndexSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
     const selectedAudIndex = audIndexSelected.map(x => parseInt(x.dataset.audIndex));
+    const selectedMvStartTime = audIndexSelected.map(x => x.dataset.screenInfoIndex);
+    console.log(selectedMvStartTime)
     const seatColumnElement = window.document.createElement('div');
     seatColumnElement.classList.add('seat-column');
     screenInfoSeatColumns
@@ -679,13 +695,13 @@ const drawSeat = () => {
             seatRowElement.append(rowElement);
             seatsContainer.append(seatColumnElement, seatRowElement);
             completeSeatBooking.forEach(complete => {
-                if(parseInt(complete['bookingSeatComplete']) === parseInt(rowElement.dataset.seatIndex)) {
-                    rowElement.setAttribute('disabled','disabled');
+                if (parseInt(complete['bookingSeatComplete']) === parseInt(rowElement.dataset.seatIndex) && parseInt(complete['bookingSeatScreenInfoIndex']) === parseInt(selectedMvStartTime)) {
+                    rowElement.setAttribute('disabled', 'disabled');
                     rowElement.classList.add('finish');
                     rowElement.innerText = '';
                 }
             });
-        });
+        })
     const seats = seatArea.querySelectorAll('[rel="row"]');
     for (let i = 0; i < seats.length; i++) {
         const seat = seats[i];
@@ -851,14 +867,13 @@ form.onsubmit = e => {
     }
     localStorage.setItem("total-price", JSON.stringify(totalPriceSend));
 }
-// })
 
 
 const timeWrap = window.document.querySelector('.time-wrap');
 const previousTimeBtn = window.document.getElementById('previousTimeBtn');
 const nextTimeBtn = window.document.getElementById('nextTimeBtn');
 
-//
+
 // time 시간표
 for (let i = 0; i <= 28; i++) {
     // const time = window.document.querySelectorAll('.time');
@@ -969,58 +984,13 @@ function moveSlide(num) {
     currentIdx = num;
 }
 
-
-// // const {
-// //     screenInfoIndex,
-// //     screenInfoMovieIndex,
-// //     screenInfoAuditoriumIndex,
-// //     screenInfoMovieStartTime,
-// //     screenInfoMovieEndTime,
-// //     screenInfoMovieTitle,
-// //     screenInfoDate,
-// //     screenInfoMovieState,
-// //     screenInfoBranchIndex,
-// //     screenInfoBranchText,
-// //     screenInfoAuditoriumText,
-// //     runningTime,
-// //     movieState,
-// //     infoMovieAgeLimit,
-// //     movieIndex,
-// //     moviePoster,
-// //     seatAudiIndex,
-// //     seatVoIndex,
-// //     seatVoColumnIndex,
-// //     seatVoColumnText,
-// //     seatVoRow,
-// //     seatVoSeatCode,
-// //     seatVoAuditoriumIndex,
-// //     seatArr
-// //
-// // } = JSON.parse(localStorage.getItem('time-cell-value'));
-// const timeCellValue = JSON.parse(localStorage.getItem('time-cell-value'));
-// localStorage.removeItem('time-cell-value')
-//
-// // const {
-// //     seatVoIndex,
-// //     seatVoColumnIndex,
-// //     seatVoColumnText,
-// //     seatVoRow,
-// //     seatVoSeatCode,
-// //     seatVoAuditoriumIndex,
-// //     seatArr
-// // } = JSON.parse(localStorage.getItem('seat-vo'));
-// const seatVo = JSON.parse(localStorage.getItem('seat-vo'));
-// localStorage.removeItem('seat-vo');
-
 const movie = JSON.parse(localStorage.getItem('movie'));
+console.log(movie.screenInfoIndex !== null)
 
-if (movie.screenInfoIndex != null) {
+if (movie.screenInfoIndex !== null) {
     timeContainer.classList.add('off');
     paymentContainer.classList.remove('off');
     seatContainer.classList.add('on');
-}
-
-if (movie.screenInfoMovieTitle != null && movie.screenInfoIndex != null) {
     const wrapContainer = window.document.querySelector('.wrap');
     const titleAreaElement = window.document.createElement('div');
     titleAreaElement.classList.add('title-area');
@@ -1059,76 +1029,166 @@ if (movie.screenInfoMovieTitle != null && movie.screenInfoIndex != null) {
     infoAreaElement.append(branchElement, auditoriumElement, dateElement, timeElement, posterElement);
     wrapContainer.prepend(titleAreaElement, infoAreaElement);
     seatResultContainer.append(wrapContainer);
-}
 
 // movie.seatVos 좌석 다 가지고 있음
-// const audIndexSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
-const seatColumnElement = window.document.createElement('div');
-seatColumnElement.classList.add('seat-column');
-screenInfoSeatColumns
-    .forEach(seatColumn => {
-        const columnElement = window.document.createElement('button');
-        columnElement.classList.add('column');
-        columnElement.setAttribute('rel', 'column');
-        columnElement.setAttribute('type', 'button');
-        columnElement.innerText = seatColumn['seatColumnText'];
-        seatColumnElement.append(columnElement);
-    });
-const seatRowElement = window.document.createElement('div');
-seatRowElement.classList.add('seat-row');
-movie.seatVos
-    .forEach(seat => {
-        const rowElement = window.document.createElement('button');
-        rowElement.classList.add('row');
-        rowElement.setAttribute('rel', 'row');
-        rowElement.setAttribute('value', seat['seatVoSeatCode']);
-        rowElement.setAttribute('type', 'button');
-        rowElement.innerText = seat['seatVoRow'];
-        rowElement.dataset.audIndex = seat['seatVoAuditoriumIndex'];
-        rowElement.dataset.seatIndex = seat['seatVoIndex'];
-        rowElement.dataset.seatCode = seat['seatVoSeatCode'];
-        seatRowElement.append(rowElement);
-        seatsContainer.append(seatColumnElement, seatRowElement);
-    });
-movie.seatVos.forEach(x => console.log(x));
-const seats = seatArea.querySelectorAll('[rel="row"]');
-for (let i = 0; i < seats.length; i++) {
-    const seat = seats[i];
-    seat.addEventListener('click', () => {
-        if (totalCnt === '0') {
-            swal('알림', '인원을 먼저 선택해주세요.');
-            return;
-        }
-        let chosenSeatCnt = seatArea.querySelectorAll('.row.on').length
-        chosenSeatTotalCnt = chosenSeatCnt + 1
-        if (chosenSeatCnt + 1 > totalCnt && !seat.classList.contains('on')) {
-            swal('알림', '좌석선택이 완료되었습니다.');
-            return;
-        }
-        if (seat.classList.contains('on')) {
-            seat.classList.remove('on');
-            const selections = Array.from(selectedSeats);
-            const selection = selections.filter(x => x.textContent === seat.value)[0];
-            selection.classList.remove('choice');
-            selection.innerText = '-';
-        } else {
-            seat.classList.add('on');
-            const selections = Array.from(selectedSeats);
+    const seatColumnElement = window.document.createElement('div');
+    seatColumnElement.classList.add('seat-column');
+    movie.seatColumnVo
+        .forEach(seatColumn => {
+            const columnElement = window.document.createElement('button');
+            columnElement.classList.add('column');
+            columnElement.setAttribute('rel', 'column');
+            columnElement.setAttribute('type', 'button');
+            columnElement.innerText = seatColumn['seatVoNumOfColumn'];
+            seatColumnElement.append(columnElement);
+        });
+    const seatRowElement = window.document.createElement('div');
+    seatRowElement.classList.add('seat-row');
+    movie.seatVos
+        .forEach(seat => {
+            const rowElement = window.document.createElement('button');
+            rowElement.classList.add('row');
+            rowElement.setAttribute('rel', 'row');
+            rowElement.setAttribute('value', seat['seatVoSeatCode']);
+            rowElement.setAttribute('type', 'button');
+            rowElement.innerText = seat['seatVoRow'];
+            rowElement.dataset.audIndex = seat['seatVoAuditoriumIndex'];
+            rowElement.dataset.seatIndex = seat['seatVoIndex'];
+            rowElement.dataset.seatCode = seat['seatVoSeatCode'];
+            seatRowElement.append(rowElement);
+            seatsContainer.append(seatColumnElement, seatRowElement);
+        });
+    const seats = seatArea.querySelectorAll('[rel="row"]');
+    for (let i = 0; i < seats.length; i++) {
+        const seat = seats[i];
+        seat.addEventListener('click', () => {
+            if (totalCnt === '0') {
+                swal('알림', '인원을 먼저 선택해주세요.');
+                return;
+            }
+            let chosenSeatCnt = seatArea.querySelectorAll('.row.on').length
+            chosenSeatTotalCnt = chosenSeatCnt + 1
+            if (chosenSeatCnt + 1 > totalCnt && !seat.classList.contains('on')) {
+                swal('알림', '좌석선택이 완료되었습니다.');
+                return;
+            }
+            if (seat.classList.contains('on')) {
+                seat.classList.remove('on');
+                const selections = Array.from(selectedSeats);
+                const selection = selections.filter(x => x.textContent === seat.value)[0];
+                selection.classList.remove('choice');
+                selection.innerText = '-';
+            } else {
+                seat.classList.add('on');
+                const selections = Array.from(selectedSeats);
 
-            for (let selection of selections) {
-                if (!selection.classList.contains('choice')) {
-                    selection.classList.add('choice');
-                    selection.innerText = `${seat.value}`;
-                    break;
+                for (let selection of selections) {
+                    if (!selection.classList.contains('choice')) {
+                        selection.classList.add('choice');
+                        selection.innerText = `${seat.value}`;
+                        break;
+                    }
                 }
             }
+            sortSelections();
+        });
+    }
+    const seatNext = container.querySelector('.next');
+    seatNext.addEventListener('click', () => {
+        let selectedSeat = container.querySelectorAll('.seat.choice').length;
+        if (totalCnt > selectedSeat) {
+            swal('알림', '인원 수에 맞게 좌석을 선택해주세요.');
+            return;
         }
-
-        sortSelections();
+        if (chosenSeatTotalCnt === 0) {
+            swal('알림', '인원 및 좌석 선택을 먼저 해주세요.');
+            return;
+        }
+        seatSelectPayment.classList.add('on');
+        seatSelect.classList.remove('on');
+        const titleAreaElement = window.document.createElement('div');
+        titleAreaElement.classList.add('title-area');
+        const ageLimitElement = window.document.createElement('span');
+        ageLimitElement.classList.add(movie.infoMovieAgeLimit);
+        const titleElement = window.document.createElement('p');
+        titleElement.classList.add('title');
+        titleElement.innerText = movie.screenInfoMovieTitle;
+        const movieTypeElement = window.document.createElement('p');
+        movieTypeElement.classList.add('movie-type');
+        movieTypeElement.innerText = movie.screenInfoMovieState;
+        const branchElement = window.document.createElement('p');
+        branchElement.classList.add('branch');
+        branchElement.innerText = movie.screenInfoBranchText;
+        const dateElement = window.document.createElement('p');
+        dateElement.classList.add('date');
+        const dateSpanElement = window.document.createElement('span');
+        dateSpanElement.innerText = movie.screenInfoDate;
+        const dateEmElement = window.document.createElement('em');
+        const timeElement = window.document.createElement('span');
+        timeElement.classList.add('time');
+        timeElement.innerText = movie.screenInfoMovieStartTime + '~' + movie.screenInfoMovieEndTime;
+        const clockIconElement = window.document.createElement('i');
+        clockIconElement.classList.add('fa-regular', 'fa-clock');
+        clockIconElement.append(timeElement);
+        dateElement.append(dateSpanElement, dateEmElement, clockIconElement);
+        titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement, branchElement, dateElement);
+        seatPayWrap.prepend(titleAreaElement);
     });
+    form.onsubmit = e => {
+        e.preventDefault();
+        const selectBooking = Array.from(window.document.querySelectorAll('.row.on'));
+        let adultTotalCount = `${parseInt(adultCount.innerText)}`;
+        let teenagerTotalCount = `${parseInt(teenagerCount.innerText)}`;
+        let etcTotalCount = `${parseInt(etcCount.innerText)}`;
+        let priceArray = [adultPrice, teenagerPrice, etcPrice];
+        let priceCountArray = [adultTotalCount, teenagerTotalCount, etcTotalCount];
+        for (let i = 0; i < selectBooking.length; i++) {
+            const seatCodes = selectBooking.map(x => x.value); // A7
+            const seatIndexs = selectBooking.map(x => x.dataset.seatIndex);
+            const seatPrices = priceArray.map(x => parseInt(x.innerText));
+            let lastCountArray = [];
+            for (let j = 0; j < priceCountArray.length; j++) {
+                for (let z = 0; z < priceCountArray[j]; z++) {
+                    lastCountArray.push(seatPrices[j] / (priceCountArray[j]));
+                }
+            }
+            let seatIndex = seatIndexs[i];
+            let seatCode = seatCodes[i];
+            let seatPrice = lastCountArray[i];
+            const xhr = new XMLHttpRequest();
+            const formData = new FormData();
+            formData.append('screenInfoIndex', movie.screenInfoIndex);
+            formData.append('seatIndex', seatIndex);
+            formData.append('seatSumCode', seatCode);
+            formData.append('payment', seatPrice);
+            xhr.open('POST', './booking');
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        const responseObject = JSON.parse(xhr.responseText);
+                        switch (responseObject['result']) {
+                            case 'success':
+                                window.location.href = '/movie/bookingComplete';
+                                break;
+                            default:
+                                swal('알림', '결제가 실패하였습니다. 잠시 후 다시 시도해 주세요.');
+                                break;
+                        }
+                    } else {
+                        swal("알림", "알 수 없는 이유로 결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+                    }
+                }
+            };
+            xhr.send(formData);
+        }
+        const totalPriceSend = {
+            totalPriceSend: (parseInt(adultPrice.innerText) + parseInt(teenagerPrice.innerText) + parseInt(etcPrice.innerText))
+        }
+        localStorage.setItem("total-price", JSON.stringify(totalPriceSend));
+    }
+
 }
-
-
+localStorage.clear();
 
 
 
