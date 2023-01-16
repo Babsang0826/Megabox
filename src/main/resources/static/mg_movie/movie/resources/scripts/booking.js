@@ -858,7 +858,7 @@ const timeWrap = window.document.querySelector('.time-wrap');
 const previousTimeBtn = window.document.getElementById('previousTimeBtn');
 const nextTimeBtn = window.document.getElementById('nextTimeBtn');
 
-
+//
 // time 시간표
 for (let i = 0; i <= 28; i++) {
     // const time = window.document.querySelectorAll('.time');
