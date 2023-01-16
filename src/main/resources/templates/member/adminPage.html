@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메가박스 :: 관리자 페이지</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/member/stylesheets/myPage.css}">
+    <link rel="stylesheet" th:href="@{/member/stylesheets/myPage-modify.css}">
+    <script src="https://kit.fontawesome.com/282afddd53.js" crossorigin="anonymous"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script defer th:src="@{/member/scripts/myPage-modify.js}"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="page-util" id="pageUtil">
+    <div class="inner-wrap">
+        <div class="location">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{./myPage}">나의 메가박스</a>
+            <a th:href="@{./modify}">관리자페이지</a>
+        </div>
+    </div>
+</div>
+<div class="container" id="container">
+    <div class="inner-wrap">
+        <div class="side-menu">
+            <nav>
+                <p class="title">
+                    <a th:href="@{./myPage}">나의 메가박스</a>
+                </p>
+                <ul>
+                    <li>
+                        <a href="#">예매/구매내역</a>
+                        <ul class="member-info">
+                            <li>
+                                <a th:href="@{./bookingHistory}">예매내역</a>
+                                <a href="#">구매내역</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">회원정보</a>
+                        <ul class="member-info">
+                            <li>
+                                <a th:href="@{./modify}">개인정보 수정</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">영화/스토어 관람권</a>
+                    </li>
+                    <li>
+                        <a href="#">메가박스/제휴쿠폰</a>
+                    </li>
+                    <li>
+                        <a href="#">멤버십 포인트</a>
+                    </li>
+                    <li>
+                        <a href="#">자주쓰는 카드 관리</a>
+                    </li>
+                    <li>
+                        <a href="#">나의 문의내역</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="contents" id="authContents">
+            <h2 class="title">회원정보</h2>
+            <div class="wrap auth">
+                <div>회원님의 개인정보 보호를 위해 등록된 이메일로 인증을 하셔야 합니다.</div>
+                <div class="user-id">
+                    <div class="text">이메일</div>
+                    <div class="content">
+                        <input type="hidden" th:value="${session.user.getEmail()}" rel="hiddenEmail">
+                        <label class="hidden-label">
+                            <input th:value="${session.user.getEmail().replaceAll('(?<=.{4}).(?=.*@)', '*')}" disabled>
+                        </label>
+                        <button type="button" class="auth-request">인증요청</button>
+                    </div>
+                    <div class="text">인증번호</div>
+                    <div class="content auth">
+                        <label>
+                            <input type="text" class="authInput" maxlength="6">
+                            <input class="emailAuthSalt" type="hidden">
+                            <div class="timer" id="timer">5:00</div>
+                            <button disabled class="auth-check">인증확인</button>
+                        </label>
+                        <span rel="emailWarning">인증번호가 일치하지 않습니다.</span>
+                    </div>
+                </div>
+                <div class="btn-area">
+                    <button>취소</button>
+                    <button disabled rel="completeAuth">확인</button>
+                </div>
+            </div>
+        </div>
+        <div class="contents on" id="modifyContent">
+            <h2 class="title">관리자 페이지</h2>
+            <div class="wrap">
+                <div class="user-info">
+                    <div class="title-area">
+                        <h3 class="title">영화 등록</h3>
+<!--                        <div class="necessary">-->
+<!--                            <p>-->
+<!--                                <em class="star">*</em>-->
+<!--                                필수-->
+<!--                            </p>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+                <div class="btn-area">
+                    <div><a th:href="@{./myPage}">취소</a></div>
+                    <div rel="submitBtn">등록</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</html>
+

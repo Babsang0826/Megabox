@@ -8,6 +8,7 @@ import dev.babsang.megabox.entities.theater.TheaterEntity;
 import dev.babsang.megabox.services.TheaterService;
 import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
+import dev.babsang.megabox.vos.movie.SeatVo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,25 @@ public class TheaterController {
             screenInfoAllJson.put("movieIndex", screenInfo.getMovieIndex());
             screenInfoAllJson.put("seatIndex", screenInfo.getSeatIndex());
             screenInfoAllJson.put("moviePoster", screenInfo.getMoviePoster());
+            screenInfoAllJson.put("auditoriumIndex", screenInfo.getAuditoriumIndex());
+
+            SeatVo[] seatVos = this.theaterService.getSeat(screenInfo.getAuditoriumIndex());
+
+            JSONArray seatVoArr = new JSONArray();
+            for (SeatVo seatVo : seatVos) {
+                JSONObject seatVoObject = new JSONObject();
+                seatVoObject.put("seatVoIndex", seatVo.getIndex());
+                seatVoObject.put("seatVoColumnIndex", seatVo.getColumnIndex());
+                seatVoObject.put("seatVoColumnText", seatVo.getColumnText());
+                seatVoObject.put("seatVoRow", seatVo.getRow());
+                seatVoObject.put("seatVoSeatCode", seatVo.getSeatCode());
+                seatVoObject.put("seatVoAuditoriumIndex", seatVo.getAuditoriumIndex());
+                seatVoArr.put(seatVoObject);
+//                System.out.println(seatVoObject);
+            }
+            screenInfoAllJson.put("seatVos", seatVoArr);
             screenInfosAllJson.put(screenInfoAllJson);
+            System.out.println(screenInfosAllJson);
         }
         return screenInfosAllJson.toString();
     }
