@@ -68,7 +68,7 @@ body > .--main > .poster-container > .poster-box > .poster-title {
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 body > .--main > .poster-container > .poster-box > .poster-title > .title {

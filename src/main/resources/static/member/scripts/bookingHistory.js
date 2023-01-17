@@ -20,7 +20,8 @@ seatContainers.forEach(seatContainer => {
     // emptyDiv2.innerText = '좌석 : ';
     emptyDiv.classList.add('item', 'column');
     emptyDiv3.classList.add('item', 'column');
-    emptyDiv5.classList.add('item', 'column');
+    emptyDiv5.classList.add('item', 'column', 'point');
+    emptyDiv6.classList.add('item', 'point');
     // emptyDiv6.classList.add('item');
     emptyP.innerText = '관람인원';
     emptyP2.innerText = '관람좌석';

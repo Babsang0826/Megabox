@@ -25,6 +25,21 @@ p {
     letter-spacing: inherit;
 }
 
+.contents > .bookedList > .no-result {
+    height: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.contents > .bookedList > .no-result > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
 .contents > .bookedList > .history {
 
 }
@@ -106,17 +121,18 @@ p {
     font-size: 1.2em;
 }
 
-.grid > .column > .point {
+.grid > .column.point {
     background-color: #f3f4f6;
     border-radius: 5px 0 0 5px;
     height: 2.5rem;
+    width: 100%;
 }
 
 .grid > .point > p {
     background-color: #f3f4f6;
     border-radius: 0 5px 5px 0;
     height: 2.5rem;
-
+    width: 100%;
 }
 
 .grid > .info {

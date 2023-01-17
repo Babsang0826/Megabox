@@ -77,6 +77,9 @@
                         건
                     </p>
                 </div>
+                <div class="no-result" th:if="${sortedBookingMapKeySet.length == 0}">
+                    <div>예매내역이 존재하지 않습니다.</div>
+                </div>
                 <div class="history">
                     <ul>
                         <li th:each="bookingKey : ${sortedBookingMapKeySet}"
@@ -94,7 +97,7 @@
                                         <p>영화명</p>
                                     </div>
                                     <div class="item title">
-                                        <p th:text="${bookingList.get(0).getTitle()}">슬램덩크</p>
+                                        <p th:text="${bookingList.get(0).getTitle()} + ' / ' + ${bookingList.get(0).getScreenType()}">슬램덩크</p>
                                     </div>
                                     <div class="item column">
                                         <p>극장/상영관</p>
