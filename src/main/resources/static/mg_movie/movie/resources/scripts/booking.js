@@ -22,6 +22,7 @@ let allSeat = [];
 let count = 0;
 let value = 0;
 
+//
 let date = new Date(); // 현재 날짜(로컬 기준) 가져오기
 let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // utc 표준시 도출
 let kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
