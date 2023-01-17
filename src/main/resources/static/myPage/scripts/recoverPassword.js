@@ -11,22 +11,22 @@ const passwordCheck = container.querySelector('[rel="passwordCheck"]');
 
 passwordSend.addEventListener('click', () => {
     if (nowPassword.value === '') {
-        alert('현재 비밀번호를 입력해주세요.');
+        swal('알림', '현재 비밀번호를 입력해주세요.');
         nowPassword.focus();
         return;
     }
     if (newPassword.value === '') {
-        alert('새로운 비밀번호를 입력해주세요.');
+        swal('새로운 비밀번호를 입력해주세요.');
         newPassword.focus();
         return;
     }
     if (passwordCheck.value === '') {
-        alert('새로운 비밀번호를 입력해주세요.');
+        swal('알림', '새로운 비밀번호를 입력해주세요.');
         passwordCheck.focus();
         return;
     }
     if (hex_sha512(nowPassword.value) !== signedPassword.value) {
-        alert('비밀번호가 일치하지 않습니다.');
+        swal('알림', '현재 비밀번호가 일치하지 않습니다.');
         console.log('로그인된 비밀번호 : ' + signedPassword.value);
         console.log('입력된 비밀번호 : ' + hex_sha512(nowPassword.value));
         return;
@@ -35,11 +35,11 @@ passwordSend.addEventListener('click', () => {
         container.querySelector('[rel="warningText"]').style.color = 'red'
         container.querySelector('[rel="warninText"]').innerText = '비밀번호는 8자이상, 숫자, 대문자, 소문자, 특수문자들 모두 포함해야합니다.'
         newPassword.focus();
-        alert('비번 형식 다름');
+        swal('알림', '비번 형식 다름');
         return;
     }
     if (newPassword.value !== passwordCheck.value) {
-        alert('비밀번호가 서로 일치하지 않습니다.');
+        swal('알림', '비밀번호가 서로 일치하지 않습니다.');
         return;
     }
     const xhr = new XMLHttpRequest();
@@ -52,11 +52,13 @@ passwordSend.addEventListener('click', () => {
                 const responseObject = JSON.parse(xhr.responseText);
                     switch (responseObject['result']) {
                         case 'success':
-                            alert('비밀번호 변경이 완료되었습니다.\n확인을 누르시면 메인페이지로 이동합니다.');
-                            window.location.href = '/'
+                            swal('알림', '비밀번호 변경이 완료되었습니다.\n잠시 후 메인페이지로 이동합니다.');
+                            setTimeout(function () {
+                                window.location.href = '/';
+                            }, 1000);
                             break;
                         case 'failure':
-                            alert('알 수 없는 이유로 비밀번호 변경에 실패하였습니다.\n잠시 후 다시 시도해주세요')
+                            swal('알림', '알 수 없는 이유로 비밀번호 변경에 실패하였습니다.\n잠시 후 다시 시도해주세요')
                     }
                 }
             } else {
@@ -64,7 +66,6 @@ passwordSend.addEventListener('click', () => {
             }
         }
         xhr.send(formData);
-
 });
 
 

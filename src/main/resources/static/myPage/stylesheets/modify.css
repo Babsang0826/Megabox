@@ -393,6 +393,13 @@ button > a {
     color: #444;;
 }
 
+.info-grid > .info.password > button {
+    height: 32px;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    border: 1px solid #d1d5dd;
+}
+
 .info-grid > .info > .change-mobile {
     display: none;
     overflow: hidden;

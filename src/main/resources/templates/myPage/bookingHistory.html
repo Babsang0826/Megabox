@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title>메가박스 :: 예매내역</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
-    <link rel="stylesheet" th:href="@{/member/stylesheets/myPage.css}">
-    <link rel="stylesheet" th:href="@{/member/stylesheets/myPage-modify.css}">
-    <link rel="stylesheet" th:href="@{/member/stylesheets/bookingHistory.css}">
+    <link rel="stylesheet" th:href="@{/myPage/stylesheets/myPage.css}">
+    <link rel="stylesheet" th:href="@{/myPage/stylesheets/modify.css}">
+    <link rel="stylesheet" th:href="@{/myPage/stylesheets/bookingHistory.css}">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://kit.fontawesome.com/282afddd53.js" crossorigin="anonymous"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script defer th:src="@{/member/scripts/bookingHistory.js}"></script>
+    <script defer th:src="@{/myPage/scripts/bookingHistory.js}"></script>
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
@@ -19,8 +19,8 @@
     <div class="inner-wrap">
         <div class="location">
             <a th:href="@{/}">Home</a>
-            <a th:href="@{./myPage}">나의 메가박스</a>
-            <a th:href="@{./myPage}">예매 내역</a>
+            <a th:href="@{/.myPage}">나의 메가박스</a>
+            <a th:href="@{./bookingHistory}">예매 내역</a>
         </div>
     </div>
 </div>

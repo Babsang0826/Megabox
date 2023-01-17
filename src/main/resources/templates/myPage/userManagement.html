@@ -5,12 +5,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>theater-list</title>
+    <title>관리자 페이지 :: 회원 관리</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
     <link rel="stylesheet" th:href="@{/mg_movie/bbs/resources/stylesheets/notice.css}">
-    <script defer th:src="@{/manager/scripts/management.js}"></script>
     <script type="text/javascript"
             src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=94a12e6ae62af8fbc88e09e7433d6c08"></script>
+    <script defer th:src="@{/myPage/scripts/userManagement.js}"></script>
+
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
@@ -18,14 +19,66 @@
     <div class="inner-wrap">
         <div class="location">
             <a th:href="@{/static}">Home</a>
-            <a th:href="@{/theater/list}">관리자페이지</a>
-            <a th:href="@{/theater/list}">회원관리</a>
+            <a th:href="@{/myPage/adminPage}">관리자페이지</a>
+            <a th:href="@{/myPage/userManagement}">회원관리</a>
         </div>
     </div>
 </div>
 <form id="form" class="form">
     <div class="container">
         <div class="inner-wrap">
+            <div class="side-menu">
+                <nav>
+                    <p class="title">
+                        <a th:href="@{./myPage}">관리자 페이지</a>
+                    </p>
+                    <ul>
+<!--                        <li>-->
+<!--                            <a href="#">예매/구매내역</a>-->
+<!--                            <ul class="member-info">-->
+<!--                                <li>-->
+<!--                                    <a th:href="@{./bookingHistory}">예매내역</a>-->
+<!--                                    <a href="#">구매내역</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="#">회원정보</a>-->
+<!--                            <ul class="member-info">-->
+<!--                                <li>-->
+<!--                                    <a th:href="@{./modify}">개인정보 수정</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+                        <li th:if="${session.user.getAdminFlag() == true}">
+                            <a href="#">영화 관리</a>
+                            <ul class="member-info">
+                                <li>
+                                    <a th:href="@{./modify}">영화 등록</a>
+                                    <a th:href="@{./modify}">영화 시간표 등록</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li th:if="${session.user.getAdminFlag() == true}">
+                            <a href="#">회원 관리</a>
+                            <ul class="member-info">
+                                <li>
+                                    <a th:href="@{./userManagement}">회원 관리</a>
+                                </li>
+                            </ul>
+                        </li>
+<!--                        <li>-->
+<!--                            <a href="#">멤버십 포인트</a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="#">자주쓰는 카드 관리</a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="#">나의 문의내역</a>-->
+<!--                        </li>-->
+                    </ul>
+                </nav>
+            </div>
             <div class="content">
                 <h2 class="tit">회원관리</h2>
                 <div class="board-list">

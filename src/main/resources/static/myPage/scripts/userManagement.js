@@ -40,7 +40,7 @@ cancelButton.addEventListener('click', () => {
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
         formData.append('email', arr[i]);
-        xhr.open('DELETE', './modify');
+        xhr.open('DELETE', './delete');
         xhr.onreadystatechange = () => {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status >= 200 && xhr.status < 300) {
