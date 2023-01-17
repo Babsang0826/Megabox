@@ -33,23 +33,6 @@
                         <a th:href="@{./myPage}">관리자 페이지</a>
                     </p>
                     <ul>
-<!--                        <li>-->
-<!--                            <a href="#">예매/구매내역</a>-->
-<!--                            <ul class="member-info">-->
-<!--                                <li>-->
-<!--                                    <a th:href="@{./bookingHistory}">예매내역</a>-->
-<!--                                    <a href="#">구매내역</a>-->
-<!--                                </li>-->
-<!--                            </ul>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <a href="#">회원정보</a>-->
-<!--                            <ul class="member-info">-->
-<!--                                <li>-->
-<!--                                    <a th:href="@{./modify}">개인정보 수정</a>-->
-<!--                                </li>-->
-<!--                            </ul>-->
-<!--                        </li>-->
                         <li th:if="${session.user.getAdminFlag() == true}">
                             <a href="#">영화 관리</a>
                             <ul class="member-info">
@@ -67,15 +50,6 @@
                                 </li>
                             </ul>
                         </li>
-<!--                        <li>-->
-<!--                            <a href="#">멤버십 포인트</a>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <a href="#">자주쓰는 카드 관리</a>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <a href="#">나의 문의내역</a>-->
-<!--                        </li>-->
                     </ul>
                 </nav>
             </div>
@@ -94,9 +68,9 @@
                             <label class="label">
                                 <span hidden>검색 기준</span>
                                 <select id="theater" class="select" name="criterion" th:with="criterion = ${#request.getParameter('criterion')}">
-                                    <option value="all"  th:selected="${criterion == null || criterion.equals('all')}">id + name</option>
-                                    <option value="id" th:selected="${criterion != null && criterion.equals('id')}">name</option>
-                                    <option value="name" th:selected="${criterion != null && criterion.equals('name')}">id</option>
+                                    <option value="all"  th:selected="${criterion == null || criterion.equals('all')}">아이디 + 이름</option>
+                                    <option value="id" th:selected="${criterion != null && criterion.equals('id')}">아이디</option>
+                                    <option value="name" th:selected="${criterion != null && criterion.equals('name')}">이름</option>
                                 </select>
                             </label>
                             <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>

@@ -351,7 +351,7 @@ public class MyPageController {
                                       @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                       @RequestParam(value = "criterion", required = false) String criterion,
                                       @RequestParam(value = "keyword", required = false) String keyword,
-                                      @SessionAttribute(value = "user") UserEntity signedUser,
+                                      @SessionAttribute(value = "user", required = false) UserEntity signedUser,
                                       HttpServletResponse response) {
 
         ModelAndView modelAndView;
