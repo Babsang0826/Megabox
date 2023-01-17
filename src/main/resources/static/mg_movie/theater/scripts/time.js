@@ -68,6 +68,7 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     if (timeElement.getAttribute('selected')) {
         timeElement.style.backgroundColor = 'rgb(235, 235, 235)'
     }
+    //
     for (let j = 0; j < day.length; j++) {
         day[0].addEventListener('click', () => {
             day[0].setAttribute('selected', 'selected');
