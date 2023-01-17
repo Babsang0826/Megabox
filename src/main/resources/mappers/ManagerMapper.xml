@@ -71,4 +71,21 @@
         where email = #{email}
     </delete>
 
+    <select id="selectByEmail"
+            resultType="dev.babsang.megabox.entities.member.UserEntity">
+        SELECT `email`             AS `email`,
+               `name`              AS `name`,
+               `birthday`          AS `birthday`,
+               `contact`           AS `contact`,
+               `id`                AS `id`,
+               `password`          AS `password`,
+               `address_postal`    AS `addressPostal`,
+               `address_primary`   AS `addressPrimary`,
+               `address_secondary` AS `addressSecondary`,
+               `registered_on`     AS `registeredOn`,
+               `admin_flag`        AS `adminFlag`
+        FROM `mg_member`.`users`
+        WHERE BINARY `email` = #{email}
+    </select>
+
 </mapper>

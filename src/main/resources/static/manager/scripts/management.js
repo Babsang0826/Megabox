@@ -15,41 +15,31 @@ chkAll.onclick = function () {
     }
 };
 
-
-
+const chk = document.querySelectorAll('.chkBox input[type="checkbox"]:checked');
+for (let chkElement of chk) {
+    console.log(chkElement.value
+    )
+}
 
 const cancelButton = window.document.querySelector('[rel="cancel"]');
 
 cancelButton.addEventListener('click', () => {
+    if (!confirm('정말로 회원을 탈퇴시키겠습니까?')) {
+        return;
+    }
+    // const chk = document.querySelectorAll('.chkBox input[type="checkbox"]:checked');
     const arr = [];
-    const color = document.getElementsByName("color");
-    for (let i = 0; i < color.length; i++) {
-        if (color[i].checked === true) {
-            arr.push(color[i].value);
-            console.log(color[i])
+    const check = document.getElementsByName("chk");
+    for (let i = 0; i < check.length; i++) {
+        if (check[i].checked === true) {
+            arr.push(check[i].value);
+            console.log(check[i])
         }
     }
-    for (let arrElement of arr) {
-        console.log(arrElement);
-    }
-})
-
-cancelButton.addEventListener('click', e => {
-   e.preventDefault();
-    alert("씨발");
-    const arr = [];
-    const color = document.getElementsByName("color");
-    for (let i = 0; i < color.length; i++) {
-        if (color[i].checked === true) {
-            arr.push(color[i].value);
-        }
-    }
-
-    const xhr = new XMLHttpRequest();
-    const formData = new FormData();
-
-    for (let email of arr) {
-        formData.append('email', email);
+    for (let i = 0; i < arr.length; i++){
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
+        formData.append('email', arr[i]);
         xhr.open('DELETE', './modify');
         xhr.onreadystatechange = () => {
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -57,13 +47,18 @@ cancelButton.addEventListener('click', e => {
                     const responseObject = JSON.parse(xhr.responseText);
                     switch (responseObject['result']) {
                         case 'success':
-                            alert('회원 탈퇴가 완료되었습니다.');
+                            if (i === arr.length - 1) {
+                                alert('탈퇴 완료되었습니다.');
+                                window.location.reload();
+                                break;
+                            }
+                            // alert('탈퇴 완료되었습니다.');
                             break;
                         case 'failure':
-                            alert('알 수 없는 이유로 회원 탈퇴를 못하였습니다.');
+                            swal('알림', '알 수 없는 이유로 회원 탈퇴를 못하였습니다.');
                             break;
                         default:
-                            alert('회원 탈퇴 실패');
+                            swal('알림','회원 탈퇴 실패');
                     }
                 }
             } else {

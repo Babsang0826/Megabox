@@ -1,10 +1,11 @@
 package dev.babsang.megabox.controllers;
 
-import dev.babsang.megabox.entities.bbs.ArticleEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
+import dev.babsang.megabox.enums.CommonResult;
+import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.models.PagingModel;
 import dev.babsang.megabox.services.ManagerService;
-import org.apache.catalina.User;
+import dev.babsang.megabox.services.MemberService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,10 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class ManagerController {
 
     private final ManagerService managerService;
+    private final MemberService memberService;
 
     @Autowired
-    public ManagerController(ManagerService managerService) {
+    public ManagerController(ManagerService managerService, MemberService memberMapper, MemberService memberService) {
         this.managerService = managerService;
+
+        this.memberService = memberService;
     }
 
     @RequestMapping(value = "management", method = RequestMethod.GET,
@@ -29,13 +33,11 @@ public class ManagerController {
                                       @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                       @RequestParam(value = "criterion", required = false) String criterion,
                                       @RequestParam(value = "keyword", required = false) String keyword) {
-        page = Math.max(1,page);
+        page = Math.max(1, page);
         ModelAndView modelAndView = new ModelAndView("manager/management");
         int totalCount = this.managerService.getArticleCount(criterion, keyword);
         PagingModel paging = new PagingModel(totalCount, page);
         modelAndView.addObject("paging", paging);
-//        UserEntity[] users = this.managerService.getUserList();
-//        modelAndView.addObject("users", users);
 
         UserEntity[] users = this.managerService.getArticles(paging, criterion, keyword); // 게시글
         modelAndView.addObject("users", users);
@@ -48,11 +50,13 @@ public class ManagerController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String deleteModify(@SessionAttribute(value = "user", required = false) UserEntity signedUser) {
-        Enum<?> result = this.managerService.deleteUser(signedUser);
+    public String deleteModify(UserEntity newUser) {
+        Enum<?> result = this.managerService.deleteUser(newUser);
         JSONObject responseObject = new JSONObject();
+        if(result == CommonResult.SUCCESS){
+            responseObject.put("email",newUser.getEmail());
+        }
         responseObject.put("result", result.name().toLowerCase());
-
         return responseObject.toString();
     }
 }

@@ -342,6 +342,22 @@ a:link {
     background-color: #01738b;
 }
 
+.userDeleteButton {
+    float: right;
+    font-weight: 500;
+    background-color: #01738b;
+}
+
+.userDeleteButton > .deleteButton {
+    background-color: #01738b;
+    color: white;
+    padding: 8px 15px 8px 15px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    font-weight: 600;
+}
+
 .writeButton a {
     color: white;
     padding: 8px 15px 8px 15px;
@@ -355,6 +371,11 @@ a:link {
     background-color: #d8d9db;
     cursor: pointer;
     border: 1px solid #c1c1c1;
+}
+
+.deleteButton:hover {
+    background-color: #d8d9db;
+    cursor: pointer;
 }
 
 tr {
@@ -478,4 +499,10 @@ tr {
 
 .chkAll {
     appearance: auto;
+}
+
+input[type="checkbox"]{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
 }
