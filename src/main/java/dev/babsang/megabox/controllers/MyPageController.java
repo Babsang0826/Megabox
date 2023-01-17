@@ -45,7 +45,6 @@ public class MyPageController {
         } else {
             modelAndView = new ModelAndView("member/myPage");
 
-
             BookingEntity booking = this.myPageService.getMovieVosById(user.getId());
             BookingVo[] bookingHistories = this.myPageService.getBookingHistory(user.getId());
 

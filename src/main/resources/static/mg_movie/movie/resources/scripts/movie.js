@@ -45,7 +45,6 @@ toggle.addEventListener('input', () => {
 
 // for (let i = 0; i < movies.length; i++) {
     for (let j = 0; j < commingMovies.length; j++) {
-        console.log(commingMovies[j]);
     }
 // }
 // if (toggle.checked) {
@@ -59,7 +58,6 @@ expForm.addEventListener('submit', e => {
     commingMovies.forEach(movie => {
         const title = movie.querySelector('[rel="title"]').innerText;
         const keyword = expForm['keyword'].value;
-        console.log(title + ' ~ ' + keyword)
         movie.style.display = keyword === '' || title.indexOf(keyword) > -1 ? 'list-item' : 'none';
     });
 });

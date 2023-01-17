@@ -13,7 +13,6 @@ setInterval(() => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const responseObject = JSON.parse(xhr.responseText);
-                console.log(xhr.responseText);
                 switch (responseObject['result']) {
                     case'success':
                         form['code'].value = responseObject['code'];

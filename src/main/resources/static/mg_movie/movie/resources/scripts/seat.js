@@ -105,7 +105,6 @@ for (let i = 0; i < cell.length; i++) {
         if (type[i].textContent === '') {
             type[i].style.padding = 0;
         }
-        console.log(type[i]);
 
         // const price = payArea.querySelector('.price');
         let adultTotalPrice = `${parseInt(adultCount.innerText) * 12000}`

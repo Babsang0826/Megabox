@@ -16,7 +16,6 @@ let year = dateTwo.getFullYear();
 let month = ('0' + (1 + dateTwo.getMonth())).slice(-2);
 let day = ('0' + dateTwo.getDate()).slice(-2);
 
-
 let currentYear = date.getFullYear(); // 현재 년도
 let currentMonth = date.getMonth(); // 현재 달
 let currentDay = today.getDate(); // 현재 날짜
@@ -57,9 +56,9 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     } else if (thisWeek !== '토' && thisWeek !== '일' && i !== currentDay) {
     }
     let day = window.document.querySelectorAll('.day');
-    // if (i === currentDay) {
-    //     timeElement.setAttribute('selected', 'selected');
-    // }
+    if (i === currentDay) {
+        timeElement.setAttribute('selected', 'selected');
+    }
     if (thisWeek === '토') {
         timeElement.style.color = 'blue';
     } else if (thisWeek === '일') {
@@ -98,7 +97,6 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
             }
         });
     }
-
     timeElement.addEventListener('click', () => {
         const theaterListBoxElement = document.getElementById('theaterListBox');
         const theaterContainers = theaterListBoxElement.querySelectorAll('[rel="theaterContainer"]');
@@ -134,7 +132,6 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     nextWeek = WEEKDAY[week];
     if (week < 3) {
         nextWeek = WEEKDAY[week + 4];
-        console.log('nextWeek :' + nextWeek)
     }
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'next');
@@ -186,7 +183,8 @@ xhr.onreadystatechange = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
             const domParser = new DOMParser();
             const appendMovieInfo = (screens) => {
-                const theaterHtmlText = `                 
+                const theaterHtmlText = `
+                         
                 <div class="theater-list-box" id="theaterContainer" rel="theaterContainer">
                     <div class="text-form" rel="textForm">
                         <input class="date-value" type="hidden" value="${screens[0]['screenInfoDate']}">

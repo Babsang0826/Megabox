@@ -51,7 +51,6 @@ map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 kakao.maps.event.addListener(map, 'drag', function () {
     let message = '지도를 드래그 하고 있습니다. ' +
         '지도의 중심 좌표는 ' + map.getCenter().toString() +' 입니다.';
-    console.log(message);
 });
 
 // 지도에 마커를 생성하고 표시한다

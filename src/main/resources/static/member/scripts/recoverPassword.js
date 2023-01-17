@@ -1,8 +1,3 @@
-// 암호화 확인
-// console.log(hex_sha512('Chltmdaud1!'));
-// console.log('로그인된 비밀번호 : ' + container.querySelector('[rel="signedPassword"]').value);
-// console.log('입력된 비밀번호 : ' + hex_sha512(container.querySelector('.now-pw').value));
-
 const passwordSend = container.querySelector('[rel="passwordSend"]');
 const signedPassword = container.querySelector('[rel="signedPassword"]');
 const nowPassword = container.querySelector('.now-pw');
@@ -27,8 +22,6 @@ passwordSend.addEventListener('click', () => {
     }
     if (hex_sha512(nowPassword.value) !== signedPassword.value) {
         alert('비밀번호가 일치하지 않습니다.');
-        console.log('로그인된 비밀번호 : ' + signedPassword.value);
-        console.log('입력된 비밀번호 : ' + hex_sha512(nowPassword.value));
         return;
     }
     if (!new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$').test(newPassword.value)) {

@@ -71,7 +71,6 @@ form['findPassword'].addEventListener('click', () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const responseObject = JSON.parse(xhr.responseText);
-                console.log(responseObject);
                 switch (responseObject['result']) {
                     case 'success':
                         window.location.href = "http://localhost:8080/member/userPasswordReset"

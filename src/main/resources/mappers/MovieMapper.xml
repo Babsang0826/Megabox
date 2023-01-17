@@ -255,7 +255,8 @@
                  LEFT JOIN `mg_movie`.`branches` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
                  LEFT JOIN `mg_movie`.`region` AS `region` ON `branch`.`region_index` = `region`.`index`
                  LEFT JOIN `mg_movie`.`seats` AS `seat` ON `auditorium`.`index` = `seat`.`auditorium_index`
-                 LEFT JOIN `mg_movie`.`booking` AS `booking` ON `seat`.`index` = `booking`.`seat_index`
+                 LEFT JOIN `mg_movie`.`booking` AS `booking`
+                           ON screenInfo.`index` = booking.screen_info_index and seat.`index` = booking.seat_index
         GROUP BY `screenInfo`.`index`
         ORDER BY `screenInfo`.`mv_start_time`
 

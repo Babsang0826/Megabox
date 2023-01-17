@@ -196,7 +196,7 @@ public class MovieController {
     }
 
     @RequestMapping(value = "booking", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getBooking() {
+    public ModelAndView getBooking(@SessionAttribute(value = "user", required = false) UserEntity user) {
         ModelAndView modelAndView = new ModelAndView("movie/booking");
         MovieEntity[] movies = this.movieService.getMovies();
         RegionEntity region = this.movieService.getRegion();
@@ -305,7 +305,7 @@ public class MovieController {
             bookingCompleteSeat.put("bookingSeatScreenInfoIndex", bookingSeat.getScreenInfoIndex());
             bookingCompleteSeat.put("bookingSeatMvStartTime", new SimpleDateFormat("HH:mm").format(bookingSeat.getMvStartTime()));
             bookingCompleteSeat.put("bookingSeatMvEndTime", new SimpleDateFormat("HH:mm").format(bookingSeat.getMvEndTime()));
-            bookingCompleteSeat.put("bookingSeatScreenInfoIndex", bookingSeat.getScreenInfoIndex());
+            bookingCompleteSeat.put("bookingSeatIndex", bookingSeat.getSeatIndex());
             bookingCompleteSeats.put(bookingCompleteSeat);
         }
 

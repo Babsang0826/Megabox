@@ -41,7 +41,6 @@ seatContainers.forEach(seatContainer => {
 
 const { totalPriceSend } = JSON.parse(localStorage.getItem("total-price"));
 localStorage.removeItem("total-price");
-console.log(totalPriceSend);
 
 const span = document.createElement('span');
 const strong = document.createElement('strong');
