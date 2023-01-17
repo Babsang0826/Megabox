@@ -24,6 +24,10 @@
     padding: 40px 0 0 0;
 }
 
+#form {
+    height: inherit;
+}
+
 h2.tit {
     font-size: 1.8666em;
     font-weight: 400;

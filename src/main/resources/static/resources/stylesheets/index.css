@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 body > .header {
-    background-color: rgba(0,0,0,100%);
+    background-color: rgba(0,0,0,78%);
+    z-index: 5;
 }
 
 body > .--header > .nav > .category-container > .logo-box > .logo {
@@ -193,7 +194,7 @@ body > .--main > .poster-container > .poster-box > .convenient-container {
 }
 
 body > .--main > .poster-container > .poster-box > .convenient-container > .convenient-box {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
     width: 67rem;
     height: 5rem;
     display: flex;
