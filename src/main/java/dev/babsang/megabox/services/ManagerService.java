@@ -32,7 +32,20 @@ public class ManagerService {
                 (paging.requestPage - 1) * paging.countPerPage, criterion, keyword);
     }
 
+//    public Enum<? extends IResult> deleteUser(UserEntity user) {
+//
+//        return this.managerMapper.deleteUser(user.getEmail()) > 0
+//                ? CommonResult.SUCCESS
+//                : CommonResult.FAILURE;
+//    }
+
+    //user 정보 가져옴
+
     public Enum<? extends IResult> deleteUser(UserEntity user) {
+        UserEntity[] existingUser = this.managerMapper.selectByEmail(user.getEmail());
+        if (existingUser == null) {
+            return CommonResult.FAILURE;
+        }
 
 
         return this.managerMapper.deleteUser(user.getEmail()) > 0

@@ -18,8 +18,8 @@
     <div class="inner-wrap">
         <div class="location">
             <a th:href="@{/static}">Home</a>
-            <a th:href="@{/theater/list}">극장</a>
-            <a th:href="@{/theater/list}">전체극장</a>
+            <a th:href="@{/theater/list}">관리자페이지</a>
+            <a th:href="@{/theater/list}">회원관리</a>
         </div>
     </div>
 </div>
@@ -85,7 +85,7 @@
                         <tr th:each="user : ${users}" class="line" rel="line">
                             <td class="check">
                                 <label for="checkBox">
-                                    <input class="chkBox" name="color" th:value="${user.getEmail()}" type="checkbox" rel="checkbox" id="checkBox">
+                                    <input class="chkBox" name="chk" th:value="${user.getEmail()}" type="checkbox" rel="checkbox" id="checkBox">
                                 </label>
                             </td>
                             <td th:text="${user.getId()}">ljh5968</td>
@@ -124,8 +124,8 @@
                        th:if="${paging.requestPage < paging.maxPage}">
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
-                    <div class="writeButton">
-                        <button type="button" id="writeBtn" class="button" rel="cancel">삭제
+                    <div class="userDeleteButton">
+                        <button type="button" id="writeBtn" class="deleteButton" rel="cancel">삭제
                         </button>
                     </div>
                 </div>

@@ -22,4 +22,6 @@ public interface IManagerMapper {
 
 
     int deleteUser(@Param(value = "email") String email);
+
+    UserEntity[] selectByEmail(@Param(value = "email") String email);
 }
