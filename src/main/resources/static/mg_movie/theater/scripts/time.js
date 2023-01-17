@@ -280,7 +280,8 @@ xhr.onreadystatechange = () => {
                                             <i class="iconset ico-off"></i>
                                         </div>
                                         <p class="time" rel="timeValue">${movie['screenInfoMovieStartTime']}</p>
-                                        <p class="chair">${screenByAudObject[key][0]['screenInfoSeatCountAll']}${movie['screenInfoSeatRemain']}석</p>
+                                        <p class="chair" 
+                                        th:text="${parseInt(screenByAudObject[key][0]['screenInfoSeatCountAll']) - parseInt(movie['screenInfoSeatRemain'])}"></p>
                                         <div class="play-time">
                                          <p>${movie['screenInfoMovieStartTime']}~${movie['screenInfoMovieEndTime']}</p>
                                     </a>
@@ -291,6 +292,9 @@ xhr.onreadystatechange = () => {
                         </tbody>`;
                         const timeDom = domParser.parseFromString(timeHtml, 'text/html');
                         const timeCellElement = timeDom.querySelector('[rel="timeCell"]');
+                        const remainSeat = timeDom.querySelector('.chair');
+                        let remainSeatCnt = `${parseInt(screenByAudObject[key][0]['screenInfoSeatCountAll']) - parseInt(movie['screenInfoSeatRemain'])}`
+                        remainSeat.innerText = `${remainSeatCnt}석`;
                         timeCellElement.classList.add('time')
                         timeCellElement.addEventListener('click', () => {
                             localStorage.setItem('movie', JSON.stringify(movie));
