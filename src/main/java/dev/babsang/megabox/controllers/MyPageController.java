@@ -5,9 +5,9 @@ import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.BookingEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.interfaces.IResult;
+import dev.babsang.megabox.models.PagingModel;
 import dev.babsang.megabox.services.MyPageService;
 import dev.babsang.megabox.vos.movie.BookingVo;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -43,7 +47,7 @@ public class MyPageController {
         if (user == null) {
             modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
         } else {
-            modelAndView = new ModelAndView("member/myPage");
+            modelAndView = new ModelAndView("myPage/myPage");
 
             BookingEntity booking = this.myPageService.getMovieVosById(user.getId());
             BookingVo[] bookingHistories = this.myPageService.getBookingHistory(user.getId());
@@ -146,7 +150,7 @@ public class MyPageController {
         if (user == null) {
             modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
         } else {
-            modelAndView = new ModelAndView("member/myPage-modify");
+            modelAndView = new ModelAndView("myPage/modify");
         }
 
         return modelAndView;
@@ -215,7 +219,7 @@ public class MyPageController {
         if (user == null) {
             modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
         } else {
-            modelAndView = new ModelAndView("member/recoverPassword");
+            modelAndView = new ModelAndView("myPage/recoverPassword");
         }
 
         return modelAndView;
@@ -241,7 +245,7 @@ public class MyPageController {
         if (user == null) {
             modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
         } else {
-            modelAndView = new ModelAndView("member/bookingHistory");
+            modelAndView = new ModelAndView("myPage/bookingHistory");
 
 
             BookingEntity booking = this.myPageService.getMovieVosById(user.getId());
@@ -333,9 +337,66 @@ public class MyPageController {
         if (user == null) {
             modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
         } else {
-            modelAndView = new ModelAndView("member/adminPage");
+            modelAndView = new ModelAndView("myPage/adminPage");
         }
 
         return modelAndView;
+    }
+
+    @RequestMapping(value = "userManagement",
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getManagement(UserEntity user,
+                                      @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                      @RequestParam(value = "criterion", required = false) String criterion,
+                                      @RequestParam(value = "keyword", required = false) String keyword,
+                                      @SessionAttribute(value = "user", required = false) UserEntity signedUser,
+                                      HttpServletResponse response) {
+
+        ModelAndView modelAndView;
+
+        if (signedUser == null) {
+            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+        }
+        else {
+            if (!signedUser.getAdminFlag()) {
+                try {
+                    response.setContentType("text/html; charset=utf-8");
+                    PrintWriter w = response.getWriter();
+                    w.write("<script>alert('권한이 없습니다.');history.go(-1);</script>");
+                    w.flush();
+                    w.close();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            modelAndView = new ModelAndView("myPage/userManagement");
+
+            page = Math.max(1, page);
+            int totalCount = this.myPageService.getArticleCount(criterion, keyword);
+            PagingModel paging = new PagingModel(totalCount, page);
+            modelAndView.addObject("paging", paging);
+
+            UserEntity[] users = this.myPageService.getArticles(paging, criterion, keyword); // 게시글
+            modelAndView.addObject("users", users);
+            modelAndView.addObject("userCount", totalCount);
+        }
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "delete",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteDelete(UserEntity newUser) {
+        Enum<?> result = this.myPageService.adminDeleteUser(newUser);
+        JSONObject responseObject = new JSONObject();
+        if(result == CommonResult.SUCCESS){
+            responseObject.put("email",newUser.getEmail());
+        }
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
     }
 }

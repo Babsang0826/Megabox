@@ -10,6 +10,7 @@ import dev.babsang.megabox.enums.member.VerifyEmailAuthResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.mappers.IMemberMapper;
 import dev.babsang.megabox.mappers.IMyPageMapper;
+import dev.babsang.megabox.models.PagingModel;
 import dev.babsang.megabox.utils.CryptoUtils;
 import dev.babsang.megabox.vos.movie.*;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -177,6 +178,26 @@ public class MyPageService {
         }
 
         return CommonResult.SUCCESS;
+    }
+
+    public int getArticleCount(String criterion, String keyword) {
+        return this.myPageMapper.selectUserCount(criterion, keyword);
+    }
+
+    public UserEntity[] getArticles(PagingModel paging, String criterion, String keyword) {
+        return this.myPageMapper.selectUserIdCount(
+                paging.countPerPage,
+                (paging.requestPage - 1) * paging.countPerPage, criterion, keyword);
+    }
+
+    public Enum<? extends IResult> adminDeleteUser(UserEntity user) {
+        UserEntity[] existingUser = this.myPageMapper.selectByEmail(user.getEmail());
+        if (existingUser == null) {
+            return CommonResult.FAILURE;
+        }
+        return this.myPageMapper.adminDeleteUser(user.getEmail()) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
     }
 
 }

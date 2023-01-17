@@ -171,23 +171,25 @@ submitBtn.addEventListener('click', () => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case 'success':
-                        alert('개인정보 수정이 완료되었습니다.\n확인을 누르시면 마이페이지로 이동합니다.');
-                        window.location.href = './myPage';
+                        swal('알림', '개인정보 수정이 완료되었습니다.\n잠시 후 뒤 마이페이지로 이동합니다.');
+                        setTimeout(function () {
+                            window.location.href = 'http://localhost:8080/myPage/myPage';
+                        }, 1000);
                         break;
                     case 'failure':
-                        alert('실패');
+                        swal('알림', '개인정보 수정에 실패하였습니다.');
                         break;
                     case 'no_user':
-                        alert('로그인해 주세요.');
+                        swal('알림', '로그인이 필요한 서비스입니다..');
                         break;
                     case 'duplicate':
-                        alert('해당 휴대폰 번호가 존재합니다.');
+                        swal('알림', '해당 휴대폰 번호가 존재합니다.');
                         break;
                     default:
-                        alert('알 수 없는 이유로 휴대폰 번호 호 수정하지 못하였습니다.');
+                        swal('알림', '알 수 없는 이유로 개인정보를 수정하지 못하였습니다.');
                 }
             } else {
-                alert('서버와 통신하지 못하였습니다.\n잠시후 다시 시도해주세요.');
+                swal('알림', '서버와 통신하지 못하였습니다.\n잠시후 다시 시도해주세요.');
             }
         }
     }

@@ -988,6 +988,7 @@ body > .--header > .login-sub-container.on > .sub-user-box > .login-content {
 body > .--header > .login-sub-container.on > .sub-user-box > .login-content > span {
     text-align: center;
     color: rgb(255, 255, 255);
+    font-size: 1rem;
 }
 
 
@@ -1019,6 +1020,7 @@ body > .--header > .login-sub-container.on > .sub-user-box > .user-register {
 body > .--header > .login-sub-container.on > .sub-user-box > .user-register > a {
     color: rgb(255, 255, 255);
     text-decoration: none;
+    font-size: 1rem;
 }
 
 body > .--header > .login-sub-container.on > .sub-user-box > .user-register > a:hover {

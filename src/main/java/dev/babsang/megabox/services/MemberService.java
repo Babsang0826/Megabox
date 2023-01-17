@@ -162,6 +162,7 @@ public class MemberService {
             user.setAddressPrimary(existingPasswordAuth.getAddressPrimary());
             user.setBirthday(existingPasswordAuth.getBirthday());
             user.setAdminFlag(existingPasswordAuth.getAdminFlag());
+            System.out.println(existingPasswordAuth.getAdminFlag());
             return CommonResult.SUCCESS;
         }
 

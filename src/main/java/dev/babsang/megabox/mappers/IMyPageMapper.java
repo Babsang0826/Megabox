@@ -19,4 +19,20 @@ public interface IMyPageMapper {
     int deleteUser(UserEntity user);
 
     int deleteBooking(int screenInfoIndex, String userId);
+
+    int selectUserCount(
+            @Param(value = "criterion") String criterion,
+            @Param(value = "keyword") String keyword);
+
+
+    UserEntity[] selectUserIdCount(
+            @Param(value = "limit") int limit,
+            @Param(value = "offset") int offset,
+            @Param(value = "criterion") String criterion,
+            @Param(value = "keyword") String keyword);
+
+
+    int adminDeleteUser(@Param(value = "email") String email);
+
+    UserEntity[] selectByEmail(@Param(value = "email") String email);
 }

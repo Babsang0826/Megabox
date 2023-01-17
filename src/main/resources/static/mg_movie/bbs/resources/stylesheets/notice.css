@@ -346,6 +346,7 @@ a:link {
     float: right;
     font-weight: 500;
     background-color: #01738b;
+    border-radius: 5px;
 }
 
 .userDeleteButton > .deleteButton {
@@ -354,8 +355,10 @@ a:link {
     padding: 8px 15px 8px 15px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
+    border-radius: 5px;
+
 }
 
 .writeButton a {
@@ -363,18 +366,18 @@ a:link {
     padding: 8px 15px 8px 15px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
 }
 
 .writeButton:hover {
-    background-color: #d8d9db;
+    background-color: #005a6c;
     cursor: pointer;
     border: 1px solid #c1c1c1;
 }
 
 .deleteButton:hover {
-    background-color: #d8d9db;
+    background-color: #005a6c;
     cursor: pointer;
 }
 

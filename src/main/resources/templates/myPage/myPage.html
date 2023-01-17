@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>메가박스 :: 마이페이지</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
-    <link rel="stylesheet" th:href="@{/member/stylesheets/myPage.css}">
+    <link rel="stylesheet" th:href="@{/myPage/stylesheets/myPage.css}">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://kit.fontawesome.com/282afddd53.js" crossorigin="anonymous"></script>
-    <script defer th:src="@{/member/scripts/myPage.js}"></script>
+    <script defer th:src="@{/myPage/scripts/myPage.js}"></script>
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
@@ -47,13 +47,13 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li th:if="${session.user.getAdminFlag() == true}">
                         <a href="#">관리자 페이지</a>
                         <ul class="member-info">
                             <li>
                                 <a th:href="@{./modify}">영화 등록</a>
                                 <a th:href="@{./modify}">영화 시간표 등록</a>
-                                <a th:href="@{./modify}">회원 관리</a>
+                                <a th:href="@{./userManagement}">회원 관리</a>
                             </li>
                         </ul>
                     </li>
