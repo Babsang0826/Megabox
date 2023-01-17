@@ -286,7 +286,7 @@ xhr.onreadystatechange = () => {
                                          <p>${movie['screenInfoMovieStartTime']}~${movie['screenInfoMovieEndTime']}</p>
                                     </a>
                                 </div>
-                            </div>
+                            </div>s
                         </td>
                         </tr>
                         </tbody>`;
