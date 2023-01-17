@@ -25,40 +25,36 @@ let value = 0;
 let date = new Date(); // 현재 날짜(로컬 기준) 가져오기
 let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // utc 표준시 도출
 let kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-let today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)\
+let today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
 
-// 위의 동적인 달력에 의한 임의 날짜 고르는 로직
-let dateTwo = new Date();
-let year = dateTwo.getFullYear();
-let month = ('0' + (dateTwo.getMonth()) + 1).slice(-2);
-
-let currentYear = date.getFullYear(); // 현재 년도
-let currentMonth = date.getMonth(); // 현재 달
+let currentMonth = ((today.getMonth()) + 1); // 1월
+let currentYear = today.getFullYear(); // 현재 년도
 let currentDay = today.getDate(); // 현재 날짜
-
-// 이번 달의 마지막날 날짜와 요일 구하기
-let endDay = new Date(currentYear, currentMonth + 1, 0);
-let thisMonthLast = endDay.getDate(); // 현재달 마지막 날짜
-// let thisMonthLastWeek = endDay.getDay(); // 현재달 마지막 요일(인덱스)
-let nextStartDay = new Date(currentYear, dateTwo.getMonth() + 1, 1);
-let nextMonthStartWeek = nextStartDay.getDay();
-
+let thisMonthEndDay = new Date(currentYear, currentMonth, 0); // 현재달 마지막 날짜 전체(1월 31일)
+let endDay = new Date(currentYear, currentMonth + 1, 0); // 다음달의 마지막 날짜전체(2월 28일)
+// let NextMonthLast = endDay.getDate(); // 다음달 마지막 날짜(28일)
+let thisMonthLast = thisMonthEndDay.getDate(); // 이번달 마지막날짜 (31일을 나타냄)
+let nextStartDay = new Date(currentYear, today.getMonth() + 1, 1); // ???
+let nextMonthStartWeek = nextStartDay.getDay(); // 1월을 기준 2월이 수요일부터이기 때문에 인덱스 3이 맞음
 
 // 이번달
 let thisMonthArr = [];
 let thisMonthArrCode = [];
 let thisMonthDate;
 let thisWeek;
+if (currentMonth < 10) {
+    currentMonth = '0' + currentMonth;
+}
 for (let i = currentDay; i <= thisMonthLast; i++) {
     if (i < 10) {
-        thisMonthDate = year + '-' + month + '-' + '0' + i;
+        thisMonthDate = currentYear + '-' + currentMonth + '-' + '0' + i;
     } else {
-        thisMonthDate = year + '-' + month + '-' + i;
+        thisMonthDate = currentYear + '-' + currentMonth + '-' + i;
     }
     thisMonthArrCode = thisMonthDate;
     thisMonthArr.push(thisMonthArrCode);
     let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
-    let week = new Date(date.setDate(i)).getDay();
+    let week = new Date(today.setDate(i)).getDay();
     thisWeek = WEEKDAY[week];
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'current');
@@ -85,6 +81,7 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
             drawSubs();
         });
         day[j].addEventListener('click', () => {
+            let nextDay = window.document.querySelectorAll('.day.next');
             if (day[j].classList[0] === 'on') {
                 day[j].classList.remove('on');
                 day[j].removeAttribute('selected');
@@ -105,12 +102,11 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
                     day[0].classList.remove('on');
                 }
             }
-            let dayNext = window.document.querySelectorAll('.day.next');
-            // dayNext.forEach(x => {
-            //     if(x.classList.contains('on')) {
-            //         x.
-            //     }
-            // })
+            nextDay.forEach(nextDay => {
+                if (nextDay.classList.contains('on')) {
+                    nextDay.classList.remove('on');
+                }
+            })
             drawSubs();
         });
     }
@@ -121,25 +117,25 @@ let nextMonthArr = [];
 let nextMonthArrCode = [];
 let nextMonthDate;
 let nextWeek;
+let nextMonth = (today.getMonth()) + 2;
+if (currentMonth === '12') {
+    currentYear = (today.getFullYear() + 1);
+    nextMonth = (currentMonth - 11);
+}
+if (nextMonth < 10) {
+    nextMonth = '0' + nextMonth;
+}
 for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
-    if (month === '12') {
-        year = (date.getFullYear() + 1);
-        month = (month - 11);
-    } else if (i < 10) {
-        let nextMonth = (dateTwo.getMonth()) + 2;
-        nextMonthDate = year + '-0' + nextMonth + '-0' + i;
+    if (i < 10) {
+        nextMonthDate = currentYear + '-' + nextMonth + '-0' + i;
     } else {
-        let nextMonth = (dateTwo.getMonth()) + 2;
         nextMonthDate = year + '-' + nextMonth + '-' + i;
     }
     nextMonthArrCode = nextMonthDate;
     nextMonthArr.push(nextMonthArrCode);
     let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
-    let week = new Date(date.setDate(nextMonthStartWeek + i)).getDay();
+    let week = new Date(today.setDate(nextMonthStartWeek + i)).getDay();
     nextWeek = WEEKDAY[week];
-    if (week < 3) {
-        nextWeek = WEEKDAY[week + 4];
-    }
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'next');
     dayElement.dataset.value = nextMonthDate;
@@ -154,13 +150,8 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
         dayElement.style.backgroundColor = 'rgb(235, 235, 235)'
     }
     let day = window.document.querySelectorAll('.day.next');
+    let dayCurrent = window.document.querySelectorAll('.day.current');
     for (let j = 0; j < day.length; j++) {
-        day[0].addEventListener('click', () => {
-            day[0].setAttribute('selected', 'selected');
-            day[0].style.backgroundColor = 'rgb(235, 235, 235)';
-            day[0].classList.add('on');
-            drawSubs();
-        });
         day[j].addEventListener('click', () => {
             if (day[j].classList[0] === 'on') {
                 day[j].classList.remove('on');
@@ -172,6 +163,14 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
                 }
                 day[j].classList.add('on');
                 day[j].setAttribute('selected', 'selected');
+            }
+            for (let x = 0; x < dayCurrent.length; x++) {
+                if (day[j].classList.contains('on')) {
+                    dayCurrent[x].classList.remove('on');
+                    dayCurrent[0].classList.remove('on');
+                    dayCurrent[0].removeAttribute('selected');
+                    dayCurrent[0].style.backgroundColor = 'rgb(255, 255, 255)';
+                }
             }
             drawSubs();
         });
@@ -335,13 +334,9 @@ const drawSubs = () => {
                     allSeat.forEach(allSeat => {
                         remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll']);
                         completeSeatBooking.forEach(complete => {
-                            // remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll'])
-                            if (complete['bookingSeatScreenInfoIndex'] === allScreenInfo['screenInfoIndex'] ) {
-                                remainSeatElement.innerText =  parseInt(allScreenInfo['screenInfoSeatCountAll']) - parseInt(allScreenInfo['screenInfoSeatRemain']);
+                            if (complete['bookingSeatScreenInfoIndex'] === allScreenInfo['screenInfoIndex']) {
+                                remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll']) - parseInt(allScreenInfo['screenInfoSeatRemain']);
                             }
-
-                            // remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll']);
-
                         })
                         if (allSeat['seatAudIndex'] === allScreenInfo['screenInfoAuditoriumIndex']) {
                             const allSeatElement = window.document.createElement('span');
@@ -411,7 +406,6 @@ const drawSubs = () => {
                     timeBoxElement.append(screenDateElement, screenEndDateElement);
                     timeIconElement.append(timeBoxElement);
                     movieTimeElement.append(timeIconElement, timeBoxElement);
-
                     const movieTitleStateElement = window.document.createElement('div');
                     movieTitleStateElement.classList.add('movie-title-state');
                     const movieTitleElement = window.document.createElement('span');
@@ -435,11 +429,10 @@ const drawSubs = () => {
                     const remainSeatElement = window.document.createElement('span');
                     remainSeatElement.classList.add('remain-seat');
                     allSeat.forEach(allSeat => {
+                        remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll']);
                         completeSeatBooking.forEach(complete => {
-                            if (complete['bookingSeatScreenInfoIndex'] === allScreenInfo['screenInfoIndex'] ) {
+                            if (complete['bookingSeatScreenInfoIndex'] === allScreenInfo['screenInfoIndex']) {
                                 remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll']) - parseInt(allScreenInfo['screenInfoSeatRemain']);
-                            }else {
-                                remainSeatElement.innerText = parseInt(allScreenInfo['screenInfoSeatCountAll'])
                             }
                         })
                         if (allSeat['seatAudIndex'] === allScreenInfo['screenInfoAuditoriumIndex']) {
@@ -496,7 +489,6 @@ const drawSeatResult = () => {
     const titleAreaElement = window.document.createElement('div');
     titleAreaElement.classList.add('title-area');
 
-
     if (deleteListBox.length > 0 && deleteCity.length > 0) {
         allScreenInfos
             .filter(allScreenInfo => selectListTitle.indexOf(allScreenInfo['screenInfoMovieTitle']) > -1 && selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
@@ -505,6 +497,7 @@ const drawSeatResult = () => {
                 ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
                 const titleElement = window.document.createElement('p');
                 titleElement.classList.add('title');
+                titleElement.innerText = allScreenInfo['screenInfoMovieTitle'];
                 const movieTypeElement = window.document.createElement('p');
                 movieTypeElement.classList.add('movie-type');
                 movieTypeElement.innerText = allScreenInfo['screenInfoMovieState'];
@@ -666,7 +659,6 @@ const drawSeat = () => {
     const audIndexSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
     const selectedAudIndex = audIndexSelected.map(x => parseInt(x.dataset.audIndex));
     const selectedMvStartTime = audIndexSelected.map(x => x.dataset.screenInfoIndex);
-    console.log(selectedMvStartTime)
     const seatColumnElement = window.document.createElement('div');
     seatColumnElement.classList.add('seat-column');
     screenInfoSeatColumns
@@ -960,7 +952,7 @@ let currentIdx = 0;
 let slideWidth = 2;
 let slideMargin = 2.35;
 let slideSpeed = 500;
-//
+
 nextBtn.addEventListener('click', function () {
     moveSlide(currentIdx + 1);
     if (currentIdx > 7) {
@@ -985,7 +977,6 @@ function moveSlide(num) {
 }
 
 const movie = JSON.parse(localStorage.getItem('movie'));
-console.log(movie.screenInfoIndex !== null)
 
 if (movie.screenInfoIndex !== null) {
     timeContainer.classList.add('off');
