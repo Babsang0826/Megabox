@@ -42,8 +42,8 @@
                                 <span hidden>검색 기준</span>
                                 <select id="theater" class="select" name="criterion" th:with="criterion = ${#request.getParameter('criterion')}">
                                     <option value="all"  th:selected="${criterion == null || criterion.equals('all')}">id + name</option>
-                                    <option value="id" th:selected="${criterion != null && criterion.equals('id')}">name</option>
-                                    <option value="name" th:selected="${criterion != null && criterion.equals('name')}">id</option>
+                                    <option value="id" th:selected="${criterion != null && criterion.equals('id')}">id</option>
+                                    <option value="name" th:selected="${criterion != null && criterion.equals('name')}">name</option>
                                 </select>
                             </label>
                             <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>

@@ -94,9 +94,12 @@ public class TheaterController {
             screenInfoAllJson.put("movieState", screenInfo.getMovieState());
             screenInfoAllJson.put("infoMovieAgeLimit", screenInfo.getInfoMovieAgeLimit());
             screenInfoAllJson.put("movieIndex", screenInfo.getMovieIndex());
-            screenInfoAllJson.put("seatIndex", screenInfo.getSeatIndex());
             screenInfoAllJson.put("moviePoster", screenInfo.getMoviePoster());
             screenInfoAllJson.put("auditoriumIndex", screenInfo.getAuditoriumIndex());
+            screenInfoAllJson.put("screenInfoSeatCountAll", screenInfo.getSeatIndex());
+            screenInfoAllJson.put("screenInfoSeatRemain", screenInfo.getSeatRemain());
+
+
 
             SeatVo[] seatVos = this.theaterService.getSeat(screenInfo.getAuditoriumIndex());
             SeatVo[] seatVoColumns = this.theaterService.getSeatGroupByColumnIndex(screenInfo.getAuditoriumIndex());

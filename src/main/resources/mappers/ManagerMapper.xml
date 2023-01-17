@@ -26,14 +26,14 @@
         SELECT COUNT(0)
         FROM `mg_member`.`users`
         <if test="criterion != null and criterion.equals('name')">
-            AND REPLACE(`name`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            WHERE REPLACE(`name`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
         </if>
         <if test="criterion != null and criterion.equals('all')">
-            AND REPLACE(`name`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            WHERE REPLACE(`name`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
             OR REPLACE(`id`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
         </if>
         <if test="criterion != null and criterion.equals('id')">
-            AND REPLACE(`id`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            WHERE REPLACE(`id`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
         </if>
     </select>
 
@@ -53,14 +53,14 @@
         `admin_flag` AS `adminFlag`
         FROM `mg_member`.`users` AS `user`
         <if test="criterion != null and criterion.equals('name')">
-            AND REPLACE(`user`.`name`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            WHERE REPLACE(`user`.`name`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
         </if>
         <if test="criterion != null and criterion.equals('all')">
-            AND REPLACE(`user`.`name`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
-            OR REPLACE(`user`.`id`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            WHERE REPLACE(`name`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            OR REPLACE(`id`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
         </if>
         <if test="criterion != null and criterion.equals('id')">
-            AND REPLACE(`id`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            WHERE REPLACE(`id`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
         </if>
         LIMIT #{limit} OFFSET #{offset}
     </select>

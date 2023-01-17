@@ -39,6 +39,7 @@ public class ManagerController {
         PagingModel paging = new PagingModel(totalCount, page);
         modelAndView.addObject("paging", paging);
 
+
         UserEntity[] users = this.managerService.getArticles(paging, criterion, keyword); // 게시글
         modelAndView.addObject("users", users);
         modelAndView.addObject("userCount", totalCount);

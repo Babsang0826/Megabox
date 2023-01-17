@@ -8,7 +8,7 @@ const ListBox = window.document.getElementById('theaterListBox');
 let date = new Date(); // 현재 날짜(로컬 기준) 가져오기
 let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // utc 표준시 도출
 let kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-let today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)\
+let today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
 
 // 위의 동적인 달력에 의한 임의 날짜 고르는 로직
 let dateTwo = new Date();
@@ -16,30 +16,31 @@ let year = dateTwo.getFullYear();
 let month = ('0' + (1 + dateTwo.getMonth())).slice(-2);
 let day = ('0' + dateTwo.getDate()).slice(-2);
 
-
-let currentYear = date.getFullYear(); // 현재 년도
-let currentMonth = date.getMonth(); // 현재 달
+let currentMonth = ((today.getMonth()) + 1); // 1월
+let currentYear = today.getFullYear(); // 현재 년도
 let currentDay = today.getDate(); // 현재 날짜
+let thisMonthEndDay = new Date(currentYear, currentMonth, 0); // 현재달 마지막 날짜 전체(1월 31일)
+let endDay = new Date(currentYear, currentMonth + 1, 0); // 다음달의 마지막 날짜전체(2월 28일)
+// let NextMonthLast = endDay.getDate(); // 다음달 마지막 날짜(28일)
+let thisMonthLast = thisMonthEndDay.getDate(); // 이번달 마지막날짜 (31일을 나타냄)
+let nextStartDay = new Date(currentYear, today.getMonth() + 1, 1); // ???
+let nextMonthStartWeek = nextStartDay.getDay(); // 1월을 기준 2월이 수요일부터이기 때문에 인덱스 3이 맞음
 
-// 이번 달의 마지막날 날짜와 요일 구하기
-let endDay = new Date(currentYear, currentMonth + 1, 0);
-let thisMonthLast = endDay.getDate(); // 현재달 마지막 날짜
-let thisMonthLastWeek = endDay.getDay(); // 현재달 마지막 요일(인덱스)
-let nextStartDay = new Date(currentYear, dateTwo.getMonth() + 1, 1);
-let nextMonthStartWeek = nextStartDay.getDay();
-const movieInfo = {
-    movie: screen
-}
 
+
+// 이번달
 let thisMonthArr = [];
 let thisMonthArrCode = [];
 let thisMonthDate;
-// 이
+let thisWeek;
+if (currentMonth < 10) {
+    currentMonth = '0' + currentMonth;
+}
 for (let i = currentDay; i <= thisMonthLast; i++) {
     if (i < 10) {
-        thisMonthDate = year + '-' + month + '-' + '0' + i;
+        thisMonthDate = currentYear + '-' + currentMonth + '-' + '0' + i;
     } else {
-        thisMonthDate = year + '-' + month + '-' + i;
+        thisMonthDate = currentYear + '-' + currentMonth + '-' + i;
     }
     thisMonthArrCode = thisMonthDate;
     thisMonthArr.push(thisMonthArrCode);
@@ -57,9 +58,9 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     } else if (thisWeek !== '토' && thisWeek !== '일' && i !== currentDay) {
     }
     let day = window.document.querySelectorAll('.day');
-    // if (i === currentDay) {
-    //     timeElement.setAttribute('selected', 'selected');
-    // }
+    if (i === currentDay) {
+        timeElement.setAttribute('selected', 'selected');
+    }
     if (thisWeek === '토') {
         timeElement.style.color = 'blue';
     } else if (thisWeek === '일') {
@@ -74,8 +75,10 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
             day[0].setAttribute('selected', 'selected');
             day[0].style.backgroundColor = 'rgb(235, 235, 235)';
             day[0].classList.add('on');
+            drawSubs();
         });
         day[j].addEventListener('click', () => {
+            let nextDay = window.document.querySelectorAll('.day.next');
             if (day[j].classList[0] === 'on') {
                 day[j].classList.remove('on');
                 day[j].removeAttribute('selected');
@@ -96,6 +99,12 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
                     day[0].classList.remove('on');
                 }
             }
+            nextDay.forEach(nextDay => {
+                if (nextDay.classList.contains('on')) {
+                    nextDay.classList.remove('on');
+                }
+            })
+            drawSubs();
         });
     }
 
@@ -116,31 +125,28 @@ let nextMonthArr = [];
 let nextMonthArrCode = [];
 let nextMonthDate;
 let nextWeek;
+let nextMonth = (today.getMonth()) + 2;
+if (currentMonth === '12') {
+    currentYear = (today.getFullYear() + 1);
+    nextMonth = (currentMonth - 11);
+}
+if (nextMonth < 10) {
+    nextMonth = '0' + nextMonth;
+}
 for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
-    if (month === '12') {
-        year = (date.getFullYear() + 1);
-        month = (month - 11);
-    } else if (i < 10) {
-        let nextMonth = (dateTwo.getMonth()) + 2;
-        nextMonthDate = year + '-0' + nextMonth + '-0' + i;
+    if (i < 10) {
+        nextMonthDate = currentYear + '-' + nextMonth + '-0' + i;
     } else {
-        let nextMonth = (dateTwo.getMonth()) + 2;
         nextMonthDate = year + '-' + nextMonth + '-' + i;
     }
     nextMonthArrCode = nextMonthDate;
     nextMonthArr.push(nextMonthArrCode);
     let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
-    let week = new Date(date.setDate(nextMonthStartWeek + i)).getDay();
+    let week = new Date(today.setDate(nextMonthStartWeek + i)).getDay();
     nextWeek = WEEKDAY[week];
-    if (week < 3) {
-        nextWeek = WEEKDAY[week + 4];
-        console.log('nextWeek :' + nextWeek)
-    }
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'next');
     dayElement.dataset.value = nextMonthDate;
-    let timeElement = document.createElement('div');
-    timeElement.classList.add('day', 'current');
     dayElement.innerHTML = `${i}<br>${nextWeek}`;
     timeBox.append(dayElement);
     if (nextWeek === '토') {
@@ -152,12 +158,8 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
         dayElement.style.backgroundColor = 'rgb(235, 235, 235)'
     }
     let day = window.document.querySelectorAll('.day.next');
+    let dayCurrent = window.document.querySelectorAll('.day.current');
     for (let j = 0; j < day.length; j++) {
-        day[0].addEventListener('click', () => {
-            day[0].setAttribute('selected', 'selected');
-            day[0].style.backgroundColor = 'rgb(235, 235, 235)';
-            day[0].classList.add('on');
-        });
         day[j].addEventListener('click', () => {
             if (day[j].classList[0] === 'on') {
                 day[j].classList.remove('on');
@@ -170,10 +172,28 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
                 day[j].classList.add('on');
                 day[j].setAttribute('selected', 'selected');
             }
+            for (let x = 0; x < dayCurrent.length; x++) {
+                if (day[j].classList.contains('on')) {
+                    dayCurrent[x].classList.remove('on');
+                    dayCurrent[0].classList.remove('on');
+                    dayCurrent[0].removeAttribute('selected');
+                    dayCurrent[0].style.backgroundColor = 'rgb(255, 255, 255)';
+                }
+            }
+            drawSubs();
         });
     }
+    dayElement.addEventListener('click', () => {
+        const theaterListBoxElement = document.getElementById('theaterListBox');
+        const theaterContainers = theaterListBoxElement.querySelectorAll('[rel="theaterContainer"]');
+        theaterContainers.forEach(x => {
+            const dateInputElement = x.querySelector('.date-value');
+            const dateInputValue = dateInputElement.value;
+            x.style.display = dateInputValue === dayElement.dataset.date ? 'block' : 'none';
+        });
+    });
+    timeBox.append(dayElement);
 }
-
 
 let payload = [];
 const url = new URL(window.location.href);
@@ -186,8 +206,10 @@ xhr.onreadystatechange = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
             const domParser = new DOMParser();
             const appendMovieInfo = (screens) => {
+                const date = new Date();
+                const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' : ''}${date.getMonth() + 1}-${date.getDate() < 10 ? '0' : ''}${date.getDate()}`;
                 const theaterHtmlText = `                 
-                <div class="theater-list-box" id="theaterContainer" rel="theaterContainer">
+                <div class="theater-list-box" id="theaterContainer" rel="theaterContainer" style="display: ${screens[0]['screenInfoDate'] === today ? 'block' : 'none'}">
                     <div class="text-form" rel="textForm">
                         <input class="date-value" type="hidden" value="${screens[0]['screenInfoDate']}">
                         <div class="theater-tit">
@@ -216,7 +238,7 @@ xhr.onreadystatechange = () => {
                     <div class="theater-type-box" rel="aud" id="type-box">
                         <div class="theater-type">
                             <p class="theater-name">${key}</p>
-                            <p class="chair">${screenByAudObject[key][0]['seatIndex']}석</p>
+                            <p class="chair">${screenByAudObject[key][0]['screenInfoSeatCountAll']}석</p>
                         </div>
                         <div class="theater-time">
                             <div class="theater-type-area">${screenByAudObject[key][0]['screenInfoMovieState']}</div>
@@ -258,7 +280,7 @@ xhr.onreadystatechange = () => {
                                             <i class="iconset ico-off"></i>
                                         </div>
                                         <p class="time" rel="timeValue">${movie['screenInfoMovieStartTime']}</p>
-                                        <p class="chair">${movie['seatIndex']}석</p>
+                                        <p class="chair">${screenByAudObject[key][0]['screenInfoSeatCountAll']}${movie['screenInfoSeatRemain']}석</p>
                                         <div class="play-time">
                                          <p>${movie['screenInfoMovieStartTime']}~${movie['screenInfoMovieEndTime']}</p>
                                     </a>
