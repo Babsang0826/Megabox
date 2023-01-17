@@ -22,12 +22,13 @@ authRequest.addEventListener('click', () => {
     let time = 299;
     let min = '';
     let sec = '';
-
+    Cover.show('인증번호를 전송하고 있습니다.\n잠시만 기다려 주세요.');
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('email', hiddenEmail.value);
     xhr.open('POST', './email');
     xhr.onreadystatechange = () => {
+        Cover.hide();
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const responseObject = JSON.parse(xhr.responseText);
@@ -79,7 +80,7 @@ authCheck.addEventListener('click', () => {
         authInput.focus();
         return;
     }
-
+    Cover.show('인증 번호를 확인하고 있습니다. \n\n잠시만 기다려 주세요.');
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('email', hiddenEmail.value);
@@ -87,6 +88,7 @@ authCheck.addEventListener('click', () => {
     formData.append('salt', emailAuthSalt.value);
     xhr.open('PATCH', 'email');
     xhr.onreadystatechange = () => {
+        Cover.hide();
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const responseObject = JSON.parse(xhr.responseText);

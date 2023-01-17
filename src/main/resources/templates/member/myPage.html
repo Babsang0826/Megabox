@@ -53,6 +53,7 @@
                             <li>
                                 <a th:href="@{./modify}">영화 등록</a>
                                 <a th:href="@{./modify}">영화 시간표 등록</a>
+                                <a th:href="@{./modify}">회원 관리</a>
                             </li>
                         </ul>
                     </li>
@@ -125,9 +126,6 @@
                                     th:with="bookingList = ${bookingMap.get(bookingKey)}"
                                     th:text="${bookingList.get(0).getBranchText()}">
                                 </li>
-                                <!--                                <li>북대구(칠곡)</li>-->
-                                <!--                                <li>경산하양</li>-->
-                                <!--                                <li>동대구(신세계)</li>-->
                             </div>
                         </div>
                         <div class="coupon">
@@ -178,7 +176,7 @@
                                         <em th:text="${bookingList.get(0).getIndex()}">1234-123-12345</em>
                                     </p>
                                     <div>
-                                        <p th:text="${bookingList.get(0).getTitle()}">아바타: 물의 길/2D(자막)</p>
+                                        <p th:text="${bookingList.get(0).getTitle()} + ' / ' + ${bookingList.get(0).getScreenType()}">아바타: 물의 길/2D(자막)</p>
                                         <p class="theater"
                                            th:text="${bookingList.get(0).getBranchText()} + ' / ' + ${bookingList.get(0).getAuditoriumText()}">
                                             북대구(칠곡)/6관</p>

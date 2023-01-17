@@ -1024,8 +1024,7 @@ if (movie.screenInfoIndex !== null) {
 // movie.seatVos 좌석 다 가지고 있음
     const seatColumnElement = window.document.createElement('div');
     seatColumnElement.classList.add('seat-column');
-    movie.seatColumnVo
-        .forEach(seatColumn => {
+    movie.seatColumnVo.forEach(seatColumn => {
             const columnElement = window.document.createElement('button');
             columnElement.classList.add('column');
             columnElement.setAttribute('rel', 'column');
@@ -1180,7 +1179,6 @@ if (movie.screenInfoIndex !== null) {
 
 }
 localStorage.clear();
-
 
 
 

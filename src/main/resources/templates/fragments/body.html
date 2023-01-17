@@ -68,9 +68,12 @@
                 </a>
             </li>
             <li>
-                <a href="#" id="userIcon" class="user-icon">
+                <a href="#" id="userIcon" class="user-icon" th:if="${session.user == null}">
                     <i id="xMarkUser" class="fa-solid fa-xmark"></i>
                     <i id="user" class="fa-solid fa-user"></i>
+                </a>
+                <a th:href="@{/myPage/myPage}" th:if="${session.user != null}">
+                    <i class="fa-solid fa-user"></i>
                 </a>
             </li>
         </ul>
@@ -187,7 +190,7 @@
             </div>
         </div>
     </div>
-    <div class="login-sub-container" id="loginSubContainer">
+    <div class="login-sub-container" id="loginSubContainer" th:if="${session.user == null}">
         <div class="sub-user-box">
             <div class="login-content">
                 <span>
