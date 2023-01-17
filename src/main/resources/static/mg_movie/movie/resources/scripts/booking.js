@@ -5,7 +5,7 @@ const timeBox = window.document.querySelector('.time-box');
 const timeContainer = window.document.querySelector('.reservation-container');
 const paymentContainer = window.document.querySelector('.body-wrap');
 const seatContainer = window.document.querySelector('.seat-select');
-//
+
 const region = window.document.querySelector('.region');
 const quickCity = window.document.querySelector('.quick-city');
 const beforeSelectMovieTime = window.document.querySelector('.before-select-movie-time');
