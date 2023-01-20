@@ -78,9 +78,9 @@
                         <div class="empty-box"></div>
                         <form id="searchForm" class="search-form" method="get">
                             <div class="selectBox" id="theaterSelect">
-                                <label class="label">
+<!--                                <label class="label">-->
                                     <span hidden>검색 기준</span>
-                                    <select id="theater" class="select" name="criterion"
+                                    <select class="select" name="criterion"
                                             th:with="criterion = ${#request.getParameter('criterion')}">
                                         <option value="all"
                                                 th:selected="${criterion == null || criterion.equals('all')}">제목 + 영문제목
@@ -92,7 +92,7 @@
                                                 th:selected="${criterion != null && criterion.equals('titleEn')}">영문제목
                                         </option>
                                     </select>
-                                </label>
+<!--                                </label>-->
                                 <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>
                             </div>
                             <label class="label">

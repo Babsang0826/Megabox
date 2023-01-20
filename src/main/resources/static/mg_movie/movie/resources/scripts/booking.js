@@ -587,7 +587,7 @@ const drawPaySeatResult = () => {
             .filter(allScreenInfo => selectListTitle.indexOf(allScreenInfo['screenInfoMovieTitle']) > -1 && selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
             .forEach(allScreenInfo => {
                 const titleAreaElement = window.document.createElement('div');
-                titleAreaElement.classList.add('title-area');
+                titleAreaElement.classList.add('title-area', 'pay');
                 const ageLimitElement = window.document.createElement('span');
                 ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
                 const titleElement = window.document.createElement('p');
@@ -613,7 +613,10 @@ const drawPaySeatResult = () => {
                 dateElement.append(dateSpanElement, dateEmElement, clockIconElement);
                 titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement, branchElement, dateElement);
                 seatPayWrap.prepend(titleAreaElement);
+
             });
+        // const titleAreaPay = document.querySelectorAll('.title-area.pay');
+        // titleAreaPay[0].style.display = 'block'
     }
     if (deleteListBox.length < 1 && deleteCity.length > 0) {
         allScreenInfos
@@ -621,6 +624,7 @@ const drawPaySeatResult = () => {
             .forEach(allScreenInfo => {
                 const titleAreaElement = window.document.createElement('div');
                 titleAreaElement.classList.add('title-area');
+                titleAreaElement.classList.add('pay');
                 const ageLimitElement = window.document.createElement('span');
                 ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
                 const titleElement = window.document.createElement('p');
@@ -647,8 +651,11 @@ const drawPaySeatResult = () => {
                 titleAreaElement.append(ageLimitElement, titleElement, movieTypeElement, branchElement, dateElement);
                 seatPayWrap.prepend(titleAreaElement);
             });
+        // const titleAreaPay = document.querySelectorAll('.title-area.pay');
+        // titleAreaPay[0].style.display = 'block'
     }
 }
+
 //좌석 클릭 시 //
 const seatArea = container.querySelector('[rel="seatArea"]');
 let selectedSeats = container.querySelectorAll('[rel="selectedSeat"]');
@@ -984,7 +991,7 @@ if (movie.screenInfoIndex !== null) {
     seatContainer.classList.add('on');
     const wrapContainer = window.document.querySelector('.wrap');
     const titleAreaElement = window.document.createElement('div');
-    titleAreaElement.classList.add('title-area');
+    titleAreaElement.classList.add('title-area', 'pay');
 
     const ageLimitElement = window.document.createElement('span');
     ageLimitElement.classList.add('age12');
@@ -1098,7 +1105,7 @@ if (movie.screenInfoIndex !== null) {
         seatSelectPayment.classList.add('on');
         seatSelect.classList.remove('on');
         const titleAreaElement = window.document.createElement('div');
-        titleAreaElement.classList.add('title-area');
+        titleAreaElement.classList.add('title-area', 'pay');
         const ageLimitElement = window.document.createElement('span');
         ageLimitElement.classList.add(movie.infoMovieAgeLimit);
         const titleElement = window.document.createElement('p');
@@ -1181,7 +1188,8 @@ if (movie.screenInfoIndex !== null) {
 }
 localStorage.clear();
 
-
+// const titleAreaPay = document.querySelectorAll('.title-area.pay');
+// titleAreaPay[0].style.display = 'block'
 
 
 
