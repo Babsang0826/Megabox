@@ -22,13 +22,14 @@ form.onsubmit = (e) => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case'success':
-                        if (document.referrer === location.href('member/register')) {
-                            window.location.href = 'member/login'
+                        if(document.referrer.indexOf('member/register') !== -1) {
+                            window.location.href = "/"
+                            break;
                         } else {
-                            window.location.href = document.referrer
+                            window.location.href = document.referrer;
                             break;
                         }
-                    case'failure':
+                    case 'failure':
                         swal("알림", '로그인에 실패하였습니다.')
                         break;
                     default:

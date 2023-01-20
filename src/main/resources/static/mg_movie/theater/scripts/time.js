@@ -196,6 +196,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     timeBox.append(dayElement);
 }
 
+Cover.show("");
 let payload = [];
 const url = new URL(window.location.href);
 const searchParams = url.searchParams;
@@ -205,6 +206,7 @@ xhr.open('PATCH', `./time?branchId=${branchId}`);
 xhr.onreadystatechange = () => {
     if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status >= 200 && xhr.status < 300) {
+            Cover.hide();
             const domParser = new DOMParser();
             const appendMovieInfo = (screens) => {
                 const date = new Date();

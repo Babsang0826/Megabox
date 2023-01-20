@@ -316,11 +316,11 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
         } else {
             form.querySelector('[rel="warning-address"]').innerText = ''
         }
-        if (!form['overlappingButton'].disabled) {
-            swal("알림", "아이디 중복검사를 해주세요.");
-            form['loginId'].focus();
-            return;
-        }
+        // if (!form['overlappingButton'].disabled) {
+        //     swal("알림", "아이디 중복검사를 해주세요.");
+        //     form['loginId'].focus();
+        //     return;
+        // }
         Cover.show("");
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
@@ -360,7 +360,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                             swal("알림", "알 수 없는 이유로 회원가입을 하지 못하였습니다. 잠시 후 다시 시도해주세요.");
                     }
                 } else {
-                    swal("알림", "로그인 실패입니다.");
+                    swal("알림", "아이디가 중복이거나 아이디 중복검사를 하지 않았습니다.");
                 }
             }
         }
@@ -388,7 +388,7 @@ form.querySelector('[rel="overlappingButton"]').addEventListener('click', () => 
                         }
                         if (form['loginId'].value !== '') {
                             swal("알림", "사용 가능한 아이디입니다.");
-                            form['overlappingButton'].setAttribute('disabled', 'disabled');
+                            // form['overlappingButton'].setAttribute('disabled', 'disabled');
                         }
                         break;
                     case 'id_duplicated':
