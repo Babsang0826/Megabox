@@ -48,7 +48,7 @@ form['findId'].addEventListener('click', () => {
                     case 'success':
                         let id = responseObject['id'];
                         let name = responseObject['name'];
-                        alert("성공입니다.\n" +name + "님의 ID는 " + id + "입니다." );
+                        swal("알림", "성공입니다.\n" +name + "님의 ID는 " + id + "입니다." );
                         form['name'].setAttribute('disabled', 'disabled');
                         form['birthday'].setAttribute('disabled', 'disabled');
                         form['contact'].setAttribute('disabled', 'disabled');

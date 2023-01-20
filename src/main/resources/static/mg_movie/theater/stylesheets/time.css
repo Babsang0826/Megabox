@@ -197,7 +197,6 @@ body, html {
 }
 
 
-
 .theater-detail-page .theater-all .theater-area-list .area-depth1 > li {
     float: left;
     margin-right: 72px;
@@ -282,48 +281,52 @@ body, html {
     top: 2.625rem;
     z-index: 50;
     width: 100%;
-    background-color: rgba(255,255,255,.9);
+    background-color: rgba(255, 255, 255, .9);
     box-shadow: 0 0 1.25rem 0 rgb(0 0 0 / 12%);
     cursor: pointer;
     border: 0;
 }
-.tab-list.fixed>ul>li.on {
+
+.tab-list.fixed > ul > li.on {
     width: 100px;
     border: 0;
 }
 
-.tab-list.fixed>ul>li:first-child:nth-last-child(2)~li {
+.tab-list.fixed > ul > li:first-child:nth-last-child(2) ~ li {
     /*width: 32.333%;*/
     /*border-bottom: 1px solid #503396;*/
     border: 0;
     width: 100px;
 }
-.tab-list.fixed>ul>li:first-child:nth-last-child(2) {
+
+.tab-list.fixed > ul > li:first-child:nth-last-child(2) {
     width: auto;
 }
-.tab-list.fixed.on>ul>li a {
+
+.tab-list.fixed.on > ul > li a {
     height: 100%;
     border-bottom: 2px solid transparent;
 }
 
-.tab-list.fixed>ul {
+.tab-list.fixed > ul {
     width: 1100px;
     margin: 0 auto;
 }
-tab-list.fixed>ul>li {
+
+tab-list.fixed > ul > li {
     width: auto !important;
     margin: 0 0 0 40px;
     border: 0;
 }
 
-tab-list.fixed>ul>li:first-child {
+tab-list.fixed > ul > li:first-child {
     margin-left: 0;
 }
-.tab-list.fixed>ul>li:last-of-type>a{
+
+.tab-list.fixed > ul > li:last-of-type > a {
     background-color: transparent;
     border-bottom: 3px solid #503396;
 }
-
 
 
 .tab-list {
@@ -488,7 +491,7 @@ tab-list.fixed>ul>li:first-child {
 .theater-list-box > .text-form > .theater-type-box > .theater-time > .theater-type-area {
     display: table-cell;
     vertical-align: middle;
-    width: 120px;
+    width: 100px;
     background-color: #f2f4f5;
     text-align: center;
     color: #444;
@@ -503,25 +506,23 @@ tab-list.fixed>ul>li:first-child {
 
 .theater-list-box > .text-form > .theater-type-box > .theater-time > .theater-time-box > .time-list-table {
     /*border-top: 1px solid #ebebeb;*/
-    border-left: 1px solid #ebebeb;
     margin-left: 9px;
     width: 850px;
     table-layout: auto;
 }
 
 .theater-list-box > .text-form > .theater-type-box > .theater-time > .theater-time-box > .time-list-table tbody tr td {
-    width: 120px;
-    border-right: 1px solid #ebebeb;
-    border-bottom: 1px solid #ebebeb;
-    border-top: 1px solid #ebebeb;
-
+    width: 100px;
     text-align: center;
 }
 
 .theater-list-box > .text-form > .theater-type-box > .theater-time > .theater-time-box > .time-list-table tbody tr td .td {
-    width: 100%;
+    width: 100px;
     height: 69px;
     display: table;
+    border: 0.01rem solid #ebebeb;
+    margin-left: 9px;
+
 }
 
 .theater-list-box > .text-form > .theater-type-box > .theater-time > .theater-time-box > .time-list-table tbody tr td .td:hover {
@@ -535,7 +536,6 @@ tab-list.fixed>ul>li:first-child {
 .theater-list-box > .text-form > .theater-type-box > .theater-time > .theater-time-box > .time-list-table tbody tr td .td:hover > .txt-center > .play-time {
     display: block;
 }
-
 
 
 .theater-list-box > .text-form > .theater-type-box > .theater-time > .theater-time-box > .time-list-table tbody tr td .td .txt-center {

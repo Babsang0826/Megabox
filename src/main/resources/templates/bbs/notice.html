@@ -33,11 +33,11 @@
                 </p>
                 <ul>
                     <li>
-                        <a th:href="@{./bookingHistory}">예매/구매내역</a>
+                        <a th:href="@{/myPage/bookingHistory}">예매/구매내역</a>
                         <ul class="member-info">
                             <li>
-                                <a href="#">예매내역</a>
-                                <a href="#">구매내역</a>
+                                <a th:href="@{/myPage/bookingHistory}">예매내역</a>
+                                <a onclick="alert('준비중인 서비스 입니다.')">구매내역</a>
                             </li>
                         </ul>
                     </li>
@@ -45,7 +45,7 @@
                         <a href="#">회원정보</a>
                         <ul class="member-info">
                             <li>
-                                <a th:href="@{./modify}">개인정보 수정</a>
+                                <a th:href="@{/myPage/modify}">개인정보 수정</a>
                             </li>
                         </ul>
                     </li>
@@ -143,12 +143,12 @@
                      th:with="urlBuilder = ${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', 1).build().toUriString()}}"
-                       th:if="${paging.requestPage > 1}">
+                       th:if="${paging.requestPage > 1}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-angles-left"></i>
                     </a>
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', paging.requestPage - 1).build().toUriString()}}"
-                       th:if="${paging.requestPage > 1}">
+                       th:if="${paging.requestPage > 1}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
                     <a class="page" id="pageNumber" th:style="${page == paging.requestPage ? 'background-color: #01738b; color: white;' : ''}"
@@ -158,12 +158,12 @@
                        th:href="@{${urlBuilder.replaceQueryParam('page', page).build().toUriString()}}"></a>
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', paging.requestPage + 1).build().toUriString()}}"
-                       th:if="${paging.requestPage < paging.maxPage}">
+                       th:if="${paging.requestPage < paging.maxPage}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-angle-right"></i>
                     </a>
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', paging.maxPage).build().toUriString()}}"
-                       th:if="${paging.requestPage < paging.maxPage}">
+                       th:if="${paging.requestPage < paging.maxPage}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
                     <div class="writeButton">

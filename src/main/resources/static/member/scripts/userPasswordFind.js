@@ -73,7 +73,9 @@ form['findPassword'].addEventListener('click', () => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case 'success':
-                        window.location.href = "http://localhost:8080/member/userPasswordReset"
+                        swal("알림", "본인인증이 완료되었습니다. \n비밀번호 재설정 페이지로 이동합니다.")
+                        // window.location.href = "/member/userPasswordReset"
+                        window.setTimeout('window.location.replace("/member/userPasswordReset")' ,2000)
                         // let password = responseObject['password'];
                         // let name = responseObject['name'];
                         // alert("성공입니다.\n" +name + "님의 Password는 " + password + "입니다." );

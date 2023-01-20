@@ -75,8 +75,9 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
             day[0].setAttribute('selected', 'selected');
             day[0].style.backgroundColor = 'rgb(235, 235, 235)';
             day[0].classList.add('on');
-            drawSubs();
+            // drawSubs();
         });
+
         day[j].addEventListener('click', () => {
             let nextDay = window.document.querySelectorAll('.day.next');
             if (day[j].classList[0] === 'on') {
@@ -104,7 +105,7 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
                     nextDay.classList.remove('on');
                 }
             })
-            drawSubs();
+            // drawSubs();
         });
     }
 
@@ -180,7 +181,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
                     dayCurrent[0].style.backgroundColor = 'rgb(255, 255, 255)';
                 }
             }
-            drawSubs();
+            // drawSubs();
         });
     }
     dayElement.addEventListener('click', () => {
@@ -286,7 +287,7 @@ xhr.onreadystatechange = () => {
                                          <p>${movie['screenInfoMovieStartTime']}~${movie['screenInfoMovieEndTime']}</p>
                                     </a>
                                 </div>
-                            </div>s
+                            </div>
                         </td>
                         </tr>
                         </tbody>`;
@@ -317,7 +318,7 @@ xhr.onreadystatechange = () => {
             let screenObject = {};
             payload = responseArray;
             for (let screen of responseArray) {
-                let screenIdentifier = `${screen['screenInfoMovieIndex']}`;
+                let screenIdentifier = `${screen['movieIndex']}`;
                 if (!screenObject[screenIdentifier]) {
                     screenObject[screenIdentifier] = [];
                 }

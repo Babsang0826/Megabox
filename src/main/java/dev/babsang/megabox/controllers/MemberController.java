@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -42,8 +43,8 @@ public class MemberController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postEmail(UserEntity user, EmailAuthEntity emailAuth) throws NoSuchAlgorithmException, MessagingException {
-        Enum<?> result = this.memberService.sendEmailAuth(user, emailAuth);
+    public String postEmail(UserEntity user, EmailAuthEntity emailAuth, HttpServletRequest request) throws NoSuchAlgorithmException, MessagingException {
+        Enum<?> result = this.memberService.sendEmailAuth(user, emailAuth, request);
 
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
@@ -171,8 +172,8 @@ public class MemberController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postUserPasswordReset(EmailAuthEntity emailAuth) throws MessagingException {
-        Enum<? extends IResult> result = this.memberService.recoverPasswordSend(emailAuth);
+    public String postUserPasswordReset(EmailAuthEntity emailAuth, HttpServletRequest request) throws MessagingException {
+        Enum<? extends IResult> result = this.memberService.recoverPasswordSend(emailAuth, request);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         if (result == CommonResult.SUCCESS) {
@@ -220,18 +221,19 @@ public class MemberController {
         return responseObject.toString();
     }
 
-    @GetMapping(value = "kakao", produces = MediaType.TEXT_HTML_VALUE)
-    @ResponseBody
-    public ModelAndView getKakao(@RequestParam(value = "code") String code,
-                                 @RequestParam(value = "error", required = false) String error,
-                                 @RequestParam(value = "error_description", required = false) String errorDescription,
-                                 HttpSession session) throws IOException {
-        String accessToken = this.memberService.getKakaoAccessToken(code);
-        UserEntity user = this.memberService.getKakaoUserInfo(accessToken);
-
-        session.setAttribute("user", user);
-        return new ModelAndView("member/kakao");
-    }
+//    @GetMapping(value = "kakao", produces = MediaType.TEXT_HTML_VALUE)
+//    @ResponseBody
+//    public ModelAndView getKakao(@RequestParam(value = "code") String code,
+//                                 @RequestParam(value = "error", required = false) String error,
+//                                 @RequestParam(value = "error_description", required = false) String errorDescription,
+//                                 HttpSession session) throws IOException {
+//
+//        String accessToken = this.memberService.getKakaoAccessToken(code);
+//        UserEntity user = this.memberService.getKakaoUserInfo(accessToken);
+//
+//        session.setAttribute("user", user);
+//        return new ModelAndView("member/kakao");
+//    }
 
     @GetMapping(value = "logout")
     public ModelAndView getLogOut(HttpSession session) {

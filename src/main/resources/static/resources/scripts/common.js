@@ -103,7 +103,7 @@ const searchMovieInput = window.document.querySelector('[rel="searchMovieInput"]
 const searchMovieBtn = window.document.querySelector('[rel="searchMovieBtn"]');
 
 searchMovieBtn.addEventListener('click', () => {
-    window.location.href = `http://localhost:8080/movie/movie?keyword=` + `${searchMovieInput.value}`
+    window.location.href = `/movie/movie?keyword=` + `${searchMovieInput.value}`
 })
 
 const titles = window.document.querySelectorAll('[rel="title"]');

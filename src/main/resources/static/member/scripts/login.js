@@ -22,13 +22,17 @@ form.onsubmit = (e) => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case'success':
-                        window.location.href = "http://localhost:8080"
-                        break;
+                        if (document.referrer === location.href('member/register')) {
+                            window.location.href = 'member/login'
+                        } else {
+                            window.location.href = document.referrer
+                            break;
+                        }
                     case'failure':
                         swal("알림", '로그인에 실패하였습니다.')
                         break;
                     default:
-                        swal("알림","잠시만 기다려 주세요.")
+                        swal("알림", "잠시만 기다려 주세요.")
                 }
             }
         }

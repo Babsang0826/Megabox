@@ -173,7 +173,7 @@ submitBtn.addEventListener('click', () => {
                     case 'success':
                         swal('알림', '개인정보 수정이 완료되었습니다.\n잠시 후 뒤 마이페이지로 이동합니다.');
                         setTimeout(function () {
-                            window.location.href = 'http://localhost:8080/myPage/myPage';
+                            window.location.href = '/myPage/myPage';
                         }, 1000);
                         break;
                     case 'failure':

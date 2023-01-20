@@ -25,7 +25,8 @@
 }
 
 #form {
-    height: inherit;
+    height: auto;
+    margin-bottom: 8rem;
 }
 
 h2.tit {
@@ -34,7 +35,6 @@ h2.tit {
     letter-spacing: -1px;
     line-height: 1.1;
     color: #222;
-    padding: 0 0 26px 0;
 }
 
 .table-wrap {
@@ -46,7 +46,7 @@ h2.tit {
 .board-view .tit-area {
     display: table;
     width: 100%;
-    padding: 15px 0;
+    /*padding: 15px 0 0 0;*/
 }
 
 .board-view .tit-area > p {
@@ -191,7 +191,7 @@ a:visited {
 
 
 .pt40 {
-    padding-top: 40px;
+    padding-top: 40px!important;
 }
 
 .btn-group {

@@ -24,6 +24,7 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -51,7 +52,7 @@ public class MemberService {
 //    }
 
     @Transactional
-    public Enum<? extends IResult> sendEmailAuth(UserEntity user, EmailAuthEntity emailAuth) throws NoSuchAlgorithmException, MessagingException { //UserEntity에게 이메일 검증을 요청하겠다. user은 controller에서 받아온다.
+    public Enum<? extends IResult> sendEmailAuth(UserEntity user, EmailAuthEntity emailAuth, HttpServletRequest request) throws NoSuchAlgorithmException, MessagingException { //UserEntity에게 이메일 검증을 요청하겠다. user은 controller에서 받아온다.
         UserEntity existingUser = this.memberMapper.selectUserByEmail(user.getEmail());
         System.out.println(existingUser);
         if (existingUser != null) {
@@ -90,6 +91,10 @@ public class MemberService {
 
         Context context = new Context();
         context.setVariable("code", emailAuth.getCode());
+        context.setVariable("domain", String.format("%s://%s:%d",
+                request.getScheme(),
+                request.getServerName(),
+                request.getServerPort()));
 
         String text = this.templateEngine.process("member/registerEmailAuth", context);
         MimeMessage mail = this.mailSender.createMimeMessage();
@@ -200,7 +205,7 @@ public class MemberService {
     }
 
     @Transactional
-    public Enum<? extends IResult> recoverPasswordSend(EmailAuthEntity emailAuth) throws MessagingException {
+    public Enum<? extends IResult> recoverPasswordSend(EmailAuthEntity emailAuth, HttpServletRequest request) throws MessagingException {
         UserEntity recoverStudy = this.memberMapper.selectUserByEmail(emailAuth.getEmail());
         if (recoverStudy == null) {
             return CommonResult.FAILURE;
@@ -227,6 +232,10 @@ public class MemberService {
         context.setVariable("email", emailAuth.getEmail());
         context.setVariable("code", emailAuth.getCode());
         context.setVariable("salt", emailAuth.getSalt());
+        context.setVariable("domain", String.format("%s://%s:%d",
+                request.getScheme(),
+                request.getServerName(),
+                request.getServerPort()));
 
         String text = this.templateEngine.process("member/userPasswordResetEmail", context);
         MimeMessage mail = this.mailSender.createMimeMessage();
@@ -291,76 +300,76 @@ public class MemberService {
     }
 
 
-    public String getKakaoAccessToken(String code) throws IOException {
-        URL url = new URL("https://kauth.kakao.com/oauth/token");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setDoOutput(true);
-        int responseCode;
-        try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream())) {
-            try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
-                StringBuilder requestBuilder = new StringBuilder();
-                requestBuilder.append("grant_type=authorization_code");
-                requestBuilder.append("&client_id=ab3e0e3a866959cb53f8a5d683ad4cd7");
-                requestBuilder.append("&redirect_uri=http://localhost:8080/member/kakao");
-                requestBuilder.append("&code=").append(code);
-                bufferedWriter.write(requestBuilder.toString());
-                bufferedWriter.flush();
-                responseCode = connection.getResponseCode();
-            }
-            System.out.println("응답 코드 : " + responseCode);
-        }
-        StringBuilder responseBuilder = new StringBuilder();
-        try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream())) {
-            try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    responseBuilder.append(line);
-                }
-            }
-            System.out.println("응답 내용 :" + responseBuilder);
-        }
-        JSONObject responseObject = new JSONObject(responseBuilder.toString());
-        return responseObject.getString("access_token");
-    }
-
-    public UserEntity getKakaoUserInfo(String accessToken) throws IOException {
-        URL url = new URL("https://kapi.kakao.com/v2/user/me");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty("Authorization", String.format("Bearer %s", accessToken));
-        connection.setRequestMethod("GET");
-        int responseCode = connection.getResponseCode();
-        StringBuilder responseBuilder = new StringBuilder();
-        try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream())) {
-            try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    responseBuilder.append(line);
-                }
-            }
-        }
-        System.out.println("응답 내용 : " + responseBuilder);
-        JSONObject responseObject = new JSONObject(responseBuilder.toString());
-        JSONObject propertyObject = responseObject.getJSONObject("properties");
-        String email = String.valueOf(responseObject.getLong("id"));
-
-        UserEntity user = this.memberMapper.selectUserByEmail(email);
-        if (user == null) {
-            user = new UserEntity();
-            user.setEmail(email);
-            user.setId(email);
-            user.setPassword(""); //카카오 로그인은 비밀번호 못땡겨옴
-            user.setName("");
-            user.setBirthday("");
-            user.setContact(email);
-            user.setAddressPrimary("");
-            user.setAddressPostal("");
-            user.setAddressSecondary(""); //빈 문자열로 하면 웹에서 입력안해도 Insert 가능
-
-            this.memberMapper.insertUser(user);
-        }
-        return user;
-    }
+//    public String getKakaoAccessToken(String code) throws IOException {
+//        URL url = new URL("https://kauth.kakao.com/oauth/token");
+//        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//        connection.setRequestMethod("POST");
+//        connection.setDoOutput(true);
+//        int responseCode;
+//        try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream())) {
+//            try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
+//                StringBuilder requestBuilder = new StringBuilder();
+//                requestBuilder.append("grant_type=authorization_code");
+//                requestBuilder.append("&client_id=ab3e0e3a866959cb53f8a5d683ad4cd7");
+//                requestBuilder.append("&redirect_uri=http://localhost:8080/member/kakao");
+//                requestBuilder.append("&code=").append(code);
+//                bufferedWriter.write(requestBuilder.toString());
+//                bufferedWriter.flush();
+//                responseCode = connection.getResponseCode();
+//            }
+//            System.out.println("응답 코드 : " + responseCode);
+//        }
+//        StringBuilder responseBuilder = new StringBuilder();
+//        try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream())) {
+//            try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+//                String line;
+//                while ((line = bufferedReader.readLine()) != null) {
+//                    responseBuilder.append(line);
+//                }
+//            }
+//            System.out.println("응답 내용 :" + responseBuilder);
+//        }
+//        JSONObject responseObject = new JSONObject(responseBuilder.toString());
+//        return responseObject.getString("access_token");
+//    }
+//
+//    public UserEntity getKakaoUserInfo(String accessToken) throws IOException {
+//        URL url = new URL("https://kapi.kakao.com/v2/user/me");
+//        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//        connection.setRequestProperty("Authorization", String.format("Bearer %s", accessToken));
+//        connection.setRequestMethod("GET");
+//        int responseCode = connection.getResponseCode();
+//        StringBuilder responseBuilder = new StringBuilder();
+//        try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream())) {
+//            try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+//                String line;
+//                while ((line = bufferedReader.readLine()) != null) {
+//                    responseBuilder.append(line);
+//                }
+//            }
+//        }
+//        System.out.println("응답 내용 : " + responseBuilder);
+//        JSONObject responseObject = new JSONObject(responseBuilder.toString());
+//        JSONObject propertyObject = responseObject.getJSONObject("properties");
+//        String email = String.valueOf(responseObject.getLong("id"));
+//
+//        UserEntity user = this.memberMapper.selectUserByEmail(email);
+//        if (user == null) {
+//            user = new UserEntity();
+//            user.setEmail(email);
+//            user.setId(email);
+//            user.setPassword(""); //카카오 로그인은 비밀번호 못땡겨옴
+//            user.setName("");
+//            user.setBirthday("");
+//            user.setContact(email);
+//            user.setAddressPrimary("");
+//            user.setAddressPostal("");
+//            user.setAddressSecondary(""); //빈 문자열로 하면 웹에서 입력안해도 Insert 가능
+//
+//            this.memberMapper.insertUser(user);
+//        }
+//        return user;
+//    }
 
 
 }
