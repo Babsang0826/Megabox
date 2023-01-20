@@ -51,7 +51,7 @@ public interface IBbsMapper {
                                             @Param(value = "limit") int limit,
                                             @Param(value = "offset") int offset,
                                             @Param(value = "criterion") String criterion,
-                                            @Param(value = "keyword") String keyword);         ;
+                                            @Param(value = "keyword") String keyword);
 
 
 
