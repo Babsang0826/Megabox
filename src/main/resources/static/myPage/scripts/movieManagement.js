@@ -331,7 +331,6 @@ const deleteBtn = document.querySelectorAll('[rel="deleteBtn"]');
 for (let i = 0; i < deleteBtn.length; i++) {
     deleteBtn[i].addEventListener('click', e => {
         e.preventDefault();
-
         if (!confirm('정말로 영화를 삭제하시겠습니까?')) {
             return;
         }

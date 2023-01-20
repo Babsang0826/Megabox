@@ -7,13 +7,8 @@ const auditoriumOption = window.document.querySelector('.select.auditorium')
 const dateInput = window.document.querySelector('.date');
 const deleteBtn = window.document.querySelector('.delete-btn');
 const updateBtn = window.document.querySelector('.update-btn');
-
 const startTime = window.document.getElementById('startTime');
 const endTime = window.document.getElementById('endTime');
-// let date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(11, 16);
-//
-// startTime.value = date;
-// endTime.value = date;
 
 const chkAll = document.querySelector('.chkAll');
 const chkBox = document.querySelectorAll('.chkBox');
@@ -30,12 +25,23 @@ chkAll.onclick = function () {
     }
 };
 
+const modifyList = document.querySelector('[rel="modifyList"]');
+const uploadList = document.querySelector('[rel="uploadList"]');
 
-enrollBtn.addEventListener('click', e => {
-    e.preventDefault();
+modifyList.addEventListener('click', () => {
+
+    enrollMent.classList.add('off');
+    selectScreen.classList.remove('off');
+    modifyList.classList.add('on');
+    uploadList.classList.remove('on');
+});
+
+uploadList.addEventListener('click', () => {
+    swal('알림', '영화시간표를 등록하시기 전 다시 한번 확인하시기 바랍니다.');
     enrollMent.classList.remove('off');
     selectScreen.classList.add('off');
-    swal('알림', '영화시간표를 등록하시기 전 다시 한번 확인하시기 바랍니다.');
+    modifyList.classList.remove('on');
+    uploadList.classList.add('on');
 });
 
 updateBtn.addEventListener('click', e => {
@@ -109,43 +115,59 @@ enrollForm.onsubmit = e => {
 };
 
 deleteBtn.addEventListener('click', () => {
-    if (!confirm('선택한 시간표를 삭제하시겠습니까?')) {
-        return;
-    }
     const chkArr = [];
     const check = document.getElementsByName("chk");
     for (let i = 0; i < check.length; i++) {
         if (check[i].checked === true) {
             chkArr.push(check[i].value);
         }
-    }
-    for (let i = 0; i < chkArr.length; i++) {
-        const xhr = new XMLHttpRequest();
-        const formData = new FormData();
-        formData.append('index', chkArr[i]);
-        xhr.open('DELETE', './screenInfoManagement');
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    const responseObject = JSON.parse(xhr.responseText);
-                    switch (responseObject['result']) {
-                        case 'success':
-                            if (i === chkArr.length - 1) {
-                                window.location.reload();
-                                break;
-                            }
-                            break;
-                        case 'failure':
-                            swal('알림', '시간표를 삭제할 수 없습니다. 잠시 후 다시 시도해 주세요.');
-                            break;
-                        default:
-                            swal('알림', '알 수 없는 이유로 시간표를 삭제할 수 없습니다. 잠시 후 다시 시도해 주세요.');
-                    }
-                }
-            }
+        if(chkArr.length === 0) {
+            swal('알림', '삭제할 시간표를 선택해 주세요.')
+            return;
         }
-        xhr.send(formData);
     }
+    let flag;
+        swal = swal({
+            title: "알림",
+            text: "선택하신 시간표를 삭제하시겠습니까?",
+            buttons: ["NO", "YES"]
+        }).then((YES) => {
+            if (YES) {
+                flag = true;
+                for (let i = 0; i < chkArr.length; i++) {
+                    const xhr = new XMLHttpRequest();
+                    const formData = new FormData();
+                    formData.append('index', chkArr[i]);
+                    xhr.open('DELETE', './screenInfoManagement');
+                    xhr.onreadystatechange = () => {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status >= 200 && xhr.status < 300) {
+                                const responseObject = JSON.parse(xhr.responseText);
+                                switch (responseObject['result']) {
+                                    case 'success':
+                                        if (i === chkArr.length - 1) {
+                                            window.location.reload();
+                                            break;
+                                        }
+                                        break;
+                                    case 'failure':
+                                        swal('알림', '시간표를 삭제할 수 없습니다. 잠시 후 다시 시도해 주세요.');
+                                        break;
+                                    default:
+                                        swal('알림', '알 수 없는 이유로 시간표를 삭제할 수 없습니다. 잠시 후 다시 시도해 주세요.');
+                                }
+                            }
+                        }
+                    }
+                    xhr.send(formData);
+                }
+            } else {
+                flag = false;
+                return window.location.reload();
+            }
+        });
 });
+
+
 
 

@@ -30,24 +30,34 @@
                 <div class="content-title">
                     <span>영화 시간표 등록</span>
                 </div>
+                <div class="tab-list">
+                    <ul>
+                        <li class="on" rel="modifyList">
+                            <span>조회/수정</span>
+                        </li>
+                        <li rel="uploadList">
+                            <span>등록</span>
+                        </li>
+                    </ul>
+                </div>
                 <div class="select-screen">
                     <div class="select-box">
-                        <div class="label-box">
-                            <label class="label-tag">
-                                <select>
-                                    <option th:each="region : ${regions}">
-                                        <span th:text="${region.getBranchText()} + '/' + ${region.getAuditoriumText()}"></span>
-                                    </option>
-                                </select>
-                            </label>
-                            <label class="label-tag">
-                                <input type="date" value="">
-                            </label>
-                            <label class="label-search">
-                                <span>영화검색 :</span>
-                                <input type="text" placeholder="영화제목을 검색해주세요.">
-                            </label>
-                        </div>
+<!--                        <div class="label-box">-->
+<!--                            <label class="label-tag">-->
+<!--                                <select>-->
+<!--                                    <option th:each="region : ${regions}">-->
+<!--                                        <span th:text="${region.getBranchText()} + '/' + ${region.getAuditoriumText()}"></span>-->
+<!--                                    </option>-->
+<!--                                </select>-->
+<!--                            </label>-->
+<!--                            <label class="label-tag">-->
+<!--                                <input type="date" value="">-->
+<!--                            </label>-->
+<!--                            <label class="label-search">-->
+<!--                                <span>영화검색 :</span>-->
+<!--                                <input type="text" placeholder="영화제목을 검색해주세요.">-->
+<!--                            </label>-->
+<!--                        </div>-->
                         <div class="select-list-table">
                             <table class="board">
                                 <colgroup>
@@ -109,9 +119,6 @@
                                    th:if="${paging.requestPage < paging.maxPage}">
                                     <i class="fa-solid fa-angles-right"></i>
                                 </a>
-                                <label class="label-tag enroll-schedule">
-                                    <input class="enroll-btn" type="button" value="작성">
-                                </label>
                                 <label class="label-tag update-schedule">
                                     <input class="update-btn" type="button" value="수정">
                                 </label>
@@ -123,6 +130,10 @@
                         </div>
                     </div>
                 </div>
+
+<!--               <label class="label-tag enroll-schedule">
+                                    <input class="enroll-btn" type="button" value="작성">
+                                </label> -->
 
                 <div class="enrollment off" th:if="${session.user.getAdminFlag() == true}">
                     <div class="movie-enrollment-container">

@@ -88,49 +88,7 @@ cancelButton.addEventListener('click', () => {
         }else{
             flag = false;
             return window.location.reload();
-            // window.location.reload();
         }
     });
-    // Promise.all([swal]).then(function(){
-    //     console.log(flag);
-    // });
-    // const arr = [];
-    // const check = document.getElementsByName("chk");
-    // for (let i = 0; i < check.length; i++) {
-    //     if (check[i].checked === true) {
-    //         arr.push(check[i].value);
-    //         console.log(check[i])
-    //     }
-    // }
-    // for (let i = 0; i < arr.length; i++){
-    //     const xhr = new XMLHttpRequest();
-    //     const formData = new FormData();
-    //     formData.append('email', arr[i]);
-    //     xhr.open('DELETE', './delete');
-    //     xhr.onreadystatechange = () => {
-    //         if (xhr.readyState === XMLHttpRequest.DONE) {
-    //             if (xhr.status >= 200 && xhr.status < 300) {
-    //                 const responseObject = JSON.parse(xhr.responseText);
-    //                 switch (responseObject['result']) {
-    //                     case 'success':
-    //                         if (i === arr.length - 1) {
-    //                             swal('알림', '탈퇴 완료되었습니다.');
-    //                             window.setTimeout('window.location.reload()' ,1000)
-    //                             break;
-    //                         }
-    //                         break;
-    //                     case 'failure':
-    //                         swal('알림', '알 수 없는 이유로 회원 탈퇴를 못하였습니다.');
-    //                         break;
-    //                     default:
-    //                         swal('알림','회원 탈퇴 실패');
-    //                 }
-    //             }
-    //         } else {
-    //
-    //         }
-    //     }
-    //     xhr.send(formData);
-    // }
 });
 
