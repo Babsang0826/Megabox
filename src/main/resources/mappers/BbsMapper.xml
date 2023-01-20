@@ -143,34 +143,34 @@
     <select id="selectArticleByIndexNext"
             resultType="dev.babsang.megabox.vos.bbs.PrevNextVo"><![CDATA[
         (SELECT `index`       AS `index`,
-               `board_id`    AS `boardId`,
-               `user_id`     AS `userId`,
-               `sort`        AS `sort`,
-               `region`      as `region`,
-               `branch`      as `branch`,
-               `title`       as `title`,
-               `content`     AS `content`,
-               `written_on`  AS `writtenOn`,
-               `modified_on` AS `modifiedOn`
-        FROM `mg_bbs`.`article` AS `article`
-        WHERE `index` < #{index}
-        ORDER BY `index` DESC
-        LIMIT 1)
+                `board_id`    AS `boardId`,
+                `user_id`     AS `userId`,
+                `sort`        AS `sort`,
+                `region`      as `region`,
+                `branch`      as `branch`,
+                `title`       as `title`,
+                `content`     AS `content`,
+                `written_on`  AS `writtenOn`,
+                `modified_on` AS `modifiedOn`
+         FROM `mg_bbs`.`article` AS `article`
+         WHERE `index` < #{index}
+         ORDER BY `index` DESC
+         LIMIT 1)
         UNION
         (SELECT `index`       AS `index`,
-               `board_id`    AS `boardId`,
-               `user_id`     AS `userId`,
-               `sort`        AS `sort`,
-               `region`      as `region`,
-               `branch`      as `branch`,
-               `title`       as `title`,
-               `content`     AS `content`,
-               `written_on`  AS `writtenOn`,
-               `modified_on` AS `modifiedOn`
-        FROM `mg_bbs`.`article` AS `article`
-        WHERE `index` = #{index}
-        ORDER BY `index` DESC
-        LIMIT 1)
+                `board_id`    AS `boardId`,
+                `user_id`     AS `userId`,
+                `sort`        AS `sort`,
+                `region`      as `region`,
+                `branch`      as `branch`,
+                `title`       as `title`,
+                `content`     AS `content`,
+                `written_on`  AS `writtenOn`,
+                `modified_on` AS `modifiedOn`
+         FROM `mg_bbs`.`article` AS `article`
+         WHERE `index` = #{index}
+         ORDER BY `index` DESC
+         LIMIT 1)
         UNION
         (SELECT `index`       AS `index`,
                 `board_id`    AS `boardId`,
@@ -186,7 +186,8 @@
          WHERE `index` > #{index}
          ORDER BY `index` ASC
          LIMIT 1)
-    ]]></select>
+        ]]></select>
+
 
     <!--    페이징-->
 
