@@ -309,8 +309,8 @@ a:link {
     position: relative;
     min-width: 32px;
     height: 32px;
-    margin: 0;
-    padding: 0 8px;
+    margin: 2px;
+    /*padding: 0 8px;*/
     border: 1px solid #ebebeb;
     text-decoration: none;
     line-height: 30px;
@@ -500,7 +500,7 @@ tr {
     align-items: center;
 }
 
-.check > label > input {
+.check > input {
     border: 1px solid;
     appearance: auto;
 }
@@ -510,7 +510,5 @@ tr {
 }
 
 input[type="checkbox"]{
-    width: 15px;
-    height: 15px;
     cursor: pointer;
 }

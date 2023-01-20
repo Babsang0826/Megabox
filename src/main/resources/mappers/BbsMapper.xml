@@ -141,8 +141,8 @@
 
 
     <select id="selectArticleByIndexNext"
-            resultType="dev.babsang.megabox.vos.bbs.PrevNextVo">
-        SELECT `index`       AS `index`,
+            resultType="dev.babsang.megabox.vos.bbs.PrevNextVo"><![CDATA[
+        (SELECT `index`       AS `index`,
                `board_id`    AS `boardId`,
                `user_id`     AS `userId`,
                `sort`        AS `sort`,
@@ -153,10 +153,40 @@
                `written_on`  AS `writtenOn`,
                `modified_on` AS `modifiedOn`
         FROM `mg_bbs`.`article` AS `article`
-        WHERE `index` BETWEEN (#{index} - 1) AND (#{index} + 1)
-        ORDER BY `index`
-        limit 3
-    </select>
+        WHERE `index` < #{index}
+        ORDER BY `index` DESC
+        LIMIT 1)
+        UNION
+        (SELECT `index`       AS `index`,
+               `board_id`    AS `boardId`,
+               `user_id`     AS `userId`,
+               `sort`        AS `sort`,
+               `region`      as `region`,
+               `branch`      as `branch`,
+               `title`       as `title`,
+               `content`     AS `content`,
+               `written_on`  AS `writtenOn`,
+               `modified_on` AS `modifiedOn`
+        FROM `mg_bbs`.`article` AS `article`
+        WHERE `index` = #{index}
+        ORDER BY `index` DESC
+        LIMIT 1)
+        UNION
+        (SELECT `index`       AS `index`,
+                `board_id`    AS `boardId`,
+                `user_id`     AS `userId`,
+                `sort`        AS `sort`,
+                `region`      as `region`,
+                `branch`      as `branch`,
+                `title`       as `title`,
+                `content`     AS `content`,
+                `written_on`  AS `writtenOn`,
+                `modified_on` AS `modifiedOn`
+         FROM `mg_bbs`.`article` AS `article`
+         WHERE `index` > #{index}
+         ORDER BY `index` ASC
+         LIMIT 1)
+    ]]></select>
 
     <!--    페이징-->
 
@@ -204,7 +234,6 @@
         </if>
         group by article.`index`
         ORDER BY article.`index` DESC
-
         LIMIT #{limit} OFFSET #{offset}
     </select>
 </mapper>

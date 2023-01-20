@@ -29,7 +29,7 @@
             <label class="label">
                 <div class="selectBox">
                     <select name="sort" class="select" onchange="this.value">
-                        <option selected>구분 선택</option>
+                        <option selected th:value="${article.getSort()}">구분 선택</option>
                         <option value="공지">공지</option>
                         <option value="이벤트">이벤트</option>
                         <option value="라이브뷰잉">라이브뷰잉</option>
@@ -42,7 +42,7 @@
             <label class="label">
                 <div class="selectBox">
                     <select name="region" class="select" onchange="this.value">
-                        <option selected>지역 선택</option>
+                        <option selected th:value="${article.getRegion()}">지역 선택</option>
                         <option value="부산/대구/경상">부산/대구/경상</option>
                     </select>
                     <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>
@@ -51,7 +51,7 @@
             <label class="label">
                 <div class="selectBox" id="theaterSelect">
                     <select name="branch" class="select" onchange="this.value">
-                        <option selected>극장 선택</option>
+                        <option selected th:value="${article.getBranch()}">극장 선택</option>
                         <option value="메가박스">메가박스</option>
                         <option value="북대구(칠곡)">북대구(칠곡)</option>
                         <option value="경북도청">경북도청</option>

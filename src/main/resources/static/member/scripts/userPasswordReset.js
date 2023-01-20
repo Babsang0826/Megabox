@@ -35,7 +35,7 @@ form['emailSend'].addEventListener('click', () => {
         form['email'].focus();
         return;
     }
-    Cover.show('인증 요청 중 입니다. \n\n 잠시만 기다려 주세요.')
+    Cover.show("");
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('email', form['email'].value);
@@ -103,8 +103,8 @@ form['passwordSend'].addEventListener('click', () => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case'success':
-                        swal("알림", "비밀번호를 성공적으로 재설정하였습니다.\n\n확인을 누르면 로그인 페이지로 이동합니다.")
-                        window.location.href = 'login';
+                        swal("알림", "비밀번호를 성공적으로 재설정하였습니다.\n\n로그인 페이지로 이동합니다.")
+                        window.setTimeout('window.location.replace("/member/login")' ,2000)
                         break;
                     default:
                         swal("알림", "비밀번호를 재설정하지 못하였습니다. 세션이 만료되었을 수도 있습니다. 잠시 후 다시 시도해주세요.")

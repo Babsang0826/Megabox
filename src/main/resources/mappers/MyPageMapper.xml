@@ -215,6 +215,7 @@
         <if test="criterion != null and criterion.equals('id')">
             WHERE REPLACE(`id`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
         </if>
+        ORDER BY `registered_on` DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
 

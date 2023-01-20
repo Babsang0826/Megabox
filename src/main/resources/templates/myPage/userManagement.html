@@ -85,9 +85,9 @@
                         <tbody>
                         <tr th:each="user : ${users}" class="line" rel="line">
                             <td class="check">
-                                <label for="checkBox">
+<!--                                <label for="checkBox">-->
                                     <input class="chkBox" name="chk" th:value="${user.getEmail()}" type="checkbox" rel="checkbox" id="checkBox">
-                                </label>
+<!--                                </label>-->
                             </td>
                             <td th:text="${user.getId()}">ljh5968</td>
                             <td th:text="${user.getContact()}">01064056966</td>
@@ -102,12 +102,12 @@
                      th:with="urlBuilder = ${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', 1).build().toUriString()}}"
-                       th:if="${paging.requestPage > 1}">
+                       th:if="${paging.requestPage > 1}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-angles-left"></i>
                     </a>
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', paging.requestPage - 1).build().toUriString()}}"
-                       th:if="${paging.requestPage > 1}">
+                       th:if="${paging.requestPage > 1}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
                     <a class="page" id="pageNumber" th:style="${page == paging.requestPage ? 'background-color: #01738b; color: white;' : ''}"
@@ -117,12 +117,12 @@
                        th:href="@{${urlBuilder.replaceQueryParam('page', page).build().toUriString()}}"></a>
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', paging.requestPage + 1).build().toUriString()}}"
-                       th:if="${paging.requestPage < paging.maxPage}">
+                       th:if="${paging.requestPage < paging.maxPage}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-angle-right"></i>
                     </a>
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', paging.maxPage).build().toUriString()}}"
-                       th:if="${paging.requestPage < paging.maxPage}">
+                       th:if="${paging.requestPage < paging.maxPage}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
                     <div class="userDeleteButton">

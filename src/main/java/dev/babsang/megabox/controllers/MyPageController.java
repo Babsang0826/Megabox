@@ -51,7 +51,7 @@ public class MyPageController {
         ModelAndView modelAndView;
 
         if (user == null) {
-            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+            modelAndView = new ModelAndView("redirect:login");
         } else {
             modelAndView = new ModelAndView("myPage/myPage");
 
@@ -154,7 +154,7 @@ public class MyPageController {
     public ModelAndView getModify(@SessionAttribute(value = "user", required = false) UserEntity user) {
         ModelAndView modelAndView;
         if (user == null) {
-            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+            modelAndView = new ModelAndView("redirect:login");
         } else {
             modelAndView = new ModelAndView("myPage/modify");
         }
@@ -223,7 +223,7 @@ public class MyPageController {
     public ModelAndView getChangePw(@SessionAttribute(value = "user", required = false) UserEntity user) {
         ModelAndView modelAndView;
         if (user == null) {
-            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+            modelAndView = new ModelAndView("redirect:login");
         } else {
             modelAndView = new ModelAndView("myPage/recoverPassword");
         }
@@ -249,7 +249,7 @@ public class MyPageController {
     public ModelAndView getBookingHistory(@SessionAttribute(value = "user", required = false) UserEntity user) {
         ModelAndView modelAndView;
         if (user == null) {
-            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+            modelAndView = new ModelAndView("redirect:login");
         } else {
             modelAndView = new ModelAndView("myPage/bookingHistory");
 
@@ -344,7 +344,7 @@ public class MyPageController {
                                      @RequestParam(value = "keyword", required = false) String keyword) {
         ModelAndView modelAndView;
         if (user == null) {
-            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+            modelAndView = new ModelAndView("redirect:login");
         } else {
             modelAndView = new ModelAndView("myPage/movieManagement");
 
@@ -441,8 +441,9 @@ public class MyPageController {
         ModelAndView modelAndView;
 
         if (signedUser == null) {
-            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
-        } else {
+            modelAndView = new ModelAndView("redirect:login");
+        }
+        else {
             if (!signedUser.getAdminFlag()) {
                 try {
                     response.setContentType("text/html; charset=utf-8");

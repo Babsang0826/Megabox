@@ -27,45 +27,45 @@
     <div class="container">
         <div class="inner-wrap">
             <div class="side-menu">
-                <nav>
-                    <p class="title">
-                        <a th:href="@{/myPage/myPage}">나의 메가박스</a>
-                    </p>
-                    <ul>
-                        <li>
-                            <a th:href="@{./bookingHistory}">예매/구매내역</a>
-                            <ul class="member-info">
-                                <li>
-                                    <a href="#">예매내역</a>
-                                    <a href="#">구매내역</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">회원정보</a>
-                            <ul class="member-info">
-                                <li>
-                                    <a th:href="@{./modify}">개인정보 수정</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">영화/스토어 관람권</a>
-                        </li>
-                        <li>
-                            <a href="#">메가박스/제휴쿠폰</a>
-                        </li>
-                        <li>
-                            <a href="#">멤버십 포인트</a>
-                        </li>
-                        <li>
-                            <a href="#">자주쓰는 카드 관리</a>
-                        </li>
-                        <li>
-                            <a href="#">나의 문의내역</a>
-                        </li>
-                    </ul>
-                </nav>
+            <nav>
+                <p class="title">
+                    <a th:href="@{/myPage/myPage}">나의 메가박스</a>
+                </p>
+                <ul>
+                    <li>
+                        <a th:href="@{/myPage/bookingHistory}">예매/구매내역</a>
+                        <ul class="member-info">
+                            <li>
+                                <a th:href="@{/myPage/bookingHistory}">예매내역</a>
+                                <a onclick="alert('준비중인 서비스 입니다.')">구매내역</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">회원정보</a>
+                        <ul class="member-info">
+                            <li>
+                                <a th:href="@{/myPage/modify}">개인정보 수정</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">영화/스토어 관람권</a>
+                    </li>
+                    <li>
+                        <a href="#">메가박스/제휴쿠폰</a>
+                    </li>
+                    <li>
+                        <a href="#">멤버십 포인트</a>
+                    </li>
+                    <li>
+                        <a href="#">자주쓰는 카드 관리</a>
+                    </li>
+                    <li>
+                        <a href="#">나의 문의내역</a>
+                    </li>
+                </ul>
+            </nav>
             </div>
 
             <div class="content">
@@ -83,17 +83,10 @@
                         <div class="selectBox" id="theaterSelect">
                             <label class="label">
                                 <span hidden>검색 기준</span>
-                                <select id="theater" class="select" name="criterion"
-                                        th:with="criterion = ${#request.getParameter('criterion')}">
-                                    <option value="all" th:selected="${criterion == null || criterion.equals('all')}">제목
-                                        + 내용
-                                    </option>
-                                    <option value="title"
-                                            th:selected="${criterion != null && criterion.equals('title')}">제목
-                                    </option>
-                                    <option value="branch"
-                                            th:selected="${criterion != null && criterion.equals('branch')}">극장
-                                    </option>
+                                <select id="theater" class="select" name="criterion" th:with="criterion = ${#request.getParameter('criterion')}">
+                                    <option value="all" th:selected="${criterion == null || criterion.equals('all')}">제목 + 내용</option>
+                                    <option value="title" th:selected="${criterion != null && criterion.equals('title')}">제목</option>
+                                    <option value="branch" th:selected="${criterion != null && criterion.equals('branch')}">극장</option>
                                 </select>
                             </label>
                             <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>
@@ -151,12 +144,12 @@
                      th:with="urlBuilder = ${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', 1).build().toUriString()}}"
-                       th:if="${paging.requestPage > 1}">
+                       th:if="${paging.requestPage > 1}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-angles-left"></i>
                     </a>
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', paging.requestPage - 1).build().toUriString()}}"
-                       th:if="${paging.requestPage > 1}">
+                       th:if="${paging.requestPage > 1}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
                     <a class="page" id="pageNumber"
@@ -167,17 +160,16 @@
                        th:href="@{${urlBuilder.replaceQueryParam('page', page).build().toUriString()}}"></a>
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', paging.requestPage + 1).build().toUriString()}}"
-                       th:if="${paging.requestPage < paging.maxPage}">
+                       th:if="${paging.requestPage < paging.maxPage}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-angle-right"></i>
                     </a>
                     <a class="page"
                        th:href="@{${urlBuilder.replaceQueryParam('page', paging.maxPage).build().toUriString()}}"
-                       th:if="${paging.requestPage < paging.maxPage}">
+                       th:if="${paging.requestPage < paging.maxPage}" style="background-color: #f3f2f2; margin: 0;">
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
                     <div class="writeButton">
-                        <a th:href="@{/bbs/write (bid = ${'notice'})}" id="writeBtn" class="button"
-                           th:if="${session.user != null && session.user.getAdminFlag()}">글쓰기
+                        <a th:href="@{/bbs/write (bid = ${'notice'})}" id="writeBtn" class="button" th:if="${session.user != null && session.user.getAdminFlag()}">글쓰기
                         </a>
                     </div>
                 </div>

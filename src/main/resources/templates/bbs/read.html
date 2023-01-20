@@ -29,15 +29,15 @@
         <div class="side-menu">
             <nav>
                 <p class="title">
-                    <a th:href="@{./myPage}">나의 메가박스</a>
+                    <a th:href="@{/myPage/myPage}">나의 메가박스</a>
                 </p>
                 <ul>
                     <li>
-                        <a th:href="@{./bookingHistory}">예매/구매내역</a>
+                        <a th:href="@{/myPage/bookingHistory}">예매/구매내역</a>
                         <ul class="member-info">
                             <li>
-                                <a href="#">예매내역</a>
-                                <a href="#">구매내역</a>
+                                <a th:href="@{/myPage/bookingHistory}">예매내역</a>
+                                <a onclick="alert('준비중인 서비스 입니다.')">구매내역</a>
                             </li>
                         </ul>
                     </li>
@@ -45,7 +45,7 @@
                         <a href="#">회원정보</a>
                         <ul class="member-info">
                             <li>
-                                <a th:href="@{./modify}">개인정보 수정</a>
+                                <a th:href="@{/myPage/modify}">개인정보 수정</a>
                             </li>
                         </ul>
                     </li>

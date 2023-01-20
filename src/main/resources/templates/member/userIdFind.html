@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>아이디/비밀번호 찾기</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://kit.fontawesome.com/613513fe2d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/member/stylesheets/userIdFind.css}">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -28,10 +29,10 @@
                 <div class="tab-list">
                     <ul>
                         <li class="on">
-                            <a href="http://localhost:8080/member/userIdFind" title="아이디 찾기">아이디 찾기</a>
+                            <a th:href="@{/member/userIdFind}" title="아이디 찾기">아이디 찾기</a>
                         </li>
                         <li>
-                            <a href="http://localhost:8080/member/userPasswordFind" title="비밀번호 찾기">비밀번호 찾기</a>
+                            <a th:href="@{/member/userPasswordFind}" title="비밀번호 찾기">비밀번호 찾기</a>
                         </li>
                     </ul>
                 </div>

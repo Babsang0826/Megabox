@@ -146,7 +146,7 @@ form.querySelector('.email-send').addEventListener('click', () => {
     let time = 299;
     let min = '';
     let sec = '';
-    Cover.show('인증번호를 전송하고 있습니다.\n잠시만 기다려주세요.');
+    Cover.show("");
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('email', form['email'].value);
@@ -203,7 +203,7 @@ form['emailVerify'].addEventListener('click', () => {
         form['emailAuthCode'].select();
         return;
     }
-    Cover.show('인증 번호를 확인하고 있습니다. \n\n잠시만 기다려 주세요.');
+    Cover.show("");
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('email', form['email'].value);
@@ -286,11 +286,10 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
             return;
         }
         if (!new RegExp('^[a-zA-Z][0-9a-zA-Z]{4,7}$').test(form['loginId'].value)) {
-            form.querySelector('[rel="warning-id"]').innerText = '아이디를 다시 입력해주세요.'
+            form.querySelector('[rel="warning-id"]').innerText = '아이디는 영문 숫자 조합 5~8자리 입니다.'
             form['loginId'].focus();
             return;
-        }
-        else {
+        } else {
             form.querySelector('[rel="warning-id"]').innerText = ''
         }
 
@@ -317,12 +316,12 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
         } else {
             form.querySelector('[rel="warning-address"]').innerText = ''
         }
-        if (!form['overlappingButton'].disabled) {
-            swal("알림", "아이디 중복검사를 해주세요.");
-            form['loginId'].focus();
-            return;
-        }
-        Cover.show('회원가입을 진행중입니다.\n\n잠시만 기다려 주세요.');
+        // if (!form['overlappingButton'].disabled) {
+        //     swal("알림", "아이디 중복검사를 해주세요.");
+        //     form['loginId'].focus();
+        //     return;
+        // }
+        Cover.show("");
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
         formData.append('email', form['email'].value);
@@ -361,7 +360,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                             swal("알림", "알 수 없는 이유로 회원가입을 하지 못하였습니다. 잠시 후 다시 시도해주세요.");
                     }
                 } else {
-                    swal("알림", "로그인 실패입니다.");
+                    swal("알림", "아이디가 중복이거나 아이디 중복검사를 하지 않았습니다.");
                 }
             }
         }
@@ -383,13 +382,13 @@ form.querySelector('[rel="overlappingButton"]').addEventListener('click', () => 
                 switch (responseObject['result']) {
                     case 'success':
                         if (!new RegExp('^[a-zA-Z][0-9a-zA-Z]{4,7}$').test(form['loginId'].value)) {
-                            swal("알림", "아이디를 다시 입력해주세요.");
+                            swal("알림", '아이디는 영문 숫자 조합 5~8자리 입니다.');
                             form['loginId'].focus();
                             return;
                         }
                         if (form['loginId'].value !== '') {
                             swal("알림", "사용 가능한 아이디입니다.");
-                            form['overlappingButton'].setAttribute('disabled', 'disabled');
+                            // form['overlappingButton'].setAttribute('disabled', 'disabled');
                         }
                         break;
                     case 'id_duplicated':
@@ -424,8 +423,8 @@ form.querySelector('[rel="emailAuthComplete"]').addEventListener('click', () => 
     document.getElementById("three").style.borderBottom = "1px solid #503396";
 });
 
-function maxLengthCheck(object){
-    if (object.value.length > object.maxLength){
+function maxLengthCheck(object) {
+    if (object.value.length > object.maxLength) {
         object.value = object.value.slice(0, object.maxLength);
     }
 }

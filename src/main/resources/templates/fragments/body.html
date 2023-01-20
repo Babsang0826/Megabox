@@ -6,7 +6,7 @@
             <a class="link" th:if="${session.user == null}" th:href="@{/member/login}">로그인</a>
             <a class="link" th:if="${session.user != null}" th:href="@{/member/logout}">로그아웃</a>
             <a class="link" th:if="${session.user == null}" th:href="@{/member/register}">회원가입</a>
-            <a class="link" th:if="${session.user != null}" th:href="@{/member/register}">알림</a>
+            <a class="link" th:if="${session.user != null}" style="display: none">알림</a>
 
             <a class="link" href="#">빠른예매</a>
         </div>

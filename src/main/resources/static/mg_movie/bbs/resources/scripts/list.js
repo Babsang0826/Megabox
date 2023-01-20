@@ -36,7 +36,7 @@ const gangwonCity = window.document.getElementById("gangwon-city");
 
 
 regionSeoul.addEventListener('click', () => {
-    alert("아직 준비되지 않은 서비스 입니다.");
+    swal("알림", "아직 준비되지 않은 서비스 입니다.");
     form['regionSeoul'].focus();
     // regionSeoul.style.backgroundColor = "#555";
     // regionSeoul.style.color = "#fff";
