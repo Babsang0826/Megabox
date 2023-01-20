@@ -553,7 +553,7 @@ public class MyPageController {
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
-
+//
     @RequestMapping(value = "screenInfoManagement", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
