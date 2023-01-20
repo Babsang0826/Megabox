@@ -1,5 +1,6 @@
 package dev.babsang.megabox.services;
 
+import dev.babsang.megabox.entities.bbs.BoardsEntity;
 import dev.babsang.megabox.entities.member.EmailAuthEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.*;
@@ -13,6 +14,7 @@ import dev.babsang.megabox.mappers.IMyPageMapper;
 import dev.babsang.megabox.models.PagingModel;
 import dev.babsang.megabox.utils.CryptoUtils;
 import dev.babsang.megabox.vos.movie.*;
+import dev.babsang.megabox.vos.myPage.RegionVo;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +47,9 @@ public class MyPageService {
         this.templateEngine = templateEngine;
     }
 
-    public BookingEntity getMovieVosById(String id) { return this.myPageMapper.selectMovieVosById(id); }
+    public BookingEntity getMovieVosById(String id) {
+        return this.myPageMapper.selectMovieVosById(id);
+    }
 
     public Enum<? extends IResult> myPageAuth(UserEntity signedUser) {
         if (signedUser == null) {
@@ -103,7 +107,9 @@ public class MyPageService {
                 : CommonResult.SUCCESS;
     }
 
-    public BookingVo[] getBookingHistory(String id) { return this.myPageMapper.selectBookingById(id);}
+    public BookingVo[] getBookingHistory(String id) {
+        return this.myPageMapper.selectBookingById(id);
+    }
 
     @Transactional
     public Enum<? extends IResult> sendEmailAuth(UserEntity user, EmailAuthEntity emailAuth) throws NoSuchAlgorithmException, MessagingException {
@@ -199,5 +205,53 @@ public class MyPageService {
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }
+
+    public MovieEntity[] getMovieManagements() {
+        return this.myPageMapper.selectMovieByManagement();
+    }
+
+    public RegionVo[] getAuditoriumManagements() {
+        return this.myPageMapper.selectAuditoriumByRegionAndBranch();
+    }
+
+    public MovieScreenInfoVo[] getScreenInfoManagements(PagingModel paging) {
+        return this.myPageMapper.selectScreenInfoBySchedule(
+                paging.countPerPage,
+                (paging.requestPage - 1) * paging.countPerPage);
+    }
+
+    public int getScreenInfoCount() {
+        return this.myPageMapper.selectScreenInfoByCount();
+    }
+
+    @Transactional
+    public Enum<? extends IResult> putScreenInfo(ScreenInfoEntity screenInfo) {
+        return this.myPageMapper.insertScreenInfo(screenInfo) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    public Enum<? extends IResult> deleteScreenInfo(int index) {
+        return this.myPageMapper.deleteScreenInfo(index) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+//    public Enum<? extends IResult> updateScreenInfo(int index) {
+////        return this.myPageMapper.
+//    }
+
+    // public Enum<? extends IResult> updatePassword(UserEntity signedUser, UserEntity newUser) {
+    //        if (signedUser == null) {
+    //            return RecoverMyPageResult.NO_USER;
+    //        }
+    //
+    //        signedUser.setPassword(CryptoUtils.hashSha512(newUser.getPassword()));
+    //
+    //        return this.myPageMapper.updateUser(signedUser) > 0
+    //                ? CommonResult.SUCCESS
+    //                : CommonResult.FAILURE;
+    //    }
+
 
 }

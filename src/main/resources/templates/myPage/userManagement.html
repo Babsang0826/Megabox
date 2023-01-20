@@ -11,7 +11,6 @@
     <script type="text/javascript"
             src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=94a12e6ae62af8fbc88e09e7433d6c08"></script>
     <script defer th:src="@{/myPage/scripts/userManagement.js}"></script>
-
 </head>
 <body>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
@@ -27,32 +26,7 @@
 <form id="form" class="form">
     <div class="container">
         <div class="inner-wrap">
-            <div class="side-menu">
-                <nav>
-                    <p class="title">
-                        <a th:href="@{./myPage}">관리자 페이지</a>
-                    </p>
-                    <ul>
-                        <li th:if="${session.user.getAdminFlag() == true}">
-                            <a href="#">영화 관리</a>
-                            <ul class="member-info">
-                                <li>
-                                    <a th:href="@{./modify}">영화 등록</a>
-                                    <a th:href="@{./modify}">영화 시간표 등록</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li th:if="${session.user.getAdminFlag() == true}">
-                            <a href="#">회원 관리</a>
-                            <ul class="member-info">
-                                <li>
-                                    <a th:href="@{./userManagement}">회원 관리</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            <th:block th:replace="~{fragments/sideMenu :: sideMenu}"></th:block>
             <div class="content">
                 <h2 class="tit">회원관리</h2>
                 <div class="board-list">

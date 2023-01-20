@@ -791,6 +791,14 @@ body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > 
     line-height: 28px;
 }
 
+.title-area.pay {
+    display: none;
+}
+
+.title-area.pay:first-of-type {
+    display: block;
+}
+
 /*.payment {*/
 /*    display: flex;*/
 /*    align-items: center;*/

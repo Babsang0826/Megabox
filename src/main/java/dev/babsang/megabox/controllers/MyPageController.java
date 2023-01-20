@@ -2,12 +2,15 @@ package dev.babsang.megabox.controllers;
 
 import dev.babsang.megabox.entities.member.EmailAuthEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
-import dev.babsang.megabox.entities.movie.BookingEntity;
+import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.models.PagingModel;
 import dev.babsang.megabox.services.MyPageService;
 import dev.babsang.megabox.vos.movie.BookingVo;
+import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
+import dev.babsang.megabox.vos.movie.MovieVo;
+import dev.babsang.megabox.vos.myPage.RegionVo;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -319,7 +323,7 @@ public class MyPageController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String deleteBookingHistory(@SessionAttribute(value = "user", required = false) UserEntity user,
-                               @RequestParam(value = "screenInfoIndex") int screenInfoIndex) {
+                                       @RequestParam(value = "screenInfoIndex") int screenInfoIndex) {
         String userId = user.getId();
         Enum<?> result = this.myPageService.deleteBooking(screenInfoIndex, userId);
 
@@ -357,8 +361,7 @@ public class MyPageController {
 
         if (signedUser == null) {
             modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
-        }
-        else {
+        } else {
             if (!signedUser.getAdminFlag()) {
                 try {
                     response.setContentType("text/html; charset=utf-8");
@@ -366,7 +369,7 @@ public class MyPageController {
                     w.write("<script>alert('권한이 없습니다.');history.go(-1);</script>");
                     w.flush();
                     w.close();
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -393,10 +396,93 @@ public class MyPageController {
     public String deleteDelete(UserEntity newUser) {
         Enum<?> result = this.myPageService.adminDeleteUser(newUser);
         JSONObject responseObject = new JSONObject();
-        if(result == CommonResult.SUCCESS){
-            responseObject.put("email",newUser.getEmail());
+        if (result == CommonResult.SUCCESS) {
+            responseObject.put("email", newUser.getEmail());
         }
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
+
+    @RequestMapping(value = "screenInfoManagement", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                                @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                                HttpServletResponse response) {
+        ModelAndView modelAndView;
+        if (user == null) {
+            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+        } else {
+            if (!user.getAdminFlag()) {
+                try {
+                    response.setContentType("text/html; charset=utf-8");
+                    PrintWriter w = response.getWriter();
+                    w.write("<script>alert('권한이 없습니다.');history.go(-1);</script>");
+                    w.flush();
+                    w.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            page = Math.max(1, page);
+            modelAndView = new ModelAndView("myPage/screenInfoManagement");
+            MovieEntity[] movies = this.myPageService.getMovieManagements();
+            RegionVo[] regions = this.myPageService.getAuditoriumManagements();
+
+            int totalCount = this.myPageService.getScreenInfoCount();
+            PagingModel paging = new PagingModel(totalCount, page);
+            modelAndView.addObject("paging", paging);
+            MovieScreenInfoVo[] screenInfos = this.myPageService.getScreenInfoManagements(paging);
+            modelAndView.addObject("movies", movies);
+            modelAndView.addObject("regions", regions);
+            modelAndView.addObject("screenInfos", screenInfos);
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "screenInfoManagement", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                           @RequestParam(value = "screenDateStr") String screenDate,
+                                           @RequestParam(value = "mvStartTimeStr") String mvStartTime,
+                                           @RequestParam(value = "mvEndTimeStr") String mvEndTime,
+                                           ScreenInfoEntity screenInfo) throws ParseException {
+        if(user == null || !user.getAdminFlag()) {
+            return CommonResult.FAILURE.name().toLowerCase();
+        }
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        screenInfo.setScreenDate(dateFormat.parse(screenDate));
+        screenInfo.setMvStartTime(timeFormat.parse(mvStartTime));
+        screenInfo.setMvEndTime(timeFormat.parse(mvEndTime));
+        Enum<?> result = this.myPageService.putScreenInfo(screenInfo);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "screenInfoManagement", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                             @RequestParam(value = "index") int index) {
+        if(user == null || !user.getAdminFlag()) {
+            return CommonResult.FAILURE.name().toLowerCase();
+        }
+        Enum<?> result = this.myPageService.deleteScreenInfo(index);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "screenInfoManagement", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                            @RequestParam(value = "index")int index) {
+        if(user == null || !user.getAdminFlag()) {
+            return CommonResult.FAILURE.name().toLowerCase();
+        }
+        Enum<?> result = this.myPageService.deleteScreenInfo(index);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
 }

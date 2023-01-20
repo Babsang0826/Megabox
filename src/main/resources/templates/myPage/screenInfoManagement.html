@@ -5,12 +5,181 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>관리자 페이지 :: 회원 관리</title>
+    <title>관리자 페이지 :: 영화 시간표 등록</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
-    <link rel="stylesheet" th:href="@{/mg_movie/bbs/resources/stylesheets/notice.css}">
-    <script defer th:src="@{/myPage/scripts/userManagement.js}"></script>
+    <link rel="stylesheet" th:href="@{/myPage/stylesheets/screenInfoManagement.css}">
+    <script defer th:src="@{/myPage/scripts/screenInfoManagement.js}"></script>
 </head>
 <body>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="page-util" id="pageUtil">
+    <div class="inner-wrap">
+        <div class="location">
+            <a th:href="@{/static}">Home</a>
+            <a th:href="@{/myPage/adminPage}">관리자페이지</a>
+            <a th:href="@{/myPage/screenInfoManagement}">영화 시간표 등록</a>
+        </div>
+    </div>
+</div>
 
+<form id="form" method="post">
+    <div class="enroll-container">
+        <div class="inner-wrap">
+            <th:block th:replace="~{fragments/sideMenu :: sideMenu}"></th:block>
+            <div class="content-container">
+                <div class="content-title">
+                    <span>영화 시간표 등록</span>
+                </div>
+                <div class="select-screen">
+                    <div class="select-box">
+                        <div class="label-box">
+                            <label class="label-tag">
+                                <select>
+                                    <option th:each="region : ${regions}">
+                                        <span th:text="${region.getBranchText()} + '/' + ${region.getAuditoriumText()}"></span>
+                                    </option>
+                                </select>
+                            </label>
+                            <label class="label-tag">
+                                <input type="date" value="">
+                            </label>
+                            <label class="label-search">
+                                <span>영화검색 :</span>
+                                <input type="text" placeholder="영화제목을 검색해주세요.">
+                            </label>
+                        </div>
+                        <div class="select-list-table">
+                            <table class="board">
+                                <colgroup>
+                                    <col style="width: 70px;">
+                                    <col style="width: 120px;">
+                                    <col style="width: 150px;">
+                                    <col style="width: 200px;">
+                                    <col style="width: 200px;">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th class="check" scope="col">
+                                        <input class="chkAll" name="chkBox" type="checkbox">
+                                    </th>
+                                    <th scope="col">상영지점관</th>
+                                    <th scope="col">상영영화</th>
+                                    <th scope="col">상영날짜</th>
+                                    <th scope="col">상영시작시간</th>
+                                    <th scope="col">상영종료시간</th>
+                                </tr>
+                                <tbody>
+                                <tr th:each="screenInfo : ${screenInfos}">
+                                    <th>
+                                        <input class="chkBox" name="chk" type="checkbox" th:value="${screenInfo.getIndex}">
+                                    </th>
+                                    <td class="aud-text" th:text="${screenInfo.getBranchAudText()}" th:value="${screenInfo.getBranchAudText()}"></td>
+                                    <td class="movie-title" th:text="${screenInfo.getInfoMovieTitle()}" th:value="${screenInfo.getInfoMovieTitle()}"></td>
+                                    <td class="screen-date" th:text="${#dates.format(screenInfo.getScreenDate(), 'yyyy-MM-dd')}" th:value="${#dates.format(screenInfo.getScreenDate(), 'yyyy-MM-dd')}"></td>
+                                    <td class="movie-start-time" th:text="${#dates.format(screenInfo.getMvStartTime(), 'HH:mm')}" th:value="${#dates.format(screenInfo.getMvStartTime(), 'HH:mm')}"></td>
+                                    <td class="movie-end-time" th:text="${#dates.format(screenInfo.getMvEndTime(), 'HH:mm')}" th:value="${#dates.format(screenInfo.getMvEndTime(), 'HH:mm')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="page-container"
+                                 th:with="urlBuilder = ${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+                                <a class="page"
+                                   th:href="@{${urlBuilder.replaceQueryParam('page', 1).build().toUriString()}}"
+                                   th:if="${paging.requestPage > 1}">
+                                    <i class="fa-solid fa-angles-left"></i>
+                                </a>
+                                <a class="page"
+                                   th:href="@{${urlBuilder.replaceQueryParam('page', paging.requestPage - 1).build().toUriString()}}"
+                                   th:if="${paging.requestPage > 1}">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </a>
+                                <a class="page" id="pageNumber"
+                                   th:style="${page == paging.requestPage ? 'background-color: rgb(80, 51, 150); color: white;' : ''}"
+                                   th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}"
+                                   th:class="${'page ' + (page == paging.requestPage ? 'selected' : '')}"
+                                   th:text="${page}"
+                                   th:href="@{${urlBuilder.replaceQueryParam('page', page).build().toUriString()}}"></a>
+                                <a class="page"
+                                   th:href="@{${urlBuilder.replaceQueryParam('page', paging.requestPage + 1).build().toUriString()}}"
+                                   th:if="${paging.requestPage < paging.maxPage}">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                                <a class="page"
+                                   th:href="@{${urlBuilder.replaceQueryParam('page', paging.maxPage).build().toUriString()}}"
+                                   th:if="${paging.requestPage < paging.maxPage}">
+                                    <i class="fa-solid fa-angles-right"></i>
+                                </a>
+                                <label class="label-tag enroll-schedule">
+                                    <input class="enroll-btn" type="button" value="작성">
+                                </label>
+                                <label class="label-tag update-schedule">
+                                    <input class="update-btn" type="button" value="수정">
+                                </label>
+                                <label class="label-tag delete-schedule">
+                                    <input class="delete-btn" type="button" value="삭제">
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="enrollment off">
+                    <div class="movie-enrollment-container">
+                        <div class="enroll-info">
+                            <div class="enroll-box">
+                                <span class="enroll-info-title">영화제목</span>
+                                <label>
+                                    <select class="select title">
+                                        <option class="title-option">시간표에 등록할 영화를 선택해 주세요.</option>
+                                        <!--/*@thymesVar id="movies" type="dev.babsang.megabox.entities.movie.MovieEntity"*/-->
+                                        <option class="title-option" th:each="movie : ${movies}"
+                                                th:value="${movie.getIndex()}">
+                                            <span class="title-value" th:text="${movie.getTitle()}">
+
+                                            </span>
+                                        </option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="enroll-box">
+                                <span class="enroll-info-title">상영관</span>
+                                <label>
+                                    <select class="select auditorium">
+                                        <!--/*@thymesVar id="regions" type="dev.babsang.megabox.vos.myPage.RegionVo"*/-->
+                                        <option selected>상영할 지점과 상영관을 선택해 주세요.</option>
+                                        <option th:each="region : ${regions}" th:value="${region.getAuditoriumIndex()}">
+                                            <span class="branch-aud" th:text="${region.getBranchText()} + '/' + ${region.getAuditoriumText()}"></span>
+                                        </option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="enroll-box">
+                                <span class="enroll-info-title">날짜</span>
+                                <label class="date-label">
+                                    <input class="date" type="date" name="date" placeholder="날짜를 선택해 주세요.">
+                                </label>
+                            </div>
+                            <div class="enroll-box">
+                                <span class="enroll-info-title">상영시작시간</span>
+                                <label class="date-label start-time-label">
+                                    <input class="start-time" name="startTime" type="time" id="startTime">
+                                </label>
+                            </div>
+                            <div class="enroll-box">
+                                <span class="enroll-info-title">상영종료시간</span>
+                                <label class="date-label end-time-label">
+                                    <input class="end-time" name="endTime" type="time" id="endTime">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="enroll-button" type="submit" value="등록하기" name="enrollSubmit">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 </body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
 </html>

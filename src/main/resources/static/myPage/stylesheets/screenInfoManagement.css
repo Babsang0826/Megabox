@@ -1,0 +1,468 @@
+body {
+    overflow: auto;
+    overflow-y: scroll;
+    letter-spacing: 0;
+    line-height: 1.5;
+    font-size: 15px;
+    color: #444;
+    font-weight: 400;
+}
+
+body > #form {
+    height: 100%;
+}
+
+body > #form > .enroll-container {
+    width: 100%;
+    min-width: 1100px;
+    min-height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 45rem;
+}
+
+body > #form > .enroll-container > .inner-wrap {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu {
+    float: left;
+    width: 200px;
+    padding: 40px 40px 0 0;
+    background-color: rgb(255, 255, 255);
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav {
+    margin: 0;
+    padding: 0;
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav > .title {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px 10px 0 0;
+    background-color: #351f66;
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav > .title > a {
+    display: block;
+    width: 100%;
+    font-size: 1.2em;
+    line-height: 90px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav > ul {
+    border: 2px solid #d8d9db;
+    border-top-width: 1px;
+    border-radius: 0 0 10px 10px;
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav > ul > li {
+    border-top: 1px solid #d8d9db;
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav > ul > li > a {
+    text-decoration: none;
+    line-height: 1.3;
+    display: block;
+    color: #222;
+    padding: 10px 15px;
+    font-weight: 400;
+    background-color: #f2f4f5;
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav > ul > li > a:hover,
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav > ul > li > ul > li > a:hover {
+    color: #01738b;
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav > ul > li > ul {
+    padding: 20px 0;
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav > ul > li > ul > li > a {
+    position: relative;
+    padding: 2px 0 2px 24px;
+    color: #666;
+    display: block;
+    text-decoration: none;
+    line-height: 1.3;
+}
+
+body > #form > .enroll-container > .inner-wrap > .side-menu > nav > ul > li > ul > li > a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 17px;
+    top: 10px;
+    width: 2px;
+    height: 2px;
+    background-color: #aaa;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container {
+    margin-top: 1.8rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .content-title {
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .content-title > span {
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    color: rgb(34, 34, 34);
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment.off {
+    display: none;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment {
+    display: flex;
+    /*display: none;*/
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 95%;
+    height: 25rem;
+    margin-top: 3rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container {
+    width: 31rem;
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 0.0625rem solid rgb(0, 0, 0);
+    border-radius: 0.5rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info > .enroll-box {
+    display: flex;
+    flex-direction: row;
+    width: 31rem;
+    font-size: 1.5rem;
+    height: 4rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info > .enroll-box:not(:nth-of-type(5)) {
+    border-bottom: 0.0625rem solid rgb(0, 0, 0);
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info > .enroll-box:nth-of-type(1) > .enroll-info-title {
+    border-top-left-radius: 0.5rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info > .enroll-box:nth-of-type(5) > .enroll-info-title {
+    border-bottom-left-radius: 0.5rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info > .enroll-box > .enroll-info-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 9rem;
+    border-right: 0.0625rem solid rgb(0, 0, 0);
+    font-size: 1.05rem;
+    background-color: rgb(80, 51, 150);
+    color: rgb(255, 255, 255);
+    user-select: none;
+}
+
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info > .enroll-box > label {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info > .enroll-box > label > .select:nth-child(1) {
+    width: 100%;
+    padding-left: 1rem;
+    font-size: 1.1rem;
+    height: 100%;
+    cursor: pointer;
+    appearance: auto;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info > .enroll-box > .date-label {
+    width: 100%;
+    height: 100%;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info > .enroll-box > .date-label > input {
+    padding-left: 0.8rem;
+    width: 100%;
+    font-size: 1.15rem;
+    height: 100%;
+    cursor: pointer;
+    appearance: auto;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .movie-enrollment-container > .enroll-info > .enroll-box > .date-label > .date {
+    width: 100%;
+    font-size: 1.15rem;
+    height: 100%;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .enroll-button {
+    width: 7rem;
+    background-color: rgb(53, 31, 102);
+    height: 3rem;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .enroll-button:hover {
+    background-color: rgb(80, 51, 150);
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .enroll-button:active {
+    background-color: rgb(80, 51, 150);
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen.off {
+    display: none;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen {
+    width: 100%;
+    height: 35rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box {
+    width: 90%;
+    height: 100%;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .label-box {
+    height: 4rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .label-box > .label-tag {
+    width: 10rem;
+    height: 55%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    background-color: rgb(85, 85, 85);
+    color: rgb(255, 255, 255);
+    border-right: 0.1rem solid rgb(255, 255, 255);
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .label-box > .label-tag:nth-of-type(1) {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .label-box > .label-tag > select > option {
+    color: rgb(0, 0, 0);
+    background-color: rgb(220, 220, 220);
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .label-box > .label-tag > select {
+    appearance: auto;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .label-box > .label-search {
+    width: 20rem;
+    height: 55%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    background-color: rgb(85, 85, 85);
+    color: rgb(255, 255, 255);
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .label-box > .label-search > input {
+    margin-left: 0.5rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table {
+    height: 25rem;
+    width: 100%;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board {
+    width: 100%;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > thead {
+    height: 2.5rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > tbody {
+    height: 2.5rem;
+    text-align: center;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > tbody > tr {
+    height: 2.5rem;
+}
+
+input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    appearance: auto;
+}
+
+.page-container {
+    clear: both;
+    position: relative;
+    padding: 1rem 0 0 0;
+    text-align: center;
+    width: 55.7rem;
+}
+
+
+
+.enroll-schedule {
+    width: 4rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    float: right;
+    height: 2rem;
+    background-color: rgb(85, 85, 85);
+    color: rgb(255, 255, 255);
+    margin-left: 0.5rem;
+}
+
+.enroll-schedule:hover {
+    background-color: rgb(68, 68, 68);
+}
+
+.enroll-schedule > input {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.update-schedule {
+    width: 4rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    float: right;
+    height: 2rem;
+    background-color: rgb(85, 85, 85);
+    color: rgb(255, 255, 255);
+    margin-left: 0.5rem;
+}
+
+.update-schedule:hover {
+    background-color: rgb(68, 68, 68);
+}
+
+.update-schedule > input {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.delete-schedule {
+    width: 4rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    float: right;
+    height: 2rem;
+    background-color: rgb(85, 85, 85);
+    color: rgb(255, 255, 255);
+}
+
+.delete-schedule:hover {
+    background-color: rgb(68, 68, 68);
+}
+
+.delete-schedule > input {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.page-container .active {
+    color: #fff;
+    background-color: rgb(80, 51, 150);
+    border-color: #01738b;
+}
+
+.page-container .page:hover {
+    border: 1px solid rgb(80, 51, 150);
+    color: #222222;
+}
+
+
+.page-container .page,
+.page-container strong {
+    display: inline-block;
+    position: relative;
+    min-width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0 8px;
+    border: 1px solid #ebebeb;
+    text-decoration: none;
+    line-height: 30px;
+    font-weight: 400;
+    border-radius: 4px;
+    vertical-align: middle;
+    color: #222222;
+}
+
+.page.next {
+    background-color: #ecf0f4;
+}
+
+.page.next:hover {
+    background-color: white;
+}

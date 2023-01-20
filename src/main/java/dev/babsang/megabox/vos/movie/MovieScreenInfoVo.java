@@ -26,6 +26,8 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
 
     private String moviePoster;
 
+    private String branchAudText;
+
     public String getMoviePoster() {
         return moviePoster;
     }
@@ -138,5 +140,13 @@ public class MovieScreenInfoVo extends ScreenInfoEntity {
 
     public void setSeatRemain(int seatRemain) {
         this.seatRemain = seatRemain;
+    }
+
+    public String getBranchAudText() {
+        return branchAudText;
+    }
+
+    public void setBranchAudText(String branchAudText) {
+        this.branchAudText = branchAudText;
     }
 }

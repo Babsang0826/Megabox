@@ -149,6 +149,18 @@
         FROM `mg_theater`.branch_theater
         WHERE BINARY `index` = #{index}
     </select>
+    <select id="selectBookingByTheater"
+            resultType="dev.babsang.megabox.vos.movie.BookingVo">
+        SELECT `booking`.`index`             AS `index`,
+               `booking`.`screen_info_index` AS `screenInfoIndex`,
+               `booking`.`user_id`           AS `userId`,
+               `booking`.`seat_index`        AS `seatIndex`
+        FROM `mg_movie`.`booking` AS `booking`
+                 LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo`
+                           ON `booking`.`screen_info_index` = `screenInfo`.`index`
+                 LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
+                           ON `screenInfo`.`auditorium_index` = `auditorium`.`index`
 
+    </select>
 
 </mapper>

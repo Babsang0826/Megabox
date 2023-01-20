@@ -8,6 +8,7 @@ import dev.babsang.megabox.entities.movie.RegionEntity;
 import dev.babsang.megabox.entities.theater.TheaterEntity;
 import dev.babsang.megabox.services.TheaterService;
 import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
+import dev.babsang.megabox.vos.movie.BookingVo;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.SeatVo;
 import org.json.JSONArray;
@@ -100,7 +101,6 @@ public class TheaterController {
             screenInfoAllJson.put("screenInfoSeatRemain", screenInfo.getSeatRemain());
 
 
-
             SeatVo[] seatVos = this.theaterService.getSeat(screenInfo.getAuditoriumIndex());
             SeatVo[] seatVoColumns = this.theaterService.getSeatGroupByColumnIndex(screenInfo.getAuditoriumIndex());
 
@@ -117,11 +117,22 @@ public class TheaterController {
             }
 
             JSONArray seatVoColumnArr = new JSONArray();
-            for(SeatVo seat : seatVoColumns) {
+            for (SeatVo seat : seatVoColumns) {
                 JSONObject seatVoColumnObject = new JSONObject();
                 seatVoColumnObject.put("seatVoNumOfColumn", seat.getColumnText());
                 seatVoColumnArr.put(seatVoColumnObject);
             }
+
+            BookingVo[] completeBooking = this.theaterService.getCompleteBooking();
+
+            JSONArray bookingCompleteArr = new JSONArray();
+            for(BookingVo booking : completeBooking) {
+                JSONObject bookingComplete = new JSONObject();
+                bookingComplete.put("bookingIndex", booking.getSeatIndex());
+                bookingComplete.put("bookingScreenInfoIndex", booking.getScreenInfoIndex());
+                bookingCompleteArr.put(bookingComplete);
+            }
+            screenInfoAllJson.put("bookingVo", bookingCompleteArr);
             screenInfoAllJson.put("seatVos", seatVoArr);
             screenInfoAllJson.put("seatColumnVo", seatVoColumnArr);
             screenInfosAllJson.put(screenInfoAllJson);

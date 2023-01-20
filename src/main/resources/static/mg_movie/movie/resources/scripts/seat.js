@@ -138,9 +138,7 @@ const homeReloadPrev = container.querySelector('.home-reload-button');
 // const reloadSeatResultTitle = window.document.querySelector('.title-area')
 // const reloadSeatResultInfo = window.document.querySelector('.info-area');
 homeReloadPrev.addEventListener('click', e => {
-    timeContainer.classList.remove('off');
-    paymentContainer.classList.add('off');
-
+    window.location.reload();
 })
 
 //payment 버튼 이벤트

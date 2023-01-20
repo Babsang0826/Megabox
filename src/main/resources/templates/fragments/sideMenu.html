@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div class="side-menu" th:fragment="sideMenu">
+    <nav>
+        <p class="title">
+            <a th:href="@{./myPage}">관리자 페이지</a>
+        </p>
+        <ul>
+            <li th:if="${session.user.getAdminFlag() == true}">
+                <a href="#">영화 관리</a>
+                <ul class="member-info">
+                    <li>
+                        <a th:href="@{./modify}">영화 등록</a>
+                        <a th:href="@{./screenInfoManagement}">영화 시간표 등록</a>
+                    </li>
+                </ul>
+            </li>
+            <li th:if="${session.user.getAdminFlag() == true}">
+                <a th:href="@{./userManagement}">회원 관리</a>
+                <ul class="member-info">
+                    <li>
+                        <a th:href="@{./userManagement}">회원 관리</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
+</html>

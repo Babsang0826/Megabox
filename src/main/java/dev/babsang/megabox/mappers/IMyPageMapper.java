@@ -3,8 +3,11 @@ package dev.babsang.megabox.mappers;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.vos.movie.*;
+import dev.babsang.megabox.vos.myPage.RegionVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
 
 @Mapper
 public interface IMyPageMapper {
@@ -19,6 +22,8 @@ public interface IMyPageMapper {
     int deleteUser(UserEntity user);
 
     int deleteBooking(int screenInfoIndex, String userId);
+
+    int deleteScreenInfo(int index);
 
     int selectUserCount(
             @Param(value = "criterion") String criterion,
@@ -35,4 +40,15 @@ public interface IMyPageMapper {
     int adminDeleteUser(@Param(value = "email") String email);
 
     UserEntity[] selectByEmail(@Param(value = "email") String email);
+
+    MovieEntity[] selectMovieByManagement();
+
+    RegionVo[] selectAuditoriumByRegionAndBranch();
+
+    MovieScreenInfoVo[] selectScreenInfoBySchedule(@Param(value = "limit") int limit,
+                                                   @Param(value = "offset") int offset);
+
+    int selectScreenInfoByCount();
+
+    int insertScreenInfo(ScreenInfoEntity screenInfo);
 }

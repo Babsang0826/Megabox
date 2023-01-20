@@ -18,7 +18,7 @@
     <div class="inner-wrap">
         <div class="location">
             <a th:href="@{/}">Home</a>
-<!--            <a th:href="@{./movie}">고객센터</a>-->
+            <!--            <a th:href="@{./movie}">고객센터</a>-->
             <a th:href="@{/bbs/notice (bid = notice)}">공지사항</a>
         </div>
     </div>
@@ -27,45 +27,45 @@
     <div class="container">
         <div class="inner-wrap">
             <div class="side-menu">
-            <nav>
-                <p class="title">
-                    <a th:href="@{/myPage/myPage}">나의 메가박스</a>
-                </p>
-                <ul>
-                    <li>
-                        <a th:href="@{./bookingHistory}">예매/구매내역</a>
-                        <ul class="member-info">
-                            <li>
-                                <a href="#">예매내역</a>
-                                <a href="#">구매내역</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">회원정보</a>
-                        <ul class="member-info">
-                            <li>
-                                <a th:href="@{./modify}">개인정보 수정</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">영화/스토어 관람권</a>
-                    </li>
-                    <li>
-                        <a href="#">메가박스/제휴쿠폰</a>
-                    </li>
-                    <li>
-                        <a href="#">멤버십 포인트</a>
-                    </li>
-                    <li>
-                        <a href="#">자주쓰는 카드 관리</a>
-                    </li>
-                    <li>
-                        <a href="#">나의 문의내역</a>
-                    </li>
-                </ul>
-            </nav>
+                <nav>
+                    <p class="title">
+                        <a th:href="@{/myPage/myPage}">나의 메가박스</a>
+                    </p>
+                    <ul>
+                        <li>
+                            <a th:href="@{./bookingHistory}">예매/구매내역</a>
+                            <ul class="member-info">
+                                <li>
+                                    <a href="#">예매내역</a>
+                                    <a href="#">구매내역</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">회원정보</a>
+                            <ul class="member-info">
+                                <li>
+                                    <a th:href="@{./modify}">개인정보 수정</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">영화/스토어 관람권</a>
+                        </li>
+                        <li>
+                            <a href="#">메가박스/제휴쿠폰</a>
+                        </li>
+                        <li>
+                            <a href="#">멤버십 포인트</a>
+                        </li>
+                        <li>
+                            <a href="#">자주쓰는 카드 관리</a>
+                        </li>
+                        <li>
+                            <a href="#">나의 문의내역</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
             <div class="content">
@@ -83,10 +83,17 @@
                         <div class="selectBox" id="theaterSelect">
                             <label class="label">
                                 <span hidden>검색 기준</span>
-                                <select id="theater" class="select" name="criterion" th:with="criterion = ${#request.getParameter('criterion')}">
-                                    <option value="all" th:selected="${criterion == null || criterion.equals('all')}">제목 + 내용</option>
-                                    <option value="title" th:selected="${criterion != null && criterion.equals('title')}">제목</option>
-                                    <option value="branch" th:selected="${criterion != null && criterion.equals('branch')}">극장</option>
+                                <select id="theater" class="select" name="criterion"
+                                        th:with="criterion = ${#request.getParameter('criterion')}">
+                                    <option value="all" th:selected="${criterion == null || criterion.equals('all')}">제목
+                                        + 내용
+                                    </option>
+                                    <option value="title"
+                                            th:selected="${criterion != null && criterion.equals('title')}">제목
+                                    </option>
+                                    <option value="branch"
+                                            th:selected="${criterion != null && criterion.equals('branch')}">극장
+                                    </option>
                                 </select>
                             </label>
                             <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>
@@ -94,7 +101,8 @@
                         <label class="label">
                             <span hidden>검색어</span>
                             <div class="board-search">
-                                <input type="text" id="searchTxt" placeholder="검색어를 입력해 주세요." class="input-text" name="keyword"
+                                <input type="text" id="searchTxt" placeholder="검색어를 입력해 주세요." class="input-text"
+                                       name="keyword"
                                        maxlength="15" th:value="${#request.getParameter('keyword')}">
                                 <button type="submit" id="searchBtn" class="btn-search-input" value="검색"></button>
                                 <input name="bid" type="hidden" th:value="${board.getId()}">
@@ -151,7 +159,8 @@
                        th:if="${paging.requestPage > 1}">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <a class="page" id="pageNumber" th:style="${page == paging.requestPage ? 'background-color: #01738b; color: white;' : ''}"
+                    <a class="page" id="pageNumber"
+                       th:style="${page == paging.requestPage ? 'background-color: #01738b; color: white;' : ''}"
                        th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}"
                        th:class="${'page ' + (page == paging.requestPage ? 'selected' : '')}"
                        th:text="${page}"
@@ -167,7 +176,8 @@
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
                     <div class="writeButton">
-                        <a th:href="@{/bbs/write (bid = ${'notice'})}" id="writeBtn" class="button" th:if="${session.user != null && session.user.getAdminFlag()}">글쓰기
+                        <a th:href="@{/bbs/write (bid = ${'notice'})}" id="writeBtn" class="button"
+                           th:if="${session.user != null && session.user.getAdminFlag()}">글쓰기
                         </a>
                     </div>
                 </div>

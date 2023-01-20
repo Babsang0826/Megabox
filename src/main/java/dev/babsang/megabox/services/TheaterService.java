@@ -7,6 +7,7 @@ import dev.babsang.megabox.entities.theater.TheaterEntity;
 import dev.babsang.megabox.mappers.IBbsMapper;
 import dev.babsang.megabox.mappers.ITheaterMapper;
 import dev.babsang.megabox.vos.bbs.BbsIndexCountVo;
+import dev.babsang.megabox.vos.movie.BookingVo;
 import dev.babsang.megabox.vos.movie.MovieScreenInfoVo;
 import dev.babsang.megabox.vos.movie.SeatVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,10 @@ public class TheaterService {
 
     public SeatVo[] getSeatGroupByColumnIndex(int auditoriumIndex) {
         return this.theaterMapper.selectSeatByAuditoriumIndexGroupByColumnIndex(auditoriumIndex);
+    }
+
+    public BookingVo[] getCompleteBooking() {
+        return this.theaterMapper.selectBookingByTheater();
     }
 
 }

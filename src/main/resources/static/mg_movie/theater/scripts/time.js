@@ -104,7 +104,6 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
                     nextDay.classList.remove('on');
                 }
             })
-            drawSubs();
         });
     }
 

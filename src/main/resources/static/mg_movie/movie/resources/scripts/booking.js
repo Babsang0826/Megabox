@@ -569,6 +569,7 @@ const drawSeatResult = () => {
     }
 }
 
+
 const seatPayWrap = window.document.querySelector('[rel="seatPayWrap"]');
 const drawPaySeatResult = () => {
     const citySelected = Array.from(quickCity.querySelectorAll('.city[selected]'));
@@ -587,7 +588,7 @@ const drawPaySeatResult = () => {
             .filter(allScreenInfo => selectListTitle.indexOf(allScreenInfo['screenInfoMovieTitle']) > -1 && selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
             .forEach(allScreenInfo => {
                 const titleAreaElement = window.document.createElement('div');
-                titleAreaElement.classList.add('title-area');
+                titleAreaElement.classList.add('title-area','pay');
                 const ageLimitElement = window.document.createElement('span');
                 ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
                 const titleElement = window.document.createElement('p');
@@ -620,7 +621,7 @@ const drawPaySeatResult = () => {
             .filter(allScreenInfo => selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
             .forEach(allScreenInfo => {
                 const titleAreaElement = window.document.createElement('div');
-                titleAreaElement.classList.add('title-area');
+                titleAreaElement.classList.add('title-area','pay');
                 const ageLimitElement = window.document.createElement('span');
                 ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
                 const titleElement = window.document.createElement('p');
@@ -649,6 +650,8 @@ const drawPaySeatResult = () => {
             });
     }
 }
+
+
 //좌석 클릭 시 //
 const seatArea = container.querySelector('[rel="seatArea"]');
 let selectedSeats = container.querySelectorAll('[rel="selectedSeat"]');
@@ -656,7 +659,7 @@ const seatsContainer = window.document.querySelector('.seats');
 const drawSeat = () => {
     const audIndexSelected = Array.from(window.document.querySelectorAll('.movie-time-cover[selected]'));
     const selectedAudIndex = audIndexSelected.map(x => parseInt(x.dataset.audIndex));
-    const selectedMvStartTime = audIndexSelected.map(x => x.dataset.screenInfoIndex);
+    const selectedScreenInfoIndex = audIndexSelected.map(x => x.dataset.screenInfoIndex);
     const seatColumnElement = window.document.createElement('div');
     seatColumnElement.classList.add('seat-column');
     screenInfoSeatColumns
@@ -685,7 +688,7 @@ const drawSeat = () => {
             seatRowElement.append(rowElement);
             seatsContainer.append(seatColumnElement, seatRowElement);
             completeSeatBooking.forEach(complete => {
-                if (parseInt(complete['bookingSeatComplete']) === parseInt(rowElement.dataset.seatIndex) && parseInt(complete['bookingSeatScreenInfoIndex']) === parseInt(selectedMvStartTime)) {
+                if (parseInt(complete['bookingSeatComplete']) === parseInt(rowElement.dataset.seatIndex) && parseInt(complete['bookingSeatScreenInfoIndex']) === parseInt(selectedScreenInfoIndex)) {
                     rowElement.setAttribute('disabled', 'disabled');
                     rowElement.classList.add('finish');
                     rowElement.innerText = '';
@@ -984,7 +987,7 @@ if (movie.screenInfoIndex !== null) {
     seatContainer.classList.add('on');
     const wrapContainer = window.document.querySelector('.wrap');
     const titleAreaElement = window.document.createElement('div');
-    titleAreaElement.classList.add('title-area');
+    titleAreaElement.classList.add('title-area','pay');
 
     const ageLimitElement = window.document.createElement('span');
     ageLimitElement.classList.add('age12');
@@ -1045,6 +1048,13 @@ if (movie.screenInfoIndex !== null) {
             rowElement.dataset.audIndex = seat['seatVoAuditoriumIndex'];
             rowElement.dataset.seatIndex = seat['seatVoIndex'];
             rowElement.dataset.seatCode = seat['seatVoSeatCode'];
+            movie.bookingVo.forEach(complete => {
+                if (parseInt(complete['bookingIndex']) === parseInt(rowElement.dataset.seatIndex) && parseInt(complete['bookingScreenInfoIndex']) === parseInt(movie.screenInfoIndex)) {
+                    rowElement.setAttribute('disabled', 'disabled');
+                    rowElement.classList.add('finish');
+                    rowElement.innerText = '';
+                }
+            });
             seatRowElement.append(rowElement);
             seatsContainer.append(seatColumnElement, seatRowElement);
         });
@@ -1097,7 +1107,7 @@ if (movie.screenInfoIndex !== null) {
         seatSelectPayment.classList.add('on');
         seatSelect.classList.remove('on');
         const titleAreaElement = window.document.createElement('div');
-        titleAreaElement.classList.add('title-area');
+        titleAreaElement.classList.add('title-area','pay');
         const ageLimitElement = window.document.createElement('span');
         ageLimitElement.classList.add(movie.infoMovieAgeLimit);
         const titleElement = window.document.createElement('p');
