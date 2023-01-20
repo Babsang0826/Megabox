@@ -569,7 +569,6 @@ const drawSeatResult = () => {
     }
 }
 
-
 const seatPayWrap = window.document.querySelector('[rel="seatPayWrap"]');
 const drawPaySeatResult = () => {
     const citySelected = Array.from(quickCity.querySelectorAll('.city[selected]'));
@@ -588,7 +587,7 @@ const drawPaySeatResult = () => {
             .filter(allScreenInfo => selectListTitle.indexOf(allScreenInfo['screenInfoMovieTitle']) > -1 && selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
             .forEach(allScreenInfo => {
                 const titleAreaElement = window.document.createElement('div');
-                titleAreaElement.classList.add('title-area','pay');
+                titleAreaElement.classList.add('title-area', 'pay');
                 const ageLimitElement = window.document.createElement('span');
                 ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
                 const titleElement = window.document.createElement('p');
@@ -650,8 +649,6 @@ const drawPaySeatResult = () => {
             });
     }
 }
-
-
 //좌석 클릭 시 //
 const seatArea = container.querySelector('[rel="seatArea"]');
 let selectedSeats = container.querySelectorAll('[rel="selectedSeat"]');
@@ -1107,7 +1104,7 @@ if (movie.screenInfoIndex !== null) {
         seatSelectPayment.classList.add('on');
         seatSelect.classList.remove('on');
         const titleAreaElement = window.document.createElement('div');
-        titleAreaElement.classList.add('title-area','pay');
+        titleAreaElement.classList.add('title-area', 'pay');
         const ageLimitElement = window.document.createElement('span');
         ageLimitElement.classList.add(movie.infoMovieAgeLimit);
         const titleElement = window.document.createElement('p');

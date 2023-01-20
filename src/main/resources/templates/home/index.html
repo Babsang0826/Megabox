@@ -32,8 +32,9 @@
                      th:if="${index.index} < 4">
                     <div class="movie-list">
                         <div class="movie-image">
+                            <input type="hidden" th:value="${movie.getIndex()}" rel="hiddenMid">
                             <img th:src="${movie.getMoviePoster()}"
-                                 alt="">
+                                 alt="" rel="moviePosterTopFour">
                         </div>
                         <div class="tool-box">
                             <a href="#" class="toggle-container">
@@ -53,8 +54,8 @@
                 <div class="convenient-box">
                     <form class="form">
                         <label class="label">
-                            <input class="search-movie" type="text" placeholder="영화명을 입력해 주세요." rel="searchMovieInput">
-                            <a href="#" rel="searchMovieBtn"><i class="icon fa-solid fa-magnifying-glass"></i></a>
+                            <input class="search-movie" type="text" placeholder="영화명을 입력해 주세요." rel="homeSearchMovieInput">
+                            <a href="#" rel="homeSearchMovieBtn"><i class="icon fa-solid fa-magnifying-glass"></i></a>
                         </label>
                     </form>
                     <div class="category">

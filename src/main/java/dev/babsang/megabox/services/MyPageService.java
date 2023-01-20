@@ -190,8 +190,18 @@ public class MyPageService {
         return this.myPageMapper.selectUserCount(criterion, keyword);
     }
 
+    public int getMovieSearchCount(String criterion, String keyword) {
+        return this.myPageMapper.selectMovieCount(criterion, keyword);
+    }
+
     public UserEntity[] getArticles(PagingModel paging, String criterion, String keyword) {
         return this.myPageMapper.selectUserIdCount(
+                paging.countPerPage,
+                (paging.requestPage - 1) * paging.countPerPage, criterion, keyword);
+    }
+
+    public MovieEntity[] getMovieSearch(PagingModel paging, String criterion, String keyword) {
+        return this.myPageMapper.selectMoviePaging(
                 paging.countPerPage,
                 (paging.requestPage - 1) * paging.countPerPage, criterion, keyword);
     }
@@ -254,4 +264,48 @@ public class MyPageService {
     //    }
 
 
+    public MovieEntity[] movies() { return this.myPageMapper.selectMovies(); }
+
+    public Enum<? extends IResult> insertMovie(MovieEntity movie) {
+        return this.myPageMapper.insertMovie(movie) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    public Enum<? extends IResult> updateMovie(MovieEntity movie) {
+        MovieEntity existingMovie = this.myPageMapper.selectMovie(movie.getIndex());
+
+        if (existingMovie == null) {
+            return CommonResult.FAILURE;
+        }
+        movie.setTitle(movie.getTitle());
+        movie.setTitleEn(movie.getTitleEn());
+        movie.setReleaseDate(movie.getReleaseDate());
+        movie.setEndDate(movie.getEndDate());
+        movie.setSummary(movie.getSummary());
+        movie.setAgeLimit(movie.getAgeLimit());
+        movie.setMovieState(movie.getMovieState());
+        movie.setGenre(movie.getGenre());
+        movie.setDirector(movie.getDirector());
+        movie.setActor(movie.getActor());
+        movie.setRunningTime(movie.getRunningTime());
+        movie.setScreenType(movie.getScreenType());
+        movie.setMoviePoster(movie.getMoviePoster());
+        movie.setBackgroundImage(movie.getBackgroundImage());
+
+        return this.myPageMapper.updateMovie(movie) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    public Enum<? extends IResult> deleteMovie(MovieEntity movie) {
+        MovieEntity[] existingMovie = this.myPageMapper.selectMovies();
+        if (existingMovie == null) {
+            return CommonResult.FAILURE;
+        }
+
+        return this.myPageMapper.deleteMovie(movie.getIndex()) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
 }

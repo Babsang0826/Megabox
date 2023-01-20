@@ -68,11 +68,12 @@
                 </a>
             </li>
             <li>
-                <a href="#" id="userIcon" class="user-icon" th:if="${session.user == null}">
+                <input type="hidden" th:value="${session.user}" rel="hiddenUser">
+                <a href="#" id="userIcon" class="user-icon">
                     <i id="xMarkUser" class="fa-solid fa-xmark"></i>
                     <i id="user" class="fa-solid fa-user"></i>
                 </a>
-                <a th:href="@{/myPage/myPage}" th:if="${session.user != null}">
+                <a th:href="@{/myPage/myPage}" id="unsignedUserIcon">
                     <i class="fa-solid fa-user"></i>
                 </a>
             </li>
@@ -198,7 +199,7 @@
 영화를 사랑하는 당신을 위한 꼭 맞는 혜택까지 확인해 보세요!
                 </span>
             </div>
-            <a href="#">로그인</a>
+            <a th:href="@{/member/login}">로그인</a>
             <div class="user-register">
                 <a th:href="@{/member/register}">혹시 아직 회원이 아니신가요?</a>
             </div>

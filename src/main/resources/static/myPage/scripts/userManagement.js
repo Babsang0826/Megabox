@@ -17,8 +17,7 @@ chkAll.onclick = function () {
 
 const chk = document.querySelectorAll('.chkBox input[type="checkbox"]:checked');
 for (let chkElement of chk) {
-    console.log(chkElement.value
-    )
+    console.log(chkElement.value)
 }
 
 const cancelButton = window.document.querySelector('[rel="cancel"]');

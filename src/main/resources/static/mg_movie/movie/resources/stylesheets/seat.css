@@ -292,6 +292,15 @@ body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > 
     margin-left: 20px;
     padding: 0 0 0 28px;
     border-bottom: 1px solid #434343;
+    /*display: none;*/
+}
+
+.title-area.pay {
+    display: none;
+}
+
+.title-area.pay:first-of-type {
+    display: block;
 }
 
 body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-result > .wrap > .title-area > .age12,

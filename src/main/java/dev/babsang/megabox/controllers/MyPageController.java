@@ -2,6 +2,8 @@ package dev.babsang.megabox.controllers;
 
 import dev.babsang.megabox.entities.member.EmailAuthEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
+import dev.babsang.megabox.entities.movie.BookingEntity;
+import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.entities.movie.*;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.interfaces.IResult;
@@ -336,15 +338,94 @@ public class MyPageController {
     @RequestMapping(value = "adminPage",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getAdminPage(@SessionAttribute(value = "user", required = false) UserEntity user) {
+    public ModelAndView getAdminPage(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                     @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                     @RequestParam(value = "criterion", required = false) String criterion,
+                                     @RequestParam(value = "keyword", required = false) String keyword) {
         ModelAndView modelAndView;
         if (user == null) {
             modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
         } else {
-            modelAndView = new ModelAndView("myPage/adminPage");
+            modelAndView = new ModelAndView("myPage/movieManagement");
+
+            MovieEntity[] movies = this.myPageService.movies();
+
+            modelAndView.addObject("movies", movies);
+
+            page = Math.max(1, page);
+            int totalCount = this.myPageService.getMovieSearchCount(criterion, keyword);
+            PagingModel paging = new PagingModel(totalCount, page);
+            modelAndView.addObject("paging", paging);
+
+            MovieEntity[] searchedMovies = this.myPageService.getMovieSearch(paging, criterion, keyword); // 게시글
+            modelAndView.addObject("searchedMovies", searchedMovies);
+            modelAndView.addObject("movieCount", totalCount);
         }
 
         return modelAndView;
+    }
+
+    @RequestMapping(value = "movieManagement",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postMovieManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                      @RequestParam(value = "releaseDateStr") String releaseDateStr,
+                                      @RequestParam(value = "endDateStr") String endDateStr,
+                                      MovieEntity movie) throws ParseException {
+        JSONObject responseObject = new JSONObject();
+        if (user == null || !user.getAdminFlag()) {
+            responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            movie.setReleaseDate(dateFormat.parse(releaseDateStr));
+            movie.setEndDate(dateFormat.parse(endDateStr));
+            Enum<?> result = this.myPageService.insertMovie(movie);
+            responseObject.put("result", result.name().toLowerCase());
+        }
+
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "movieManagement",
+            method = RequestMethod.PATCH,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchMovieManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                       @RequestParam(value = "releaseDateStr") String releaseDateStr,
+                                       @RequestParam(value = "endDateStr") String endDateStr,
+                                       @RequestParam(value = "runningTime") String runningTime,
+                                       MovieEntity movie) throws ParseException {
+
+        JSONObject responseObject = new JSONObject();
+        if (user == null || !user.getAdminFlag()) {
+            responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            movie.setReleaseDate(dateFormat.parse(releaseDateStr));
+            movie.setEndDate(dateFormat.parse(endDateStr));
+            Enum<?> result = this.myPageService.updateMovie(movie);
+            responseObject.put("result", result.name().toLowerCase());
+        }
+
+
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "movieManagement",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteMovieManagement(@SessionAttribute(value = "user") UserEntity user,
+                                        MovieEntity movie) {
+        JSONObject responseObject = new JSONObject();
+        if (user == null || !user.getAdminFlag()) {
+            responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
+        } else {
+            Enum<?> result = this.myPageService.deleteMovie(movie);
+            responseObject.put("result", result.name().toLowerCase());
+        }
+        return responseObject.toString();
     }
 
     @RequestMapping(value = "userManagement",

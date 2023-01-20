@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>관리자 페이지 :: 영화 관리</title>
+    <th:block th:replace="~{fragments/head :: common}"></th:block>
+    <link rel="stylesheet" th:href="@{/mg_movie/bbs/resources/stylesheets/notice.css}">
+    <link rel="stylesheet" th:href="@{/myPage/stylesheets/movieManagement.css}">
+    <script type="text/javascript"
+            src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=94a12e6ae62af8fbc88e09e7433d6c08"></script>
+    <script defer th:src="@{/myPage/scripts/movieManagement.js}"></script>
+
+</head>
+<body>
+<th:block th:replace="~{fragments/body :: header}"></th:block>
+<div class="page-util" id="pageUtil">
+    <div class="inner-wrap">
+        <div class="location">
+            <a th:href="@{/static}">Home</a>
+            <a th:href="@{/myPage/adminPage}">관리자페이지</a>
+            <a th:href="@{/myPage/userManagement}">회원관리</a>
+        </div>
+    </div>
+</div>
+<form id="form" class="form">
+    <div class="container">
+        <div class="inner-wrap">
+            <div class="side-menu">
+                <nav>
+                    <p class="title">
+                        <a th:href="@{./myPage}">관리자 페이지</a>
+                    </p>
+                    <ul>
+                        <li th:if="${session.user.getAdminFlag() == true}">
+                            <a href="#">영화 관리</a>
+                            <ul class="member-info">
+                                <li>
+                                    <a th:href="@{./movieManagement}">영화 관리</a>
+                                    <a th:href="@{./modify}">영화 시간표 등록</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li th:if="${session.user.getAdminFlag() == true}">
+                            <a href="#">회원 관리</a>
+                            <ul class="member-info">
+                                <li>
+                                    <a th:href="@{./userManagement}">회원 관리</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="content">
+                <h2 class="tit">영화 관리</h2>
+                <div class="tab-list">
+                    <ul>
+                        <li class="on" rel="modifyList">
+                            <span>조회/수정</span>
+                        </li>
+                        <li rel="uploadList">
+                            <span>등록</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-wrap on" rel="modifyContent">
+                    <!--                    <h2 class="tit sub">영화 조회/수정</h2>-->
+                    <div class="board-list">
+                        <p class="result-count">
+                            <strong>
+                                전체
+                                <em th:text="${movies.length}"></em>
+                            </strong>
+                        </p>
+                        <div class="empty-box"></div>
+                        <form id="searchForm" class="search-form" method="get">
+                            <div class="selectBox" id="theaterSelect">
+<!--                                <label class="label">-->
+                                    <span hidden>검색 기준</span>
+                                    <select class="select" name="criterion"
+                                            th:with="criterion = ${#request.getParameter('criterion')}">
+                                        <option value="all"
+                                                th:selected="${criterion == null || criterion.equals('all')}">제목 + 영문제목
+                                        </option>
+                                        <option value="title" th:selected="${criterion != null && criterion.equals('title')}">
+                                            제목
+                                        </option>
+                                        <option value="titleEn"
+                                                th:selected="${criterion != null && criterion.equals('titleEn')}">영문제목
+                                        </option>
+                                    </select>
+<!--                                </label>-->
+                                <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>
+                            </div>
+                            <label class="label">
+                                <span hidden>검색어</span>
+                                <div class="board-search">
+                                    <input type="text" id="searchTxt" placeholder="검색어를 입력해 주세요" class="input-text"
+                                           name="keyword"
+                                           maxlength="15" th:value="${#request.getParameter('keyword')}">
+                                    <button type="submit" id="searchBtn" class="btn-search-input" value="검색"></button>
+                                </div>
+                            </label>
+                        </form>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="board">
+                            <caption>
+
+                            </caption>
+                            <colgroup>
+                                <col style="width: auto;">
+                                <col style="width: auto;">
+                                <col style="width: auto;">
+                                <col style="width: auto;">
+                                <col style="width: auto;">
+                                <col style="width: auto;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th class="check" scope="col"><input class="chkAll" name="chkBox" type="checkbox"></th>
+                                <th scope="col">제목</th>
+                                <th scope="col">영문제목</th>
+                                <th scope="col">출시일</th>
+                                <th scope="col">상영종료일</th>
+                                <th scope="col">상영타입</th>
+                            </tr>
+                            <tbody th:each="movie : ${searchedMovies}">
+                            <input type="hidden" th:value="${movie}" rel="hiddenMovie">
+                            <input type="hidden" th:value="${movie.getIndex}" rel="hiddenIndex">
+                            <tr class="line" rel="line">
+                                <td class="check">
+<!--                                    <label for="checkBox">-->
+                                        <input class="chkBox" name="chk" type="checkbox" rel="checkbox" id="checkBox"
+                                               th:value="${movie.getIndex()}">
+<!--                                    </label>-->
+                                </td>
+                                <td class="title" rel="titleKo" th:text="${movie.getTitle()}">아바타: 물의 길</td>
+                                <td class="title-en" rel="titleEn" th:text="${movie.getTitleEn()}">Avatar: The Way of
+                                    Water
+                                </td>
+                                <td th:text="${#dates.format(movie.getReleaseDate(), 'yyyy.MM.dd')}">2022.12.14</td>
+                                <td th:text="${#dates.format(movie.getEndDate(), 'yyyy.MM.dd')}">2023.02.28</td>
+                                <td th:text="${movie.getScreenType()}">2D(자막)</td>
+                            </tr>
+                            <tr class="content-tr">
+                                <td colspan="6" class="content">
+                                    <div class="detail-container">
+                                        <div class="detail">
+                                            <div class="detail-title-container">
+                                                <div class="detail-title">
+                                                    <span>영화 상세정보</span>
+                                                    <i class="fa-solid fa-x" id="cancelIcon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <span>제목 </span>
+                                                <input type="text" rel="movieTitle" th:value="${movie.getTitle()}">
+                                            </div>
+                                            <div class="item">
+                                                <span>영문제목 </span>
+                                                <input type="text" rel="titleEn2" th:value="${movie.getTitleEn()}">
+                                            </div>
+                                            <div class="item">
+                                                <span>출시일 </span>
+                                                <input class="dateInput" rel="releaseDate" type="date"
+                                                       th:value="${#dates.format(movie.getReleaseDate(), 'yyyy-MM-dd')}">
+                                            </div>
+                                            <div class="item">
+                                                <span>상영종료일 </span>
+                                                <input class="dateInput" rel="endDate" type="date"
+                                                       th:value="${#dates.format(movie.getEndDate(), 'yyyy-MM-dd')}">
+                                            </div>
+                                            <div class="item">
+                                                <span>등급</span>
+                                                <select name="ageLimit" rel="ageLimit">
+                                                    <option th:value="${movie.getAgeLimit()}"
+                                                            th:text="${movie.getAgeLimit()}" selected hidden
+                                                            disabled></option>
+                                                    <option value="ageAll">전체관람가</option>
+                                                    <option value="age12">12세이상관람가</option>
+                                                    <option value="age15">15세이상관람가</option>
+                                                    <option value="age18">청소년관람불가</option>
+                                                </select>
+                                            </div>
+                                            <div class="item">
+                                                <span>상영타입 </span>
+                                                <select name="screenType" rel="screenType">
+                                                    <option th:value="${movie.getScreenType()}"
+                                                            th:text="${movie.getScreenType()}" selected hidden
+                                                            disabled></option>
+                                                    <option value="2D">2D</option>
+                                                    <option value="2D(자막)">2D(자막)</option>
+                                                </select>
+                                            </div>
+                                            <div class="item">
+                                                <span>상태 </span>
+                                                <input type="text" rel="movieState" th:value="${movie.getMovieState()}">
+                                            </div>
+                                            <div class="item">
+                                                <span>장르 </span>
+                                                <input type="text" rel="genre" th:value="${movie.getGenre()}">
+                                            </div>
+                                            <div class="item">
+                                                <span>감독 </span>
+                                                <input type="text" rel="director" th:value="${movie.getDirector()}">
+                                            </div>
+                                            <div class="item">
+                                                <span>배우 </span>
+                                                <input type="text" rel="actor" th:value="${movie.getActor()}">
+                                            </div>
+                                            <div class="item">
+                                                <span>상영시간</span>
+                                                <input type="text" rel="runningTime"
+                                                       th:value="${movie.getRunningTime()} + '분'">
+                                            </div>
+                                            <div class="item">
+                                                <span>포스터 </span>
+                                                <input type="text" rel="moviePoster"
+                                                       th:value="${movie.getMoviePoster()}">
+                                            </div>
+                                            <div class="item">
+                                                <span>배경 이미지 </span>
+                                                <input type="text" rel="backgroundImage"
+                                                       th:value="${movie.getBackgroundImage()}">
+                                            </div>
+                                            <div class="item">
+                                                <span>상세설명 </span>
+                                                <textarea id="textArea" onclick="resize(this)"
+                                                          th:text="${movie.getSummary()}">어쩌고..저쩌고..</textarea>
+                                            </div>
+                                            <div class="submit-area">
+                                                <button rel="deleteBtn">삭제</button>
+                                                <button rel="modifyBtn">수정</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--                    <div class="btn-area">-->
+                    <!--                        <button type="button" id="deleteBtn" class="deleteButton" rel="delete">삭제</button>-->
+                    <!--                    </div>-->
+                </div>
+                <!--영화등록-->
+                <div class="content-wrap" rel="uploadContent">
+                    <div class="detail upload">
+                        <div class="detail-title-container">
+                            <div class="detail-title">
+                                <span>영화 등록</span>
+                                <i class="fa-solid fa-x" id="cancelIcon2"></i>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <span>제목 </span>
+                            <input type="text" placeholder="제목을 입력해주세요." id="title">
+                        </div>
+                        <div class="item">
+                            <span>영문제목 </span>
+                            <input type="text" placeholder="영문 제목을 입력해주세요." id="titleEn">
+                        </div>
+                        <div class="item">
+                            <span>출시일 </span>
+                            <input class="dateInput" type="date" id="releaseDate">
+                        </div>
+                        <div class="item">
+                            <span>상영종료일 </span>
+                            <input class="dateInput" type="date" id="endDate">
+                        </div>
+                        <div class="item">
+                            <span>등급</span>
+                            <select name="ageLimit" id="ageLimit">
+                                <option selected hidden disabled></option>
+                                <option value="ageAll">전체관람가</option>
+                                <option value="age12">12세이상관람가</option>
+                                <option value="age15">15세이상관람가</option>
+                                <option value="age18">청소년관람불가</option>
+                            </select>
+                        </div>
+                        <div class="item">
+                            <span>상영타입 </span>
+                            <select name="screenType" id="screenType">
+                                <option selected hidden disabled></option>
+                                <option value="2D">2D</option>
+                                <option value="2D(자막)">2D(자막)</option>
+                            </select>
+                        </div>
+                        <div class="item">
+                            <span>상태 </span>
+                            <select name="movieState" id="movieState">
+                                <option selected hidden disabled></option>
+                                <option value="상영예정">상영예정</option>
+                                <option value="상영중">상영중</option>
+                                <option value="상영종료">상영종료</option>
+                            </select>
+                        </div>
+                        <div class="item">
+                            <span>장르 </span>
+                            <input type="text" placeholder="장르를 입력해주세요." id="genre">
+                        </div>
+                        <div class="item">
+                            <span>감독 </span>
+                            <input type="text" placeholder="감독을 입력해주세요." id="director">
+                        </div>
+                        <div class="item">
+                            <span>배우 </span>
+                            <input type="text" placeholder="배우를 입력해주세요." id="actor">
+                        </div>
+                        <div class="item">
+                            <span>상영시간</span>
+                            <input type="text" placeholder="상영시간을 입력해주세요." id="runningTime">
+                        </div>
+                        <div class="item">
+                            <span>포스터 </span>
+                            <input type="text" placeholder="영화 포스터 URL을 입력해주세요." id="moviePoster">
+                        </div>
+                        <div class="item">
+                            <span>배경 이미지 </span>
+                            <input type="text" placeholder="영화 배경 이미지 URL을 입력해주세요."
+                                   id="backgroundImage">
+                        </div>
+                        <div class="item">
+                            <span>상세설명 </span>
+                            <textarea id="textArea2" onkeydown="resize(this)" placeholder="영화 줄거리를 입력해주세요."
+                                      rel="textArea"></textarea>
+                        </div>
+                        <div class="submit-area">
+                            <button rel="uploadBtn">등록</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--=========================================================페이징=========================================================-->
+
+                <div class="page-container"
+                     th:with="urlBuilder = ${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+                    <a class="page"
+                       th:href="@{${urlBuilder.replaceQueryParam('page', 1).build().toUriString()}}"
+                       th:if="${paging.requestPage > 1}">
+                        <i class="fa-solid fa-angles-left"></i>
+                    </a>
+                    <a class="page"
+                       th:href="@{${urlBuilder.replaceQueryParam('page', paging.requestPage - 1).build().toUriString()}}"
+                       th:if="${paging.requestPage > 1}">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <a class="page" id="pageNumber"
+                       th:style="${page == paging.requestPage ? 'background-color: #01738b; color: white;' : ''}"
+                       th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}"
+                       th:class="${'page ' + (page == paging.requestPage ? 'selected' : '')}"
+                       th:text="${page}"
+                       th:href="@{${urlBuilder.replaceQueryParam('page', page).build().toUriString()}}"></a>
+                    <a class="page"
+                       th:href="@{${urlBuilder.replaceQueryParam('page', paging.requestPage + 1).build().toUriString()}}"
+                       th:if="${paging.requestPage < paging.maxPage}">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                    <a class="page"
+                       th:href="@{${urlBuilder.replaceQueryParam('page', paging.maxPage).build().toUriString()}}"
+                       th:if="${paging.requestPage < paging.maxPage}">
+                        <i class="fa-solid fa-angles-right"></i>
+                    </a>
+                    <div class="btn-area">
+                        <button type="button" id="deleteBtn" class="deleteButton" rel="delete">삭제</button>
+                    </div>
+                </div>
+
+                <!--=========================================================페이징=========================================================-->
+
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+<th:block th:replace="~{fragments/body :: footer}"></th:block>
+</html>
