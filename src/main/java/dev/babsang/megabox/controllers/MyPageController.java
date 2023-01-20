@@ -335,7 +335,7 @@ public class MyPageController {
         return responseObject.toString();
     }
 
-    @RequestMapping(value = "adminPage",
+    @RequestMapping(value = "movieManagement",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getAdminPage(@SessionAttribute(value = "user", required = false) UserEntity user,

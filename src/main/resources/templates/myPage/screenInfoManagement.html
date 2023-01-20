@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>관리자 페이지 :: 영화 시간표 등록</title>
+    <title>관리자 페이지 :: 영화 관리</title>
     <th:block th:replace="~{fragments/head :: common}"></th:block>
     <link rel="stylesheet" th:href="@{/myPage/stylesheets/screenInfoManagement.css}">
     <script defer th:src="@{/myPage/scripts/screenInfoManagement.js}"></script>
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<form id="form" method="post">
+<form id="form" method="post" th:if="${session.user.getAdminFlag() == true}">
     <div class="enroll-container">
         <div class="inner-wrap">
             <th:block th:replace="~{fragments/sideMenu :: sideMenu}"></th:block>
@@ -124,7 +124,7 @@
                     </div>
                 </div>
 
-                <div class="enrollment off">
+                <div class="enrollment off" th:if="${session.user.getAdminFlag() == true}">
                     <div class="movie-enrollment-container">
                         <div class="enroll-info">
                             <div class="enroll-box">
