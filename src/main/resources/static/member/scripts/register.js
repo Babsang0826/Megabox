@@ -346,6 +346,10 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                             document.getElementById("step step4").style.display = "block";
                             document.getElementById("three").style.border = "none"
                             document.getElementById("four").style.borderBottom = "1px solid #503396";
+                            const loginName = document.querySelector('#loginName');
+                            const registerName = document.querySelector('[rel="registerName"]');
+
+                            registerName.innerText = `${loginName.value}님 메가박스 가입을 환영합니다.`;
                             // window.location.href = "http://localhost:8080/member/login"
                             break;
                         case 'contact':
@@ -360,7 +364,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                             swal("알림", "알 수 없는 이유로 회원가입을 하지 못하였습니다. 잠시 후 다시 시도해주세요.");
                     }
                 } else {
-                    swal("알림", "아이디가 중복이거나 아이디 중복검사를 하지 않았습니다.");
+                    swal("알림", "아이디가 중복되었거나 중복검사를 하지 않았습니다.");
                 }
             }
         }
@@ -428,6 +432,8 @@ function maxLengthCheck(object) {
         object.value = object.value.slice(0, object.maxLength);
     }
 }
+
+
 
 
 
