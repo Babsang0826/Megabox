@@ -62,6 +62,10 @@ a {
     text-decoration: none;
 }
 
+button {
+    cursor: pointer;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font: inherit;
     margin: unset;
@@ -637,6 +641,7 @@ body > .--header > .search-bar.on > .rank-tap > ul > li > button {
     font-size: 1rem;
     cursor: pointer;
     padding-bottom: 0.5rem;
+    border: unset;
 }
 
 
@@ -1006,6 +1011,10 @@ body > .--header > .login-sub-container.on > .sub-user-box > a {
     color: rgb(255, 255, 255);
     text-decoration: none;
     border-radius: 0.25rem;
+}
+
+body > .--header > .login-sub-container.on > .sub-user-box > a:hover {
+    background-color: #01738b;
 }
 
 body > .--header > .login-sub-container.on > .sub-user-box > .user-register {

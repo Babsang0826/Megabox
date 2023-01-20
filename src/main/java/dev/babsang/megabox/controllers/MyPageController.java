@@ -3,6 +3,7 @@ package dev.babsang.megabox.controllers;
 import dev.babsang.megabox.entities.member.EmailAuthEntity;
 import dev.babsang.megabox.entities.member.UserEntity;
 import dev.babsang.megabox.entities.movie.BookingEntity;
+import dev.babsang.megabox.entities.movie.MovieEntity;
 import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.models.PagingModel;
@@ -16,11 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -319,7 +319,7 @@ public class MyPageController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String deleteBookingHistory(@SessionAttribute(value = "user", required = false) UserEntity user,
-                               @RequestParam(value = "screenInfoIndex") int screenInfoIndex) {
+                                       @RequestParam(value = "screenInfoIndex") int screenInfoIndex) {
         String userId = user.getId();
         Enum<?> result = this.myPageService.deleteBooking(screenInfoIndex, userId);
 
@@ -329,18 +329,97 @@ public class MyPageController {
         return responseObject.toString();
     }
 
-    @RequestMapping(value = "adminPage",
+    @RequestMapping(value = "movieManagement",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getAdminPage(@SessionAttribute(value = "user", required = false) UserEntity user) {
+    public ModelAndView getAdminPage(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                     @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                     @RequestParam(value = "criterion", required = false) String criterion,
+                                     @RequestParam(value = "keyword", required = false) String keyword) {
         ModelAndView modelAndView;
         if (user == null) {
             modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
         } else {
-            modelAndView = new ModelAndView("myPage/adminPage");
+            modelAndView = new ModelAndView("myPage/movieManagement");
+
+            MovieEntity[] movies = this.myPageService.movies();
+
+            modelAndView.addObject("movies", movies);
+
+            page = Math.max(1, page);
+            int totalCount = this.myPageService.getMovieSearchCount(criterion, keyword);
+            PagingModel paging = new PagingModel(totalCount, page);
+            modelAndView.addObject("paging", paging);
+
+            MovieEntity[] searchedMovies = this.myPageService.getMovieSearch(paging, criterion, keyword); // 게시글
+            modelAndView.addObject("searchedMovies", searchedMovies);
+            modelAndView.addObject("movieCount", totalCount);
         }
 
         return modelAndView;
+    }
+
+    @RequestMapping(value = "movieManagement",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postMovieManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                      @RequestParam(value = "releaseDateStr") String releaseDateStr,
+                                      @RequestParam(value = "endDateStr") String endDateStr,
+                                      MovieEntity movie) throws ParseException {
+        JSONObject responseObject = new JSONObject();
+        if (user == null || !user.getAdminFlag()) {
+            responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            movie.setReleaseDate(dateFormat.parse(releaseDateStr));
+            movie.setEndDate(dateFormat.parse(endDateStr));
+            Enum<?> result = this.myPageService.insertMovie(movie);
+            responseObject.put("result", result.name().toLowerCase());
+        }
+
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "movieManagement",
+            method = RequestMethod.PATCH,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchMovieManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
+                                       @RequestParam(value = "releaseDateStr") String releaseDateStr,
+                                       @RequestParam(value = "endDateStr") String endDateStr,
+                                       @RequestParam(value = "runningTime") String runningTime,
+                                       MovieEntity movie) throws ParseException {
+
+        JSONObject responseObject = new JSONObject();
+        if (user == null || !user.getAdminFlag()) {
+            responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            movie.setReleaseDate(dateFormat.parse(releaseDateStr));
+            movie.setEndDate(dateFormat.parse(endDateStr));
+            Enum<?> result = this.myPageService.updateMovie(movie);
+            responseObject.put("result", result.name().toLowerCase());
+        }
+
+
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "movieManagement",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteMovieManagement(@SessionAttribute(value = "user") UserEntity user,
+                                        MovieEntity movie) {
+        JSONObject responseObject = new JSONObject();
+        if (user == null || !user.getAdminFlag()) {
+            responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
+        } else {
+            Enum<?> result = this.myPageService.deleteMovie(movie);
+            responseObject.put("result", result.name().toLowerCase());
+        }
+        return responseObject.toString();
     }
 
     @RequestMapping(value = "userManagement",
@@ -357,8 +436,7 @@ public class MyPageController {
 
         if (signedUser == null) {
             modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
-        }
-        else {
+        } else {
             if (!signedUser.getAdminFlag()) {
                 try {
                     response.setContentType("text/html; charset=utf-8");
@@ -366,7 +444,7 @@ public class MyPageController {
                     w.write("<script>alert('권한이 없습니다.');history.go(-1);</script>");
                     w.flush();
                     w.close();
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -393,8 +471,8 @@ public class MyPageController {
     public String deleteDelete(UserEntity newUser) {
         Enum<?> result = this.myPageService.adminDeleteUser(newUser);
         JSONObject responseObject = new JSONObject();
-        if(result == CommonResult.SUCCESS){
-            responseObject.put("email",newUser.getEmail());
+        if (result == CommonResult.SUCCESS) {
+            responseObject.put("email", newUser.getEmail());
         }
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();

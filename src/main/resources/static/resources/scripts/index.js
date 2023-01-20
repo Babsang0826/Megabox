@@ -8,10 +8,4 @@ loginButton?.addEventListener('click', e => {
         '로그인', 'width=500; height=750');
 });
 
-const searchMovieInput = document.querySelector('[rel="searchMovieInput"]');
-const searchMovieBtn = document.querySelector('[rel="searchMovieBtn"]');
 
-searchMovieBtn.addEventListener('click', () => {
-    window.location.href = `http://localhost:8080/movie/movie?keyword=` + `${searchMovieInput.value}`
-});
-//

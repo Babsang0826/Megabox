@@ -93,12 +93,12 @@
                             <p>감독 :&nbsp;</p>
                             <p class="value" th:text="${movie.getDirector()}">안태진</p>
                             <p>장르 :&nbsp;</p>
-                            <p class="value" th:text="${movie.getGenre()}">스릴러/118분</p>
+                            <p class="value" th:text="${movie.getGenre() + ' / ' + movie.getRunningTime() + '분'}">스릴러/118분</p>
                             <p>등급 :&nbsp;</p>
-                            <p class="value" th:if="${movie.getAgeLimit().equals('grade ageAll')}">전체관람가</p>
-                            <p class="value" th:if="${movie.getAgeLimit().equals('grade age12')}">12세이상관람가</p>
-                            <p class="value" th:if="${movie.getAgeLimit().equals('grade age15')}">15세이상관람가</p>
-                            <p class="value" th:if="${movie.getAgeLimit().equals('grade age18')}">청소년관람불가</p>
+                            <p class="value" th:if="${movie.getAgeLimit().equals('ageAll')}">전체관람가</p>
+                            <p class="value" th:if="${movie.getAgeLimit().equals('age12')}">12세이상관람가</p>
+                            <p class="value" th:if="${movie.getAgeLimit().equals('age15')}">15세이상관람가</p>
+                            <p class="value" th:if="${movie.getAgeLimit().equals('age18')}">청소년관람불가</p>
                             <p>개봉일 :&nbsp;</p>
                             <p class="value" th:text="${#dates.format(movie.getReleaseDate(), 'yyyy.MM.dd')}">2022.11.23</p>
                         </div>
@@ -179,7 +179,7 @@
                                                 <img src="https://www.megabox.co.kr/static/pc/images/mypage/bg-photo.png"
                                                      alt="프로필 사진" title="프로필 사진">
                                             </div>
-                                            <p class="user-id">choi4349</p>
+                                            <p class="user-id" th:text="${session.user.getId()}"></p>
                                         </div>
                                         <div class="text-box">
                                             <div class="text-wrap review">

@@ -1047,6 +1047,7 @@ if (movie.screenInfoIndex !== null) {
             rowElement.dataset.seatCode = seat['seatVoSeatCode'];
             seatRowElement.append(rowElement);
             seatsContainer.append(seatColumnElement, seatRowElement);
+
         });
     const seats = seatArea.querySelectorAll('[rel="row"]');
     for (let i = 0; i < seats.length; i++) {

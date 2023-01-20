@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dev.babsang.megabox.mappers.IMyPageMapper">
     <select id="selectUserByContact" resultType="dev.babsang.megabox.entities.member.UserEntity">
-        select email             as email,
-               `name`            as `name`,
-               birthday          as birthday,
-               contact           as contact,
-               id                as id
+        select email    as email,
+               `name`   as `name`,
+               birthday as birthday,
+               contact  as contact,
+               id       as id
         from mg_member.users
         where contact = #{contact}
     </select>
@@ -53,14 +53,14 @@
 
     <update id="updateUser" parameterType="dev.babsang.megabox.entities.member.UserEntity">
         update mg_member.users
-        set email    = #{email},
-            `name`   = #{name},
-            birthday = #{birthday},
-            contact  = #{contact},
-            id       = #{id},
-            `password` = #{password},
-            address_postal = #{addressPostal},
-            address_primary = #{addressPrimary},
+        set email             = #{email},
+            `name`            = #{name},
+            birthday          = #{birthday},
+            contact           = #{contact},
+            id                = #{id},
+            `password`        = #{password},
+            address_postal    = #{addressPostal},
+            address_primary   = #{addressPrimary},
             address_secondary = #{addressSecondary}
         where email = #{email}
         limit 1
@@ -79,8 +79,6 @@
         where `screen_info_index` = #{screenInfoIndex}
           and `user_id` = #{userId}
     </delete>
-
-
 
 
     <select id="selectUserById"
@@ -116,6 +114,22 @@
         </if>
     </select>
 
+    <select id="selectMovieCount"
+            resultType="int">
+        select count(0)
+        from mg_movie.movies
+        <if test="criterion != null and criterion.equals('title')">
+            WHERE REPLACE(`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="criterion != null and criterion.equals('all')">
+            WHERE REPLACE(`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            OR REPLACE(`title_en`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="criterion != null and criterion.equals('titleEn')">
+            WHERE REPLACE(`title_en`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+    </select>
+
     <select id="selectUserIdCount"
             resultType="dev.babsang.megabox.entities.member.UserEntity">
         SELECT
@@ -144,6 +158,37 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
+    <select id="selectMoviePaging"
+    resultType="dev.babsang.megabox.entities.movie.MovieEntity">
+        select `index` as `index`,
+        title as title,
+        title_en as titleEn,
+        release_date as releaseDate,
+        end_date as endDate,
+        summary as summary,
+        age_limit as ageLimit,
+        movie_state as movieState,
+        genre as genre,
+        director as director,
+        actor as actor,
+        running_time as runningTime,
+        screen_type as screenType,
+        movie_poster as moviePoster,
+        background_image as backgroundImage
+        from mg_movie.movies
+        <if test="criterion != null and criterion.equals('title')">
+            WHERE REPLACE(`movies`.`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="criterion != null and criterion.equals('all')">
+            WHERE REPLACE(`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            OR REPLACE(`title_en`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="criterion != null and criterion.equals('titleEn')">
+            WHERE REPLACE(`title_en`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
     <delete id="adminDeleteUser">
         delete
         from mg_member.users
@@ -166,4 +211,82 @@
         FROM `mg_member`.`users`
         WHERE BINARY `email` = #{email}
     </select>
+
+    <select id="selectMovies" parameterType="dev.babsang.megabox.entities.movie.MovieEntity"
+            resultType="dev.babsang.megabox.entities.movie.MovieEntity">
+        select `index`          as `index`,
+               title            as title,
+               title_en         as titleEn,
+               release_date     as releaseDate,
+               end_date         as endDate,
+               summary          as summary,
+               age_limit        as ageLimit,
+               movie_state      as movieState,
+               genre            as genre,
+               director         as director,
+               actor            as actor,
+               running_time     as runningTime,
+               screen_type      as screenType,
+               movie_poster     as moviePoster,
+               background_image as backgroundImage
+        from mg_movie.movies
+    </select>
+
+    <select id="selectMovie" parameterType="dev.babsang.megabox.entities.movie.MovieEntity"
+            resultType="dev.babsang.megabox.entities.movie.MovieEntity">
+        select `index`          as `index`,
+               title            as title,
+               title_en         as titleEn,
+               release_date     as releaseDate,
+               end_date         as endDate,
+               summary          as summary,
+               age_limit        as ageLimit,
+               movie_state      as movieState,
+               genre            as genre,
+               director         as director,
+               actor            as actor,
+               running_time     as runningTime,
+               screen_type      as screenType,
+               movie_poster     as moviePoster,
+               background_image as backgroundImage
+        from mg_movie.movies
+        where `index` = #{index}
+    </select>
+
+    <insert id="insertMovie"
+            useGeneratedKeys="true"
+            keyProperty="index"
+            keyColumn="index"
+            parameterType="dev.babsang.megabox.entities.movie.MovieEntity">
+        insert into mg_movie.movies(`index`, title, title_en, release_date, end_date, summary, age_limit, movie_state,
+                                    genre, director, actor, running_time, screen_type, movie_poster, background_image)
+        values (#{index}, #{title}, #{titleEn}, #{releaseDate}, #{endDate}, #{summary}, #{ageLimit}, #{movieState},
+                #{genre}, #{director}, #{actor}, #{runningTime}, #{screenType}, #{moviePoster}, #{backgroundImage})
+    </insert>
+
+    <update id="updateMovie" parameterType="dev.babsang.megabox.entities.movie.MovieEntity">
+        update mg_movie.movies
+        set title            = #{title},
+            title_en         = #{titleEn},
+            release_date     = #{releaseDate},
+            end_date         = #{endDate},
+            summary          = #{summary},
+            age_limit        = #{ageLimit},
+            movie_state      = #{movieState},
+            genre            = #{genre},
+            director         = #{director},
+            actor            = #{actor},
+            running_time     = #{runningTime},
+            screen_type      = #{screenType},
+            movie_poster     = #{moviePoster},
+            background_image = #{backgroundImage}
+        where `index` = #{index}
+    </update>
+
+    <delete id="deleteMovie">
+        delete
+        from mg_movie.movies
+        where `index` = #{index}
+    </delete>
+
 </mapper>

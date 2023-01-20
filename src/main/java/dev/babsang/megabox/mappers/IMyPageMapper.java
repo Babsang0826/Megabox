@@ -24,6 +24,9 @@ public interface IMyPageMapper {
             @Param(value = "criterion") String criterion,
             @Param(value = "keyword") String keyword);
 
+    int selectMovieCount(@Param(value = "criterion") String criterion,
+                         @Param(value = "keyword") String keyword);
+
 
     UserEntity[] selectUserIdCount(
             @Param(value = "limit") int limit,
@@ -31,8 +34,23 @@ public interface IMyPageMapper {
             @Param(value = "criterion") String criterion,
             @Param(value = "keyword") String keyword);
 
+    MovieEntity[] selectMoviePaging(@Param(value = "limit") int limit,
+                                   @Param(value = "offset") int offset,
+                                   @Param(value = "criterion") String criterion,
+                                   @Param(value = "keyword") String keyword);
 
     int adminDeleteUser(@Param(value = "email") String email);
 
     UserEntity[] selectByEmail(@Param(value = "email") String email);
+
+    MovieEntity[] selectMovies();
+
+    int insertMovie(MovieEntity movie);
+
+    int updateMovie(MovieEntity movie);
+
+    MovieEntity selectMovie(@Param(value = "index") int index);
+
+    int deleteMovie(@Param(value = "index") int index);
+
 }
