@@ -220,7 +220,7 @@ public class BbsController {
     @RequestMapping(value = "notice",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getList(@RequestParam(value = "bid",required = false) String boardId,
+    public ModelAndView getList(@RequestParam(value = "bid", required = false) String boardId,
                                 @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                 @RequestParam(value = "criterion", required = false) String criterion,
                                 @RequestParam(value = "keyword", required = false) String keyword,
