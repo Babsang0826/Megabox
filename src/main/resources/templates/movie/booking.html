@@ -243,7 +243,7 @@
                                     </div>
                                 </div>
                                 <div class="btn-area" rel="seatBtn">
-                                    <a class="home-reload-button" rel="seatPrvHomeButton" >이전</a>
+                                    <a class="home-reload-button" rel="seatPrvHomeButton">이전</a>
                                     <a class="next" rel="seatNextButton">다음</a>
                                 </div>
                             </div>
@@ -284,8 +284,12 @@
                                                     <div class="use-point">
                                                         <span>
                                                             사용가능한 멤버십 포인트
-                                                            <em rel="existingPoint" th:text="${session.user.getPoint() + 'P'}">1200P</em>
-                                                            <input type="hidden" rel="hiddenEmail" th:value="${session.user.getEmail()}">
+                                                            <em rel="existingPoint"
+                                                                th:text="${session.user.getPoint() + 'P'}"
+                                                                th:if="${session.user != null}">1200P</em>
+                                                            <input type="hidden" rel="hiddenEmail"
+                                                                   th:value="${session.user.getEmail()}"
+                                                                   th:if="${session.user != null}">
                                                         </span>
                                                     </div>
                                                     <div>
