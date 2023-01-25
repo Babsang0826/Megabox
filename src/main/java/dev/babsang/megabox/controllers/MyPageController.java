@@ -309,7 +309,6 @@ public class MyPageController {
                 bookingMap.replace(key, bookings);
             }
 
-            //예매 최신순으로 HashMap keySet 정렬
             Object[] arr = bookingMap.keySet().toArray();
             List<Object> list = Arrays.asList(arr);
             Collections.reverse(list);
