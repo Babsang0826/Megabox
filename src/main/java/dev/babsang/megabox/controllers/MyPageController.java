@@ -155,8 +155,6 @@ public class MyPageController {
     public String postPoint(@SessionAttribute(value = "user", required = false) UserEntity user) {
 
 
-
-
         return null;
     }
 
@@ -499,6 +497,8 @@ public class MyPageController {
     @RequestMapping(value = "screenInfoManagement", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
                                                 @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                                @RequestParam(value = "criterion", required = false) String criterion,
+                                                @RequestParam(value = "keyword", required = false) String keyword,
                                                 HttpServletResponse response) {
         ModelAndView modelAndView;
         if (user == null) {
@@ -573,7 +573,7 @@ public class MyPageController {
                                             @RequestParam(value = "modifyMvStartTimeStr") String modifyMvStartTime,
                                             @RequestParam(value = "modifyMvEndTimeStr") String modifyMvEndTime,
                                             ScreenInfoEntity screenInfo) throws ParseException {
-        if(user == null || !user.getAdminFlag()) {
+        if (user == null || !user.getAdminFlag()) {
             return CommonResult.FAILURE.name().toLowerCase();
         }
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
