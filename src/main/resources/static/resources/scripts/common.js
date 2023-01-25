@@ -162,7 +162,7 @@ for (let i = 0; i < rankPosterBox.length; i++) {
             bestImage[j].style.display = 'none';
             // rankPosterBox[j].styles.display = 'block'
         }
-        detailMpRank[i].style.display = 'block';
+        detailMpRank[i].style.display = '-webkit-box';
         hashtag[i].style.display = 'block';
         bestImage[i].style.display = 'block';
         // rankPosterBox[i].style.display = 'none';
