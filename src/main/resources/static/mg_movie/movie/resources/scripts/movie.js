@@ -43,15 +43,11 @@ toggle.addEventListener('input', () => {
     document.querySelector('.searchCnt').innerText = count;
 });
 
-// for (let i = 0; i < movies.length; i++) {
-    for (let j = 0; j < commingMovies.length; j++) {
-    }
-// }
-// if (toggle.checked) {
-//
-// }
 
+let x = 0;
 const expForm = document.getElementById('expForm');
+const commingSearchCnt = document.querySelector('[rel="commingSearchCnt"]');
+
 expForm.addEventListener('submit', e => {
     e.preventDefault();
 
@@ -59,8 +55,13 @@ expForm.addEventListener('submit', e => {
         const title = movie.querySelector('[rel="title"]').innerText;
         const keyword = expForm['keyword'].value;
         movie.style.display = keyword === '' || title.indexOf(keyword) > -1 ? 'list-item' : 'none';
+        x = keyword === '' || title.indexOf(keyword) > -1 ? x + 1 : x;
     });
+    commingSearchCnt.innerText = x;
+
 });
+
+
 
 const searchCnt = window.document.querySelector('.searchCnt');
 const noResult = window.document.querySelector('.no-result');
