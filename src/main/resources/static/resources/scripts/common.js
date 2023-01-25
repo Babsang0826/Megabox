@@ -161,7 +161,7 @@ for (let i = 0; i < rankPosterBox.length; i++) {
             hashtag[j].style.display = 'none';
             bestImage[j].style.display = 'none';
         }
-        detailMpRank[i].style.display = 'block';
+        detailMpRank[i].style.display = '-webkit-box';
         hashtag[i].style.display = 'block';
         bestImage[i].style.display = 'block';
     })

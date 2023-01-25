@@ -128,7 +128,6 @@ public class MovieController {
         }
         modelAndView.addObject("mid", mid);
         int rank = 0;
-        System.out.println("rank : " + rank);
 
         for (int i = 0; i < movies.length; i++) {
             if (movie.equals(movies[i])) {
@@ -149,7 +148,6 @@ public class MovieController {
             cal1.add(Calendar.DATE, 1);
             Date date = new Date(cal1.getTimeInMillis());
             dayArr[i] = simpleDateFormat.format(date);
-            System.out.println("연산시간 : " + simpleDateFormat.format(date));
         }
 
         //일별 관객수 추출
@@ -164,7 +162,6 @@ public class MovieController {
                 }
             }
         }
-        System.out.println(bookingMap);
 
         int[] audienceOfDay = new int[5];
         for (int i = 0; i < dayArr.length; i++) {
@@ -234,23 +231,19 @@ public class MovieController {
     @RequestMapping(value = "booking", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getBooking(@SessionAttribute(value = "user", required = false) UserEntity user) {
         ModelAndView modelAndView;
-        if (user == null) {
-            modelAndView = new ModelAndView("/member/login");
-        } else {
-            modelAndView = new ModelAndView("movie/booking");
-            MovieEntity[] movies = this.movieService.getMovies();
-            RegionEntity region = this.movieService.getRegion();
-            BranchEntity[] branches = this.movieService.getBranches();
-            MovieScreenInfoVo[] infos = this.movieService.getScreenInfos();
-            SeatVo[] seats = this.movieService.getSeatVos();
-            SeatVo[] seatVos = this.movieService.getSeatVosGroupByColumn();
-            modelAndView.addObject("infos", infos);
-            modelAndView.addObject("movies", movies);
-            modelAndView.addObject("region", region);
-            modelAndView.addObject("branches", branches);
-            modelAndView.addObject("seats", seats);
-            modelAndView.addObject("seatVos", seatVos);
-//        }
+        modelAndView = new ModelAndView("movie/booking");
+        MovieEntity[] movies = this.movieService.getMovies();
+        RegionEntity region = this.movieService.getRegion();
+        BranchEntity[] branches = this.movieService.getBranches();
+        MovieScreenInfoVo[] infos = this.movieService.getScreenInfos();
+        SeatVo[] seats = this.movieService.getSeatVos();
+        SeatVo[] seatVos = this.movieService.getSeatVosGroupByColumn();
+        modelAndView.addObject("infos", infos);
+        modelAndView.addObject("movies", movies);
+        modelAndView.addObject("region", region);
+        modelAndView.addObject("branches", branches);
+        modelAndView.addObject("seats", seats);
+        modelAndView.addObject("seatVos", seatVos);
         return modelAndView;
     }
 
@@ -366,8 +359,8 @@ public class MovieController {
     }
 
     @RequestMapping(value = "point",
-    method = RequestMethod.POST,
-    produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postPoint(@SessionAttribute(value = "user") UserEntity user,
                             @RequestParam(value = "point") int point) {
@@ -427,14 +420,9 @@ public class MovieController {
         List<Object> list = Arrays.asList(arr);
         Collections.reverse(list);
         Object[] reverseArr = list.toArray(arr);
-        System.out.println("arr : " + Arrays.toString(arr));
-        System.out.println("reverseArr : " + Arrays.toString(reverseArr));
-
         modelAndView.addObject("sortedBookingMapKeySet", reverseArr);
-
         modelAndView.addObject("bookingHistories", bookingHistories);
         modelAndView.addObject("bookingMap", bookingMap);
-
         //전화번호 양식 맞추기
         StringBuffer sb = new StringBuffer();
         sb.append(user.getContact());

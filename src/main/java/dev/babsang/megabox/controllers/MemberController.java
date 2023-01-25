@@ -80,7 +80,6 @@ public class MemberController {
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         responseObject.put("name", user.getName());
-        System.out.println(user.getName());
 
         return responseObject.toString();
     }
@@ -115,8 +114,6 @@ public class MemberController {
         Enum<?> result = this.memberService.login(user);
         if (result == CommonResult.SUCCESS) {
             session.setAttribute("user", user);
-        } else {
-            System.out.println("비밀번/비밀번호 틀림");
         }
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());

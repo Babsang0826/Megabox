@@ -296,7 +296,6 @@ body > .--main > .movie-post-container > .best-mp-container {
 }
 
 
-
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-image {
     width: 17rem;
     height: 100%;
@@ -394,12 +393,15 @@ body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .e
 
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .empty-box > .detail-mp-rank {
     font-size: 1.1rem;
-    color: rgb(255,255,255);
+    color: rgb(255, 255, 255);
     display: none;
     height: 12rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
+    -webkit-line-clamp: 9;
+    -webkit-box-orient: vertical;
 }
 
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .empty-box > .detail-mp-rank:first-of-type {

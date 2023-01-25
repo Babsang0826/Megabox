@@ -8,7 +8,7 @@
             <a class="link" th:if="${session.user == null}" th:href="@{/member/register}">회원가입</a>
             <a class="link" th:if="${session.user != null}" style="display: none">알림</a>
 
-            <a class="link" href="#">빠른예매</a>
+            <a class="link" th:href="@{/movie/booking}">빠른예매</a>
         </div>
         <ul class="category-container">
             <li>
@@ -54,7 +54,7 @@
             </li>
             <li class="empty-box-two"></li>
             <li class="menu">
-                <a href="#">고객센터</a>
+                <a th:href="@{/bbs/notice (bid = ${'notice'})}">고객센터</a>
                 <ul class="center-sub-menu">
                     <li><a th:href="@{/bbs/notice (bid = ${'notice'})}">공지사항</a></li>
                     <li><a href="#">Q&A</a></li>
@@ -238,7 +238,7 @@
                 <p>· 개인정보보호책임자 공성진</p>
                 <p>· 사업자등록번호 211-86-59478</p>
                 <p>· 통신판매업신고번호 제 2020-서울마포-4545 호</p>
-                <p class="copy">COPYRIGHT © MegaboxJoongAng, Inc. All rights reserved</p>
+                <p class="copy">본 사이트는 포트폴리오 제작을 위해 만들어진 클론 사이트 입니다. 사용에 있어서 아무런 효력이 없으니 주의 바랍니다.</p>
             </div>
             <div class="footer-sns">
                 <a href="#"><i class="iconset ico-youtubeN">유튜브</i></a>

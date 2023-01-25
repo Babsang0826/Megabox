@@ -13,7 +13,8 @@
 <th:block th:replace="~{fragments/body :: header}"></th:block>
 <main class="--main">
     <section class="poster-container" th:each="movie, index : ${movies}" th:if="${index.index} < 1">
-        <img th:src="${movie.getMoviePoster()}" src="http://res.heraldm.com/content/image/2020/06/19/20200619000658_0.jpg" alt="1등영화 사진">
+        <img th:src="${movie.getMoviePoster()}"
+             src="http://res.heraldm.com/content/image/2020/06/19/20200619000658_0.jpg" alt="1등영화 사진">
         <div class="poster-box">
             <div class="poster-title">
                 <div class="title">
@@ -53,7 +54,8 @@
                 <div class="convenient-box">
                     <form class="form">
                         <label class="label">
-                            <input class="search-movie" type="text" placeholder="영화명을 입력해 주세요." rel="homeSearchMovieInput">
+                            <input class="search-movie" type="text" placeholder="영화명을 입력해 주세요."
+                                   rel="homeSearchMovieInput">
                             <a href="#" rel="homeSearchMovieBtn"><i class="icon fa-solid fa-magnifying-glass"></i></a>
                         </label>
                     </form>
@@ -77,7 +79,7 @@
         <div class="mp-title-box">
             <div class="mp-title">박스오피스</div>
             <div class="more-mp">
-                <a href="#"> 박스오피스 더보기
+                <a th:href="@{/movie/movie}"> 박스오피스 더보기
                     <i class="icon fa-solid fa-plus"></i>
                 </a>
             </div>
@@ -105,7 +107,8 @@
                 <div class="hashtag"
                      th:each="movie, index : ${movies}"
                      th:if="${index.index} < 4"
-                     th:text="'# ' + ${movie.getTitle()}"># 아바타: 물의 길</div>
+                     th:text="'# ' + ${movie.getTitle()}"># 아바타: 물의 길
+                </div>
                 <div class="empty-box">
                     <span class="detail-mp-rank"
                           th:each="movie, index : ${movies}"
@@ -117,31 +120,13 @@
                     <div class="rank-poster-box" th:each="movie, index : ${movies}"
                          th:if="${index.index} < 4">
                         <div class="image">
-                            <img th:src="${movie.getMoviePoster()}" src="https://img.megabox.co.kr/SharedImg/2022/12/19/whzCk46ejtIoWU1eavvF9lJ8rC2Wbvf7_420.jpg"
+                            <img th:src="${movie.getMoviePoster()}"
+                                 src="https://img.megabox.co.kr/SharedImg/2022/12/19/whzCk46ejtIoWU1eavvF9lJ8rC2Wbvf7_420.jpg"
                                  alt="">
                         </div>
-<!--                    </div>-->
-<!--                    <div class="rank-poster-box">-->
-<!--                        <div class="image">-->
-<!--                            <img src="https://img.megabox.co.kr/SharedImg/2022/12/14/34KHVIhPAtctbWtZLj8SWkH0FM0rXtTL_420.jpg"-->
-<!--                                 alt="">-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="rank-poster-box">-->
-<!--                        <div class="image">-->
-<!--                            <img src="https://img.megabox.co.kr/SharedImg/2022/12/28/4hz0JXg4KtBBVynPFp77N7z50qW4H9HK_420.jpg"-->
-<!--                                 alt="">-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="rank-poster-box">-->
-<!--                        <div class="image">-->
-<!--                            <img src="https://img.megabox.co.kr/SharedImg/2022/12/12/9BGWwkIolJAp84nHWKSckEcsbojRZPwO_420.jpg"-->
-<!--                                 alt="">-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    </div>
                 </div>
             </div>
-        </div>
     </section>
     <section class="mg-guide-container">
         <div class="guide-title">
@@ -179,7 +164,7 @@
                     <span>2022.12.14</span>
                 </div>
                 <div class="more-notice">
-                    <a href="#">
+                    <a th:href="@{/bbs/notice (bid = ${'notice'})}">
                         더보기
                         <i class="icon fa-solid fa-angle-right"></i>
                     </a>
@@ -189,7 +174,7 @@
         <div class="guide-icon-container">
             <div class="guide-icon-box">
                 <div class="service-center">
-                    <a href="#">
+                    <a th:href="@{/bbs/notice (bid = ${'notice'})}">
                         <i class="icon fa-solid fa-headphones"></i>
                         <span>고객센터</span>
                     </a>
