@@ -22,7 +22,7 @@ form.onsubmit = (e) => {
                 const responseObject = JSON.parse(xhr.responseText);
                 switch (responseObject['result']) {
                     case'success':
-                        if(document.referrer.indexOf('member/register') !== -1) {
+                        if(document.referrer.indexOf('member/') !== -1){
                             window.location.href = "/"
                             break;
                         } else {

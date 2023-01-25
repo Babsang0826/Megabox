@@ -286,7 +286,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
             return;
         }
         if (!new RegExp('^[a-zA-Z][0-9a-zA-Z]{4,7}$').test(form['loginId'].value)) {
-            form.querySelector('[rel="warning-id"]').innerText = '아이디는 영문 숫자 조합 5~8자리 입니다.'
+            form.querySelector('[rel="warning-id"]').innerText = '아이디는 영문 또는 영문, 숫자 조합 5~8자리 입니다.'
             form['loginId'].focus();
             return;
         } else {
@@ -348,9 +348,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                             document.getElementById("four").style.borderBottom = "1px solid #503396";
                             const loginName = document.querySelector('#loginName');
                             const registerName = document.querySelector('[rel="registerName"]');
-
                             registerName.innerText = `${loginName.value}님 메가박스 가입을 환영합니다.`;
-                            // window.location.href = "http://localhost:8080/member/login"
                             break;
                         case 'contact':
                             // alert("이미 등록된 연락처 입니다.");
@@ -386,7 +384,7 @@ form.querySelector('[rel="overlappingButton"]').addEventListener('click', () => 
                 switch (responseObject['result']) {
                     case 'success':
                         if (!new RegExp('^[a-zA-Z][0-9a-zA-Z]{4,7}$').test(form['loginId'].value)) {
-                            swal("알림", '아이디는 영문 숫자 조합 5~8자리 입니다.');
+                            swal("알림", '아이디는 영문 또는 영문, 숫자 조합 5~8자리 입니다.');
                             form['loginId'].focus();
                             return;
                         }

@@ -37,6 +37,17 @@ for (let chkElement of chk) {
 const cancelButton = window.document.querySelector('[rel="cancel"]');
 
 cancelButton.addEventListener('click', () => {
+    const chkArr = [];
+    const check = document.getElementsByName("chk");
+    for (let i = 0; i < check.length; i++) {
+        if (check[i].checked === true) {
+            chkArr.push(check[i].value);
+        }
+        if(chkArr.length === 0) {
+            swal('알림', '탈퇴시킬 회원을 선택해 주세요.')
+            return;
+        }
+    }
     let flag;
     swal = swal({
         title: "알림",
