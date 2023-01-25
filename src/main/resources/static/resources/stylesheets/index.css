@@ -295,11 +295,18 @@ body > .--main > .movie-post-container > .best-mp-container {
     justify-content: space-between;
 }
 
+
+
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-image {
     width: 17rem;
     height: 100%;
     background-color: inherit;
     margin-right: 10rem;
+    display: none;
+}
+
+body > .--main > .movie-post-container > .best-mp-container > .best-mp-image:first-of-type {
+    display: block;
 }
 
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-image > .mp-image {
@@ -355,11 +362,15 @@ body > .--main > .movie-post-container > .best-mp-container > .best-mp-image > .
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank {
     width: 43rem;
     height: 100%;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     margin-right: 4rem;
+}
+
+body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank {
+    display: flex;
 }
 
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .hashtag {
@@ -368,6 +379,11 @@ body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .h
     font-size: 1.3rem;
     color: rgb(255, 255, 255);
     border-bottom: 0.0625rem solid rgb(71, 70, 129);
+    display: none;
+}
+
+body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .hashtag:first-of-type {
+    display: block;
 }
 
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .empty-box {
@@ -378,8 +394,20 @@ body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .e
 
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .empty-box > .detail-mp-rank {
     font-size: 1.1rem;
-    color: rgb(255, 255, 255);
-    margin-top: 2rem;
+    color: rgb(255,255,255);
+    display: none;
+    height: 11.7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .empty-box > .detail-mp-rank:first-of-type {
+    display: block;
+}
+
+body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .empty-box > .detail-mp-rank.on {
+    display: block;
 }
 
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .rank-poster-container {

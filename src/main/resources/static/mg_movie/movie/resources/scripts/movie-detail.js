@@ -233,7 +233,7 @@ for (let i = 4; i > -1; i--) {
     const yesterday =
         ((addDays(today, -i).getMonth() + 1) / 10 >= 1
             ? addDays(today, -i).getMonth() + 1
-            : ('0' + (addDays(today, -i).getMonth() + 1)))  + '.' +
+            : ('0' + (addDays(today, -i).getMonth() + 1))) + '.' +
         ((addDays(today, -i).getDate()) / 10 >= 1
             ? addDays(today, -i).getDate()
             : ('0' + (addDays(today, -i).getDate())));
@@ -250,6 +250,7 @@ const v_data = {
             borderWidth: 1,
             backgroundColor: '#a9d1df',
             yAxisID: 'y',
+            xAxisID: 'x',
         },
     ]
 };
@@ -259,7 +260,6 @@ const v_config = {
     data: v_data,
 
     options: {
-        borderColor: 'red',
         plugins: {
             legend: {
                 display: false
@@ -267,10 +267,27 @@ const v_config = {
         },
         scales: {
             y: {
-                display: false,
+                // display: false,
                 position: 'left',
                 suggestedMin: 0,
                 suggestedMax: 15,
+                grid: {
+                    display: false,
+                    borderDash: [5, 5]
+                },
+                ticks: {
+                    display: false,
+                },
+            },
+            x: {
+                grid: {
+                    // display: false,
+                    // drawOnChartArea: false,
+                    borderColor: '#444',
+                    borderWidth: 1.5,
+                    borderDash: [3, 5],
+                    color: '#888'
+                },
             },
         },
     }

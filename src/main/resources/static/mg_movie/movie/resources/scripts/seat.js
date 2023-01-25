@@ -224,10 +224,10 @@ cancelPoint.addEventListener('click', () => {
 })
 
 const completePaymentBtn = document.querySelector('[rel="completePaymentBtn"]');
-
+const hiddenEmail = document.querySelector('[rel="hiddenEmail"]');
 completePaymentBtn.addEventListener('click', () => {
     const savingPoint = parseInt(parseInt(existingPoint.innerText.slice(0, -1)) + parseInt(totalPrice.innerText) / 200);
-    const hiddenEmail = document.querySelector('[rel="hiddenEmail"]');
+    // const hiddenEmail = document.querySelector('[rel="hiddenEmail"]');
 
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
@@ -253,7 +253,9 @@ completePaymentBtn.addEventListener('click', () => {
         }
     }
     xhr.send(formData);
-})
+});
+
+
 
 
 

@@ -361,6 +361,10 @@ const drawSubs = () => {
                     const readScreenInfo = window.document.querySelectorAll('.movie-time-cover.on');
                     readScreenInfo.forEach(x => {
                         x.addEventListener('click', () => {
+                            if (hiddenEmail === null) {
+                                window.location.href = '/member/login';
+                                return false;
+                            }
                             timeContainer.classList.add('off');
                             paymentContainer.classList.remove('off');
                             seatContainer.classList.add('on');
@@ -458,6 +462,10 @@ const drawSubs = () => {
                     const readScreenInfo = window.document.querySelectorAll('.movie-time-cover.on');
                     readScreenInfo.forEach(x => {
                         x.addEventListener('click', () => {
+                            if (hiddenEmail === null) {
+                                window.location.href = '/member/login';
+                                return false;
+                            }
                             timeContainer.classList.add('off');
                             paymentContainer.classList.remove('off');
                             seatContainer.classList.add('on');
@@ -1188,7 +1196,6 @@ if (movie.screenInfoIndex !== null) {
 
 }
 localStorage.clear();
-
 
 
 

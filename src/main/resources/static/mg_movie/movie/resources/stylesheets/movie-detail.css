@@ -701,6 +701,7 @@ main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .co
     width: 13.75rem;
     height: 12.8125rem;
     display: block;
+    margin-top: 1rem;
 }
 
 main > .container > .contents > .content-data > .inner-wrap > .comment-info {
