@@ -396,7 +396,7 @@ body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .e
     font-size: 1.1rem;
     color: rgb(255,255,255);
     display: none;
-    height: 11.7rem;
+    height: 12rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

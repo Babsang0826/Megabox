@@ -155,19 +155,15 @@ const hashtag = document.querySelectorAll('.hashtag');
 const bestImage = document.querySelectorAll('.best-mp-image');
 
 for (let i = 0; i < rankPosterBox.length; i++) {
-    rankPosterBox[i].addEventListener('click', () => {
+    rankPosterBox[i].addEventListener('mouseover', () => {
         for (let j = 0; j < detailMpRank.length; j++) {
             detailMpRank[j].style.display = 'none'
             hashtag[j].style.display = 'none';
             bestImage[j].style.display = 'none';
-            // rankPosterBox[j].styles.display = 'block'
         }
         detailMpRank[i].style.display = 'block';
         hashtag[i].style.display = 'block';
         bestImage[i].style.display = 'block';
-        // rankPosterBox[i].style.display = 'none';
-
-        // detailMpRank[i].classList.add('on');
     })
 }
 
