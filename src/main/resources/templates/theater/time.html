@@ -26,6 +26,7 @@
 </div>
 <body>
 <form id="form" class="form">
+    <input type="hidden" rel="hiddenEmail" th:value="${session.user.getEmail()}" th:if="${session.user != null}">
     <div id="contents" class="no-padding">
 <!--         theater-detail-page -->
         <div class="theater-detail-page">

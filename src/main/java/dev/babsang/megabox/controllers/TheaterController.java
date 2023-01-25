@@ -16,10 +16,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
@@ -57,7 +54,8 @@ public class TheaterController {
     //
 
     @RequestMapping(value = "time", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getTheaterTime(@RequestParam(value = "branchId", required = false) int branchId) {
+    public ModelAndView getTheaterTime(@RequestParam(value = "branchId", required = false) int branchId,
+                                       @SessionAttribute(value = "user", required = false)UserEntity user) {
         ModelAndView modelAndView = new ModelAndView("theater/time");
         MovieEntity[] movies = this.theaterService.getMovies();
         RegionEntity region = this.theaterService.getRegion();

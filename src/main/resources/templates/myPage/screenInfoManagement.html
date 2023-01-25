@@ -15,9 +15,9 @@
 <div class="page-util" id="pageUtil">
     <div class="inner-wrap">
         <div class="location">
-            <a th:href="@{/static}">Home</a>
-            <a th:href="@{/myPage/adminPage}">관리자페이지</a>
-            <a th:href="@{/myPage/screenInfoManagement}">영화 시간표 등록</a>
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/myPage/myPage}">관리자페이지</a>
+            <a th:href="@{/myPage/screenInfoManagement}">영화 시간표 관리</a>
         </div>
     </div>
 </div>
@@ -28,7 +28,7 @@
             <th:block th:replace="~{fragments/sideMenu :: sideMenu}"></th:block>
             <div class="content-container">
                 <div class="content-title">
-                    <span>영화 시간표 등록</span>
+                    <span>영화 시간표 관리</span>
                 </div>
                 <div class="tab-list">
                     <ul>
@@ -148,8 +148,8 @@
                                                     <label>
                                                         <select class="select modify-aud">
                                                             <!--/*@thymesVar id="regions" type="dev.babsang.megabox.vos.myPage.RegionVo"*/-->
-                                                            <option selected>상영할 지점과 상영관을 선택해 주세요.</option>
-                                                            <option th:each="region : ${regions}"
+                                                            <option class="title-option" selected>상영할 지점과 상영관을 선택해 주세요.</option>
+                                                            <option class="title-option" th:each="region : ${regions}"
                                                                     th:value="${region.getAuditoriumIndex()}">
                                             <span class="branch-aud"
                                                   th:text="${region.getBranchText()} + '/' + ${region.getAuditoriumText()}"></span>
@@ -203,7 +203,7 @@
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </a>
                                 <a class="page" id="pageNumber"
-                                   th:style="${page == paging.requestPage ? 'background-color: rgb(80, 51, 150); color: white;' : ''}"
+                                   th:style="${page == paging.requestPage ? 'background-color: #01738b; color: white;' : ''}"
                                    th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}"
                                    th:class="${'page ' + (page == paging.requestPage ? 'selected' : '')}"
                                    th:text="${page}"

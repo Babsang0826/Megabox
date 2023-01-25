@@ -516,6 +516,11 @@ body > #form > .enroll-container > .inner-wrap > .content-container > .select-sc
     user-select: none;
 }
 
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .modify-box > label > .select > .title-option {
+    background-color: rgb(85, 85, 85);
+    color: rgb(255, 255, 255);
+}
+
 body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .modify-box > label > .select:hover {
     background-color: rgb(248, 248, 250);
     border-radius: 0.5rem;

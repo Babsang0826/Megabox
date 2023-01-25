@@ -48,7 +48,7 @@
             <li class="menu">
                 <a th:href="@{/theater/list}">극장</a>
                 <ul class="theater-sub-menu">
-                    <li><a href="#">전체극장</a></li>
+                    <li><a th:href="@{/theater/list}">전체극장</a></li>
                     <li><a href="#">특별관</a></li>
                 </ul>
             </li>
@@ -61,9 +61,7 @@
                 </ul>
             </li>
             <li class="empty-box-three"></li>
-            <!--            <li>-->
-            <!--                <a href="#">관리자 페이지</a>-->
-            <!--            </li>-->
+            <li class="submenu-bar"></li>
             <li>
                 <a href="#">
                     <i class="icon fa-solid fa-calendar-days"></i>
@@ -112,7 +110,7 @@
             <div class="space-box"></div>
             <div class="rank-search">
                 <input type="text" name="search" placeholder="영화를 검색하세요." rel="searchMovieInput">
-                <i class="icon fa-solid fa-magnifying-glass" rel="searchMovieBtn">
+                <i class="icon fa-solid fa-magnifying-glass" rel="searchMovieBtn" style="cursor: pointer">
                     <a href=""></a>
                 </i>
             </div>

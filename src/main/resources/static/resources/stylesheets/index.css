@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body > .header {
-    background-color: rgba(0,0,0,78%);
+    background-color: rgba(0, 0, 0, 78%);
     z-index: 5;
 }
 
@@ -16,13 +16,6 @@ body > .--header > .nav > .category-container > li > a {
 
 body > .--header > .nav > .detail-header > a {
     color: #888;
-}
-
-body > .--header > .nav > .category-container > li:hover .movie-sub-menu,
-body > .--header > .nav > .category-container > li:hover .reservation-sub-menu,
-body > .--header > .nav > .category-container > li:hover .theater-sub-menu,
-body > .--header > .nav > .category-container > li:hover .center-sub-menu {
-    background-color: rgba(0, 0, 0, 30%);
 }
 
 body > .--main {
@@ -385,7 +378,7 @@ body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .e
 
 body > .--main > .movie-post-container > .best-mp-container > .best-mp-rank > .empty-box > .detail-mp-rank {
     font-size: 1.1rem;
-    color: rgb(255,255,255);
+    color: rgb(255, 255, 255);
     margin-top: 2rem;
 }
 
@@ -508,7 +501,7 @@ body > .--main > .mg-guide-container > .theater-type-container > .theater-type >
 body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-boutique:hover,
 body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-mx:hover,
 body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-comfort:hover,
-body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-puppy-cinema:hover{
+body > .--main > .mg-guide-container > .theater-type-container > .theater-type > .type-puppy-cinema:hover {
     background-position: 0 bottom;
 }
 
@@ -607,7 +600,7 @@ body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box >
 body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .inquiry,
 body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .group,
 body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .lost,
-body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .coronation{
+body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .coronation {
     width: 11rem;
     height: 100%;
     display: flex;
@@ -635,7 +628,7 @@ body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box >
 body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .group > a:hover,
 body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .lost > a:hover,
 body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .coronation > a:hover {
-    border-bottom: 0.0625rem solid rgb(0,0,0);
+    border-bottom: 0.0625rem solid rgb(0, 0, 0);
 }
 
 body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box > .service-center > a > .icon,
@@ -648,5 +641,9 @@ body > .--main > .mg-guide-container > .guide-icon-container > .guide-icon-box >
     margin-bottom: 0.3rem;
     color: rgb(127, 188, 199);
 
+}
+
+body > .--header > .nav > .category-container > .submenu-bar {
+    background-color: rgba(0, 0, 0, 30%);
 }
 

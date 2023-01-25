@@ -143,10 +143,9 @@ body > .--header > .nav > .detail-header > a:not(:nth-child(1)) {
 body > .--header > .nav > .category-container > .logo-box {
     position: absolute;
     left: 50%;
-    top: 1.5rem;
     width: 8.8rem;
     height: 5.6rem;
-    margin: 0 0 0 -4.375rem;
+    transform: translateX(-50%);
 }
 
 /*body > .--header > .nav > .category-container > .logo-box > .logo {*/
@@ -416,6 +415,7 @@ body > .--header > .nav > .category-container {
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: relative;
     z-index: 6;
 }
 
@@ -440,14 +440,6 @@ body > .--header > .nav > .category-container > .empty-box-three {
 body > .--header > .nav > .category-container > .menu:hover {
     border-bottom: 0.0625rem solid rgb(255, 255, 255);
 }
-
-/*body > .--header > .nav > .category-container > li > a {*/
-/*    display: block;*/
-/*    padding: 0 1.5rem;*/
-/*    line-height: 2.5rem;*/
-/*    color: rgb(255, 255, 255);*/
-/*    z-index: 6;*/
-/*}*/
 
 body > .--header > .nav > .category-container > li > a {
     display: block;
@@ -520,42 +512,50 @@ body > .--header > .nav > .category-container > li > a > .fa-user {
     font-size: 1.3rem;
 }
 
-/*body > .--header > .nav > .category-container > li:hover .movie-sub-menu,*/
-/*body > .--header > .nav > .category-container > li:hover .reservation-sub-menu,*/
-/*body > .--header > .nav > .category-container > li:hover .theater-sub-menu,*/
-/*body > .--header > .nav > .category-container > li:hover .center-sub-menu {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    align-items: center;*/
-/*    width: 100%;*/
-/*    height: 3rem;*/
-/*    background-color: rgba(0, 0, 0, 30%);*/
-/*}*/
+body > .--header > .nav > .category-container > .menu {
+    position: relative;
+    top: 0.25rem;
+    white-space: nowrap;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+body > .--header > .nav > .category-container > .submenu-bar {
+    width: 100vw;
+    top: 100%;
+    height: 3rem;
+    background-color: #339eb2;
+    display: none;
+    left: calc((100vw - 68rem) / -2);
+    position: absolute;
+}
+
+body > .--header > .nav > .category-container > .menu:hover ~ .submenu-bar {
+    display: block;
+}
 
 body > .--header > .nav > .category-container > li:hover .movie-sub-menu,
 body > .--header > .nav > .category-container > li:hover .reservation-sub-menu,
 body > .--header > .nav > .category-container > li:hover .theater-sub-menu,
 body > .--header > .nav > .category-container > li:hover .center-sub-menu {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    height: 3rem;
-    background-color: #339eb2;
 }
 
 body > .--header > .nav > .category-container .movie-sub-menu,
 body > .--header > .nav > .category-container .reservation-sub-menu,
 body > .--header > .nav > .category-container .theater-sub-menu,
 body > .--header > .nav > .category-container .center-sub-menu {
+    left: 50%;
     display: none;
+    flex-direction: row;
+    align-items: center;
+    height: 3rem;
     position: absolute;
-    left: 0;
-    right: 0;
     text-align: center;
+    transform: translateX(-50%);
     z-index: 6;
-    margin-block-start: 0.2rem;
-    margin-block-end: 0.2rem;
 }
 
 body > .--header > .nav > .category-container .movie-sub-menu a,
@@ -563,7 +563,7 @@ body > .--header > .nav > .category-container .reservation-sub-menu a,
 body > .--header > .nav > .category-container .theater-sub-menu a,
 body > .--header > .nav > .category-container .center-sub-menu a {
     display: block;
-    padding: 5px;
+    padding: 5px 10px;
     color: #fff;
 }
 
@@ -572,22 +572,6 @@ body > .--header > .nav > .category-container .reservation-sub-menu a:hover,
 body > .--header > .nav > .category-container .theater-sub-menu a:hover,
 body > .--header > .nav > .category-container .center-sub-menu a:hover {
     text-decoration: underline;
-}
-
-body > .--header > .nav > .category-container .movie-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 27.5rem;
-}
-
-body > .--header > .nav > .category-container .reservation-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 32.5rem;
-}
-
-body > .--header > .nav > .category-container .theater-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 37.5rem;
-}
-
-body > .--header > .nav > .category-container .center-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 65.5rem;
 }
 
 body > .--header > .search-bar {

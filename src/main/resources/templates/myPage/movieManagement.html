@@ -20,8 +20,8 @@
     <div class="inner-wrap">
         <div class="location">
             <a th:href="@{/static}">Home</a>
-            <a th:href="@{/myPage/adminPage}">관리자페이지</a>
-            <a th:href="@{/myPage/userManagement}">영화 등록</a>
+            <a th:href="@{/myPage/myPage}">관리자페이지</a>
+            <a th:href="@{/myPage/userManagement}">영화 관리</a>
         </div>
     </div>
 </div>
@@ -30,7 +30,7 @@
         <div class="inner-wrap">
             <th:block th:replace="~{fragments/sideMenu :: sideMenu}"></th:block>
             <div class="content">
-                <h2 class="tit">영화 등록</h2>
+                <h2 class="tit">영화 관리</h2>
                 <div class="tab-list">
                     <ul>
                         <li class="on" rel="modifyList">

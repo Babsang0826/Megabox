@@ -196,6 +196,9 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     timeBox.append(dayElement);
 }
 
+const inputHiddenEmail = window.document.querySelector('[rel="hiddenEmail"]');
+
+
 Cover.show("");
 let payload = [];
 const url = new URL(window.location.href);
@@ -300,6 +303,10 @@ xhr.onreadystatechange = () => {
                         remainSeat.innerText = `${remainSeatCnt}석`;
                         timeCellElement.classList.add('time')
                         timeCellElement.addEventListener('click', () => {
+                            if(inputHiddenEmail == null) {
+                                window.location.href = '/member/login';
+                                return false;
+                            }
                             localStorage.setItem('movie', JSON.stringify(movie));
                             location.href = `/movie/booking`;
                             timeCellElement.setAttribute('selected', 'selected');
@@ -373,14 +380,10 @@ window.onscroll = function () {
 function scrollFunction() {
     if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
         document.getElementById('pageUtil').classList.add('fixed');
-        // document.getElementById('movieDetail').classList.add('fixed');
         document.getElementById('tabList').classList.add('fixed');
-        // document.getElementById('contentData').classList.add('fixed');
     } else {
         document.getElementById('pageUtil').classList.remove('fixed');
-        // document.getElementById('movieDetail').classList.remove('fixed')
         document.getElementById('tabList').classList.remove('fixed')
-        // document.getElementById('contentData').classList.remove('fixed');
     }
 }
 

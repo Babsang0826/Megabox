@@ -284,8 +284,8 @@
                                                     <div class="use-point">
                                                         <span>
                                                             사용가능한 멤버십 포인트
-                                                            <em rel="existingPoint" th:text="${session.user.getPoint() + 'P'}">1200P</em>
-                                                            <input type="hidden" rel="hiddenEmail" th:value="${session.user.getEmail()}">
+                                                            <em rel="existingPoint" th:text="${session.user.getPoint() + 'P'}" th:if="${session.user != null}">1200P</em>
+                                                            <input type="hidden" rel="hiddenEmail" th:if="${session.user != null}" th:value="${session.user.getEmail()}">
                                                         </span>
                                                     </div>
                                                     <div>
