@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service(value = "dev.babsang.megabox.services.BbsService")
@@ -161,6 +162,34 @@ public class BbsService {
             }
         }
         return CommonResult.SUCCESS;
+    }
+
+    public int[] getPrevNextArticleIndex(ArticleEntity article) {
+        PrevNextVo[] existingArticle = this.bbsMapper.selectArticleByIndexNext(article.getIndex());
+
+        int[] existingArticleIndex = new int[2];
+        if (existingArticle == null || existingArticle.length == 1) {
+            existingArticleIndex[0] = 1;
+            existingArticleIndex[1] = 1;
+        }
+        assert existingArticle != null;
+        if (existingArticle.length == 2) {
+            if (existingArticle[0].getIndex() < article.getIndex()) {
+                existingArticleIndex[0] = existingArticle[0].getIndex();
+                existingArticleIndex[1] = 1;
+            } else {
+                existingArticleIndex[0] = 1;
+                existingArticleIndex[1] = existingArticle[1].getIndex();
+            }
+            return existingArticleIndex;
+        }
+        if (existingArticle.length == 3) {
+            existingArticleIndex[0] = existingArticle[0].getIndex();
+            existingArticleIndex[1] = existingArticle[2].getIndex();
+            return existingArticleIndex;
+        }
+
+        return existingArticleIndex;
     }
 
     public String[] getPrevNextArticleTitle(ArticleEntity article) {

@@ -28,6 +28,7 @@
                booking.user_id             as userId,
                booking.seat_index          as seatIndex,
                booking.payment             as payment,
+               booking.booking_date        as bookingDate,
                screenInfo.`index`          as screenInfoIndex,
                screenInfo.movie_index      as movieIndex,
                screenInfo.screen_date      as screenDate,

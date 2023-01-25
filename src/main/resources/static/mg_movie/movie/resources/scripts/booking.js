@@ -131,7 +131,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     if (i < 10) {
         nextMonthDate = currentYear + '-' + nextMonth + '-0' + i;
     } else {
-        nextMonthDate = year + '-' + nextMonth + '-' + i;
+        nextMonthDate = currentYear + '-' + nextMonth + '-' + i;
     }
     nextMonthArrCode = nextMonthDate;
     nextMonthArr.push(nextMonthArrCode);
@@ -1090,6 +1090,7 @@ if (movie.screenInfoIndex !== null) {
             sortSelections();
         });
     }
+
     const seatNext = container.querySelector('.next');
     seatNext.addEventListener('click', () => {
         let selectedSeat = container.querySelectorAll('.seat.choice').length;
@@ -1186,6 +1187,10 @@ if (movie.screenInfoIndex !== null) {
 
 }
 localStorage.clear();
+
+
+
+
 
 
 

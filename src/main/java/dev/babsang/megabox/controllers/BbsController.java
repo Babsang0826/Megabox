@@ -118,6 +118,8 @@ public class BbsController {
 
         String[] articleTitle = this.bbsService.getPrevNextArticleTitle(article);
 
+        int[] articleIndex = this.bbsService.getPrevNextArticleIndex(article);
+
         modelAndView.addObject("article", article);
 
         modelAndView.addObject("board", this.bbsService.getBoard(article.getBoardId()));
@@ -125,6 +127,8 @@ public class BbsController {
         modelAndView.addObject("aid", article.getIndex());
 
         modelAndView.addObject("articleTitle", articleTitle);
+
+        modelAndView.addObject("articleIndex", articleIndex);
 
         return modelAndView;
     }

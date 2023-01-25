@@ -278,6 +278,7 @@ body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > 
     color: #fff;
     background-color: #333;
     border-radius: 10px;
+    max-height: 560px;
 }
 
 body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-result > .wrap {
@@ -375,7 +376,8 @@ body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > 
 }
 
 body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-result > .wrap > .title-area > p:last-of-type {
-    padding-bottom: 10px;
+    padding-bottom: 16px;
+
 }
 
 body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-result > .wrap > .info-area {
@@ -598,21 +600,24 @@ body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > 
 }
 
 body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-result > .wrap > .btn-area > a {
-    display: block;
+    /*display: block;*/
     float: left;
     width: 50%;
     height: 3rem;
     margin: 0;
     padding: 0;
-    font-size: 1.2em;
+    font-size: 1.1rem;
     line-height: 40px;
     color: #fff !important;
     border: 0;
     /*border-radius: 0;*/
     background-color: #53565b;
-    text-align: center;
+    /*text-align: center;*/
     border-radius: 0 0 0 10px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
 
@@ -627,6 +632,7 @@ body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > 
     border-radius: 0 0 10px 0;
     cursor: pointer;
     width: 50%;
+    font-size: 1.1rem;
 }
 
 /*결제창*/
@@ -865,7 +871,7 @@ body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > 
 body > .--main > .body-wrap > .container > .inner-wrap > .book > .seat-select > .seat-result > .wrap > .price-cal {
     display: flex;
     flex-direction: column;
-    margin: 20px 20px 3.8rem 20px;
+    margin: 20px 20px 4.6rem 20px;
     height: auto;
     overflow-y: auto;
     max-height: 270px;

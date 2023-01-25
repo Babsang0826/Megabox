@@ -280,6 +280,20 @@
                                                         <a href="#">메가박스 VIP 영화쿠폰</a>
                                                     </div>
                                                 </div>
+                                                <div class="use-point-container">
+                                                    <div class="use-point">
+                                                        <span>
+                                                            사용가능한 멤버십 포인트
+                                                            <em rel="existingPoint" th:text="${session.user.getPoint() + 'P'}">1200P</em>
+                                                            <input type="hidden" rel="hiddenEmail" th:value="${session.user.getEmail()}">
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <input rel="availablePoint" type="number">
+                                                        <a class="on" rel="userPoint">적용</a>
+                                                        <a rel="cancelPoint">취소</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
@@ -438,7 +452,7 @@
                                         <div class="all">
                                             <span class="title">할인적용</span>
                                             <span class="price">
-                                            <em>0</em>
+                                            <em rel="discount">0</em>
                                             <span>원</span>
                                         </span>
                                         </div>

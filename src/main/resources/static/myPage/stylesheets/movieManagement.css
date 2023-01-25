@@ -123,12 +123,13 @@ p {
 
 select {
     appearance: auto;
-    margin-left: 1rem;
     font-size: 1rem;
+    padding: 6px;
 }
 
 select:hover {
     background-color: #f8f8fa;
+    border-radius: 5px;
 }
 
 .detail-title-container > .detail-title > span {
@@ -146,7 +147,14 @@ select:hover {
 .detail > .item {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin: 0.5rem;
+}
+
+.detail > .item > div {
+    display: flex;
+    /*flex-direction: column;*/
+    width: 100%;
 }
 
 .detail > .item > span {
@@ -164,17 +172,24 @@ select:hover {
     margin-left: 1rem;
 }
 
-.detail > .item > input {
+.detail > .item > input,
+.detail > .item > div > input {
     margin-left: 1rem;
     padding: 0 5px;
     width: 60%;
+    /*width: auto;*/
     border-radius: 5px;
     height: 2rem;
     text-overflow: ellipsis;
     font-size: 1rem;
 }
 
-.detail > .item > input:hover {
+.detail > .item > div > input {
+    width: 40%;
+}
+
+.detail > .item > input:hover,
+.detail > .item > div > input:hover {
     background-color: #f8f8fa;
 }
 
@@ -183,7 +198,8 @@ select:hover {
     margin-left: 0.5rem;
 }
 
-.detail > .item > input:focus {
+.detail > .item > input:focus,
+.detail > .item > div > input:focus {
     border: 1px solid;
     background-color: #fff;
 }

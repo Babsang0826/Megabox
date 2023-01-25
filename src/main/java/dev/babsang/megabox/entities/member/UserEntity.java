@@ -19,8 +19,16 @@ public class UserEntity {
     private String addressSecondary;
     private Date registeredOn;
     private Boolean adminFlag;
+    private int point;
 
 
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
 
     public String getName() {
         return name;

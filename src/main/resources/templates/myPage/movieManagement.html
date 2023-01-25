@@ -53,21 +53,22 @@
                         <div class="empty-box"></div>
                         <form id="searchForm" class="search-form" method="get">
                             <div class="selectBox" id="theaterSelect">
-<!--                                <label class="label">-->
-                                    <span hidden>검색 기준</span>
-                                    <select class="select" name="criterion"
-                                            th:with="criterion = ${#request.getParameter('criterion')}">
-                                        <option value="all"
-                                                th:selected="${criterion == null || criterion.equals('all')}">제목 + 영문제목
-                                        </option>
-                                        <option value="title" th:selected="${criterion != null && criterion.equals('title')}">
-                                            제목
-                                        </option>
-                                        <option value="titleEn"
-                                                th:selected="${criterion != null && criterion.equals('titleEn')}">영문제목
-                                        </option>
-                                    </select>
-<!--                                </label>-->
+                                <!--                                <label class="label">-->
+                                <span hidden>검색 기준</span>
+                                <select class="select" name="criterion"
+                                        th:with="criterion = ${#request.getParameter('criterion')}">
+                                    <option value="all"
+                                            th:selected="${criterion == null || criterion.equals('all')}">제목 + 영문제목
+                                    </option>
+                                    <option value="title"
+                                            th:selected="${criterion != null && criterion.equals('title')}">
+                                        제목
+                                    </option>
+                                    <option value="titleEn"
+                                            th:selected="${criterion != null && criterion.equals('titleEn')}">영문제목
+                                    </option>
+                                </select>
+                                <!--                                </label>-->
                                 <span class="icoArrow"><i class="fa-solid fa-angle-down"></i></span>
                             </div>
                             <label class="label">
@@ -108,10 +109,10 @@
                             <input type="hidden" th:value="${movie.getIndex}" rel="hiddenIndex">
                             <tr class="line" rel="line">
                                 <td class="check">
-<!--                                    <label for="checkBox">-->
-                                        <input class="chkBox" name="chk" type="checkbox" rel="checkbox" id="checkBox"
-                                               th:value="${movie.getIndex()}">
-<!--                                    </label>-->
+                                    <!--                                    <label for="checkBox">-->
+                                    <input class="chkBox" name="chk" type="checkbox" rel="checkbox" id="checkBox"
+                                           th:value="${movie.getIndex()}">
+                                    <!--                                    </label>-->
                                 </td>
                                 <td class="title" rel="titleKo" th:text="${movie.getTitle()}">아바타: 물의 길</td>
                                 <td class="title-en" rel="titleEn" th:text="${movie.getTitleEn()}">Avatar: The Way of
@@ -137,7 +138,9 @@
                                             </div>
                                             <div class="item">
                                                 <span>영문제목 </span>
-                                                <input type="text" rel="titleEn2" th:value="${movie.getTitleEn()}">
+                                                <div rel="inputWrap">
+                                                    <input type="text" rel="titleEn2" th:value="${movie.getTitleEn()}">
+                                                </div>
                                             </div>
                                             <div class="item">
                                                 <span>출시일 </span>
@@ -237,7 +240,9 @@
                         </div>
                         <div class="item">
                             <span>영문제목 </span>
-                            <input type="text" placeholder="영문 제목을 입력해주세요." id="titleEn">
+                            <div rel="inputWrap2">
+                                <input type="text" placeholder="영문 제목을 입력해주세요." id="titleEn">
+                            </div>
                         </div>
                         <div class="item">
                             <span>출시일 </span>

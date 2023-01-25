@@ -555,6 +555,7 @@ body > .--header > .nav > .category-container .center-sub-menu {
     text-align: center;
     z-index: 6;
     margin-block-start: 0.2rem;
+    margin-block-end: 0.2rem;
 }
 
 body > .--header > .nav > .category-container .movie-sub-menu a,

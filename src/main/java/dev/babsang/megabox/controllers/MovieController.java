@@ -102,7 +102,7 @@ public class MovieController {
         MovieCommentEntity[] comments = this.movieService.getComments(mid);
         MovieVo[] movies = this.movieService.getMovieVos();
         MovieVo movie = this.movieService.getMovieVo(mid);
-        BookingEntity[] booking = this.movieService.getBookings();
+        BookingVo[] bookings = this.movieService.getBookings();
         if (comments == null) {
             modelAndView.addObject("result", CommonResult.FAILURE.name());
         } else {
@@ -120,7 +120,7 @@ public class MovieController {
             modelAndView.addObject("scoreAvg", sum);
             modelAndView.addObject("commentCnt", cnt);
             double bookingCnt = movie.getTotalAudience();
-            double totalBookingCnt = booking.length;
+            double totalBookingCnt = bookings.length;
             double bookingRate = Math.round(bookingCnt / totalBookingCnt * 100 * 10) / 10.0;
             modelAndView.addObject("bookingRate", bookingRate);
 
@@ -136,6 +136,42 @@ public class MovieController {
             }
             rank = -1;
         }
+
+
+        Date today = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal1 = Calendar.getInstance();
+        cal1.add(Calendar.DATE, -5);
+
+        String[] dayArr = new String[5];
+        for (int i = 0; i < 5; i++) {
+            cal1.add(Calendar.DATE, 1);
+            Date date = new Date(cal1.getTimeInMillis());
+            dayArr[i] = simpleDateFormat.format(date);
+            System.out.println("연산시간 : " + simpleDateFormat.format(date));
+        }
+
+        //일별 관객수 추출
+        BookingVo[] bookingByMid = this.movieService.bookingByMid(mid);
+
+        Map<String, Integer> bookingMap = new LinkedHashMap<>();
+        for (String day : dayArr) {
+            bookingMap.put(day, 0);
+            for (BookingVo bookingVo : bookingByMid) {
+                if (Objects.equals(day, simpleDateFormat.format(bookingVo.getBookingDate()))) {
+                    bookingMap.put(day, bookingVo.getTotalAudience());
+                }
+            }
+        }
+        System.out.println(bookingMap);
+
+        int[] audienceOfDay = new int[5];
+        for (int i = 0; i < dayArr.length; i++) {
+            audienceOfDay[i] = bookingMap.get(dayArr[i]);
+        }
+
+        modelAndView.addObject("audienceOfDay", audienceOfDay);
+
         return modelAndView;
     }
 
@@ -151,7 +187,6 @@ public class MovieController {
             responseObject.put("result", CommonResult.FAILURE.name().toLowerCase());
         } else {
             comment.setUserId(user.getId());
-//            comment.setUserId("choi4349");
             comment.setMid(mid);
             Enum<?> result = this.movieService.writeComment(comment);
             responseObject.put("result", result.name().toLowerCase());
@@ -319,6 +354,19 @@ public class MovieController {
         responseJson.put("seatComplete", bookingCompleteSeats);
         responseJson.put("seatAll", seatsAllJson);
         return responseJson.toString();
+    }
+
+    @RequestMapping(value = "point",
+    method = RequestMethod.POST,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postPoint(@SessionAttribute(value = "user") UserEntity user,
+                            @RequestParam(value = "point") int point) {
+        JSONObject responseObject = new JSONObject();
+        Enum<?> result = this.movieService.updatePoint(user, point);
+        responseObject.put("result", result.name().toLowerCase());
+
+        return responseObject.toString();
     }
 
     @RequestMapping(value = "bookingComplete",

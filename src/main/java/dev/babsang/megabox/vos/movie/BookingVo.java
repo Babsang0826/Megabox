@@ -8,7 +8,6 @@ public class BookingVo extends BookingEntity {
     private int movieIndex;
     private Date screenDate;
     private Date mvStartTime;
-
     private Date mvEndTime;
     private int auditoriumIndex;
     private String columnText;
@@ -22,6 +21,26 @@ public class BookingVo extends BookingEntity {
     private String branchText;
     private int bookedCnt;
     private String dayOfWeek;
+    private int totalAudience;
+    private Date bookingDate;
+
+    @Override
+    public Date getBookingDate() {
+        return bookingDate;
+    }
+
+    @Override
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
+    public int getTotalAudience() {
+        return totalAudience;
+    }
+
+    public void setTotalAudience(int totalAudience) {
+        this.totalAudience = totalAudience;
+    }
 
     public String getDayOfWeek() {
         return dayOfWeek;
