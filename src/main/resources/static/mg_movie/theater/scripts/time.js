@@ -320,7 +320,7 @@ xhr.onreadystatechange = () => {
             let screenObject = {};
             payload = responseArray;
             for (let screen of responseArray) {
-                let screenIdentifier = `${screen['movieIndex']}`;
+                let screenIdentifier = `${screen['screenInfoDate']}`;
                 if (!screenObject[screenIdentifier]) {
                     screenObject[screenIdentifier] = [];
                 }
@@ -371,7 +371,7 @@ window.onscroll = function () {
 }
 
 function scrollFunction() {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
         document.getElementById('pageUtil').classList.add('fixed');
         // document.getElementById('movieDetail').classList.add('fixed');
         document.getElementById('tabList').classList.add('fixed');
@@ -383,8 +383,6 @@ function scrollFunction() {
         // document.getElementById('contentData').classList.remove('fixed');
     }
 }
-
-
 
 
 

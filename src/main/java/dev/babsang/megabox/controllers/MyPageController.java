@@ -502,7 +502,7 @@ public class MyPageController {
                                                 HttpServletResponse response) {
         ModelAndView modelAndView;
         if (user == null) {
-            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+            modelAndView = new ModelAndView("/member/login");
         } else {
             if (!user.getAdminFlag()) {
                 try {

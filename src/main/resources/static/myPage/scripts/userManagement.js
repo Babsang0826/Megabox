@@ -28,47 +28,31 @@ chkAll.onclick = function () {
     }
 };
 
-const chk = document.querySelectorAll('.chkBox input[type="checkbox"]:checked');
-for (let chkElement of chk) {
-    console.log(chkElement.value)
-}
+const deleteButton = window.document.querySelector('[rel="delete"]');
 
 
-const cancelButton = window.document.querySelector('[rel="cancel"]');
+deleteButton.addEventListener('click', () => {
+    // e.preventDefault();
 
-cancelButton.addEventListener('click', () => {
     const chkArr = [];
     const check = document.getElementsByName("chk");
     for (let i = 0; i < check.length; i++) {
         if (check[i].checked === true) {
             chkArr.push(check[i].value);
         }
-        if(chkArr.length === 0) {
-            swal('알림', '탈퇴시킬 회원을 선택해 주세요.')
-            return;
-        }
     }
     let flag;
     swal = swal({
         title: "알림",
         text: "정말로 회원을 탈퇴시키겠습니까?",
-        // icon: "info",
         buttons: ["NO", "YES"]
     }).then((YES) => {
         if (YES) {
             flag = true;
-            const arr = [];
-            const check = document.getElementsByName("chk");
-            for (let i = 0; i < check.length; i++) {
-                if (check[i].checked === true) {
-                    arr.push(check[i].value);
-                    console.log(check[i])
-                }
-            }
-            for (let i = 0; i < arr.length; i++){
+            for (let i = 0; i < chkArr.length; i++) {
                 const xhr = new XMLHttpRequest();
                 const formData = new FormData();
-                formData.append('email', arr[i]);
+                formData.append('email', chkArr[i]);
                 xhr.open('DELETE', './delete');
                 xhr.onreadystatechange = () => {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -76,18 +60,16 @@ cancelButton.addEventListener('click', () => {
                             const responseObject = JSON.parse(xhr.responseText);
                             switch (responseObject['result']) {
                                 case 'success':
-                                    if (i === arr.length - 1) {
-                                        // swal('알림', '탈퇴 완료되었습니다.');
-                                        // window.setTimeout('window.location.reload()' ,1000)
+                                    if (i === chkArr.length - 1) {
                                         window.location.reload();
                                         break;
                                     }
                                     break;
                                 case 'failure':
-                                    swal('알림', '알 수 없는 이유로 회원 탈퇴를 못하였습니다.');
+                                    swal('알림', '회원을 탈퇴시킬 수 없습니다. 잠시 후 다시 시도해 주세요.');
                                     break;
                                 default:
-                                    swal('알림','회원 탈퇴 실패');
+                                    swal('알림', '알 수 없는 이유로 회원 탈퇴를 못하였습니다.');
                             }
                         }
                     } else {
@@ -96,10 +78,11 @@ cancelButton.addEventListener('click', () => {
                 }
                 xhr.send(formData);
             }
-        }else{
+        } else {
             flag = false;
             return window.location.reload();
         }
     });
-});
+})
+;
 

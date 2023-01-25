@@ -85,7 +85,6 @@ uploadBtn.addEventListener('click', e => {
     e.preventDefault();
 
 
-
     if (title.value === '') {
         swal('알림', '제목을 입력해 주세요.');
         title.focus();
@@ -171,7 +170,7 @@ uploadBtn.addEventListener('click', e => {
         warningText.style.marginLeft = '16px';
         warningText.style.display = 'flex';
         warningText.style.alignItems = 'center';
-        if(warningTextLength === 0) {
+        if (warningTextLength === 0) {
             document.querySelector('[rel="inputWrap2"]').append(warningText);
         }
         titleEn2.focus();
@@ -333,7 +332,7 @@ for (let i = 0; i < modifyBtns.length; i++) {
             warningText.style.marginLeft = '16px';
             warningText.style.display = 'flex';
             warningText.style.alignItems = 'center';
-            if(warningTextLength === 0) {
+            if (warningTextLength === 0) {
                 document.querySelectorAll('[rel="inputWrap"]')[i].append(warningText);
             }
             titleEn2[i].focus();
@@ -353,7 +352,7 @@ for (let i = 0; i < modifyBtns.length; i++) {
         formData.append('genre', genre[i].value);
         formData.append('director', director[i].value);
         formData.append('actor', actor[i].value);
-        formData.append('runningTime', parseInt(runningTime[i].value.slice(0,-1)));
+        formData.append('runningTime', parseInt(runningTime[i].value.slice(0, -1)));
         formData.append('moviePoster', moviePoster[i].value);
         formData.append('backgroundImage', backgroundImage[i].value);
         formData.append('summary', summary[i].value);
@@ -364,10 +363,8 @@ for (let i = 0; i < modifyBtns.length; i++) {
                     const responseObject = JSON.parse(xhr.responseText);
                     switch (responseObject['result']) {
                         case 'success':
-                            swal('알림', '영화 수정이 완료되었습니다.');
-                            setTimeout(function () {
-                                window.location.reload();
-                            }, 1000);
+                            // swal('알림', '영화 수정이 완료되었습니다.');
+                            window.location.reload();
                             break;
                         case 'failure':
                             swal('알림', '영화 수정에 실패하였습니다.');
@@ -388,34 +385,42 @@ const deleteBtn = document.querySelectorAll('[rel="deleteBtn"]');
 for (let i = 0; i < deleteBtn.length; i++) {
     deleteBtn[i].addEventListener('click', e => {
         e.preventDefault();
-        if (!confirm('정말로 영화를 삭제하시겠습니까?')) {
-            return;
-        }
-        const xhr = new XMLHttpRequest();
-            const formData = new FormData();
-            formData.append('index', movieIndex[i].value);
-            xhr.open('DELETE', './movieManagement');
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        const responseObject = JSON.parse(xhr.responseText);
-                        switch (responseObject['result']) {
-                            case 'success':
-                                swal('알림', '영화 삭제가 완료되었습니다.');
-                                setTimeout(function () {
+        let flag;
+        swal = swal({
+            title: "알림",
+            text: "정말로 영화를 삭제하시겠습니까?",
+            buttons: ["NO", "YES"]
+        }).then((YES) => {
+            if (YES) {
+                flag = true;
+                const xhr = new XMLHttpRequest();
+                const formData = new FormData();
+                formData.append('index', movieIndex[i].value);
+                xhr.open('DELETE', './movieManagement');
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            const responseObject = JSON.parse(xhr.responseText);
+                            switch (responseObject['result']) {
+                                case 'success':
+                                    // swal('알림', '영화 삭제가 완료되었습니다.');
                                     window.location.reload();
-                                }, 1000);
-                                break;
-                            case 'failure':
-                                swal('알림', '영화 삭제에 실패하였습니다.');
-                                break;
-                            default:
-                                swal('알림', '알 수 없는 이유로 영화를 삭제하지 못하였습니다.');
+                                    break;
+                                case 'failure':
+                                    swal('알림', '영화 삭제에 실패하였습니다.');
+                                    break;
+                                default:
+                                    swal('알림', '알 수 없는 이유로 영화를 삭제하지 못하였습니다.');
+                            }
                         }
                     }
                 }
+                xhr.send(formData);
+            } else {
+                flag = false;
+                return window.location.reload();
             }
-            xhr.send(formData);
+        });
     })
 }
 
@@ -434,10 +439,6 @@ for (let i = 0; i < check.length; i++) {
 deleteEachBtn.addEventListener('click', e => {
     e.preventDefault();
 
-    if (!confirm('정말로 영화를 삭제 하시겠습니까?')) {
-        return;
-    }
-
     const arr = [];
     const check = document.getElementsByName("chk");
     for (let i = 0; i < check.length; i++) {
@@ -445,36 +446,48 @@ deleteEachBtn.addEventListener('click', e => {
             arr.push(check[i].value);
         }
     }
+    let flag;
+    swal = swal({
+        title: "알림",
+        text: "정말로 영화를 삭제하시겠습니까?",
+        buttons: ["NO", "YES"]
+    }).then((YES) => {
+        if (YES) {
+            flag = true;
+            for (let i = 0; i < arr.length; i++) {
+                const xhr = new XMLHttpRequest();
+                const formData = new FormData();
+                formData.append('index', parseInt(arr[i]));
+                xhr.open('DELETE', './movieManagement');
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            const responseObject = JSON.parse(xhr.responseText);
+                            switch (responseObject['result']) {
+                                case 'success':
+                                    // swal('알림', '영화 삭제가 완료되었습니다.');
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                    break;
+                                case 'failure':
+                                    swal('알림', '영화 삭제에 실패하였습니다.');
+                                    break;
+                                default:
+                                    swal('알림', '알 수 없는 이유로 영화를 삭제하지 못하였습니다.');
+                            }
+                        }
+                    } else {
 
-    for (let i = 0; i < arr.length; i++){
-        const xhr = new XMLHttpRequest();
-        const formData = new FormData();
-        formData.append('index', parseInt(arr[i]));
-        xhr.open('DELETE', './movieManagement');
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    const responseObject = JSON.parse(xhr.responseText);
-                    switch (responseObject['result']) {
-                        case 'success':
-                            swal('알림', '영화 삭제가 완료되었습니다.');
-                            setTimeout(function () {
-                                window.location.reload();
-                            }, 1000);
-                            break;
-                        case 'failure':
-                            swal('알림', '영화 삭제에 실패하였습니다.');
-                            break;
-                        default:
-                            swal('알림', '알 수 없는 이유로 영화를 삭제하지 못하였습니다.');
                     }
                 }
-            } else {
-
+                xhr.send(formData);
             }
+        } else {
+            flag = false;
+            return window.location.reload();
         }
-        xhr.send(formData);
-    }
+    });
 });
 
 

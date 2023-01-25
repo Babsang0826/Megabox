@@ -235,7 +235,7 @@ public class MovieController {
     public ModelAndView getBooking(@SessionAttribute(value = "user", required = false) UserEntity user) {
         ModelAndView modelAndView;
         if (user == null) {
-            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+            modelAndView = new ModelAndView("/member/login");
         } else {
             modelAndView = new ModelAndView("movie/booking");
             MovieEntity[] movies = this.movieService.getMovies();
