@@ -234,9 +234,9 @@ public class MovieController {
     @RequestMapping(value = "booking", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getBooking(@SessionAttribute(value = "user", required = false) UserEntity user) {
         ModelAndView modelAndView;
-//        if (user == null) {
-//            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
-//        } else {
+        if (user == null) {
+            modelAndView = new ModelAndView("/member/login");
+        } else {
             modelAndView = new ModelAndView("movie/booking");
             MovieEntity[] movies = this.movieService.getMovies();
             RegionEntity region = this.movieService.getRegion();

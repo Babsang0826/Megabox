@@ -237,4 +237,3 @@ topBtn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 // 스크롤 시 애니메이션과 함께 버튼 표시/숨기기
 window.onscroll = () => window.scrollY >350 ? topBtn.style.opacity = 1 : topBtn.style.opacity = 0
 
-

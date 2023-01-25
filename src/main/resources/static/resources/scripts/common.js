@@ -136,7 +136,7 @@ const homeSearchMovieBtn = document.querySelector('[rel="homeSearchMovieBtn"]');
 
 if (homeSearchMovieBtn != null) {
     homeSearchMovieBtn.addEventListener('click', () => {
-        window.location.href = `http://localhost:8080/movie/movie?keyword=` + `${homeSearchMovieInput.value}`
+        window.location.href = `/movie/movie?keyword=` + `${homeSearchMovieInput.value}`
     });
 }
 
@@ -145,7 +145,7 @@ const hiddenMid = document.querySelectorAll('[rel="hiddenMid"]');
 
 for (let i = 0; i < moviePosterTopFour.length; i++) {
     moviePosterTopFour[i].addEventListener('click', () => {
-        window.location.href = `http://localhost:8080/movie/movie-detail?mid=${hiddenMid[i].value}`
+        window.location.href = `/movie/movie-detail?mid=${hiddenMid[i].value}`
     })
 }
 

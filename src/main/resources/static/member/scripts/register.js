@@ -345,7 +345,7 @@ form.querySelector('[rel="registerButton"]').addEventListener('click', () => {
                             document.getElementById("step step3").style.display = "none";
                             document.getElementById("step step4").style.display = "block";
                             document.getElementById("three").style.border = "none"
-                            document.getElementById("four").style.borderBottom = "1px solid #503396";
+                            document.getElementById("four").style.borderBottom = "2px solid #503396";
                             const loginName = document.querySelector('#loginName');
                             const registerName = document.querySelector('[rel="registerName"]');
                             registerName.innerText = `${loginName.value}님 메가박스 가입을 환영합니다.`;
@@ -414,7 +414,7 @@ form.querySelector('[rel="nextButton"]').addEventListener('click', () => {
     document.getElementById("step step1").style.display = "none";
     document.getElementById("step step2").style.display = "block";
     document.getElementById("one").style.border = "none"
-    document.getElementById("two").style.borderBottom = "1px solid #503396";
+    document.getElementById("two").style.borderBottom = "2px solid #503396";
 });
 
 form.querySelector('[rel="emailAuthComplete"]').addEventListener('click', () => {
@@ -422,7 +422,7 @@ form.querySelector('[rel="emailAuthComplete"]').addEventListener('click', () => 
     document.getElementById("step step3").style.display = "block";
     document.getElementById("emailAuthPopUp").style.display = "none";
     document.getElementById("two").style.border = "none"
-    document.getElementById("three").style.borderBottom = "1px solid #503396";
+    document.getElementById("three").style.borderBottom = "2px solid #503396";
 });
 
 function maxLengthCheck(object) {

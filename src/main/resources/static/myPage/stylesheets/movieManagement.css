@@ -306,5 +306,14 @@ button {
     margin: 0;
 }
 
+.swal-button--cancel {
+    color: #555;
+    background-color: #efefef;
+}
+
+ .swal-button {
+     width: auto;
+     height: auto;
+ }
 
 
