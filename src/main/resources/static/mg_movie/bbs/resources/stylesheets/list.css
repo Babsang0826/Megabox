@@ -506,3 +506,24 @@ h3.tit {
 #jeonla-city {
     display: none;
 }
+
+.quick-area {
+    /*display: none;*/
+    position: relative;
+    width: 100%;
+}
+
+.quick-area .scroll-top {
+    overflow: hidden;
+    display: block;
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    width: 48px;
+    height: 48px;
+    margin: 0 0 0 550px;
+    text-indent: -9999px;
+    border-radius: 48px;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/btn/btn-go-top.png) no-repeat 0 0;
+    box-shadow: 1px 1px 7px 0 rgb(0 0 0 / 50%);
+}
