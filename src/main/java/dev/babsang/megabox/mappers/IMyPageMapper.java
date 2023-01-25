@@ -17,6 +17,8 @@ public interface IMyPageMapper {
 
     int updateUser(UserEntity user);
 
+    int updateScreenInfo(ScreenInfoEntity screenInfo);
+
     int deleteUser(UserEntity user);
 
     int deleteBooking(int screenInfoIndex, String userId);
@@ -38,9 +40,9 @@ public interface IMyPageMapper {
             @Param(value = "keyword") String keyword);
 
     MovieEntity[] selectMoviePaging(@Param(value = "limit") int limit,
-                                   @Param(value = "offset") int offset,
-                                   @Param(value = "criterion") String criterion,
-                                   @Param(value = "keyword") String keyword);
+                                    @Param(value = "offset") int offset,
+                                    @Param(value = "criterion") String criterion,
+                                    @Param(value = "keyword") String keyword);
 
     int adminDeleteUser(@Param(value = "email") String email);
 
@@ -56,15 +58,20 @@ public interface IMyPageMapper {
 
     int deleteMovie(@Param(value = "index") int index);
 
+    ScreenInfoEntity selectScreenInfo(@Param(value = "index") int index);
+
 
     MovieEntity[] selectMovieByManagement();
 
     RegionVo[] selectAuditoriumByRegionAndBranch();
 
     MovieScreenInfoVo[] selectScreenInfoBySchedule(@Param(value = "limit") int limit,
-                                                   @Param(value = "offset") int offset);
+                                                   @Param(value = "offset") int offset,
+                                                   @Param(value = "criterion") String criterion,
+                                                   @Param(value = "keyword") String keyword);
 
-    int selectScreenInfoByCount();
+    int selectScreenInfoByCount(@Param(value = "criterion") String criterion,
+                                @Param(value = "keyword") String keyword);
 
     int insertScreenInfo(ScreenInfoEntity screenInfo);
 }

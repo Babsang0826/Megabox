@@ -141,9 +141,7 @@ public class MyPageController {
                                @RequestParam(value = "screenInfoIndex") int screenInfoIndex) {
         String userId = user.getId();
         Enum<?> result = this.myPageService.deleteBooking(screenInfoIndex, userId);
-
         JSONObject responseObject = new JSONObject();
-
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
@@ -407,8 +405,6 @@ public class MyPageController {
             Enum<?> result = this.myPageService.updateMovie(movie);
             responseObject.put("result", result.name().toLowerCase());
         }
-
-
         return responseObject.toString();
     }
 
@@ -437,9 +433,7 @@ public class MyPageController {
                                       @RequestParam(value = "keyword", required = false) String keyword,
                                       @SessionAttribute(value = "user", required = false) UserEntity signedUser,
                                       HttpServletResponse response) {
-
         ModelAndView modelAndView;
-
         if (signedUser == null) {
             modelAndView = new ModelAndView("redirect:login");
         }
@@ -488,6 +482,8 @@ public class MyPageController {
     @RequestMapping(value = "screenInfoManagement", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
                                                 @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                                @RequestParam(value = "criterion", required = false) String criterion,
+                                                @RequestParam(value = "keyword", required = false) String keyword,
                                                 HttpServletResponse response) {
         ModelAndView modelAndView;
         if (user == null) {
@@ -509,13 +505,14 @@ public class MyPageController {
             MovieEntity[] movies = this.myPageService.getMovieManagements();
             RegionVo[] regions = this.myPageService.getAuditoriumManagements();
 
-            int totalCount = this.myPageService.getScreenInfoCount();
+            int totalCount = this.myPageService.getScreenInfoCount(criterion, keyword);
             PagingModel paging = new PagingModel(totalCount, page);
             modelAndView.addObject("paging", paging);
-            MovieScreenInfoVo[] screenInfos = this.myPageService.getScreenInfoManagements(paging);
+            MovieScreenInfoVo[] screenInfos = this.myPageService.getScreenInfoManagements(paging, criterion, keyword);
             modelAndView.addObject("movies", movies);
             modelAndView.addObject("regions", regions);
             modelAndView.addObject("screenInfos", screenInfos);
+            modelAndView.addObject("totalCount", totalCount);
         }
         return modelAndView;
     }
@@ -557,11 +554,19 @@ public class MyPageController {
     @RequestMapping(value = "screenInfoManagement", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
-                                            @RequestParam(value = "index")int index) {
+                                            @RequestParam(value = "modifyScreenDateStr") String modifyScreenDate,
+                                            @RequestParam(value = "modifyMvStartTimeStr") String modifyMvStartTime,
+                                            @RequestParam(value = "modifyMvEndTimeStr") String modifyMvEndTime,
+                                            ScreenInfoEntity screenInfo) throws ParseException {
         if(user == null || !user.getAdminFlag()) {
             return CommonResult.FAILURE.name().toLowerCase();
         }
-        Enum<?> result = this.myPageService.deleteScreenInfo(index);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        screenInfo.setScreenDate(dateFormat.parse(modifyScreenDate));
+        screenInfo.setMvStartTime(timeFormat.parse(modifyMvStartTime));
+        screenInfo.setMvEndTime(timeFormat.parse(modifyMvEndTime));
+        Enum<?> result = this.myPageService.updateScreenInfo(screenInfo);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();

@@ -167,7 +167,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     width: 100%;
     height: 20rem;
     margin-top: 1rem;
-    overflow: hidden;
+    overflow: hidden auto;
 }
 
 body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-movie-box > .quick-movie > .quick-movie-list > .list > .list-collect::-webkit-scrollbar {
@@ -553,7 +553,7 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     display: none;
 }
 
-body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .before-select-movie-time >.icon {
+body > .--main > .reservation-container > .reservation-box > .data-container > .quick-container > .quick-time-box > .quick-time > .select-movie-time > .before-select-movie-time > .icon {
     font-size: 3rem;
     color: rgb(85, 85, 85);
 }

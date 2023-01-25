@@ -224,14 +224,14 @@ public class MyPageService {
         return this.myPageMapper.selectAuditoriumByRegionAndBranch();
     }
 
-    public MovieScreenInfoVo[] getScreenInfoManagements(PagingModel paging) {
+    public MovieScreenInfoVo[] getScreenInfoManagements(PagingModel paging, String criterion, String keyword) {
         return this.myPageMapper.selectScreenInfoBySchedule(
                 paging.countPerPage,
-                (paging.requestPage - 1) * paging.countPerPage);
+                (paging.requestPage - 1) * paging.countPerPage, criterion, keyword);
     }
 
-    public int getScreenInfoCount() {
-        return this.myPageMapper.selectScreenInfoByCount();
+    public int getScreenInfoCount(String criterion, String keyword) {
+        return this.myPageMapper.selectScreenInfoByCount(criterion, keyword);
     }
 
     @Transactional
@@ -247,24 +247,24 @@ public class MyPageService {
                 : CommonResult.FAILURE;
     }
 
-//    public Enum<? extends IResult> updateScreenInfo(int index) {
-////        return this.myPageMapper.
-//    }
+    public Enum<? extends IResult> updateScreenInfo(ScreenInfoEntity screenInfo) {
+        ScreenInfoEntity existingScreenInfo = this.myPageMapper.selectScreenInfo(screenInfo.getIndex());
+        if (existingScreenInfo == null) {
+            return CommonResult.FAILURE;
+        }
+        existingScreenInfo.setMovieIndex(screenInfo.getMovieIndex());
+        existingScreenInfo.setAuditoriumIndex(screenInfo.getAuditoriumIndex());
+        existingScreenInfo.setScreenDate(screenInfo.getScreenDate());
+        existingScreenInfo.setMvStartTime(screenInfo.getMvStartTime());
+        existingScreenInfo.setMvEndTime(screenInfo.getMvEndTime());
+        return this.myPageMapper.updateScreenInfo(screenInfo) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
 
-    // public Enum<? extends IResult> updatePassword(UserEntity signedUser, UserEntity newUser) {
-    //        if (signedUser == null) {
-    //            return RecoverMyPageResult.NO_USER;
-    //        }
-    //
-    //        signedUser.setPassword(CryptoUtils.hashSha512(newUser.getPassword()));
-    //
-    //        return this.myPageMapper.updateUser(signedUser) > 0
-    //                ? CommonResult.SUCCESS
-    //                : CommonResult.FAILURE;
-    //    }
-
-
-    public MovieEntity[] movies() { return this.myPageMapper.selectMovies(); }
+    public MovieEntity[] movies() {
+        return this.myPageMapper.selectMovies();
+    }
 
     public Enum<? extends IResult> insertMovie(MovieEntity movie) {
         return this.myPageMapper.insertMovie(movie) > 0

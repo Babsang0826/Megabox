@@ -114,7 +114,6 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     }
 }
 
-
 let nextMonthArr = [];
 let nextMonthArrCode = [];
 let nextMonthDate;
@@ -131,7 +130,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     if (i < 10) {
         nextMonthDate = currentYear + '-' + nextMonth + '-0' + i;
     } else {
-        nextMonthDate = year + '-' + nextMonth + '-' + i;
+        nextMonthDate = currentYear + '-' + nextMonth + '-' + i;
     }
     nextMonthArrCode = nextMonthDate;
     nextMonthArr.push(nextMonthArrCode);
@@ -185,6 +184,7 @@ const drawListBox = () => {
         const listBoxElement = window.document.createElement('div');
         listBoxElement.classList.add('list-box');
         listBoxElement.dataset.value = movie['movieTitle'];
+        listBoxElement.dataset.date = movie['movieReleaseDate'];
         const ageLimitElement = window.document.createElement('div');
         ageLimitElement.classList.add(movie['movieAgeLimit']);
         const movieTitleElement = window.document.createElement('span');
@@ -288,6 +288,7 @@ const drawSubs = () => {
                     movieTimeCoverElement.dataset.mvEndTime = allScreenInfo['screenInfoMovieEndTime'];
                     movieTimeCoverElement.dataset.audIndex = allScreenInfo['screenInfoAuditoriumIndex'];
                     movieTimeCoverElement.dataset.screenInfoIndex = allScreenInfo['screenInfoIndex'];
+
                     const movieTimeInfoBoxElement = window.document.createElement('div');
                     movieTimeInfoBoxElement.classList.add('movie-time-info-box');
 
@@ -882,7 +883,7 @@ for (let i = 0; i <= 28; i++) {
         timeElement.classList.add('time');
         timeElement.innerText = '0' + i;
         timeElement.style.width = '3rem';
-        timeElement.style.color = 'rgb(210, 210, 210)';
+        timeElement.style.color = 'rgb(0, 0, 0)';
         timeWrap.append(timeElement);
         const time = window.document.querySelectorAll('.time');
         for (let j = 0; j < time.length; j++) {
@@ -902,7 +903,7 @@ for (let i = 0; i <= 28; i++) {
         timeElement.classList.add('time');
         timeElement.innerText = i;
         timeElement.style.width = '3rem';
-        timeElement.style.color = 'rgb(210, 210, 210)';
+        timeElement.style.color = 'rgb(0, 0, 0)';
         timeWrap.append(timeElement);
         const time = window.document.querySelectorAll('.time');
         for (let j = 0; j < time.length; j++) {

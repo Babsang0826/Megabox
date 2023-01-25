@@ -9,7 +9,8 @@ body {
 }
 
 body > #form {
-    height: 100%;
+    height: auto;
+    margin-bottom: 5rem;
 }
 
 body > #form > .enroll-container {
@@ -20,7 +21,7 @@ body > #form > .enroll-container {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 45rem;
+    height: auto;
 }
 
 body > #form > .enroll-container > .inner-wrap {
@@ -28,7 +29,7 @@ body > #form > .enroll-container > .inner-wrap {
     margin: 0 auto;
     display: flex;
     justify-content: center;
-    height: 100%;
+    height: auto;
 }
 
 body > #form > .enroll-container > .inner-wrap > .side-menu {
@@ -117,6 +118,7 @@ body > #form > .enroll-container > .inner-wrap > .content-container {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    height: auto;
 }
 
 body > #form > .enroll-container > .inner-wrap > .content-container > .content-title {
@@ -199,7 +201,7 @@ body > #form > .enroll-container > .inner-wrap > .content-container > .enrollmen
     width: 9rem;
     border-right: 0.0625rem solid rgb(0, 0, 0);
     font-size: 1.05rem;
-    background-color: rgb(80, 51, 150);
+    background-color: rgb(85, 85, 85);
     color: rgb(255, 255, 255);
     user-select: none;
 }
@@ -243,9 +245,9 @@ body > #form > .enroll-container > .inner-wrap > .content-container > .enrollmen
 }
 
 body > #form > .enroll-container > .inner-wrap > .content-container > .enrollment > .enroll-button {
-    width: 7rem;
+    width: 5rem;
     background-color: rgb(53, 31, 102);
-    height: 3rem;
+    height: 2.5rem;
     border-radius: 0.5rem;
     margin-top: 2rem;
     color: rgb(255, 255, 255);
@@ -266,7 +268,7 @@ body > #form > .enroll-container > .inner-wrap > .content-container > .select-sc
 
 body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen {
     width: 100%;
-    height: 35rem;
+    height: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -276,6 +278,62 @@ body > #form > .enroll-container > .inner-wrap > .content-container > .select-sc
 body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box {
     width: 90%;
     height: 100%;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .board-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 56rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .board-list > .list-count > strong > em {
+    margin-left: 0.5rem;
+}
+
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .board-list > .select-box {
+    width: 8rem;
+    height: 2rem;
+    border: 0.0625rem solid rgb(216, 217, 219);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .board-list > .search-label > .board-search {
+    width: 18rem;
+    height: 2rem;
+    border: 0.0625rem solid rgb(216, 217, 219);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 1rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .board-list > .search-label > .board-search > .btn-search-input {
+    overflow: hidden;
+    width: 30px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    border: 0;
+    background: #fff url(https://img.megabox.co.kr/static/pc/images/common/btn/btn-search-input.png) no-repeat center;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .board-list > .select-box > .info-select {
+    appearance: auto;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .board-list > .empty-box {
+    flex: 1;
 }
 
 body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .label-box {
@@ -331,8 +389,9 @@ body > #form > .enroll-container > .inner-wrap > .content-container > .select-sc
 }
 
 body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table {
-    height: 25rem;
+    height: auto;
     width: 100%;
+    border-top: 1px solid #555;
 }
 
 body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board {
@@ -343,6 +402,14 @@ body > #form > .enroll-container > .inner-wrap > .content-container > .select-sc
     height: 2.5rem;
 }
 
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > thead > tr > th {
+    height: 45px;
+    padding: 3px 10px;
+    color: #222;
+    border: 0.0625rem solid rgb(234, 234, 234);
+    background-color: #f2f4f5;
+}
+
 body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > tbody {
     height: 2.5rem;
     text-align: center;
@@ -350,6 +417,125 @@ body > #form > .enroll-container > .inner-wrap > .content-container > .select-sc
 
 body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > tbody > tr {
     height: 2.5rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > tr:nth-of-type(1) > td:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container {
+    display: none;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on {
+    display: contents;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-title {
+    background-color: rgb(85, 85, 85);
+    color: rgb(255, 255, 255);
+    height: 2.5rem;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-title > span {
+    margin-left: 1rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container {
+    height: 100%;
+    width: 95%;
+    background-color: rgb(238, 238, 238);
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content {
+    width: 100%;
+    height: 11rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .modify-box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .label-tag {
+    border-radius: 0.5rem;
+    cursor: pointer;
+    float: right;
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .label-tag > .update-btn {
+    width: 4rem;
+    height: 100%;
+    background: rgb(85, 85, 85);
+    color: rgb(255, 255, 255);
+    margin: 0 1rem 1rem 0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .label-tag > .update-btn:hover {
+    background-color: rgb(68, 68, 68);
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .modify-box > .enroll-info-title {
+    width: 10rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    user-select: none;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .modify-box > label > .select {
+    width: 15rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .modify-box > label > .select:hover {
+    background-color: rgb(248, 248, 250);
+    border-radius: 0.5rem;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .modify-box > .date-label {
+    width: 15rem;
+    font-size: 1rem;
+    font-weight: 500;
+    user-select: none;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .modify-box > .date-label > input {
+    width: 100%;
+    cursor: pointer;
+}
+
+body > #form > .enroll-container > .inner-wrap > .content-container > .select-screen > .select-box > .select-list-table > .board > .screen-info-container > .detail-container.on > td > .detail-content-container > .detail-content > .modify-box > .date-label > input:hover {
+    background-color: rgb(248, 248, 250);
+    border-radius: 0.5rem;
 }
 
 input[type="checkbox"] {
@@ -368,7 +554,6 @@ input[type="checkbox"] {
 }
 
 
-
 .enroll-schedule {
     width: 4rem;
     border-radius: 0.5rem;
@@ -385,27 +570,6 @@ input[type="checkbox"] {
 }
 
 .enroll-schedule > input {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
-
-.update-schedule {
-    width: 4rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    float: right;
-    height: 2rem;
-    background-color: rgb(85, 85, 85);
-    color: rgb(255, 255, 255);
-    margin-left: 0.5rem;
-}
-
-.update-schedule:hover {
-    background-color: rgb(68, 68, 68);
-}
-
-.update-schedule > input {
     width: 100%;
     height: 100%;
     cursor: pointer;
@@ -508,3 +672,4 @@ input[type="checkbox"] {
 .tab-list > ul > li.on > span {
     color: #fff;
 }
+

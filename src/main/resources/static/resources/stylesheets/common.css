@@ -574,19 +574,19 @@ body > .--header > .nav > .category-container .center-sub-menu a:hover {
 }
 
 body > .--header > .nav > .category-container .movie-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 17.5rem;
-}
-
-body > .--header > .nav > .category-container .reservation-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 22.5rem;
-}
-
-body > .--header > .nav > .category-container .theater-sub-menu > li:nth-of-type(1) {
     margin-inline-start: 27.5rem;
 }
 
+body > .--header > .nav > .category-container .reservation-sub-menu > li:nth-of-type(1) {
+    margin-inline-start: 32.5rem;
+}
+
+body > .--header > .nav > .category-container .theater-sub-menu > li:nth-of-type(1) {
+    margin-inline-start: 37.5rem;
+}
+
 body > .--header > .nav > .category-container .center-sub-menu > li:nth-of-type(1) {
-    margin-inline-start: 54.5rem;
+    margin-inline-start: 65.5rem;
 }
 
 body > .--header > .search-bar {
@@ -677,7 +677,6 @@ body > .--header > .search-bar.on > .movie-rank-first.on > .rank-title {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    /*margin-left: 3rem;*/
 }
 
 body > .--header > .search-bar.on > .movie-rank-first.on > .rank-title > a {

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -197,25 +198,33 @@ public class MovieController {
 
     @RequestMapping(value = "booking", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getBooking(@SessionAttribute(value = "user", required = false) UserEntity user) {
-        ModelAndView modelAndView = new ModelAndView("movie/booking");
-        MovieEntity[] movies = this.movieService.getMovies();
-        RegionEntity region = this.movieService.getRegion();
-        BranchEntity[] branches = this.movieService.getBranches();
-        MovieScreenInfoVo[] infos = this.movieService.getScreenInfos();
-        SeatVo[] seats = this.movieService.getSeatVos();
-        SeatVo[] seatVos = this.movieService.getSeatVosGroupByColumn();
-        modelAndView.addObject("infos", infos);
-        modelAndView.addObject("movies", movies);
-        modelAndView.addObject("region", region);
-        modelAndView.addObject("branches", branches);
-        modelAndView.addObject("seats", seats);
-        modelAndView.addObject("seatVos", seatVos);
+        ModelAndView modelAndView;
+        if (user == null) {
+            modelAndView = new ModelAndView("redirect:http://localhost:8080/member/login");
+        } else {
+            modelAndView = new ModelAndView("movie/booking");
+            MovieEntity[] movies = this.movieService.getMovies();
+            RegionEntity region = this.movieService.getRegion();
+            BranchEntity[] branches = this.movieService.getBranches();
+            MovieScreenInfoVo[] infos = this.movieService.getScreenInfos();
+            SeatVo[] seats = this.movieService.getSeatVos();
+            SeatVo[] seatVos = this.movieService.getSeatVosGroupByColumn();
+            modelAndView.addObject("infos", infos);
+            modelAndView.addObject("movies", movies);
+            modelAndView.addObject("region", region);
+            modelAndView.addObject("branches", branches);
+            modelAndView.addObject("seats", seats);
+            modelAndView.addObject("seatVos", seatVos);
+        }
         return modelAndView;
     }
 
     @RequestMapping(value = "booking", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postBooking(@SessionAttribute(value = "user", required = false) UserEntity user, BookingEntity booking) {
+        if (user == null) {
+            return CommonResult.FAILURE.name().toLowerCase();
+        }
         booking.setUserId(user.getId());
         Enum<?> result = this.movieService.booking(booking);
         JSONObject responseObject = new JSONObject();

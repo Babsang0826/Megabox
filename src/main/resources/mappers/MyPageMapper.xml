@@ -79,30 +79,66 @@
 
     <select id="selectScreenInfoBySchedule"
             resultType="dev.babsang.megabox.vos.movie.MovieScreenInfoVo">
-        SELECT `screenInfo`.`index`                              AS `index`,
-               `screenInfo`.`movie_index`                        AS `movieIndex`,
-               `screenInfo`.`auditorium_index`                   AS `auditoriumIndex`,
-               `screenInfo`.`screen_date`                        AS `screenDate`,
-               `screenInfo`.`mv_start_time`                      AS `mvStartTime`,
-               `screenInfo`.`mv_end_time`                        AS `mvEndTime`,
-               `movie`.`title`                                   AS `infoMovieTitle`,
-               `movie`.`screen_type`                             AS `infoMovieState`,
-               `movie`.`age_limit`                               AS `infoMovieAgeLimit`,
-               `movie`.`movie_poster`                            AS `infoMoviePoster`,
-               CONCAT(`branch`.`text`, '/', `auditorium`.`text`) AS `branchAudText`
+        SELECT `screenInfo`.`index` AS `index`,
+        `screenInfo`.`movie_index` AS `movieIndex`,
+        `screenInfo`.`auditorium_index` AS `auditoriumIndex`,
+        `screenInfo`.`screen_date` AS `screenDate`,
+        `screenInfo`.`mv_start_time` AS `mvStartTime`,
+        `screenInfo`.`mv_end_time` AS `mvEndTime`,
+        `movie`.`title` AS `infoMovieTitle`,
+        `movie`.`screen_type` AS `infoMovieState`,
+        `movie`.`age_limit` AS `infoMovieAgeLimit`,
+        `movie`.`movie_poster` AS `infoMoviePoster`,
+        CONCAT(`branch`.`text`, '/', `auditorium`.`text`) AS `branchAudText`
         FROM `mg_movie`.`screen_info` AS `screenInfo`
-                 LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
-                 LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
-                           ON `screenInfo`.`auditorium_index` = `auditorium`.`index`
-                 LEFT JOIN `mg_movie`.`branches` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
+        LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
+        LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
+        ON `screenInfo`.`auditorium_index` = `auditorium`.`index`
+        LEFT JOIN `mg_movie`.`branches` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
+        <if test="criterion != null and criterion.equals('title')">
+            WHERE REPLACE(`movie`.`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="criterion != null and criterion.equals('all')">
+            WHERE REPLACE(`movie`.`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            OR REPLACE(CONCAT(`branch`.`text`, '/', `auditorium`.`text`), ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="criterion != null and criterion.equals('auditorium')">
+            WHERE REPLACE(CONCAT(`branch`.`text`, '/', `auditorium`.`text`), ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            OR REPLACE(`auditorium`.`text`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
         ORDER BY `screenInfo`.`screen_date` DESC
         LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="selectScreenInfo" resultType="dev.babsang.megabox.entities.movie.ScreenInfoEntity">
+        SELECT `index`            AS `index`,
+               `movie_index`      AS `movieIndex`,
+               `auditorium_index` AS `auditoriumIndex`,
+               `screen_date`      AS `screenDate`,
+               `mv_start_time`    AS `mvStartTime`,
+               `mv_end_time`      AS `mvEndTime`
+        FROM `mg_movie`.`screen_info`
+        WHERE `index` = #{index}
     </select>
 
     <select id="selectScreenInfoByCount"
             resultType="int">
         SELECT COUNT(0)
         FROM `mg_movie`.`screen_info`
+        LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screen_info`.`movie_index` = `movie`.`index`
+        LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium` ON `screen_info`.`auditorium_index` = `auditorium`.`index`
+        LEFT JOIN `mg_movie`.`branches` AS `branch` ON `auditorium`.`branch_index` = `branch`.`index`
+        <if test="criterion != null and criterion.equals('title')">
+            WHERE REPLACE(`movie`.`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="criterion != null and criterion.equals('all')">
+            WHERE REPLACE(`movie`.`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            OR REPLACE(CONCAT(`branch`.`text`, '/', `auditorium`.`text`), ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="criterion != null and criterion.equals('auditorium')">
+            WHERE REPLACE(CONCAT(`branch`.`text`, '/', `auditorium`.`text`), ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+            OR REPLACE(`auditorium`.`text`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
     </select>
 
     <update id="updateUser" parameterType="dev.babsang.megabox.entities.member.UserEntity">
@@ -220,7 +256,7 @@
     </select>
 
     <select id="selectMoviePaging"
-    resultType="dev.babsang.megabox.entities.movie.MovieEntity">
+            resultType="dev.babsang.megabox.entities.movie.MovieEntity">
         select `index` as `index`,
         title as title,
         title_en as titleEn,
@@ -273,11 +309,16 @@
         WHERE BINARY `email` = #{email}
     </select>
 
-<!--    <update id="updateScreenInfo"-->
-<!--            parameterType="dev.babsang.megabox.entities.movie.ScreenInfoEntity">-->
-<!--        UPDATE `mg_movie`.`screen_info`-->
-<!--        SET   -->
-<!--    </update>-->
+    <update id="updateScreenInfo"
+            parameterType="dev.babsang.megabox.entities.movie.ScreenInfoEntity">
+        UPDATE `mg_movie`.`screen_info`
+        SET `movie_index`      = #{movieIndex},
+            `auditorium_index` = #{auditoriumIndex},
+            `screen_date`      = #{screenDate},
+            `mv_start_time`    = #{mvStartTime},
+            `mv_end_time`      = #{mvEndTime}
+        WHERE `index` = #{index}
+    </update>
 
     <select id="selectMovies" parameterType="dev.babsang.megabox.entities.movie.MovieEntity"
             resultType="dev.babsang.megabox.entities.movie.MovieEntity">
