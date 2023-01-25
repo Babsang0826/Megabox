@@ -15,8 +15,7 @@
                count(`index`)    AS `commentCnt`
         FROM `mg_movie`.`movie_comment`
         WHERE `movie_index` = #{mid}
-        GROUP BY `index`
-        LIMIT 1
+        GROUP BY `index` LIMIT 1
     </select>
 
     <select id="selectMovieCommentsByMid"
@@ -112,6 +111,18 @@
                  LEFT JOIN `mg_movie`.`booking` AS `booking` ON `screenInfo`.`index` = `booking`.`screen_info_index`
         WHERE `movie_index` = #{mid}
         group by `movie`.`index`
+    </select>
+
+    <select id="bookingByMid" resultType="dev.babsang.megabox.vos.movie.BookingVo">
+        select movie.`index`            as movieIndex,
+               booking_date             as bookingDate,
+               count(`booking`.`index`) as `totalAudience`
+        from mg_movie.booking
+                 left join mg_movie.screen_info as screenInfo on booking.screen_info_index = screenInfo.index
+                 left join mg_movie.movies as movie on screenInfo.movie_index = movie.index
+        where booking_date > DATE_ADD(NOW(), INTERVAL -5 DAY) and movie.`index` = #{movieIndex}
+        group by booking_date
+        order by booking_date
     </select>
 
     <select id="selectMovieVo" resultType="dev.babsang.megabox.vos.movie.MovieVo">
@@ -270,7 +281,8 @@
                `booking`.`seat_sum_code`     AS `seatSumCode`,
                `booking`.`payment`           AS `payment`,
                `screenInfo`.`mv_start_time`  AS `mvStartTime`,
-               `screenInfo`.`mv_end_time`    AS `mvEndTime`
+               `screenInfo`.`mv_end_time`    AS `mvEndTime`,
+               `screenInfo`.`movie_index`    AS `movieIndex`
         FROM `mg_movie`.`booking` AS `booking`
                  LEFT JOIN `mg_movie`.`screen_info` AS `screenInfo`
                            ON `booking`.`screen_info_index` = `screenInfo`.`index`
@@ -386,5 +398,12 @@
         INSERT INTO `mg_movie`.`booking`(`screen_info_index`, `user_id`, `seat_index`, `seat_sum_code`, `payment`)
         VALUES (#{screenInfoIndex}, #{userId}, #{seatIndex}, #{seatSumCode}, #{payment})
     </insert>
+
+    <update id="updatePoint" parameterType="dev.babsang.megabox.entities.member.UserEntity">
+        update mg_member.users
+        set point =  #{point}
+        where email = #{email}
+        limit 1
+    </update>
 
 </mapper>

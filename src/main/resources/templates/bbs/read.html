@@ -105,12 +105,12 @@
             <div class="prev-next">
                 <div class="line prev">
                     <p class="tit">이전</p>
-                    <a class="link" th:href="@{/bbs/read(aid=${article.getIndex() - 1})}"
+                    <a class="link" th:href="@{/bbs/read(aid=${articleIndex[0]})}"
                        th:text="${articleTitle[0]}"></a>
                 </div>
                 <div class="line next">
                     <p class="tit">다음</p>
-                    <a th:href="@{/bbs/read(aid=${article.getIndex() + 1})}"
+                    <a th:href="@{/bbs/read(aid=${articleIndex[1]})}"
                        class="link moveBtn" th:text="${articleTitle[1]}" rel="nextArticle">
                     </a>
                 </div>

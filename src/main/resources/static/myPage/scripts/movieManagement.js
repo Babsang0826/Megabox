@@ -84,6 +84,8 @@ uploadBtn.addEventListener('click', e => {
 
     e.preventDefault();
 
+
+
     if (title.value === '') {
         swal('알림', '제목을 입력해 주세요.');
         title.focus();
@@ -101,6 +103,11 @@ uploadBtn.addEventListener('click', e => {
     }
     if (endDate.value === '') {
         swal('알림', '상영종료일을 입력해 주세요.');
+        endDate.focus();
+        return false;
+    }
+    if (endDate.value < releaseDate.value) {
+        swal('알림', '상영종료일은 개봉일보다 빠를 수 없습니다.');
         endDate.focus();
         return false;
     }
@@ -149,6 +156,31 @@ uploadBtn.addEventListener('click', e => {
     if (summary.value === '') {
         swal('알림', '줄거리를 입력해 주세요.');
         summary.focus();
+        return false;
+    }
+
+    const warningText = document.createElement('span');
+    const warningTextLength = document.querySelectorAll('.warningText').length;
+
+    if (regexEn.test(titleEn2.value) === false) {
+        warningText.innerText = '영문으로만 입력 가능합니다.';
+        warningText.classList.add('warningText');
+        warningText.style.color = 'red';
+        warningText.style.fontSize = '15px';
+        warningText.style.textAlign = 'left';
+        warningText.style.marginLeft = '16px';
+        warningText.style.display = 'flex';
+        warningText.style.alignItems = 'center';
+        if(warningTextLength === 0) {
+            document.querySelector('[rel="inputWrap2"]').append(warningText);
+        }
+        titleEn2.focus();
+        return false;
+    }
+
+    if (regexNum.test(runningTime.value) === false) {
+        swal('알림', '상영시간은 숫자만 입력 가능힙니다.');
+        runningTime.focus();
         return false;
     }
 
@@ -211,6 +243,9 @@ const moviePoster = document.querySelectorAll('[rel="moviePoster"]');
 const backgroundImage = document.querySelectorAll('[rel="backgroundImage"]');
 const summary = document.querySelectorAll('#textArea');
 
+const regexEn = /^[a-zA-Z0-9 ]*$/;
+const regexNum = /^[0-9]+$/;
+
 for (let i = 0; i < modifyBtns.length; i++) {
     modifyBtns[i].addEventListener('click', e => {
         e.preventDefault();
@@ -225,14 +260,17 @@ for (let i = 0; i < modifyBtns.length; i++) {
             titleEn2[i].focus();
             return false;
         }
+
         if (releaseDate[i].value === '') {
             swal('알림', '개봉일을 입력해 주세요.');
-            releaseDate[i].focus();
             return false;
         }
         if (endDate[i].value === '') {
             swal('알림', '상영종료일을 입력해 주세요.');
-            endDate[i].focus();
+            return false;
+        }
+        if (endDate[i].value < releaseDate[i].value) {
+            swal('알림', '상영종료일은 개봉일보다 빠를 수 없습니다.');
             return false;
         }
         if (ageLimit[i].value === '') {
@@ -280,6 +318,25 @@ for (let i = 0; i < modifyBtns.length; i++) {
         if (summary[i].value === '') {
             swal('알림', '줄거리를 입력해 주세요.');
             summary[i].focus();
+            return false;
+        }
+
+        const warningText = document.createElement('span');
+        const warningTextLength = document.querySelectorAll('.warningText').length;
+
+        if (regexEn.test(titleEn2[i].value) === false) {
+            warningText.innerText = '영문으로만 입력 가능합니다.';
+            warningText.classList.add('warningText');
+            warningText.style.color = 'red';
+            warningText.style.fontSize = '15px';
+            warningText.style.textAlign = 'left';
+            warningText.style.marginLeft = '16px';
+            warningText.style.display = 'flex';
+            warningText.style.alignItems = 'center';
+            if(warningTextLength === 0) {
+                document.querySelectorAll('[rel="inputWrap"]')[i].append(warningText);
+            }
+            titleEn2[i].focus();
             return false;
         }
 

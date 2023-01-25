@@ -715,5 +715,64 @@ body > .--main > .reservation-container > .reservation-box > .data-container > .
     text-align: center;
 }
 
+.use-point-container {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0 0 0;
+    padding: 1.5rem 1rem;
+    background-color: #eee;
+}
+
+.use-point-container > .use-point > span {
+    color: #503396;
+    font-size: 1rem;
+}
+
+.use-point-container > .use-point > span > em {
+    font-size: 1.3rem;
+}
+
+.use-point-container > div {
+    display: flex;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.use-point-container > div > input {
+    -webkit-appearance: none;
+    border: 1px solid;
+    margin-left: 1.5rem;
+    padding: 5px;
+}
+
+.use-point-container > div > input:focus {
+    border: 1px solid;
+    background-color: #fff;
+}
+
+.use-point-container > div > a {
+    display: none;
+    background-color: #503396;
+    color: #fff;
+    border-radius: 5px;
+    margin-left: 0.5rem;
+    padding: 0 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.use-point-container > div > a.on {
+    display: flex;
+}
+
+.use-point-container > div > a:last-of-type {
+    background-color: #666;
+}
+
+
 
 

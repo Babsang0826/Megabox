@@ -26,6 +26,11 @@ contents.querySelector('[rel="moreBtn"]').addEventListener('click', () => {
 
 // 관람평 작성 클릭 시
 contents.querySelector('[rel="textWrite"]').addEventListener('click', () => {
+    if (document.querySelector('[rel="hiddenUser"]').value === '') {
+        swal('알림', '로그인이 필요한 서비스입니다.');
+        return false;
+    }
+
     contents.querySelector('[rel="writeForm"]').classList.add('on');
 });
 
@@ -42,7 +47,7 @@ mainInfoLi.addEventListener('click', () => {
     moviePostLi.classList.remove('on');
     commentScoreLi.classList.remove('on');
     mainInfoLi.classList.add('on');
-    let location = contents.querySelector('.movie-summary').offsetTop -160;
+    let location = contents.querySelector('.movie-summary').offsetTop - 160;
     window.scrollTo({top: location, behavior: 'smooth'});
 });
 
@@ -51,7 +56,7 @@ commentScoreLi.addEventListener('click', () => {
     moviePostLi.classList.remove('on');
     mainInfoLi.classList.remove('on');
     commentScoreLi.classList.add('on');
-    let location = contents.querySelector('.comment-info').offsetTop -130;
+    let location = contents.querySelector('.comment-info').offsetTop - 130;
     window.scrollTo({top: location, behavior: 'smooth'});
 });
 //무비포스트
@@ -196,14 +201,16 @@ writeForm.onsubmit = e => {
                 switch (responseObject['result']) {
                     case 'success':
                         swal('알림', '한줄평 작성 완료');
-                        loadComments();
+                        // loadComments();
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
                         break;
                     case 'failure' :
                         swal('알림', '로그인 후 이용가능합니다.');
                         break;
                     default:
                         swal('알림', '알 수 없는 이유로 한줄평을 작성하지 못하였습니다.\n\n잠시 후 다시 시도해 주세요.');
-
                 }
             } else {
                 swal('알림', '서버와 통신하지 못하였습니다.\n\n잠시 후 다시 시도해 주세요.');
@@ -213,7 +220,66 @@ writeForm.onsubmit = e => {
     xhr.send(formData);
 }
 
+function addDays(date, days) {
+    const clone = new Date(date);
+    clone.setDate(date.getDate() + days)
+    return clone;
+}
 
+let today = new Date();
+let days = [];
+
+for (let i = 4; i > -1; i--) {
+    const yesterday =
+        ((addDays(today, -i).getMonth() + 1) / 10 >= 1
+            ? addDays(today, -i).getMonth() + 1
+            : ('0' + (addDays(today, -i).getMonth() + 1)))  + '.' +
+        ((addDays(today, -i).getDate()) / 10 >= 1
+            ? addDays(today, -i).getDate()
+            : ('0' + (addDays(today, -i).getDate())));
+    days.push(yesterday);
+}
+
+const v_data = {
+    labels: days,
+    datasets: [
+        {
+            label: '일별 관객수',
+            data: amounts,
+            borderColor: '#a0cdeb',
+            borderWidth: 1,
+            backgroundColor: '#a9d1df',
+            yAxisID: 'y',
+        },
+    ]
+};
+
+const v_config = {
+    type: 'line',
+    data: v_data,
+
+    options: {
+        borderColor: 'red',
+        plugins: {
+            legend: {
+                display: false
+            },
+        },
+        scales: {
+            y: {
+                display: false,
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: 15,
+            },
+        },
+    }
+};
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    new Chart(document.getElementById('chart'), v_config);
+});
 
 
 

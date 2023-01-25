@@ -18,7 +18,7 @@
     <div class="inner-wrap">
         <div class="location">
             <a th:href="@{/}">Home</a>
-            <a th:href="@{/.myPage}">나의 메가박스</a>
+            <a th:href="@{./myPage}">나의 메가박스</a>
             <a th:href="@{./bookingHistory}">예매 내역</a>
         </div>
     </div>
@@ -117,6 +117,7 @@
                                           th:data-payment="${bookingVo.getPayment()}"
                                           th:data-seat="${bookingVo.getColumnText() + bookingVo.getRow()}">
                                     </span>
+                                    <input type="hidden" th:value="${#dates.format(bookingList.get(0).getBookingDate(), 'yyyy.MM.dd')}" rel="hiddenBookingDate">
                                     <input type="hidden" th:value="${bookingList.get(0).getScreenInfoIndex()}" rel="hiddenSid">
                                 </div>
                                 <div class="btn-area">

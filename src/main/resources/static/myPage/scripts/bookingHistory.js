@@ -1,4 +1,5 @@
 const seatContainers = document.querySelectorAll('[rel="seatContainer"]');
+const bookingDate = document.querySelector('[rel="hiddenBookingDate"]');
 seatContainers.forEach(seatContainer => {
     const seats = seatContainer.querySelectorAll('[rel="seat"]');
     const paymentObject = {
@@ -10,26 +11,36 @@ seatContainers.forEach(seatContainer => {
     const emptyDiv = document.createElement('div');
     const emptyDiv2 = document.createElement('div');
     const emptyDiv3 = document.createElement('div');
+    const emptyDiv4 = document.createElement('div');
     const emptyDiv5 = document.createElement('div');
     const emptyDiv6 = document.createElement('div');
-    const emptyDiv4 = document.createElement('div');
+    const emptyDiv7 = document.createElement('div');
+    const emptyDiv8 = document.createElement('div');
     const emptyP = document.createElement('p');
     const emptyP2 = document.createElement('p');
     const emptyP3 = document.createElement('p');
     const emptyP4 = document.createElement('p');
+    const emptyP5 = document.createElement('p');
+    const emptyP6 = document.createElement('p');
     // emptyDiv2.innerText = '좌석 : ';
     emptyDiv.classList.add('item', 'column');
     emptyDiv3.classList.add('item', 'column');
     emptyDiv5.classList.add('item', 'column', 'point');
     emptyDiv6.classList.add('item', 'point');
+    emptyDiv7.classList.add('item', 'column','point');
     // emptyDiv6.classList.add('item');
     emptyP.innerText = '관람인원';
     emptyP2.innerText = '관람좌석';
-    emptyP3.innerText = '적립포인트';
-    seatContainer.append(emptyDiv, emptyDiv2, emptyDiv3, emptyDiv4, emptyDiv5, emptyDiv6);
+    emptyP3.innerText = '결제일시';
+    emptyP5.innerText = '적립포인트';
+    emptyP5.style.justifyContent = 'right';
+    emptyP3.style.justifyContent = 'right';
+
+    seatContainer.append(emptyDiv, emptyDiv2, emptyDiv3, emptyDiv4, emptyDiv5, emptyDiv6, emptyDiv7, emptyDiv8);
     emptyDiv.append(emptyP);
     emptyDiv3.append(emptyP2);
     emptyDiv5.append(emptyP3);
+    // emptyDiv7.append(emptyP5)
 
     seats.forEach(seat => {
         const payment = seat.dataset.payment;
@@ -39,7 +50,6 @@ seatContainers.forEach(seatContainer => {
         const p = document.createElement('p');
         p.innerText = `${seatColRow} `;
         emptyDiv4.append(p);
-        // emptyDiv2.style.paddingTop = '7px';
     });
 
     ['12000', '9000', '5000'].forEach(price => {
@@ -50,12 +60,16 @@ seatContainers.forEach(seatContainer => {
         }
     });
 
+    emptyP4.innerText = bookingDate.value;
+    emptyDiv8.classList.add('point');
+    emptyDiv7.append(emptyP5);
+    emptyDiv6.append(emptyP4);
 
 
     let point = ((paymentObject['12000'].length * 12000) + (paymentObject['9000'].length * 9000) + (paymentObject['5000'].length * 5000)) * 0.005;
 
-    emptyP4.innerText = `${point}P`;
-    emptyDiv6.append(emptyP4)
+    emptyP6.innerText = `${point}P`;
+    emptyDiv8.append(emptyP6);
 
 });
 

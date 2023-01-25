@@ -9,6 +9,15 @@ public class MovieVo extends MovieEntity {
     private int totalAudience;
     private int rank;
     private int point;
+    private Date bookingDate;
+
+    public Date getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
+    }
 
     public int getPoint() {
         return point;

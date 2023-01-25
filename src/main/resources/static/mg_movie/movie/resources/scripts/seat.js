@@ -155,11 +155,13 @@ seatPrev.addEventListener('click', () => {
 //할인 박스 클릭시
 const discountTitles = container.querySelectorAll('.discount-title');
 const point = container.querySelectorAll('.point');
+const priceCal = container.querySelector('.price-cal');
 
 for (let i = 0; i < discountTitles.length; i++) {
     const discountTitle = discountTitles[i];
     discountTitle.addEventListener('click', () => {
         point[i].classList.toggle('on');
+        availablePoint.focus()
     })
 }
 
@@ -184,8 +186,74 @@ for (let i = 0; i < paymentChecks.length; i++) {
     });
 }
 
+const userPoint = document.querySelector('[rel="userPoint"]');
+const cancelPoint = document.querySelector('[rel="cancelPoint"]');
+const availablePoint = document.querySelector('[rel="availablePoint"]');
+const discount = document.querySelector('[rel="discount"]');
+const extraDiscount = document.querySelector('.extra-discount');
+const existingPoint = document.querySelector('[rel="existingPoint"]');
+userPoint.addEventListener('click', () => {
+    if (parseInt(availablePoint.value) > existingPoint.innerText.slice(0, -1)) {
+        swal('알림', '사용 포인트가 보유 포인트보다 많을 수 없습니다.');
+        return false;
+    }
+    if (availablePoint.value === '') {
+        return false;
+    }
+    discount.innerText = availablePoint.value;
+    extraDiscount.innerText = `${availablePoint.value}원`
+    existingPoint.innerText = parseInt(existingPoint.innerText.slice(0, -1)) - parseInt(availablePoint.value) + 'P'
+    finalPrice.innerText = parseInt(finalPrice.innerText) - parseInt(availablePoint.value);
+    availablePoint.setAttribute('disabled', 'disabled');
+    availablePoint.style.color = '#888';
+    userPoint.classList.remove('on');
+    cancelPoint.classList.add('on');
+});
 
+cancelPoint.addEventListener('click', () => {
+    existingPoint.innerText = parseInt(existingPoint.innerText.slice(0, -1)) + parseInt(extraDiscount.innerText.slice(0, -1)) + 'P';
+    finalPrice.innerText = parseInt(finalPrice.innerText) + parseInt(extraDiscount.innerText.slice(0, -1));
+    discount.innerText = 0;
+    extraDiscount.innerText = 0;
+    availablePoint.value = 0;
+    availablePoint.style.color = '#444';
+    availablePoint.removeAttribute('disabled', 'disabled');
+    availablePoint.focus();
+    userPoint.classList.add('on');
+    cancelPoint.classList.remove('on');
+})
 
+const completePaymentBtn = document.querySelector('[rel="completePaymentBtn"]');
+
+completePaymentBtn.addEventListener('click', () => {
+    const savingPoint = parseInt(parseInt(existingPoint.innerText.slice(0, -1)) + parseInt(totalPrice.innerText) / 200);
+    const hiddenEmail = document.querySelector('[rel="hiddenEmail"]');
+
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append('point', savingPoint);
+    formData.append('email', hiddenEmail);
+    xhr.open('POST', './point');
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                const responseObject = JSON.parse(xhr.responseText);
+                switch (responseObject['result']) {
+                    case 'success':
+                        // swal('알림', '성공');
+                        break;
+                    default:
+                        swal('알림', '결제가 실패하였습니다. 잠시 후 다시 시도해 주세요.');
+                        break;
+
+                }
+            } else {
+
+            }
+        }
+    }
+    xhr.send(formData);
+})
 
 
 

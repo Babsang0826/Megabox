@@ -6,7 +6,6 @@ import dev.babsang.megabox.enums.CommonResult;
 import dev.babsang.megabox.enums.member.RecoverMyPageResult;
 import dev.babsang.megabox.interfaces.IResult;
 import dev.babsang.megabox.mappers.IMovieMapper;
-import dev.babsang.megabox.utils.CryptoUtils;
 import dev.babsang.megabox.vos.movie.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -112,6 +111,21 @@ public class MovieService {
     @Transactional
     public Enum<? extends IResult> booking(BookingEntity booking) {
         return this.movieMapper.insertBooking(booking) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    public BookingVo[] bookingByMid(int movieIndex) {
+        return this.movieMapper.bookingByMid(movieIndex);
+    }
+
+    @Transactional
+    public Enum<? extends IResult> updatePoint(UserEntity signedUser, int point) {
+        if (signedUser == null) {
+            return CommonResult.FAILURE;
+        }
+        signedUser.setPoint(point);
+        return this.movieMapper.updatePoint(signedUser) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }

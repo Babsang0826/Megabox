@@ -652,7 +652,7 @@ main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .co
 }
 
 main > .container > .contents > .content-data > .inner-wrap > .movie-graph > .col > dl > dt {
-    font-size: 1.0667em;
+    font-size: 1rem;
     color: #555;
 }
 

@@ -57,8 +57,6 @@ seatContainers.forEach(seatContainer => {
 
     ['12000', '9000', '5000'].forEach(price => {
         const span = document.createElement('span');
-        // const span = document.createElement('span');
-        // div.innerText = `${price === '12000' ? '성인' : price === '9000' ? '청소년' : '우대'} ${paymentObject[price].length}명 ${paymentObject[price].join(', ')}`;
         span.innerText = `${price === '12000' ? '성인' : price === '9000' ? '청소년' : '우대'} ${paymentObject[price].length + ' '}`;
         if (paymentObject[price].length !== 0) {
             emptyDiv.append(span);

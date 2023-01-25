@@ -7,11 +7,16 @@
     <link rel="stylesheet" th:href="@{/mg_movie/movie/resources/stylesheets/movie-detail.css}">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script th:inline="javascript">
+        let amounts = [[${audienceOfDay}]]
+    </script>
     <script defer th:src="@{/mg_movie/movie/resources/scripts/movie-detail.js}"></script>
 </head>
 <th:block th:replace="~{fragments/body :: header}"></th:block>
 <body>
 <main class="--main">
+<!--    <input type="hidden" th:value="">-->
     <div class="container">
         <div class="page-util" id="pageUtil">
             <div class="inner-wrap">
@@ -58,7 +63,7 @@
                         </div>
                     </div>
                     <div class="book">
-                        <a href="#" class="book-link">예매</a>
+                        <a th:href="@{/movie/booking}" class="book-link">예매</a>
                     </div>
                 </div>
             </div>
@@ -130,7 +135,7 @@
                                 </dd>
                             </dl>
                             <div class="graph">
-                                <canvas></canvas>
+                                <canvas id="chart" height="205", width="220"></canvas>
                                 <img src="https://www.megabox.co.kr/static/pc/images/movie/no-graph04.jpg" alt="">
                             </div>
                         </div>
@@ -179,7 +184,10 @@
                                                 <img src="https://www.megabox.co.kr/static/pc/images/mypage/bg-photo.png"
                                                      alt="프로필 사진" title="프로필 사진">
                                             </div>
-                                            <p class="user-id" th:text="${session.user.getId()}"></p>
+                                            <input type="hidden" th:value="${session.user}" rel="hiddenUser">
+                                            <p class="user-id" th:text="${session.user.getId()}"
+                                            th:if="${session.user != null}"></p>
+                                            <p class="user-id" th:if="${session.user == null}">MEGABOX</p>
                                         </div>
                                         <div class="text-box">
                                             <div class="text-wrap review">

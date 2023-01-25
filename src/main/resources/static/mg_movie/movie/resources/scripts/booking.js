@@ -1091,6 +1091,7 @@ if (movie.screenInfoIndex !== null) {
             sortSelections();
         });
     }
+
     const seatNext = container.querySelector('.next');
     seatNext.addEventListener('click', () => {
         let selectedSeat = container.querySelectorAll('.seat.choice').length;
@@ -1187,6 +1188,10 @@ if (movie.screenInfoIndex !== null) {
 
 }
 localStorage.clear();
+
+
+
+
 
 
 

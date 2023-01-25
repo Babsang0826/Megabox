@@ -119,7 +119,8 @@
                `address_primary`   AS `addressPrimary`,
                `address_secondary` AS `addressSecondary`,
                `registered_on`     AS `registeredOn`,
-               `admin_flag`        AS `adminFlag`
+               `admin_flag`        AS `adminFlag`,
+               `point`             AS `point`
         FROM `mg_member`.users
         WHERE BINARY `id` = #{id}
           AND `password` = #{password}

@@ -1,5 +1,6 @@
 package dev.babsang.megabox.entities.movie;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class BookingEntity {
@@ -9,6 +10,15 @@ public class BookingEntity {
     private int seatIndex;
     private String seatSumCode;
     private int payment;
+    private Date bookingDate;
+
+    public Date getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
+    }
 
     public int getIndex() {
         return index;

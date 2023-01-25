@@ -51,7 +51,7 @@ public class MyPageController {
         ModelAndView modelAndView;
 
         if (user == null) {
-            modelAndView = new ModelAndView("redirect:login");
+            modelAndView = new ModelAndView("redirect:member/login");
         } else {
             modelAndView = new ModelAndView("myPage/myPage");
 
@@ -141,9 +141,23 @@ public class MyPageController {
                                @RequestParam(value = "screenInfoIndex") int screenInfoIndex) {
         String userId = user.getId();
         Enum<?> result = this.myPageService.deleteBooking(screenInfoIndex, userId);
+
         JSONObject responseObject = new JSONObject();
+
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
+    }
+
+    @RequestMapping(value = "point",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postPoint(@SessionAttribute(value = "user", required = false) UserEntity user) {
+
+
+
+
+        return null;
     }
 
     @RequestMapping(value = "modify",
@@ -405,6 +419,8 @@ public class MyPageController {
             Enum<?> result = this.myPageService.updateMovie(movie);
             responseObject.put("result", result.name().toLowerCase());
         }
+
+
         return responseObject.toString();
     }
 
@@ -433,11 +449,12 @@ public class MyPageController {
                                       @RequestParam(value = "keyword", required = false) String keyword,
                                       @SessionAttribute(value = "user", required = false) UserEntity signedUser,
                                       HttpServletResponse response) {
+
         ModelAndView modelAndView;
+
         if (signedUser == null) {
             modelAndView = new ModelAndView("redirect:login");
-        }
-        else {
+        } else {
             if (!signedUser.getAdminFlag()) {
                 try {
                     response.setContentType("text/html; charset=utf-8");
@@ -482,8 +499,6 @@ public class MyPageController {
     @RequestMapping(value = "screenInfoManagement", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
                                                 @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                                                @RequestParam(value = "criterion", required = false) String criterion,
-                                                @RequestParam(value = "keyword", required = false) String keyword,
                                                 HttpServletResponse response) {
         ModelAndView modelAndView;
         if (user == null) {
@@ -524,7 +539,7 @@ public class MyPageController {
                                            @RequestParam(value = "mvStartTimeStr") String mvStartTime,
                                            @RequestParam(value = "mvEndTimeStr") String mvEndTime,
                                            ScreenInfoEntity screenInfo) throws ParseException {
-        if(user == null || !user.getAdminFlag()) {
+        if (user == null || !user.getAdminFlag()) {
             return CommonResult.FAILURE.name().toLowerCase();
         }
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -542,7 +557,7 @@ public class MyPageController {
     @ResponseBody
     public String deleteScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
                                              @RequestParam(value = "index") int index) {
-        if(user == null || !user.getAdminFlag()) {
+        if (user == null || !user.getAdminFlag()) {
             return CommonResult.FAILURE.name().toLowerCase();
         }
         Enum<?> result = this.myPageService.deleteScreenInfo(index);
@@ -550,7 +565,7 @@ public class MyPageController {
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
-//
+
     @RequestMapping(value = "screenInfoManagement", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchScreenInfoManagement(@SessionAttribute(value = "user", required = false) UserEntity user,
