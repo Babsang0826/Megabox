@@ -143,8 +143,6 @@ public class TheaterController {
     public ModelAndView getMap(@RequestParam(value = "branchId") int branchId) {
         ModelAndView modelAndView = new ModelAndView("theater/map");
         TheaterEntity theater = this.theaterService.getBranchesIndex(branchId);
-
-
         modelAndView.addObject("latitude", theater.getLatitude());
         modelAndView.addObject("longitude", theater.getLongitude());
         return modelAndView;

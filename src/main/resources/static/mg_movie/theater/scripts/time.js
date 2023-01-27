@@ -27,7 +27,6 @@ let nextStartDay = new Date(currentYear, today.getMonth() + 1, 1); // ???
 let nextMonthStartWeek = nextStartDay.getDay(); // 1월을 기준 2월이 수요일부터이기 때문에 인덱스 3이 맞음
 
 
-
 // 이번달
 let thisMonthArr = [];
 let thisMonthArrCode = [];
@@ -46,11 +45,13 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     thisMonthArr.push(thisMonthArrCode);
     let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
     let week = new Date(date.setDate(i)).getDay();
-    let thisWeek = WEEKDAY[week];
+    thisWeek = WEEKDAY[week];
     let timeElement = document.createElement('div');
     timeElement.classList.add('day', 'current');
     timeElement.innerHTML = `${i}<br>${thisWeek}`;
     timeElement.dataset.date = thisMonthArrCode;
+    timeElement.dataset.value = thisMonthDate;
+    timeBox.append(timeElement);
     if (thisWeek === '일') {
         timeElement.style.color = 'red';
     } else if (thisWeek === '토') {
@@ -108,17 +109,16 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
             // drawSubs();
         });
     }
-
-    timeElement.addEventListener('click', () => {
-        const theaterListBoxElement = document.getElementById('theaterListBox');
-        const theaterContainers = theaterListBoxElement.querySelectorAll('[rel="theaterContainer"]');
-        theaterContainers.forEach(x => {
-            const dateInputElement = x.querySelector('.date-value');
-            const dateInputValue = dateInputElement.value;
-            x.style.display = dateInputValue === timeElement.dataset.date ? 'block' : 'none';
-        });
-    });
-    timeBox.append(timeElement);
+    // timeElement.addEventListener('click', () => {
+    //     const theaterListBoxElement = document.getElementById('theaterListBox');
+    //     const theaterContainers = theaterListBoxElement.querySelectorAll('[rel="theaterContainer"]');
+    //     theaterContainers.forEach(x => {
+    //         const dateInputElement = x.querySelector('.date-value');
+    //         const dateInputValue = dateInputElement.value;
+    //         x.style.display = dateInputValue === timeElement.dataset.date ? 'block' : 'none';
+    //     });
+    // });
+    // timeBox.append(timeElement);
 }
 
 
@@ -181,22 +181,20 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
                     dayCurrent[0].style.backgroundColor = 'rgb(255, 255, 255)';
                 }
             }
-            // drawSubs();
         });
     }
-    dayElement.addEventListener('click', () => {
-        const theaterListBoxElement = document.getElementById('theaterListBox');
-        const theaterContainers = theaterListBoxElement.querySelectorAll('[rel="theaterContainer"]');
-        theaterContainers.forEach(x => {
-            const dateInputElement = x.querySelector('.date-value');
-            const dateInputValue = dateInputElement.value;
-            x.style.display = dateInputValue === dayElement.dataset.date ? 'block' : 'none';
-        });
-    });
+    // dayElement.addEventListener('click', () => {
+    //     const theaterListBoxElement = document.getElementById('theaterListBox');
+    //     const theaterContainers = theaterListBoxElement.querySelectorAll('[rel="theaterContainer"]');
+    //     theaterContainers.forEach(x => {
+    //         const dateInputElement = x.querySelector('.date-value');
+    //         const dateInputValue = dateInputElement.value;
+    //         x.style.display = dateInputValue === dayElement.dataset.date ? 'block' : 'none';
+    //     });
+    // });
     timeBox.append(dayElement);
 }
 
-const inputHiddenEmail = window.document.querySelector('[rel="hiddenEmail"]');
 
 
 Cover.show("");
@@ -214,8 +212,14 @@ xhr.onreadystatechange = () => {
             const appendMovieInfo = (screens) => {
                 const date = new Date();
                 const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' : ''}${date.getMonth() + 1}-${date.getDate() < 10 ? '0' : ''}${date.getDate()}`;
-                const theaterHtmlText = `                 
-                <div class="theater-list-box" id="theaterContainer" rel="theaterContainer" style="display: ${screens[0]['screenInfoDate'] === today ? 'block' : 'none'}">
+
+                const selectedDays = document.querySelectorAll('.day');
+                for (let selectedDay of selectedDays) {
+
+                }
+
+                const theaterHtmlText = `
+                <div class="theater-list-box" id="theaterContainer" rel="theaterContainer" >
                     <div class="text-form" rel="textForm">
                         <input class="date-value" type="hidden" value="${screens[0]['screenInfoDate']}">
                         <div class="theater-tit">
@@ -225,14 +229,15 @@ xhr.onreadystatechange = () => {
                                 <span>${screens[0]['movieState']} /</span>
                                 <span style="color: #0f0f0f">상영시간 ${screens[0]['runningTime']}분</span></p>
                         </div>
-                        
                     </div>
                 </div>`;
                 const theaterDom = domParser.parseFromString(theaterHtmlText, 'text/html');
                 const textFormElement = theaterDom.querySelector('[rel="textForm"]');
                 let screenByAudObject = {};
                 for (let screen of screens) {
+
                     let aud = screen['screenInfoAuditoriumText'];
+                    let date = screen['screenInfoDate']
                     if (!screenByAudObject[aud]) {
                         screenByAudObject[aud] = [];
                     }
@@ -273,12 +278,16 @@ xhr.onreadystatechange = () => {
                     const audElement = audDom.querySelector('[rel="aud"]');
                     const timeContainerElement = audDom.querySelector('[rel="timeContainer"]');
 
+
+                    for (let i = 0; i < screenByAudObject[key].length; i++) {
+                        let movie = screenByAudObject[key][i];
+                    }
                     for (let movie of screenByAudObject[key]) {
                         const timeHtml = `
                         <table>
                         <tbody>
                         <tr>
-                        <td rel="timeCell">
+                        <td rel="timeCell" data-date="${movie['screenInfoDate']}">
                             <div class="td">
                                 <div class="txt-center">
                                     <a href="#" rel="bookingPage">
@@ -286,7 +295,7 @@ xhr.onreadystatechange = () => {
                                             <i class="iconset ico-off"></i>
                                         </div>
                                         <p class="time" rel="timeValue">${movie['screenInfoMovieStartTime']}</p>
-                                        <p class="chair" 
+                                        <p class="chair"
                                         th:text="${parseInt(screenByAudObject[key][0]['screenInfoSeatCountAll']) - parseInt(movie['screenInfoSeatRemain'])}"></p>
                                         <div class="play-time">
                                          <p>${movie['screenInfoMovieStartTime']}~${movie['screenInfoMovieEndTime']}</p>
@@ -303,22 +312,30 @@ xhr.onreadystatechange = () => {
                         remainSeat.innerText = `${remainSeatCnt}석`;
                         timeCellElement.classList.add('time')
                         timeCellElement.addEventListener('click', () => {
-                            if(inputHiddenEmail == null) {
-                                window.location.href = '/member/login';
-                                return false;
-                            }
                             localStorage.setItem('movie', JSON.stringify(movie));
                             location.href = `/movie/booking`;
                             timeCellElement.setAttribute('selected', 'selected');
                             drawSeatResult();
                         })
+
+                        // const selectedDays = document.querySelectorAll('.day');
+                        // for (let selectedDay of selectedDays) {
+                        //     selectedDay.addEventListener('click', () => {
+                        //         for (let selectedDay1 of selectedDays) {
+                        //             timeCellElement.style.display = 'table-cell'
+                        //         }
+                        //         if (movie['screenInfoDate'] !== selectedDay.dataset.date) {
+                        //             timeCellElement.style.display = 'none'
+                        //         }
+                        //
+                        //     })
+                        // }
+
                         timeContainerElement.append(timeCellElement);
                     }
 
                     textFormElement.append(audElement);
-
                 }
-
                 ListBox.append(theaterDom.getElementById('theaterContainer'));
             }
 
@@ -327,7 +344,7 @@ xhr.onreadystatechange = () => {
             let screenObject = {};
             payload = responseArray;
             for (let screen of responseArray) {
-                let screenIdentifier = `${screen['screenInfoDate']}`;
+                let screenIdentifier = `${screen['movieIndex']}`;
                 if (!screenObject[screenIdentifier]) {
                     screenObject[screenIdentifier] = [];
                 }
@@ -336,7 +353,9 @@ xhr.onreadystatechange = () => {
             for (let key of Object.keys(screenObject)) {
                 let screens = screenObject[key];
                 appendMovieInfo(screens);
+                console.log('screens : ' + screens)
             }
+
         } else {
             alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
         }
@@ -378,14 +397,50 @@ window.onscroll = function () {
 }
 
 function scrollFunction() {
-    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
         document.getElementById('pageUtil').classList.add('fixed');
+        // document.getElementById('movieDetail').classList.add('fixed');
         document.getElementById('tabList').classList.add('fixed');
+        // document.getElementById('contentData').classList.add('fixed');
     } else {
         document.getElementById('pageUtil').classList.remove('fixed');
+        // document.getElementById('movieDetail').classList.remove('fixed')
         document.getElementById('tabList').classList.remove('fixed')
+        // document.getElementById('contentData').classList.remove('fixed');
     }
 }
+
+document.querySelector('.time-box').querySelectorAll(':scope > .day').forEach(day => {
+    day.addEventListener('click', () => {
+        const selectedDate = day.dataset.date;
+        const timeCells = Array.from(document.querySelectorAll('[rel="timeCell"]'));
+        timeCells.forEach(timeCell => {
+            if (timeCell.dataset.date !== selectedDate) {
+                timeCell.style.display = 'none';
+            } else {
+                timeCell.style.display = 'table-cell';
+            }
+        });
+        const auds = Array.from(document.querySelectorAll('[rel="aud"]'));
+        auds.forEach(aud => {
+            const audTimeCells = Array.from(aud.querySelectorAll('[rel="timeCell"]'));
+            if (audTimeCells.every(x => x.style.display === 'none')) {
+                aud.style.display = 'none';
+            } else {
+                aud.style.display = 'block';
+            }
+        });
+        const theaterContainers = Array.from(document.querySelectorAll('[rel="theaterContainer"]'));
+        theaterContainers.forEach(theaterContainer => {
+            const theaterAuds = Array.from(theaterContainer.querySelectorAll('[rel="aud"]'));
+            if (theaterAuds.every(x => x.style.display === 'none')) {
+                theaterContainer.style.display = 'none';
+            } else {
+                theaterContainer.style.display = 'block';
+            }
+        });
+    });
+});
 
 
 

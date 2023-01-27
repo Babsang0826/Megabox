@@ -1,3 +1,12 @@
+const nonMember = window.document.querySelector('.non-member');
+
+nonMember.addEventListener('click', () => {
+    swal('알림', '아직 준비되지 않은 서비스 입니다.');
+})
+
+
+
+
 form.onsubmit = (e) => {
     e.preventDefault();
 

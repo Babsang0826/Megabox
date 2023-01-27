@@ -61,25 +61,25 @@
 
     <select id="selectScreenInfos"
             resultType="dev.babsang.megabox.vos.movie.MovieScreenInfoVo">
-        SELECT `screenInfo`.`index`            AS `index`,
-               `screenInfo`.`movie_index`      AS `movieIndex`,
-               `screenInfo`.`auditorium_index` AS `auditoriumIndex`,
-               `screenInfo`.`screen_date`      AS `screenDate`,
-               `screenInfo`.`mv_start_time`    AS `mvStartTime`,
-               `screenInfo`.`mv_end_time`      AS `mvEndTime`,
-               `movie`.`title`                 AS `infoMovieTitle`,
-               `movie`.`screen_type`           AS `infoMovieState`,
-               `auditorium`.`text`             AS `infoAudText`,
-               `branch`.`text`                 AS `infoBranchText`,
-               `auditorium`.`branch_index`     AS `branchIndex`,
-               `movie`.running_time            AS `runningTime`,
-               `movie`.movie_state             AS `movieState`,
-               `movie`.`age_limit`             AS `infoMovieAgeLimit`,
-               `movie`.`index`                 AS `movieIndex`,
-               COUNT(`seat`.auditorium_index)  AS `seatIndex`,
-               `seat`.`auditorium_index`       as auditoriumIndex,
-               `movie`.`movie_poster`          AS `moviePoster`,
-               COUNT(`booking`.`seat_index`)   AS `seatRemain`
+        SELECT `screenInfo`.`index`               AS `index`,
+               `screenInfo`.`movie_index`         AS `movieIndex`,
+               `screenInfo`.`auditorium_index`    AS `auditoriumIndex`,
+               `screenInfo`.`screen_date`         AS `screenDate`,
+               `screenInfo`.`mv_start_time`       AS `mvStartTime`,
+               `screenInfo`.`mv_end_time`         AS `mvEndTime`,
+               `movie`.`title`                    AS `infoMovieTitle`,
+               `movie`.`screen_type`              AS `infoMovieState`,
+               `auditorium`.`text`                AS `infoAudText`,
+               `branch`.`text`                    AS `infoBranchText`,
+               `auditorium`.`branch_index`        AS `branchIndex`,
+               `movie`.running_time               AS `runningTime`,
+               `movie`.movie_state                AS `movieState`,
+               `movie`.`age_limit`                AS `infoMovieAgeLimit`,
+               `movie`.`index`                    AS `movieIndex`,
+               COUNT(`seat`.auditorium_index)     AS `seatIndex`,
+               `seat`.`auditorium_index`          as auditoriumIndex,
+               `movie`.`movie_poster`             AS `moviePoster`,
+               COUNT(`booking`.`seat_index`)      AS `seatRemain`
         FROM `mg_movie`.`screen_info` AS `screenInfo`
                  LEFT JOIN `mg_movie`.`movies` AS `movie` ON `screenInfo`.`movie_index` = `movie`.`index`
                  LEFT JOIN `mg_movie`.`auditoriums` AS `auditorium`
@@ -162,5 +162,6 @@
                            ON `screenInfo`.`auditorium_index` = `auditorium`.`index`
 
     </select>
+
 
 </mapper>
