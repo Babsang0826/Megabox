@@ -463,6 +463,7 @@ const drawSubs = () => {
                     readScreenInfo.forEach(x => {
                         x.addEventListener('click', () => {
                             if (hiddenEmail === null) {
+                                // localStorage.setItem('sessionValue', )
                                 window.location.href = '/member/login';
                                 return false;
                             }
@@ -629,7 +630,7 @@ const drawPaySeatResult = () => {
             .filter(allScreenInfo => selectedDayValue.indexOf(allScreenInfo['screenInfoDate']) > -1 && selectedCityIndexes.indexOf(allScreenInfo['screenInfoBranchIndex']) > -1 && selectedMvStartTime.indexOf(allScreenInfo['screenInfoMovieStartTime']) > -1 && selectedMvEndTime.indexOf(allScreenInfo['screenInfoMovieEndTime']) > -1)
             .forEach(allScreenInfo => {
                 const titleAreaElement = window.document.createElement('div');
-                titleAreaElement.classList.add('title-area','pay');
+                titleAreaElement.classList.add('title-area', 'pay');
                 const ageLimitElement = window.document.createElement('span');
                 ageLimitElement.classList.add(allScreenInfo['screenInfoMovieAgeLimit']);
                 const titleElement = window.document.createElement('p');
@@ -835,7 +836,7 @@ form.onsubmit = e => {
         let seatCode = seatCodes[i];
         let seatPrice = lastCountArray[i];
         let screenInfoIndex = seatScreenInfoIndexs.dataset.screenInfoIndex;
-        Cover.show();
+        Cover.show('');
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
         formData.append('screenInfoIndex', screenInfoIndex);
@@ -877,15 +878,6 @@ const nextTimeBtn = window.document.getElementById('nextTimeBtn');
 
 // time 시간표
 for (let i = 0; i <= 28; i++) {
-    // const time = window.document.querySelectorAll('.time');
-    // const onMovieTimeCover = window.document.querySelectorAll('.movie-time-cover.on');
-    // time.forEach(time => {
-    //     onMovieTimeCover.forEach(onTime => {
-    //         if(time.innerText === onTime.dataset.time) {
-    //             time.style.color = 'rgb(0, 0, 0)';
-    //         }
-    //     })
-    // });
     if (i < 10) {
         const timeElement = window.document.createElement('div');
         timeElement.classList.add('time');
@@ -956,7 +948,6 @@ function moveTimeSlide(num) {
 }
 
 
-// TimeBox 관련 슬라이드 효과
 let currentIdx = 0;
 let slideWidth = 2;
 let slideMargin = 2.35;
@@ -993,7 +984,7 @@ if (movie.screenInfoIndex !== null) {
     seatContainer.classList.add('on');
     const wrapContainer = window.document.querySelector('.wrap');
     const titleAreaElement = window.document.createElement('div');
-    titleAreaElement.classList.add('title-area','pay');
+    titleAreaElement.classList.add('title-area', 'pay');
 
     const ageLimitElement = window.document.createElement('span');
     ageLimitElement.classList.add('age12');
@@ -1030,7 +1021,6 @@ if (movie.screenInfoIndex !== null) {
     wrapContainer.prepend(titleAreaElement, infoAreaElement);
     seatResultContainer.append(wrapContainer);
 
-// movie.seatVos 좌석 다 가지고 있음
     const seatColumnElement = window.document.createElement('div');
     seatColumnElement.classList.add('seat-column');
     movie.seatColumnVo.forEach(seatColumn => {

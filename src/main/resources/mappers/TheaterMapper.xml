@@ -89,6 +89,7 @@
                  LEFT JOIN `mg_movie`.`booking` AS `booking`
                            ON screenInfo.`index` = booking.screen_info_index and seat.`index` = `booking`.seat_index
         WHERE `branch_index` = #{branchId}
+          AND `screenInfo`.`screen_date` >= DATE_FORMAT(NOW(), '%Y-%m-%d')
         group by `screenInfo`.`index`
     </select>
     <select id="selectSeatByAuditoriumIndexGroupByColumnIndex"
