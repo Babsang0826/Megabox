@@ -44,13 +44,13 @@ toggle.addEventListener('input', () => {
 });
 
 
-let x = 0;
+
 const expForm = document.getElementById('expForm');
 const commingSearchCnt = document.querySelector('[rel="commingSearchCnt"]');
 
 expForm.addEventListener('submit', e => {
     e.preventDefault();
-
+    let x = 0;
     commingMovies.forEach(movie => {
         const title = movie.querySelector('[rel="title"]').innerText;
         const keyword = expForm['keyword'].value;
@@ -58,7 +58,6 @@ expForm.addEventListener('submit', e => {
         x = keyword === '' || title.indexOf(keyword) > -1 ? x + 1 : x;
     });
     commingSearchCnt.innerText = x;
-
 });
 
 

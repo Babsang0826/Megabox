@@ -27,6 +27,7 @@ let nextStartDay = new Date(currentYear, today.getMonth() + 1, 1); // ???
 let nextMonthStartWeek = nextStartDay.getDay(); // 1월을 기준 2월이 수요일부터이기 때문에 인덱스 3이 맞음
 
 
+
 // 이번달
 let thisMonthArr = [];
 let thisMonthArrCode = [];
@@ -222,6 +223,7 @@ xhr.onreadystatechange = () => {
                                 <span>${screens[0]['movieState']} /</span>
                                 <span style="color: #0f0f0f">상영시간 ${screens[0]['runningTime']}분</span></p>
                         </div>
+                        
                     </div>
                 </div>`;
                 const theaterDom = domParser.parseFromString(theaterHtmlText, 'text/html');
@@ -314,7 +316,9 @@ xhr.onreadystatechange = () => {
                     }
 
                     textFormElement.append(audElement);
+
                 }
+
                 ListBox.append(theaterDom.getElementById('theaterContainer'));
             }
 
@@ -378,10 +382,14 @@ window.onscroll = function () {
 function scrollFunction() {
     if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
         document.getElementById('pageUtil').classList.add('fixed');
+        // document.getElementById('movieDetail').classList.add('fixed');
         document.getElementById('tabList').classList.add('fixed');
+        // document.getElementById('contentData').classList.add('fixed');
     } else {
         document.getElementById('pageUtil').classList.remove('fixed');
+        // document.getElementById('movieDetail').classList.remove('fixed')
         document.getElementById('tabList').classList.remove('fixed')
+        // document.getElementById('contentData').classList.remove('fixed');
     }
 }
 
