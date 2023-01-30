@@ -71,11 +71,9 @@
         <div id="contents" class="">
             <h2 class="tit">공지사항</h2>
             <div class="button-container">
-<!--                <input class="&#45;&#45;object-button a" name="modify" type="button" value="수정하기" rel="actionModify">-->
                 <a class="--object-button a" id="modifyButton"
                    th:href="@{./modify (aid=${article.getIndex()})}"
                    th:if="${session.user != null && session.user.getId().equals(article.getUserId())}">수정</a>
-<!--                <input class="&#45;&#45;object-button" name="delete" type="submit" value="삭제하기" rel="actionDelete">-->
                 <a class="--object-button" id = "deleteButton" rel="actionDelete"
                    th:if="${session.user != null && session.user.getId().equals(article.getUserId())}">삭제</a>
             </div>

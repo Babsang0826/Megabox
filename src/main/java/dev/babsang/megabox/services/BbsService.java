@@ -36,7 +36,6 @@ public class BbsService {
         return this.bbsMapper.selectBoardById(id);
     }
 
-    //     게시판 insert
     @Transactional
     public Enum<? extends IResult> write(ArticleEntity article) {
         BoardsEntity board = this.bbsMapper.selectBoardById(article.getBoardId());
@@ -54,9 +53,7 @@ public class BbsService {
         return this.bbsMapper.selectArticleByIndex(index);
     }
 
-    //    public ArticleEntity[] getArticles() {
-//        return this.bbsMapper.selectArticle();
-//    }
+
     public BbsIndexCountVo[] getArticleIndex() {
         return this.bbsMapper.selectArticleIndex();
     }
@@ -66,7 +63,6 @@ public class BbsService {
     }
 
 
-    // 이미지 넣기
     public Enum<? extends IResult> addImage(ImageEntity image) {
         return this.bbsMapper.insertImage(image) > 0
                 ? CommonResult.SUCCESS
@@ -78,7 +74,6 @@ public class BbsService {
     }
 
 
-    //게시글 삭제
     public Enum<? extends IResult> deleteArticle(UserEntity user, ArticleEntity article) {
         ArticleEntity existingArticle = this.bbsMapper.selectArticleByIndex(article.getIndex());
 
@@ -94,7 +89,6 @@ public class BbsService {
                 : CommonResult.FAILURE;
     }
 
-    //게시글 수정
     public Enum<? extends IResult> prepareModifyArticle(ArticleEntity article, UserEntity user) {
         if (user == null) {
             return ModifyArticleResult.NOT_SIGNED;
@@ -141,10 +135,6 @@ public class BbsService {
                 : CommonResult.FAILURE;
     }
 
-    //    public PrevNextVo[] getOrder(int index) {
-//        return this.bbsMapper.selectArticleByIndexNext(index);
-//    }
-//}
     public Enum<? extends IResult> getOrder(ArticleEntity article) {
         PrevNextVo[] existingArticle = this.bbsMapper.selectArticleByIndexNext(article.getIndex());
 
@@ -224,7 +214,7 @@ public class BbsService {
         }
         return existingArticleTitle;
     }
-    // 페이징
+
     public ArticleEntity[] getArticles(BoardsEntity board, PagingModel paging, String criterion, String keyword) {
         return this.bbsMapper.selectArticlesByBoardId(
                 board.getId(),

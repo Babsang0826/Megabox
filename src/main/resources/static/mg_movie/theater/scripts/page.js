@@ -5,14 +5,10 @@ window.onscroll = function () {
 function scrollFunction() {
     if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
         document.getElementById('pageUtil').classList.add('fixed');
-        // document.getElementById('movieDetail').classList.add('fixed');
         document.getElementById('tabList').classList.add('fixed');
-        // document.getElementById('contentData').classList.add('fixed');
     } else {
         document.getElementById('pageUtil').classList.remove('fixed');
-        // document.getElementById('movieDetail').classList.remove('fixed')
         document.getElementById('tabList').classList.remove('fixed')
-        // document.getElementById('contentData').classList.remove('fixed');
     }
 }
 

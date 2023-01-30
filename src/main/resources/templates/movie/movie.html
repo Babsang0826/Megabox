@@ -84,7 +84,6 @@
                         </a>
                     </div>
                     <div class="rate-date">
-                        <!--                                                    <span class="rate">-->
                         <span class="rate" th:text="'예매율 ' + ${movie.getBookRate()} + '%'">
                             예매율 85%</span>
                         <span class="date" th:text="'개봉일 ' + ${#dates.format(movie.getReleaseDate(), 'yyyy.MM.dd')}">개봉일 2022.12.14</span>

@@ -22,21 +22,20 @@ let allSeat = [];
 let count = 0;
 let value = 0;
 
-//
-let date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // utc 표준시 도출
-let kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-let today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+let date = new Date();
+let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000);
+let kstGap = 9 * 60 * 60 * 1000;
+let today = new Date(utc + kstGap);
 
-let currentMonth = ((today.getMonth()) + 1); // 1월
-let currentYear = today.getFullYear(); // 현재 년도
-let currentDay = today.getDate(); // 현재 날짜
-let thisMonthEndDay = new Date(currentYear, currentMonth, 0); // 현재달 마지막 날짜 전체(1월 31일)
-let endDay = new Date(currentYear, currentMonth + 1, 0); // 다음달의 마지막 날짜전체(2월 28일)
-// let NextMonthLast = endDay.getDate(); // 다음달 마지막 날짜(28일)
-let thisMonthLast = thisMonthEndDay.getDate(); // 이번달 마지막날짜 (31일을 나타냄)
-let nextStartDay = new Date(currentYear, today.getMonth() + 1, 1); // ???
-let nextMonthStartWeek = nextStartDay.getDay(); // 1월을 기준 2월이 수요일부터이기 때문에 인덱스 3이 맞음
+let currentMonth = ((today.getMonth()) + 1);
+let currentYear = today.getFullYear();
+let currentDay = today.getDate();
+let thisMonthEndDay = new Date(currentYear, currentMonth, 0);
+let endDay = new Date(currentYear, currentMonth + 1, 0);
+
+let thisMonthLast = thisMonthEndDay.getDate();
+let nextStartDay = new Date(currentYear, today.getMonth() + 1, 1);
+let nextMonthStartWeek = nextStartDay.getDay();
 
 
 let thisMonthArr = [];
@@ -139,7 +138,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     nextWeek = WEEKDAY[week];
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'next');
-    dayElement.dataset.value = nextMonthDate;
+    dayElement.dataset.date = nextMonthDate;
     dayElement.innerText = i + '•' + nextWeek;
     timeBox.append(dayElement);
     if (nextWeek === '토') {
@@ -178,7 +177,6 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     }
 }
 
-// movieTitle(영화제목) 함수
 const drawListBox = () => {
     movieTitles.forEach(movie => {
         const listBoxElement = window.document.createElement('div');
@@ -217,7 +215,6 @@ const drawListBox = () => {
 }
 
 
-// Branch 클릭시 작동 함수
 const drawBranches = () => {
     quickCity.innerHTML = '';
     branches.forEach(branch => {
@@ -262,7 +259,6 @@ const drawBranches = () => {
     });
 };
 
-// Branch에 따른 sub함수
 const drawSubs = () => {
     if (quickCity.classList.contains('on')) {
         selectMovieTime.innerHTML = '';
@@ -463,7 +459,6 @@ const drawSubs = () => {
                     readScreenInfo.forEach(x => {
                         x.addEventListener('click', () => {
                             if (hiddenEmail === null) {
-                                // localStorage.setItem('sessionValue', )
                                 window.location.href = '/member/login';
                                 return false;
                             }
@@ -659,7 +654,7 @@ const drawPaySeatResult = () => {
             });
     }
 }
-//좌석 클릭 시 //
+
 const seatArea = container.querySelector('[rel="seatArea"]');
 let selectedSeats = container.querySelectorAll('[rel="selectedSeat"]');
 const seatsContainer = window.document.querySelector('.seats');
@@ -740,8 +735,6 @@ const drawSeat = () => {
     }
 }
 
-
-//좌석 정렬 함수
 const sortSelections = () => {
     const selections = Array.from(selectedSeats);
     for (let selection of selections) {
@@ -758,7 +751,6 @@ const sortSelections = () => {
 
 let chosenSeatTotalCnt = 0;
 
-//좌석 선택에서 다음 클릭 시
 const seatNext = container.querySelector('.next');
 seatNext.addEventListener('click', () => {
     let selectedSeat = container.querySelectorAll('.seat.choice').length;
@@ -776,7 +768,6 @@ seatNext.addEventListener('click', () => {
 });
 
 Cover.show('');
-// 최초 예매사이트 접속시 한번 SELECT
 const xhr = new XMLHttpRequest();
 xhr.open('PATCH', './booking');
 xhr.onreadystatechange = () => {
@@ -876,7 +867,6 @@ const previousTimeBtn = window.document.getElementById('previousTimeBtn');
 const nextTimeBtn = window.document.getElementById('nextTimeBtn');
 
 
-// time 시간표
 for (let i = 0; i <= 28; i++) {
     if (i < 10) {
         const timeElement = window.document.createElement('div');

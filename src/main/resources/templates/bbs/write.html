@@ -14,7 +14,7 @@
 <body>
 <script th:if="${result.equals('FAILURE')}">
     alert('존재하지않는 게시판 입니다.');
-    if (window.history.length > 1) { // 뒤로 갈 수 있다면
+    if (window.history.length > 1) {
         window.history.back();
     } else {
         window.close();

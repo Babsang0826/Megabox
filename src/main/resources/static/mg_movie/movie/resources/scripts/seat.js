@@ -1,7 +1,6 @@
 const container = window.document.getElementById('container');
 const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
-// 인원 선택
 const cell = container.querySelectorAll('[rel="cell"]');
 const counts = container.querySelectorAll('[rel="cnt"]');
 const texts = container.querySelectorAll('[rel="text"]');
@@ -44,7 +43,6 @@ for (let i = 0; i < cell.length; i++) {
         }
         count.innerText = number;
 
-        //인원 수 카운트 시 총 결제 금액 값 변경
         personCnt[i] = number
         person[i] = texts[i]
         type[i].innerText = person[i].textContent + ' ' + personCnt[i];
@@ -87,7 +85,6 @@ for (let i = 0; i < cell.length; i++) {
         totalCnt -= 1;
         let chosenSeatCnt = seatArea.querySelectorAll('.row.on').length;
 
-        //인원의 총 합이 선택된 좌석 수 보다 적을 시
         if (totalCnt < chosenSeatCnt) {
             if (!confirm('좌석을 초기화하시겠습니까?')) {
                 totalCnt += 1;
@@ -106,7 +103,6 @@ for (let i = 0; i < cell.length; i++) {
             type[i].style.padding = 0;
         }
 
-        // const price = payArea.querySelector('.price');
         let adultTotalPrice = `${parseInt(adultCount.innerText) * 12000}`
         let teenagerTotalPrice = `${parseInt(teenagerCount.innerText) * 9000}`
         let etcTotalPrice = `${parseInt(etcCount.innerText) * 5000}`
@@ -122,7 +118,6 @@ for (let i = 0; i < cell.length; i++) {
     });
 }
 
-//초기화 버튼 클릭
 const resetBtn = container.querySelectorAll('.reset-button');
 
 for (let i = 0; i < resetBtn.length; i++) {
@@ -135,13 +130,10 @@ for (let i = 0; i < resetBtn.length; i++) {
 }
 
 const homeReloadPrev = container.querySelector('.home-reload-button');
-// const reloadSeatResultTitle = window.document.querySelector('.title-area')
-// const reloadSeatResultInfo = window.document.querySelector('.info-area');
 homeReloadPrev.addEventListener('click', e => {
     window.location.reload();
 })
 
-//payment 버튼 이벤트
 const seatSelect = container.querySelector('[rel="seatSelect"]');
 const seatSelectPayment = container.querySelector('[rel="seatSelectPayment"]');
 
@@ -152,7 +144,6 @@ seatPrev.addEventListener('click', () => {
 });
 
 
-//할인 박스 클릭시
 const discountTitles = container.querySelectorAll('.discount-title');
 const point = container.querySelectorAll('.point');
 const priceCal = container.querySelector('.price-cal');
@@ -165,7 +156,6 @@ for (let i = 0; i < discountTitles.length; i++) {
     })
 }
 
-//결제 수단
 const paymentChecks = container.querySelectorAll('input[name = radio]');
 const payment = container.querySelectorAll('.payments');
 const paymentMethods = container.querySelectorAll('.payment-methods');
@@ -227,7 +217,6 @@ const completePaymentBtn = document.querySelector('[rel="completePaymentBtn"]');
 const hiddenEmail = document.querySelector('[rel="hiddenEmail"]');
 completePaymentBtn.addEventListener('click', () => {
     const savingPoint = parseInt(parseInt(existingPoint.innerText.slice(0, -1)) + parseInt(totalPrice.innerText) / 200);
-    // const hiddenEmail = document.querySelector('[rel="hiddenEmail"]');
 
     const xhr = new XMLHttpRequest();
     const formData = new FormData();

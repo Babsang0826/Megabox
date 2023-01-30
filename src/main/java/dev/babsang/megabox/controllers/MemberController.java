@@ -85,7 +85,6 @@ public class MemberController {
     }
 
 
-    //    아이디 중복검사
     @RequestMapping(value = "register",
             method = RequestMethod.PATCH,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -160,7 +159,6 @@ public class MemberController {
         return responseObject.toString();
     }
 
-    // 비밀번호 재설정 페이지
     @RequestMapping(value = "userPasswordReset", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getUserPasswordReset() {
         ModelAndView modelAndView = new ModelAndView("member/userPasswordReset");
@@ -220,35 +218,11 @@ public class MemberController {
         return responseObject.toString();
     }
 
-//    @GetMapping(value = "kakao", produces = MediaType.TEXT_HTML_VALUE)
-//    @ResponseBody
-//    public ModelAndView getKakao(@RequestParam(value = "code") String code,
-//                                 @RequestParam(value = "error", required = false) String error,
-//                                 @RequestParam(value = "error_description", required = false) String errorDescription,
-//                                 HttpSession session) throws IOException {
-//
-//        String accessToken = this.memberService.getKakaoAccessToken(code);
-//        UserEntity user = this.memberService.getKakaoUserInfo(accessToken);
-//
-//        session.setAttribute("user", user);
-//        return new ModelAndView("member/kakao");
-//    }
-
     @GetMapping(value = "logout")
     public ModelAndView getLogOut(HttpSession session) {
         session.setAttribute("user", null);
         session.invalidate();
         return new ModelAndView("redirect:/");
     }
-
-//    @RequestMapping(value = "logout",
-//            method = RequestMethod.GET,
-//            produces = MediaType.TEXT_HTML_VALUE)
-//    public ModelAndView getLogout(HttpSession session) {
-//        session.setAttribute("user", null);
-//        ModelAndView modelAndView = new ModelAndView("redirect:login");
-//        return modelAndView;
-//    }
-
 
 }

@@ -28,14 +28,11 @@
 <form id="form" class="form">
     <input type="hidden" rel="hiddenEmail" th:value="${session.user.getEmail()}" th:if="${session.user != null}">
     <div id="contents" class="no-padding">
-<!--         theater-detail-page -->
         <div class="theater-detail-page">
             <div class="bg-img"></div>
             <div class="bg-pattern"></div>
             <div class="bg-mask"></div>
-            <!-- theater-all -->
             <div class="theater-all">
-                <!-- theater-area-list -->
                 <div class="theater-area-list">
                     <ul class="area-depth1">
                         <li class="on">
@@ -62,7 +59,7 @@
 
             <div class="tab-list mb40" id="tabList">
                 <ul>
-                    <li class="on"><a th:href="@{/theater/page (branchId = ${branchId})}" title="극장정보 탭으로 이동">극장정보</a>
+                    <li class="on"><a th:href="@{/theater/page (branchId = ${branchId})}" title="극장정보 탭으로 이동" >극장정보</a>
                     </li>
                     <li><a style="color: #503396;" th:href="@{/theater/time (branchId = ${branchId})}"
                            title="상영시간표 탭으로 이동">상영시간표</a></li>

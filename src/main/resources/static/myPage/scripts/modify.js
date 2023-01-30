@@ -12,7 +12,6 @@ const EmailWarning = {
     }
 };
 
-//인증 요청 클릭시
 const authRequest = container.querySelector('.auth-request');
 const hiddenEmail = container.querySelector('[rel="hiddenEmail"]');
 const authInput = container.querySelector('.authInput');
@@ -47,7 +46,6 @@ authRequest.addEventListener('click', () => {
                             }
                         }, 1000);
                         warningText.style.color = '#444';
-                        // EmailWarning.show('인증 번호를 전송하였습니다.\n전송된 인증 번호는 5분간만 유효합니다.');
                         swal('알림', '인증 번호를 전송하였습니다.\n전송된 인증 번호는 5분간만 유효합니다.');
                         authRequest.setAttribute('disabled', 'disabled');
                         authInput.focus();
@@ -61,7 +59,6 @@ authRequest.addEventListener('click', () => {
                         EmailWarning.show('알 수 없는 이유로 인증 번호를 전송하지 못 하였습니다. 잠시 후 다시 시도해 주세요.');
                 }
             } else {
-                // warningText.style.color = 'red';
                 EmailWarning.show('서버와 통신하지 못하였습니다.잠시후 다시 시도해 주세요.');
                 alert('통신 실패');
             }
@@ -70,7 +67,6 @@ authRequest.addEventListener('click', () => {
     xhr.send(formData);
 });
 
-//인증 확인 클릭시
 const authCheck = container.querySelector('.auth-check');
 
 authCheck.addEventListener('click', () => {
@@ -132,7 +128,6 @@ completeAuth.addEventListener('click', () => {
 });
 
 
-//휴대폰번호 변경 클릭 시
 const mobile = container.querySelector('[rel="mobile"]');
 const changeBtn = mobile.querySelector('[rel="changeBtn"]');
 const changeMobileDiv = mobile.querySelector('.change-mobile');

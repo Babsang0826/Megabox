@@ -36,8 +36,6 @@ public class BbsController {
     }
 
 
-    //공지사항 및 글쓰기
-
     @RequestMapping(value = "write",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
@@ -91,21 +89,6 @@ public class BbsController {
     }
 
 
-//     게시글 읽어오기
-//    @RequestMapping(value = "notice", method = RequestMethod.GET,
-//            produces = MediaType.TEXT_HTML_VALUE)
-//    public ModelAndView getNotice() {
-//        ModelAndView modelAndView = new ModelAndView("bbs/notice");
-//        BbsIndexCountVo[] articles = this.bbsService.getArticleIndex();
-//        modelAndView.addObject("articles", articles);
-//        int articleCnt = 0;
-//        for (ArticleEntity article : articles) {
-//            articleCnt++;
-//        }
-//        modelAndView.addObject("articleCnt", articleCnt);
-//
-//        return modelAndView;
-//    }
 
     @RequestMapping(value = "read",
             method = RequestMethod.GET,
@@ -133,13 +116,12 @@ public class BbsController {
         return modelAndView;
     }
 
-    // 이미지 넣기
-    //이미지 다운로드 용
+
     @RequestMapping(value = "image", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImage(@RequestParam(value = "id") int id) {
         ImageEntity image = this.bbsService.getImage(id);
 
-        if (image == null) { //404일때
+        if (image == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         HttpHeaders headers = new HttpHeaders();
@@ -147,7 +129,7 @@ public class BbsController {
         return new ResponseEntity<>(image.getData(), headers, HttpStatus.OK);
     }
 
-    //이미지 넣기(업로드)
+
     @RequestMapping(value = "image",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -167,7 +149,6 @@ public class BbsController {
         return responseObject.toString();
     }
 
-    // 삭제
     @RequestMapping(value = "delete",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -229,7 +210,6 @@ public class BbsController {
                                 @RequestParam(value = "criterion", required = false) String criterion,
                                 @RequestParam(value = "keyword", required = false) String keyword,
                                 @SessionAttribute(value = "user", required = false) UserEntity user) {
-        //defaultValue = "1"을 사용하면 1이 찍힌다
         page = Math.max(1, page);
         ModelAndView modelAndView = new ModelAndView("bbs/notice");
         BoardsEntity board = this.bbsService.getBoard(boardId);

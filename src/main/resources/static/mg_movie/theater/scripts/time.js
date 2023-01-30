@@ -1,3 +1,34 @@
+const drawTimeBox = () => {
+    const defaultDate = document.querySelector('.day').dataset.date;
+    const timeCells = Array.from(document.querySelectorAll('[rel="timeCell"]'));
+    timeCells.forEach(timeCell => {
+        if (timeCell.dataset.date !== defaultDate) {
+            timeCell.style.display = 'none';
+        } else {
+            timeCell.style.display = 'table-cell';
+        }
+    });
+    const auds = Array.from(document.querySelectorAll('[rel="aud"]'));
+    auds.forEach(aud => {
+        const audTimeCells = Array.from(aud.querySelectorAll('[rel="timeCell"]'));
+        if (audTimeCells.every(x => x.style.display === 'none')) {
+            aud.style.display = 'none';
+        } else {
+            aud.style.display = 'block';
+        }
+    });
+    const theaterContainers = Array.from(document.querySelectorAll('[rel="theaterContainer"]'));
+    theaterContainers.forEach(theaterContainer => {
+        const theaterAuds = Array.from(theaterContainer.querySelectorAll('[rel="aud"]'));
+        if (theaterAuds.every(x => x.style.display === 'none')) {
+            theaterContainer.style.display = 'none';
+        } else {
+            theaterContainer.style.display = 'block';
+        }
+    });
+}
+
+
 const nextBtn = window.document.getElementById('nextBtn'); // 다음버튼
 const previousBtn = window.document.getElementById('previousBtn'); // 이전버튼
 const timeBox = window.document.querySelector('.time-box'); // 보여줘야 할 칸
@@ -27,7 +58,6 @@ let nextStartDay = new Date(currentYear, today.getMonth() + 1, 1); // ???
 let nextMonthStartWeek = nextStartDay.getDay(); // 1월을 기준 2월이 수요일부터이기 때문에 인덱스 3이 맞음
 
 
-
 // 이번달
 let thisMonthArr = [];
 let thisMonthArrCode = [];
@@ -46,11 +76,13 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     thisMonthArr.push(thisMonthArrCode);
     let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
     let week = new Date(date.setDate(i)).getDay();
-    let thisWeek = WEEKDAY[week];
+    thisWeek = WEEKDAY[week];
     let timeElement = document.createElement('div');
     timeElement.classList.add('day', 'current');
     timeElement.innerHTML = `${i}<br>${thisWeek}`;
     timeElement.dataset.date = thisMonthArrCode;
+    timeElement.dataset.value = thisMonthDate;
+    timeBox.append(timeElement);
     if (thisWeek === '일') {
         timeElement.style.color = 'red';
     } else if (thisWeek === '토') {
@@ -105,10 +137,8 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
                     nextDay.classList.remove('on');
                 }
             })
-            // drawSubs();
         });
     }
-
     // timeElement.addEventListener('click', () => {
     //     const theaterListBoxElement = document.getElementById('theaterListBox');
     //     const theaterContainers = theaterListBoxElement.querySelectorAll('[rel="theaterContainer"]');
@@ -147,7 +177,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     nextWeek = WEEKDAY[week];
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'next');
-    dayElement.dataset.value = nextMonthDate;
+    dayElement.dataset.date = nextMonthDate;
     dayElement.innerHTML = `${i}<br>${nextWeek}`;
     timeBox.append(dayElement);
     if (nextWeek === '토') {
@@ -159,7 +189,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
         dayElement.style.backgroundColor = 'rgb(235, 235, 235)'
     }
     let day = window.document.querySelectorAll('.day.next');
-    let dayCurrent = window.document.querySelectorAll('.day.current')[0].dataset;
+    let dayCurrent = window.document.querySelectorAll('.day.current');
     for (let j = 0; j < day.length; j++) {
         day[j].addEventListener('click', () => {
             if (day[j].classList[0] === 'on') {
@@ -183,19 +213,8 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
             }
         });
     }
-    dayElement.addEventListener('click', () => {
-        const theaterListBoxElement = document.getElementById('theaterListBox');
-        const theaterContainers = theaterListBoxElement.querySelectorAll('[rel="theaterContainer"]');
-        theaterContainers.forEach(x => {
-            const dateInputElement = x.querySelector('.date-value');
-            const dateInputValue = dateInputElement.value;
-            x.style.display = dateInputValue === dayElement.dataset.date ? 'block' : 'none';
-        });
-    });
     timeBox.append(dayElement);
 }
-
-
 
 Cover.show("");
 let payload = [];
@@ -210,6 +229,7 @@ xhr.onreadystatechange = () => {
             Cover.hide();
             const domParser = new DOMParser();
             const appendMovieInfo = (screens) => {
+                drawTimeBox();
                 const date = new Date();
                 const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' : ''}${date.getMonth() + 1}-${date.getDate() < 10 ? '0' : ''}${date.getDate()}`;
                 const theaterHtmlText = `
@@ -230,9 +250,7 @@ xhr.onreadystatechange = () => {
                 const textFormElement = theaterDom.querySelector('[rel="textForm"]');
                 let screenByAudObject = {};
                 for (let screen of screens) {
-
                     let aud = screen['screenInfoAuditoriumText'];
-                    let date = screen['screenInfoDate']
                     if (!screenByAudObject[aud]) {
                         screenByAudObject[aud] = [];
                     }
@@ -272,11 +290,6 @@ xhr.onreadystatechange = () => {
                     const audDom = domParser.parseFromString(audHtmlText, 'text/html');
                     const audElement = audDom.querySelector('[rel="aud"]');
                     const timeContainerElement = audDom.querySelector('[rel="timeContainer"]');
-
-
-                    for (let i = 0; i < screenByAudObject[key].length; i++) {
-                        let movie = screenByAudObject[key][i];
-                    }
                     for (let movie of screenByAudObject[key]) {
                         const timeHtml = `
                         <table>
@@ -314,14 +327,10 @@ xhr.onreadystatechange = () => {
                         })
                         timeContainerElement.append(timeCellElement);
                     }
-
                     textFormElement.append(audElement);
-
                 }
-
                 ListBox.append(theaterDom.getElementById('theaterContainer'));
             }
-
 
             const responseArray = JSON.parse(xhr.responseText);
             let screenObject = {};
@@ -336,7 +345,6 @@ xhr.onreadystatechange = () => {
             for (let key of Object.keys(screenObject)) {
                 let screens = screenObject[key];
                 appendMovieInfo(screens);
-                console.log('screens : ' + screens)
             }
 
         } else {
@@ -382,20 +390,17 @@ window.onscroll = function () {
 function scrollFunction() {
     if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
         document.getElementById('pageUtil').classList.add('fixed');
-        // document.getElementById('movieDetail').classList.add('fixed');
         document.getElementById('tabList').classList.add('fixed');
-        // document.getElementById('contentData').classList.add('fixed');
     } else {
         document.getElementById('pageUtil').classList.remove('fixed');
-        // document.getElementById('movieDetail').classList.remove('fixed')
         document.getElementById('tabList').classList.remove('fixed')
-        // document.getElementById('contentData').classList.remove('fixed');
     }
 }
 
 document.querySelector('.time-box').querySelectorAll(':scope > .day').forEach(day => {
     day.addEventListener('click', () => {
         const selectedDate = day.dataset.date;
+        console.log(selectedDate)
         const timeCells = Array.from(document.querySelectorAll('[rel="timeCell"]'));
         timeCells.forEach(timeCell => {
             if (timeCell.dataset.date !== selectedDate) {
@@ -424,6 +429,7 @@ document.querySelector('.time-box').querySelectorAll(':scope > .day').forEach(da
         });
     });
 });
+
 
 
 

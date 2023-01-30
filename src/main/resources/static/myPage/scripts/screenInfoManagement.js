@@ -12,7 +12,6 @@ const endTime = window.document.getElementById('endTime');
 const chkAll = document.querySelector('.chkAll');
 const chkBox = document.querySelectorAll('.chkBox');
 
-// 전체 체크박스 선택/해제
 chkAll.onclick = function () {
     if (chkAll.checked === true) {
         for (let i = 0; i < chkBox.length; i++) {

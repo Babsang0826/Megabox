@@ -15,7 +15,6 @@ function scrollFunction() {
 
 const chkAll = document.querySelector('.chkAll');
 const chkBox = document.querySelectorAll('.chkBox');
-// 전체 체크박스 선택/해제
 chkAll.onclick = function () {
     if (chkAll.checked === true) {
         for (let i = 0; i < chkBox.length; i++) {
@@ -32,8 +31,6 @@ const deleteButton = window.document.querySelector('[rel="delete"]');
 
 
 deleteButton.addEventListener('click', () => {
-    // e.preventDefault();
-
     const chkArr = [];
     const check = document.getElementsByName("chk");
     for (let i = 0; i < check.length; i++) {

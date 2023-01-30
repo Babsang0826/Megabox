@@ -1,8 +1,3 @@
-// 암호화 확인
-// console.log(hex_sha512('Chltmdaud1!'));
-// console.log('로그인된 비밀번호 : ' + container.querySelector('[rel="signedPassword"]').value);
-// console.log('입력된 비밀번호 : ' + hex_sha512(container.querySelector('.now-pw').value));
-
 const passwordSend = container.querySelector('[rel="passwordSend"]');
 const signedPassword = container.querySelector('[rel="signedPassword"]');
 const nowPassword = container.querySelector('.now-pw');
@@ -62,7 +57,6 @@ passwordSend.addEventListener('click', () => {
                     }
                 }
             } else {
-                // alert('비밀번호를 재설정하지 못하였습니다. 세션이 만료되었을 수도 있습니다.');
             }
         }
         xhr.send(formData);

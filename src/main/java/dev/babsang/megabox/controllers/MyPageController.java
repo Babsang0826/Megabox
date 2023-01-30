@@ -65,7 +65,6 @@ public class MyPageController {
             }
 
             for (BookingVo bookingVo : bookingHistories) {
-                //요일 추출
                 SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
                 SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
                 SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
@@ -80,7 +79,6 @@ public class MyPageController {
                 bookingVo.setDayOfWeek(dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREAN));
             }
 
-            //예매 내역 그룹 짓기
             Map<Integer, List<BookingVo>> bookingMap = new LinkedHashMap<>();
             for (BookingVo bookingHistory : bookingHistories) {
                 if (!bookingMap.containsKey(bookingHistory.getScreenInfoIndex())) {
@@ -89,7 +87,6 @@ public class MyPageController {
                 bookingMap.get(bookingHistory.getScreenInfoIndex()).add(bookingHistory);
             }
 
-            //좌석 해시코드 순으로 정렬
             for (Integer key : bookingMap.keySet()) {
                 List<BookingVo> bookings = bookingMap.get(key);
                 bookings = bookings.stream().sorted((o1, o2) -> {
@@ -100,7 +97,6 @@ public class MyPageController {
                 bookingMap.replace(key, bookings);
             }
 
-            //예매 최신순으로 HashMap keySet 정렬
             Object[] arr = bookingMap.keySet().toArray();
             List<Object> list = Arrays.asList(arr);
             Collections.reverse(list);
@@ -289,7 +285,6 @@ public class MyPageController {
                 bookingVo.setDayOfWeek(dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREAN));
             }
 
-            //예매 내역 그룹 짓기
             Map<Integer, List<BookingVo>> bookingMap = new LinkedHashMap<>();
             for (BookingVo bookingHistory : bookingHistories) {
                 if (!bookingMap.containsKey(bookingHistory.getScreenInfoIndex())) {
@@ -298,7 +293,6 @@ public class MyPageController {
                 bookingMap.get(bookingHistory.getScreenInfoIndex()).add(bookingHistory);
             }
 
-            //좌석 해시코드 순으로 정렬
             for (Integer key : bookingMap.keySet()) {
                 List<BookingVo> bookings = bookingMap.get(key);
                 bookings = bookings.stream().sorted((o1, o2) -> {

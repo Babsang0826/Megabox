@@ -22,13 +22,11 @@ seatContainers.forEach(seatContainer => {
     const emptyP4 = document.createElement('p');
     const emptyP5 = document.createElement('p');
     const emptyP6 = document.createElement('p');
-    // emptyDiv2.innerText = '좌석 : ';
     emptyDiv.classList.add('item', 'column');
     emptyDiv3.classList.add('item', 'column');
     emptyDiv5.classList.add('item', 'column', 'point');
     emptyDiv6.classList.add('item', 'point');
     emptyDiv7.classList.add('item', 'column','point');
-    // emptyDiv6.classList.add('item');
     emptyP.innerText = '관람인원';
     emptyP2.innerText = '관람좌석';
     emptyP3.innerText = '결제일시';
@@ -40,7 +38,6 @@ seatContainers.forEach(seatContainer => {
     emptyDiv.append(emptyP);
     emptyDiv3.append(emptyP2);
     emptyDiv5.append(emptyP3);
-    // emptyDiv7.append(emptyP5)
 
     seats.forEach(seat => {
         const payment = seat.dataset.payment;

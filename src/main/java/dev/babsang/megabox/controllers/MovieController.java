@@ -37,15 +37,12 @@ public class MovieController {
         this.myPageService = myPageService;
     }
 
-    //movie
     @RequestMapping(value = "movie",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getMovie(@RequestParam(value = "keyword", required = false) String keyword) {
         ModelAndView modelAndView = new ModelAndView("movie/movie");
 
-        //전체 영화
-//        MovieVo[] movies = this.movieService.getMovieVos();
         if (keyword == null) {
             keyword = "";
         }
@@ -70,7 +67,6 @@ public class MovieController {
 
         modelAndView.addObject("movies", movies);
 
-        //개봉 예정 영화
         MovieVo[] commingMovies = this.movieService.getCommingMovies();
         for (MovieVo movie : commingMovies) {
             MovieCommentEntity[] comments = this.movieService.getComments(movie.getIndex());
@@ -93,7 +89,6 @@ public class MovieController {
         return modelAndView;
     }
 
-    //movie-detail
     @RequestMapping(value = "movie-detail",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
@@ -150,7 +145,6 @@ public class MovieController {
             dayArr[i] = simpleDateFormat.format(date);
         }
 
-        //일별 관객수 추출
         BookingVo[] bookingByMid = this.movieService.bookingByMid(mid);
 
         Map<String, Integer> bookingMap = new LinkedHashMap<>();
@@ -195,7 +189,6 @@ public class MovieController {
         return responseObject.toString();
     }
 
-    //한줄평들 띄우기
     @RequestMapping(value = "comment",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
@@ -220,7 +213,6 @@ public class MovieController {
         return responseArray.toString();
     }
 
-    //movie-post
     @RequestMapping(value = "movie-post",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
@@ -271,7 +263,6 @@ public class MovieController {
             branchJson.put("regionIndex", branch.getRegionIndex());
             branchesJson.put(branchJson);
         }
-        // 상영지점 JSONArray
 
         JSONArray moviesJson = new JSONArray();
         for (MovieVo movie : this.movieService.getMovieVoByList()) {
@@ -395,7 +386,6 @@ public class MovieController {
             bookingVo.setDayOfWeek(dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREAN));
         }
 
-        //예매 내역 그룹 짓기
         Map<Integer, List<BookingVo>> bookingMap = new LinkedHashMap<>();
         for (BookingVo bookingHistory : bookingHistories) {
             if (!bookingMap.containsKey(bookingHistory.getScreenInfoIndex())) {
@@ -404,7 +394,6 @@ public class MovieController {
             bookingMap.get(bookingHistory.getScreenInfoIndex()).add(bookingHistory);
         }
 
-        //좌석 해시코드 순으로 정렬
         for (Integer key : bookingMap.keySet()) {
             List<BookingVo> bookings = bookingMap.get(key);
             bookings = bookings.stream().sorted((o1, o2) -> {
@@ -415,7 +404,6 @@ public class MovieController {
             bookingMap.replace(key, bookings);
         }
 
-        //예매 최신순으로 HashMap keySet 정렬
         Object[] arr = bookingMap.keySet().toArray();
         List<Object> list = Arrays.asList(arr);
         Collections.reverse(list);

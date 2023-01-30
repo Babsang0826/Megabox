@@ -363,7 +363,6 @@ for (let i = 0; i < modifyBtns.length; i++) {
                     const responseObject = JSON.parse(xhr.responseText);
                     switch (responseObject['result']) {
                         case 'success':
-                            // swal('알림', '영화 수정이 완료되었습니다.');
                             window.location.reload();
                             break;
                         case 'failure':
@@ -465,7 +464,6 @@ deleteEachBtn.addEventListener('click', e => {
                             const responseObject = JSON.parse(xhr.responseText);
                             switch (responseObject['result']) {
                                 case 'success':
-                                    // swal('알림', '영화 삭제가 완료되었습니다.');
                                     setTimeout(function () {
                                         window.location.reload();
                                     }, 1000);

@@ -1,4 +1,3 @@
-// 스크롤 시 영화와 탭 리스트 변경
 window.onscroll = function () {
     scrollFunction()
 };
@@ -17,14 +16,12 @@ function scrollFunction() {
     }
 }
 
-// 더보기 클릭 시
 const contents = window.document.getElementById('contents');
 
 contents.querySelector('[rel="moreBtn"]').addEventListener('click', () => {
     contents.querySelector('[rel="movieSummary"]').classList.toggle('on');
 });
 
-// 관람평 작성 클릭 시
 contents.querySelector('[rel="textWrite"]').addEventListener('click', () => {
     if (document.querySelector('[rel="hiddenUser"]').value === '') {
         swal('알림', '로그인이 필요한 서비스입니다.');
@@ -38,11 +35,11 @@ contents.querySelector('[rel="commentClose"]').addEventListener('click', () => {
     contents.querySelector('[rel="writeForm"]').classList.remove('on');
 });
 
-//탭메뉴 스크롤 이동
+
 const mainInfoLi = contents.querySelector('[rel="mainInfoLi"]');
 const commentScoreLi = contents.querySelector('[rel="commentScoreLi"]');
 const moviePostLi = contents.querySelector('[rel="moviePostLi"]');
-//주요정보
+
 mainInfoLi.addEventListener('click', () => {
     moviePostLi.classList.remove('on');
     commentScoreLi.classList.remove('on');
@@ -51,7 +48,6 @@ mainInfoLi.addEventListener('click', () => {
     window.scrollTo({top: location, behavior: 'smooth'});
 });
 
-//실관람평
 commentScoreLi.addEventListener('click', () => {
     moviePostLi.classList.remove('on');
     mainInfoLi.classList.remove('on');
@@ -59,19 +55,13 @@ commentScoreLi.addEventListener('click', () => {
     let location = contents.querySelector('.comment-info').offsetTop - 130;
     window.scrollTo({top: location, behavior: 'smooth'});
 });
-//무비포스트
+
 moviePostLi.addEventListener('click', () => {
     swal('알림', '서비스 준비중 입니다.');
     mainInfoLi.classList.add('on');
     commentScoreLi.classList.remove('on');
-    // moviePostLi.classList.add('on');
 });
 
-const changeValue = (target) => {
-
-}
-
-//한줄평
 const writeForm = window.document.getElementById('writeForm');
 const commentContainer = window.document.getElementById('commentContainer');
 
@@ -88,7 +78,6 @@ const loadComments = (commentObject) => {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const responseArray = JSON.parse(xhr.responseText);
 
-                //작성 시간 함수
                 function writtenTime(commentObject) {
                     const today = new Date();
                     const timeValue = new Date(`${commentObject['writtenOn']}`);
@@ -160,7 +149,6 @@ const loadComments = (commentObject) => {
 
                     commentContainer.append(textElement);
                 }
-                // const responseArray = JSON.parse(xhr.responseText);
 
                 for (let commentObject of responseArray) {
                     appendComment(commentObject);
@@ -267,7 +255,6 @@ const v_config = {
         },
         scales: {
             y: {
-                // display: false,
                 position: 'left',
                 suggestedMin: 0,
                 suggestedMax: 15,
@@ -281,8 +268,6 @@ const v_config = {
             },
             x: {
                 grid: {
-                    // display: false,
-                    // drawOnChartArea: false,
                     borderColor: '#444',
                     borderWidth: 1.5,
                     borderDash: [3, 5],

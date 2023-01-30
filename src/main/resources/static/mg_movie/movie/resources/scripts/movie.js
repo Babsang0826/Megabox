@@ -1,6 +1,5 @@
 const contents = window.document.getElementById('contents');
 
-//박스오피스, 상영예정작 보이기
 contents.querySelector('[rel="notScreen"]').addEventListener('click', () => {
     contents.querySelector('[rel="commingInnerWrap"]').classList.add('on');
     contents.querySelector('[rel="boxInnerWrap"]').classList.remove('on');
@@ -11,7 +10,6 @@ contents.querySelector('[rel="boxOffice"]').addEventListener('click', () => {
     contents.querySelector('[rel="boxInnerWrap"]').classList.add('on');
 });
 
-//스크롤시 탭메뉴
 window.onscroll = function () {
     scrollFunction()
 };
@@ -27,7 +25,6 @@ function scrollFunction() {
     }
 }
 
-//토글 체크 시
 const toggle = contents.querySelector('#toggle');
 const movieContainer = contents.querySelector('#movieContainer');
 const commingMovieContainer = contents.querySelector('#commingMovieContainer');

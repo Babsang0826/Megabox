@@ -24,15 +24,13 @@ public class MovieService {
         return this.movieMapper.selectMovieCommentByMid(mid);
     }
 
-    //댓글 insert
+
     public Enum<? extends IResult> writeComment(MovieCommentEntity comment) {
         return this.movieMapper.insertComment(comment) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }
 
-    //mid 로 MovieCommentEntity select
-    //한줄평들 띄우기(유저는 추후 추가)
     public MovieCommentEntity[] getComments(int mid) {
         return this.movieMapper.selectMovieCommentsByMid(mid);
     }
