@@ -64,9 +64,9 @@
 
 
 
-### 📌 기술 선택 이유 [ - 상세보기](https://github.com/jtheeeeee/we_are_traveling/wiki/%EA%B8%B0%EC%88%A0-%EC%84%A0%ED%83%9D-%EC%9D%B4%EC%9C%A0)
+### 📌 기술 선택 이유 
 
 
-### 📌 주요 기능 [ - 상세보기](https://github.com/jtheeeeee/we_are_traveling/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C)
+### 📌 주요 기능 
  
 
