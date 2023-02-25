@@ -64,6 +64,7 @@
   - <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white" height="22px">
 
 
-### 📌 주요 기능 
- 
+### 📌 주요 기능 상세페이지
+- [빠른 예매 페이지]
+  -  달력 https://babsang0826.tistory.com/13
 
