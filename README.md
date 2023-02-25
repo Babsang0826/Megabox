@@ -40,7 +40,7 @@
 - 최승명 : 영화별 정보 및 포스터, 예매(좌석), AdminPage(영화 관리)
 
 
-## 🔧 Skill Stacks(사용된 기술 스택)
+## 🔧 개발환경
 - Language 
   - <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white" height="22px">
   - <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white" height="22px"> 
@@ -52,19 +52,16 @@
   - <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" height="22px"> 
 
 - DataBase
-  - <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white" height="22px">
   - <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white" height="22px">
+
+- ORM
   - <img src="https://img.shields.io/badge/-mybatis-orange" height="22px">
-  
+
 - Version Control
   - <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white" height="22px"> 
   
 - Hosting/SaaS
   - <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white" height="22px">
-
-
-
-### 📌 기술 선택 이유 
 
 
 ### 📌 주요 기능 
