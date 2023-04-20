@@ -31,7 +31,7 @@ public class BbsController {
     private final BbsService bbsService;
 
     @Autowired
-    public BbsController(BbsService bbsService) {
+    public BbsController(BbsService bbsService)  {
         this.bbsService = bbsService;
     }
 

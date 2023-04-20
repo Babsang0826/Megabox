@@ -108,5 +108,4 @@ const userInfo = {
 const aTag = document.querySelector('[rel="aa"]');
 aTag.addEventListener('click', () => {
     localStorage.setItem("user-info", JSON.stringify(userInfo));
-    alert('보냄');
 })

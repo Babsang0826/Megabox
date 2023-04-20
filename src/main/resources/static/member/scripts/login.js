@@ -1,6 +1,6 @@
 form.onsubmit = (e) => {
     e.preventDefault();
-
+    // e의 preventDefault를 통해서 e의 페이지로드를 막는다.
     if (form['loginId'].value === '') {
         swal("알림", "아이디를 입력해주세요.")
         form['loginId'].focus();

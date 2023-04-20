@@ -104,7 +104,7 @@ for (let i = 0; i < screenInfoBox.length; i++) {
 }
 
 const updateBtn = window.document.querySelectorAll('.update-btn');
-const modifyTitleOption = window.document.querySelector('.select.modify-title');
+const modifyTitleOption = window.document.querySelectorAll('.select.modify-title');
 const modifyAuditoriumOption = window.document.querySelector('.select.modify-aud');
 const modifyDate = window.document.querySelectorAll('.date-modify');
 const modifyEndTime = window.document.querySelectorAll('.modify-end-time');
@@ -134,7 +134,6 @@ for (let i = 0; i < screenInfoContainer.length; i++) {
             swal('알림', '수정하실 영화 끝 시간을 선택해 주세요.');
             return;
         }
-        e.preventDefault();
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
         formData.append("index", hiddenModifyIndex[i].value);
@@ -151,6 +150,7 @@ for (let i = 0; i < screenInfoContainer.length; i++) {
                     switch (responseObject['result']) {
                         case 'success':
                             window.location.href = '/myPage/screenInfoManagement';
+                            window.location.reload();
                             break;
                         default:
                             swal('알림', '영화 시간표 수정이 실패하였습니다. 잠시 후 다시 시도해 주세요.');

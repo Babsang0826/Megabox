@@ -148,7 +148,9 @@
                                                     <label>
                                                         <select class="select modify-aud">
                                                             <!--/*@thymesVar id="regions" type="dev.babsang.megabox.vos.myPage.RegionVo"*/-->
-                                                            <option class="title-option" selected>상영할 지점과 상영관을 선택해 주세요.</option>
+                                                            <option class="title-option" selected>상영할 지점과 상영관을 선택해
+                                                                주세요.
+                                                            </option>
                                                             <option class="title-option" th:each="region : ${regions}"
                                                                     th:value="${region.getAuditoriumIndex()}">
                                             <span class="branch-aud"

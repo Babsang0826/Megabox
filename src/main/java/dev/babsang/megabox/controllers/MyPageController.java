@@ -144,16 +144,6 @@ public class MyPageController {
         return responseObject.toString();
     }
 
-    @RequestMapping(value = "point",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String postPoint(@SessionAttribute(value = "user", required = false) UserEntity user) {
-
-
-        return null;
-    }
-
     @RequestMapping(value = "modify",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)

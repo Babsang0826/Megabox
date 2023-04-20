@@ -31,12 +31,12 @@ let currentMonth = ((today.getMonth()) + 1);
 let currentYear = today.getFullYear();
 let currentDay = today.getDate();
 let thisMonthEndDay = new Date(currentYear, currentMonth, 0);
-let endDay = new Date(currentYear, currentMonth + 1, 0);
 
 let thisMonthLast = thisMonthEndDay.getDate();
 let nextStartDay = new Date(currentYear, today.getMonth() + 1, 1);
 let nextMonthStartWeek = nextStartDay.getDay();
 
+const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
 
 let thisMonthArr = [];
 let thisMonthArrCode = [];
@@ -53,8 +53,8 @@ for (let i = currentDay; i <= thisMonthLast; i++) {
     }
     thisMonthArrCode = thisMonthDate;
     thisMonthArr.push(thisMonthArrCode);
-    let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
     let week = new Date(today.setDate(i)).getDay();
+
     thisWeek = WEEKDAY[week];
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'current');
@@ -133,8 +133,7 @@ for (let i = 1; i <= 21 - (thisMonthLast - currentDay + 1); i++) {
     }
     nextMonthArrCode = nextMonthDate;
     nextMonthArr.push(nextMonthArrCode);
-    let WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
-    let week = new Date(today.setDate(nextMonthStartWeek + i)).getDay();
+    let week = new Date(nextMonthArr[i - 1]).getDay();
     nextWeek = WEEKDAY[week];
     const dayElement = window.document.createElement('div');
     dayElement.classList.add('day', 'next');
